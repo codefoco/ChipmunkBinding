@@ -1,0 +1,3 @@
+[submodule "external/Chipmunk2D"]
+	path = external/Chipmunk2D
+	url = https://github.com/codefoco-forks/Chipmunk2D.git

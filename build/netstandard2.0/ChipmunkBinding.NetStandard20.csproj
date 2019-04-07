@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>ChipmunkBinding</RootNamespace>
+    <AssemblyName>ChipmunkBinding</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>..\..\lib\Release\netstandard2.0\ChipmunkBinding.xml</DocumentationFile>
+    <OutputPath>..\..\lib\Release\netstandard2.0\</OutputPath>
+    <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\lib\Debug\netstandard2.0\</OutputPath>
+  </PropertyGroup>
+  <Import Project="..\..\src\ChipmunkBinding.Core.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Core.projitems')" />
+  <Import Project="..\targets\ChipmunkBinding.Sign.targets" />
+</Project>

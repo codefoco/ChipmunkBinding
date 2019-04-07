@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\targets\BuildChipmunk.Common.props" />
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>ChipmunkBinding</RootNamespace>
+    <AssemblyName>ChipmunkBinding</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>..\..\lib\Release\netcore\ChipmunkBinding.xml</DocumentationFile>
+    <OutputPath>..\..\lib\Release\netcore\</OutputPath>
+    <DefineConstants>TRACE;NETCOREAPP</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\lib\Debug\netcore\</OutputPath>
+  </PropertyGroup>
+  <Import Project="..\..\src\ChipmunkBinding.Core.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Core.projitems')" />
+  <Import Project="..\targets\BuildChipmunk.Windows.targets" />
+  <Import Project="..\targets\BuildChipmunk.OSX.targets" />
+  <Import Project="..\targets\BuildChipmunk.Linux.targets" />
+  <Import Project="..\targets\ChipmunkBinding.Sign.targets" />
+</Project>

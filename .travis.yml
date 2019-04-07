@@ -1,0 +1,34 @@
+#
+# ChipmunkBinding Travis-CI Hook
+#
+
+language: csharp
+
+before_install:
+  - export PATH=/opt/mono/bin:$PATH
+
+install:
+  - sudo apt-get install mono-devel nunit nuget
+
+script:
+  - nuget restore
+  - msbuild /p:Configuration=Release /t:Restore
+  - msbuild /p:Configuration=Release
+  - nunit-console ./tests/build/net45/bin/Release/ChipmunkBindingTest.dll
+
+# Execute additional tests or commands
+#after_script:
+#  - [run additional test commans]
+
+# Only watch the master branch
+branches:
+  only:
+    - master
+
+# Notify if needed
+notifications:
+  recipients:
+    - viniciusjarina@gmail.com
+  email:
+    on_success: change
+    on_failure: always

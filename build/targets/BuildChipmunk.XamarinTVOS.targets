@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <tvOSBuildDir>ios_build</tvOSBuildDir>
+        <tvOSOutputDir>tvos</tvOSOutputDir>
+        <DylibFileFramework>libchipmunk.framework</DylibFileFramework>
+    </PropertyGroup>
+    <Target Name="BuildChipmunkXamarinTVOS" BeforeTargets="PrepareForBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/lib/libc.dylib')" >
+        <Message Text="Building tvOS Chipmunk library (arm64/x86_64)" />
+        <Exec Command="make tvos" WorkingDirectory="$(ExternalChipmunkPath)\$(tvOSBuildDir)" />
+        <Exec Command="ditto $(ExternalChipmunkPath)\$(tvOSBuildDir)\$(tvOSOutputDir)\$(DylibFileFramework) $(OutputRuntimeDir)\$(tvOSOutputDir)\$(DylibFileFramework)"  />
+        <RemoveDir Directories="$(OutputRuntimeDir)\$(tvOSOutputDir)\$(DylibFileFramework)\Headers" />    
+    </Target>
+    <Target Name="CleanChipmunkXamarinTVOS" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and Exists('/usr/lib/libc.dylib')" >
+        <Message Text="Cleaning Chipmunk library (tvOS)" />
+        <RemoveDir Directories="
+        $(ExternalChipmunkPath)\$(tvOSBuildDir)\$(tvOSOutputDir); 
+        $(OutputRuntimeDir)\$(tvOSOutputDir) " />
+    </Target>
+</Project>
+

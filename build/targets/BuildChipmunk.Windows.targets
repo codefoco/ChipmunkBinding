@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Win32BuildDir>win-x86</Win32BuildDir>
+    <Win64BuildDir>win-x64</Win64BuildDir>
+    <BinaryLibraryPath32>bin\chipmunk.dll</BinaryLibraryPath32>
+    <BinaryLibraryPath64>bin64\chipmunk.dll</BinaryLibraryPath64>
+  </PropertyGroup>
+  <Target Name="BuildChipmunkWindows" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Windows_NT'">
+    <Message Text="Building Windows Chipmunk library (x86)" />
+    <Exec Command="mkdir $(ExternalChipmunkPath)\$(Win32BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)')" />
+    <Exec Command="cmake $(ExternalChipmunkPath)" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" />
+    <Message Text="Building Windows Chipmunk library (x64)" />
+    <Exec Command="mkdir $(ExternalChipmunkPath)\$(Win64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win64BuildDir)')" />
+    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_GENERATOR_PLATFORM=x64" WorkingDirectory="$(ExternalChipmunkPath)\$(Win64BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win64BuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(Win64BuildDir)" />
+    <Copy SourceFiles="$(ExternalChipmunkPath)\$(Win32BuildDir)\$(BinaryLibraryPath32)" DestinationFolder="$(OutputRuntimeDir)\$(Win32BuildDir)\native" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(ExternalChipmunkPath)\$(Win64BuildDir)\$(BinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(Win64BuildDir)\native" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="CleanChipmunkWindows" AfterTargets="Clean" Condition="'$(OS)'=='Windows_NT'">
+      <Message Text="Cleaning Chipmunk library (x86/x64)" />
+      <RemoveDir Directories="$(ExternalChipmunkPath)\$(Win64BuildDir); $(OutputRuntimeDir)\$(Win64BuildDir) " />
+      <RemoveDir Directories="$(ExternalChipmunkPath)\$(Win32BuildDir); $(OutputRuntimeDir)\$(Win32BuildDir) " />
+  </Target>
+</Project>
+
