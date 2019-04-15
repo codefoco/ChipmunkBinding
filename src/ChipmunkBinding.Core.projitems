@@ -13,5 +13,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Delegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\cpBB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\cpPointQueryInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\cpSegmentQueryInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\cpShapeFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\cpTransform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\cpVect.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory).editorconfig" />
   </ItemGroup>
 </Project>
