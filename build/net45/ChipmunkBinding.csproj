@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\lib\Release\net45\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <DefineConstants>NETFRAMEWORK</DefineConstants>
   </PropertyGroup>
   <ItemGroup>

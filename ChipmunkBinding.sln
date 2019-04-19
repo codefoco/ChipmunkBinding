@@ -29,10 +29,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChipmunkBindingTest.Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBinding.XamarinMac", "build\XamarinMac\ChipmunkBinding.XamarinMac.csproj", "{4E863C20-43C3-43A0-9678-8583B9614277}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChipmunkBindingTest.Shared", "tests\src\ChipmunkBindingTest.Shared.shproj", "{7279D001-6F21-4FF3-A0EE-3A1D12004BA3}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		tests\src\ChipmunkBindingTest.Shared.projitems*{20ae709c-fb97-48e3-89b0-a34a5c3da1db}*SharedItemsImports = 4
 		src\ChipmunkBinding.Core.projitems*{4b766e88-5872-4437-882d-c887a3c0cdf7}*SharedItemsImports = 4
 		src\ChipmunkBinding.Core.projitems*{4e863c20-43c3-43a0-9678-8583b9614277}*SharedItemsImports = 4
+		tests\src\ChipmunkBindingTest.Shared.projitems*{7279d001-6f21-4ff3-a0ee-3a1d12004ba3}*SharedItemsImports = 13
 		src\ChipmunkBinding.Core.projitems*{8fafdf62-e07e-487a-863c-74f308ae7ba6}*SharedItemsImports = 4
 		src\ChipmunkBinding.Core.projitems*{9238f6aa-2d63-4804-99d1-c279871f5669}*SharedItemsImports = 4
 		src\ChipmunkBinding.Core.projitems*{bd205ad6-760e-48f3-bab2-21447396bd17}*SharedItemsImports = 13
@@ -170,6 +174,7 @@ Global
 		{20AE709C-FB97-48E3-89B0-A34A5C3DA1DB} = {B3EAA632-D2D7-4272-9DB9-11F46C99DAE9}
 		{BA8AC268-775C-4A50-9EAE-F30595AC9105} = {B3EAA632-D2D7-4272-9DB9-11F46C99DAE9}
 		{4E863C20-43C3-43A0-9678-8583B9614277} = {4A43DAAC-F9FF-4EB1-BFBD-FB4655CCE1F7}
+		{7279D001-6F21-4FF3-A0EE-3A1D12004BA3} = {B3EAA632-D2D7-4272-9DB9-11F46C99DAE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4720E610-698B-48DD-BBD7-03AC99E9BC90}
