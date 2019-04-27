@@ -65,6 +65,23 @@ namespace ChipmunkBinding
             set => NativeMethods.cpBodySetType(Handle, (int)value);
         }
 
+        /// <summary>
+        /// Mass of the rigid body. Mass does not have to be expressed in any particular units, but relative masses should be consistent. 
+        /// </summary>
+        public double Mass
+        {
+            get => NativeMethods.cpBodyGetMass(Handle);
+            set => NativeMethods.cpBodySetMass(Handle, value);
+        }
 
+        /// <summary>
+        /// Moment of inertia of the body. The mass tells you how hard it is to push an object, the MoI tells you how hard it is to spin the object.
+        /// Don't try to guess the MoI, use the MomentFor*() functions to try and estimate it. 
+        /// </summary>
+        public double Moment
+        {
+            get => NativeMethods.cpBodyGetMoment(Handle);
+            set => NativeMethods.cpBodySetMoment(Handle, value);
+        }
     }
 }
