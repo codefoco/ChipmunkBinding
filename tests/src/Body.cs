@@ -21,5 +21,16 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.IsNotNull(body.Handle, "#1");
         }
+
+        [Test]
+        public void TypeProperty()
+        {
+            var body = new Body();
+            var x = body.Handle;
+
+            Assert.IsNotNull(body.Handle, "#1");
+        }
+
+
     }
 }
