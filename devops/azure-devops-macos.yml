@@ -43,7 +43,7 @@ steps:
     solution: ChipmunkBinding.sln
     configuration: ReleaseMac
 
-- script: 'nunit-console ./tests/build/net45/bin/Release/ChipmunkBindingTest.dll'
+- script: 'nunit-console ./tests/build/net45/bin/Release/ChipmunkBindingTest.dll -xml TEST-Result-Mac.xml'
   displayName: 'Run OSX tests'
 
 - task: PublishTestResults@2
