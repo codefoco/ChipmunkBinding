@@ -1,0 +1,32 @@
+pool:
+  name: Hosted Ubuntu 1604
+  demands: msbuild
+
+steps:
+- checkout: self 
+  submodules: true
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: ChipmunkBinding.sln
+
+- task: MSBuild@1
+  displayName: 'Build solution ChipmunkBinding.sln'
+  inputs:
+    solution: ChipmunkBinding.sln
+    configuration: Release
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: libchipmunk.so'
+  inputs:
+    PathtoPublish: 'runtimes/linux-x64/native/libchipmunk.so'
+    ArtifactName: libchipmunk.so
+
+- task: TriggerBuild@3
+  displayName: 'Trigger a new build of ChipmunkBinding.Windows'
+  inputs:
+    buildDefinition: 'ChipmunkBinding.Windows'
+    ignoreSslCertificateErrors: true
+    useSameSourceVersion: true
+    password: '$(myToken)'

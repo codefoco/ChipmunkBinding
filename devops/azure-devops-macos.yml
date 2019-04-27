@@ -1,0 +1,120 @@
+pool:
+  name: Hosted macOS
+  demands: msbuild
+
+
+steps:
+- checkout: self 
+  submodules: true
+
+# Azure DevOps hosted pool is still using an old version of Xamarin.iOS, 
+# so we will use the previous major version of Xcode
+- task: CmdLine@2
+  inputs:
+    script: 'sudo rm -rf /Applications/Xcode.app/;
+             sudo /bin/mv /Applications/Xcode_9.4.1.app/ /Applications/Xcode.app/'
+
+# Print the current version of Xamarin.iOS
+- task: CmdLine@2
+  inputs:
+    script: '/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/bin/mtouch --version'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: ChipmunkBinding.sln
+
+- script: 'brew update'
+  displayName: 'Brew Update'
+
+- script: 'brew install gitversion --ignore-dependencies'
+  displayName: 'Install GitVersion'
+
+- task: PowerShell@2
+  displayName: 'PowerShell Script'
+  inputs:
+    targetType: filePath
+    filePath: ./devops/PreBuild.ps1
+    arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
+
+- task: MSBuild@1
+  displayName: 'Build solution ChipmunkBinding.sln'
+  inputs:
+    solution: ChipmunkBinding.sln
+    configuration: ReleaseMac
+
+- script: 'nunit-console ./tests/build/net45/bin/Release/ChipmunkBindingTest.dll'
+  displayName: 'Run OSX tests'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Mac Test Results TEST-Result-Mac.xml'
+  inputs:
+    testResultsFormat: NUnit
+    testResultsFiles: 'TEST-Result-Mac.xml'
+
+- task: MSBuild@1
+  displayName: 'Run iOS tests'
+  inputs:
+    solution: tests/build/xamarinios/ChipmunkBindingTest.XamariniOS.csproj
+    platform: iPhoneSimulator
+    configuration: Release
+    msbuildArguments: '/t:RunSimulatorTests'
+
+- task: PublishTestResults@2
+  displayName: 'Publish iOS Test Results TEST-Result-iOS.xml'
+  inputs:
+    testResultsFormat: NUnit
+    testResultsFiles: 'tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml'
+
+- task: MSBuild@1
+  displayName: 'Run tvOS tests'
+  inputs:
+    solution: tests/build/xamarintvos/ChipmunkBindingTest.XamarinTVOS.csproj
+    platform: iPhoneSimulator
+    configuration: Release
+    msbuildArguments: '/t:RunSimulatorTests'
+
+- task: PublishTestResults@2
+  displayName: 'Publish tvOS Test Results TEST-Result-tvOS.xml'
+  inputs:
+    testResultsFormat: NUnit
+    testResultsFiles: 'tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Xamarin.iOS.ChipmunkBinding.dll'
+  inputs:
+    PathtoPublish: lib/Release/xamarinios/ChipmunkBinding.dll
+    ArtifactName: Xamarin.iOS.ChipmunkBinding.dll
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Xamarin.tvOS.ChipmunkBinding.dll'
+  inputs:
+    PathtoPublish: lib/Release/xamarintvos/ChipmunkBinding.dll
+    ArtifactName: Xamarin.tvOS.ChipmunkBinding.dll
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Xamarin.watchOS.ChipmunkBinding.dll'
+  inputs:
+    PathtoPublish: lib/Release/xamarinwatchos/ChipmunkBinding.dll
+    ArtifactName: Xamarin.watchOS.ChipmunkBinding.dll
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Xamarin.Mac.ChipmunkBinding.dll'
+  inputs:
+    PathtoPublish: lib/Release/xamarinmac/ChipmunkBinding.dll
+    ArtifactName: Xamarin.Mac.ChipmunkBinding.dll
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: libchipmunk.dylib'
+  inputs:
+    PathtoPublish: runtimes/osx/native/libchipmunk.dylib
+    ArtifactName: libchipmunk.dylib
+
+- task: TriggerBuild@3
+  displayName: 'Trigger a new build of ChipmunkBinding.Linux'
+  inputs:
+    buildDefinition: 'ChipmunkBinding.Linux'
+    ignoreSslCertificateErrors: true
+    useSameSourceVersion: true
+    password: '$(myToken)'
+
