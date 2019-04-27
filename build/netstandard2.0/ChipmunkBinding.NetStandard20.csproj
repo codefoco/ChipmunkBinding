@@ -7,9 +7,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\lib\Release\netstandard2.0\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <OutputPath>..\..\lib\Release\netstandard2.0\</OutputPath>
     <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\lib\Debug\netstandard2.0\</OutputPath>
