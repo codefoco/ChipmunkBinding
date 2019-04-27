@@ -8,8 +8,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile></DocumentationFile>
+    <DebugType></DebugType>
     <OutputPath>..\..\lib\Release\netcore\</OutputPath>
-    <DefineConstants>TRACE;NETCOREAPP</DefineConstants>
+    <DefineConstants>TRACE;RELEASE;NETCOREAPP;NETCOREAPP2_0</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
