@@ -38,9 +38,9 @@ namespace ChipmunkBinding
             HandleInterop.ReleaseHandle(pointer);
         }
 
-        public static Body FromHandle(cpBody space)
+        public static Body FromHandle(cpBody body)
         {
-            cpDataPointer handle = NativeMethods.cpSpaceGetUserData(space);
+            cpDataPointer handle = NativeMethods.cpBodyGetUserData(body);
             return HandleInterop.FromIntPtr<Body>(handle);
         }
 
@@ -99,12 +99,21 @@ namespace ChipmunkBinding
         // Properties
 
         /// <summary>
+        /// Rotation of the body in radians. When changing the rotation you may also want to call cpSpaceReindexShapesForBody() to update the collision detection information for the attached shapes if plan to make any queries against the space. A body rotates around its center of gravity, not its position.
+        /// </summary>
+        public double Angle
+        {
+            get => NativeMethods.cpBodyGetAngle(body);
+            set => NativeMethods.cpBodySetAngle(body, value);
+        }
+
+        /// <summary>
         /// Type of the body (Dynamic, Kinematic, Static). 
         /// </summary>
         public BodyType Type
         {
-            get => (BodyType)NativeMethods.cpBodyGetType(Handle);
-            set => NativeMethods.cpBodySetType(Handle, (int)value);
+            get => (BodyType)NativeMethods.cpBodyGetType(body);
+            set => NativeMethods.cpBodySetType(body, (int)value);
         }
 
         /// <summary>
@@ -112,8 +121,8 @@ namespace ChipmunkBinding
         /// </summary>
         public double Mass
         {
-            get => NativeMethods.cpBodyGetMass(Handle);
-            set => NativeMethods.cpBodySetMass(Handle, value);
+            get => NativeMethods.cpBodyGetMass(body);
+            set => NativeMethods.cpBodySetMass(body, value);
         }
 
         /// <summary>
@@ -122,8 +131,8 @@ namespace ChipmunkBinding
         /// </summary>
         public double Moment
         {
-            get => NativeMethods.cpBodyGetMoment(Handle);
-            set => NativeMethods.cpBodySetMoment(Handle, value);
+            get => NativeMethods.cpBodyGetMoment(body);
+            set => NativeMethods.cpBodySetMoment(body, value);
         }
 
         /// <summary>
@@ -133,9 +142,65 @@ namespace ChipmunkBinding
         {
             get
             {
-                cpSpace space = NativeMethods.cpBodyGetSpace(Handle);
+                cpSpace space = NativeMethods.cpBodyGetSpace(body);
                 return Space.FromHandleSafe(space);
             }
         }
+
+        /// <summary>
+        /// Position of the body. When changing the position you may also want to call Space.ReindexShapesForBody() to update the collision detection information for the attached shapes if plan to make any queries against the space.
+        /// </summary>
+        public cpVect Position
+        {
+            get => NativeMethods.cpBodyGetPosition(body);
+            set => NativeMethods.cpBodySetPosition(body, value);
+        }
+
+        /// <summary>
+        /// Location of the center of gravity in body local coordinates. The default value is (0, 0), meaning the center of gravity is the same as the position of the body.
+        /// </summary>
+        public cpVect CenterOfGravity
+        {
+            get => NativeMethods.cpBodyGetCenterOfGravity(body);
+            set => NativeMethods.cpBodySetCenterOfGravity(body, value);
+        }
+
+        /// <summary>
+        /// Linear velocity of the center of gravity of the body.
+        /// </summary>
+        public cpVect Velocity
+        {
+            get => NativeMethods.cpBodyGetVelocity(body);
+            set => NativeMethods.cpBodySetVelocity(body, value);
+        }
+
+        /// <summary>
+        /// Force applied to the center of gravity of the body. This value is reset for every time step.
+        /// </summary>
+        public cpVect Force
+        {
+            get => NativeMethods.cpBodyGetForce(body);
+            set => NativeMethods.cpBodySetForce(body, value);
+        }
+
+        /// <summary>
+        /// The angular velocity of the body in radians per second.
+        /// </summary>
+        public double AngularVelocity
+        {
+            get => NativeMethods.cpBodyGetAngularVelocity(body);
+            set => NativeMethods.cpBodySetAngularVelocity(body, value);
+        }
+
+        /// <summary>
+        /// The torque applied to the body.This value is reset for every time step.
+        /// </summary>
+        public double Torque
+        {
+            get => NativeMethods.cpBodyGetTorque(body);
+            set => NativeMethods.cpBodySetTorque(body, value);
+        }
+
+        
     }
 }

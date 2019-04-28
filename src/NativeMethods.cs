@@ -315,6 +315,9 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetCenterOfGravity(cpBody body, cpVect cog);
 
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodySetForce(cpBody body, cpVect force);
+
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetMass(cpBody body, cpFloat m);
 
