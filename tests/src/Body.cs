@@ -32,7 +32,6 @@ namespace ChipmunkBindingTest.Tests
         public void TypeProperty()
         {
             var body = new Body(BodyType.Kinematic);
-            
 
             Assert.AreEqual(BodyType.Kinematic, body.Type, "#1");
 
@@ -41,6 +40,17 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(BodyType.Static, body.Type, "#2");
         }
 
+        [Test]
+        public void SpaceProperty()
+        {
+            var body = new Body();
+            var space = new Space();
 
+            Assert.IsNull(body.Space,"#1");
+
+            space.AddBody(body);
+
+            Assert.AreSame(space, body.Space, "#2");
+        }
     }
 }

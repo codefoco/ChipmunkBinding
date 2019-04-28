@@ -1,5 +1,9 @@
-﻿
+﻿using System;
+using System.Runtime.InteropServices;
+
 using cpBody = System.IntPtr;
+using cpSpace = System.IntPtr;
+using cpDataPointer = System.IntPtr;
 
 
 namespace ChipmunkBinding
@@ -10,7 +14,7 @@ namespace ChipmunkBinding
     /// can lead to a very poor simulation so it’s recommended to use Chipmunk’s moment
     /// calculations to estimate the moment for you.
     /// </summary>
-    public class Body
+    public class Body : IDisposable
     {
         readonly cpBody body;
 
@@ -22,6 +26,31 @@ namespace ChipmunkBinding
         {
         }
 
+        void RegisterUserData()
+        {
+            cpDataPointer pointer = HandleInterop.RegisterHandle(this);
+            NativeMethods.cpBodySetUserData(body, pointer);
+        }
+
+        void ReleaseUserData()
+        {
+            cpDataPointer pointer = NativeMethods.cpBodyGetUserData(body);
+            HandleInterop.ReleaseHandle(pointer);
+        }
+
+        public static Body FromHandle(cpBody space)
+        {
+            cpDataPointer handle = NativeMethods.cpSpaceGetUserData(space);
+            return HandleInterop.FromIntPtr<Body>(handle);
+        }
+
+        public static Body FromHandleSafe(cpBody space)
+        {
+            if (space == IntPtr.Zero)
+                return null;
+            return FromHandle(space);
+        }
+
         /// <summary>
         ///  Create a Body of the type (Dinamic, Kinematic, Static)
         /// </summary>
@@ -29,6 +58,7 @@ namespace ChipmunkBinding
         public Body(BodyType type)
         {
             body = InitializeBody(type);
+            RegisterUserData();
         }
 
         /// <summary>
@@ -42,6 +72,7 @@ namespace ChipmunkBinding
             body = InitializeBody(type);
             NativeMethods.cpBodySetMass(body, mass);
             NativeMethods.cpBodySetMoment(body, moment);
+            RegisterUserData();
         }
 
         private static cpBody InitializeBody(BodyType type)
@@ -52,6 +83,17 @@ namespace ChipmunkBinding
                 return NativeMethods.cpBodyNewStatic();
 
             return NativeMethods.cpBodyNew(0.0, 0.0);
+        }
+
+        public void Destroy()
+        {
+            ReleaseUserData();
+            NativeMethods.cpBodyDestroy(body);
+        }
+
+        public void Dispose()
+        {
+            Destroy();
         }
 
         // Properties
@@ -82,6 +124,18 @@ namespace ChipmunkBinding
         {
             get => NativeMethods.cpBodyGetMoment(Handle);
             set => NativeMethods.cpBodySetMoment(Handle, value);
+        }
+
+        /// <summary>
+        /// The Space this body is currently added to, or null if it is not currently added to a space.
+        /// </summary>
+        public Space Space
+        {
+            get
+            {
+                cpSpace space = NativeMethods.cpBodyGetSpace(Handle);
+                return Space.FromHandleSafe(space);
+            }
         }
     }
 }
