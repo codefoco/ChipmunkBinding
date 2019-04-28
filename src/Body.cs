@@ -201,6 +201,49 @@ namespace ChipmunkBinding
             set => NativeMethods.cpBodySetTorque(body, value);
         }
 
-        
+        /// <summary>
+        /// The rotation vector for the body. Can be used with cpvrotate() or cpvunrotate() to perform fast rotations.
+        /// </summary>
+        public cpVect Rotation => NativeMethods.cpBodyGetRotation(body);
+
+        // Actions
+
+        /// <summary>
+        ///     Reset the idle timer on a body.
+        ///     If it was sleeping, wake it and any other bodies it was touching.
+        /// </summary>
+        public void Activate() => NativeMethods.cpBodyActivate(body);
+
+        /// <summary>
+        /// Add the local force force to body as if applied from the body local point.
+        /// </summary>
+        /// <param name="force"></param>
+        /// <param name="point"></param>
+        public void ApplyForceAtLocalPoint(cpVect force, cpVect point)
+        {
+            NativeMethods.cpBodyApplyForceAtLocalPoint(body, force, point);
+        }
+
+        /// <summary>
+        ///     Add the force force to body as if applied from the world point.
+        ///     People are sometimes confused by the difference between a force and an impulse.
+        ///     An impulse is a very large force applied over a very short period of time.
+        ///     Some examples are a ball hitting a wall or cannon firing.
+        ///     Chipmunk treats impulses as if they occur instantaneously by adding directly to the velocity of an object.
+        ///     Both impulses and forces are affected the mass of an object.
+        ///     Doubling the mass of the object will halve the effect.
+
+        /// </summary>
+        /// <param name="force"></param>
+        /// <param name="point"></param>
+        public void ApplyForceAtWorldPoint(cpVect force, cpVect point)
+        {
+            NativeMethods.cpBodyApplyForceAtWorldPoint(body, force, point);
+        }
+
+
+
+
+
     }
 }
