@@ -8,8 +8,8 @@ namespace ChipmunkBinding
     [StructLayout(LayoutKind.Sequential)]
     public struct cpVect : IEqualityComparer<cpVect>
     {
-        public float x;
-        public float y;
+        public double x;
+        public double y;
 
         public bool Equals(cpVect x, cpVect y)
         {

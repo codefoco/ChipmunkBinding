@@ -9,7 +9,7 @@
   <Target Name="BuildChipmunkWindows" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Windows_NT'">
     <Message Text="Building Windows Chipmunk library (x86)" />
     <Exec Command="mkdir $(ExternalChipmunkPath)\$(Win32BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)')" />
-    <Exec Command="cmake $(ExternalChipmunkPath)" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_GENERATOR_PLATFORM=Win32" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt')" />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" />
     <Message Text="Building Windows Chipmunk library (x64)" />
     <Exec Command="mkdir $(ExternalChipmunkPath)\$(Win64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win64BuildDir)')" />
