@@ -2,9 +2,10 @@
 using System.Runtime.InteropServices;
 
 using cpBody = System.IntPtr;
+using cpArbiter = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpDataPointer = System.IntPtr;
-
+using System.Collections.Generic;
 
 namespace ChipmunkBinding
 {
@@ -201,10 +202,34 @@ namespace ChipmunkBinding
             set => NativeMethods.cpBodySetTorque(body, value);
         }
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(LuaHookFunction))]
+#endif
+        private static void AddEachArbiterToArray(cpBody body, cpArbiter arbiter, IntPtr data)
+        {
+            var list = (List<Arbiter>)GCHandle.FromIntPtr(data).Target;
+            var a = new Arbiter(arbiter);
+            list.Add(a);
+        }
+
+        private static BodyArbiterIteratorFunction eachArbiterFunc = AddEachArbiterToArray;
+
         /// <summary>
         /// The rotation vector for the body. Can be used with cpvrotate() or cpvunrotate() to perform fast rotations.
         /// </summary>
         public cpVect Rotation => NativeMethods.cpBodyGetRotation(body);
+
+        public Arbiter[] Arbiters
+        {
+            get
+            {
+                var list = new List<Arbiter>();
+                var gcHandle = GCHandle.Alloc(list);
+                NativeMethods.cpBodyEachArbiter(body, eachArbiterFunc.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+                gcHandle.Free();
+                return list.ToArray();
+            }
+        }
 
         // Actions
 
@@ -213,6 +238,12 @@ namespace ChipmunkBinding
         ///     If it was sleeping, wake it and any other bodies it was touching.
         /// </summary>
         public void Activate() => NativeMethods.cpBodyActivate(body);
+
+        /// <summary>
+        /// Similar in function to Activate(). Activates all bodies touching body. If filter is not NULL, then only bodies touching through filter will be awoken.
+        /// </summary>
+        /// <param name="filter"></param>
+        public void ActivateStatic(Shape filter) => NativeMethods.cpBodyActivateStatic(body, filter.Handle);
 
         /// <summary>
         /// Add the local force force to body as if applied from the body local point.
@@ -240,6 +271,10 @@ namespace ChipmunkBinding
         {
             NativeMethods.cpBodyApplyForceAtWorldPoint(body, force, point);
         }
+
+
+
+
 
 
 

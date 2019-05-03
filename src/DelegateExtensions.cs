@@ -5,18 +5,18 @@ namespace ChipmunkBinding
 {
     static class DelegateExtensions
     {
-        public static ChipmunkFunction ToChipmunkFunction(this IntPtr ptr)
+        public static BodyArbiterIteratorFunction ToBodyArbiterIteratorFunction(this IntPtr ptr)
         {
             if (ptr == IntPtr.Zero)
                 return null;
 #if NETFRAMEWORK
-            return (ChipmunkFunction) Marshal.GetDelegateForFunctionPointer(ptr, typeof(ChipmunkFunction));
+            return (BodyArbiterIteratorFunction) Marshal.GetDelegateForFunctionPointer(ptr, typeof(BodyArbiterIteratorFunction));
 #else
-            return Marshal.GetDelegateForFunctionPointer<ChipmunkFunction>(ptr);
+            return Marshal.GetDelegateForFunctionPointer<BodyArbiterIteratorFunction>(ptr);
 #endif
         }
 
-        public static IntPtr ToFunctionPointer(this ChipmunkFunction d)
+        public static IntPtr ToFunctionPointer(this BodyArbiterIteratorFunction d)
         {
             if (d == null)
                 return IntPtr.Zero;
@@ -24,7 +24,7 @@ namespace ChipmunkBinding
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
 #else
-            return Marshal.GetFunctionPointerForDelegate<ChipmunkFunction>(d);
+            return Marshal.GetFunctionPointerForDelegate<BodyArbiterIteratorFunction>(d);
 #endif
         }
     }

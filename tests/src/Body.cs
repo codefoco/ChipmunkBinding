@@ -157,5 +157,15 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual(10.0, body.Torque, "#1");
         }
+
+        [Test]
+        public void ArbitersProperty()
+        {
+            var body = new Body();
+
+            Arbiter[] arbiters = body.Arbiters;
+
+            Assert.AreEqual(0, arbiters.Length, "#1");
+        }
     }
 }

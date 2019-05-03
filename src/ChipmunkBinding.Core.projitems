@@ -23,6 +23,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpTransform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpVect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HandleInterop.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Arbiter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shape.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory).editorconfig" />
