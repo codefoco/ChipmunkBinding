@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+using ObjCRuntime;
+#endif
 
 using cpBody = System.IntPtr;
 using cpArbiter = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpDataPointer = System.IntPtr;
-using System.Collections.Generic;
 
 namespace ChipmunkBinding
 {
@@ -203,7 +207,7 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
-        [MonoPInvokeCallback(typeof(LuaHookFunction))]
+        [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
 #endif
         private static void AddEachArbiterToArray(cpBody body, cpArbiter arbiter, IntPtr data)
         {
