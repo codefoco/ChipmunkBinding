@@ -90,16 +90,19 @@ namespace ChipmunkBinding
             return NativeMethods.cpBodyNew(0.0, 0.0);
         }
 
-        public void Destroy()
+        public void Free()
         {
             ReleaseUserData();
-            NativeMethods.cpBodyDestroy(body);
+            NativeMethods.cpBodyFree(body);
         }
 
         public void Dispose()
         {
-            Destroy();
+            Free();
         }
+
+
+
 
         // Properties
 
@@ -235,6 +238,11 @@ namespace ChipmunkBinding
             }
         }
 
+        /// <summary>
+        /// Returns true if body is sleeping.
+        /// </summary>
+        public bool IsSleeping => NativeMethods.cpBodyIsSleeping(body) != 0;
+
         // Actions
 
         /// <summary>
@@ -275,6 +283,147 @@ namespace ChipmunkBinding
         {
             NativeMethods.cpBodyApplyForceAtWorldPoint(body, force, point);
         }
+
+        /// <summary>
+        /// Apply an impulse to a body. Both the impulse and point are expressed in world coordinates.
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="impulse"></param>
+        /// <param name="point"></param>
+        public void ApplyImpulseAtWorldPoint(cpBody body, cpVect impulse, cpVect point)
+        {
+            NativeMethods.cpBodyApplyImpulseAtWorldPoint(body, impulse, point);
+        }
+
+        /// <summary>
+        /// Apply an impulse to a body. Both the impulse and point are expressed in body local coordinates.
+        /// </summary>
+        /// <param name="impulse"></param>
+        /// <param name="point"></param>
+        public void ApplyImpulseAtLocalPoint(cpVect impulse, cpVect point)
+        {
+            NativeMethods.cpBodyApplyImpulseAtLocalPoint(body, impulse, point);
+        }
+
+
+
+
+        /// <summary>
+        /// Forces a body to fall asleep immediately even if it’s in midair. Cannot be called from a callback.
+        /// </summary>
+        public void Sleep()
+        {
+            NativeMethods.cpBodySleep(body);
+        }
+
+        /// <summary>
+        /// When objects in Chipmunk sleep, they sleep as a group of all objects that are touching or jointed together.
+        /// When an object is woken up, all of the objects in its group are woken up.
+        /// SleepWithGroup() allows you group sleeping objects together. It acts identically to Sleep() if you pass null as
+        /// group by starting a new group.
+        /// If you pass a sleeping body for group, body will be awoken when group is awoken.
+        /// You can use this to initialize levels and start stacks of objects in a pre-sleeping state.
+        /// </summary>
+        /// <param name="group"></param>
+        public void SleepWithGroup(Body group)
+        {
+            NativeMethods.cpBodySleepWithGroup(body, group != null ? group.Handle : IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Set the callback used to update a body's velocity.
+        /// </summary>
+        /// <param name="function"></param>
+        public void SetVelocityUpdateFunction(BodyVelocityFunction function)
+        {
+            NativeMethods.cpBodySetVelocityUpdateFunc(body, function.ToFunctionPointer());
+        }
+
+        /// <summary>
+        /// Set the callback used to update a body's position.
+        /// NOTE: It's not generally recommended to override this unless you call the default position update function.
+        /// </summary>
+        /// <param name="function"></param>
+        public void SetPositionUpdateFunction(BodyPositionFunction function)
+        {
+            NativeMethods.cpBodySetPositionUpdateFunc(body, function.ToFunctionPointer());
+        }
+
+        /// <summary>
+        /// Default velocity integration function..
+        /// </summary>
+        /// <param name="gravity"></param>
+        /// <param name="damping"></param>
+        /// <param name="dt"></param>
+        public void UpdateVelocity(cpVect gravity, double damping, double dt)
+        {
+            NativeMethods.cpBodyUpdateVelocity(body, gravity, damping, dt);
+        }
+
+        /// <summary>
+        /// Default position integration function.
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="dt"></param>
+        public void UpdatePosition(cpBody body, double dt)
+        {
+            NativeMethods.cpBodyUpdatePosition(body, dt);
+        }
+
+        /// <summary>
+        /// Convert body relative/local coordinates to absolute/world coordinates.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public cpVect LocalToWorld(cpVect point)
+        {
+            return NativeMethods.cpBodyLocalToWorld(body, point);
+        }
+
+        /// <summary>
+        /// Convert body absolute/world coordinates to  relative/local coordinates.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public cpVect WorldToLocal(cpVect point)
+        {
+            return NativeMethods.cpBodyWorldToLocal(body, point);
+        }
+
+        /// <summary>
+        /// Get the velocity on a body (in world units) at a point on the body in world coordinates.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public cpVect GetVelocityAtWorldPoint(cpVect point)
+        {
+            return NativeMethods.cpBodyGetVelocityAtWorldPoint(body, point);
+        }
+
+        /// <summary>
+        /// Get the velocity on a body (in world units) at a point on the body in local coordinates.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public cpVect GetVelocityAtLocalPoint(cpVect point)
+        {
+            return NativeMethods.cpBodyGetVelocityAtLocalPoint(body, point);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double KineticEnergy => NativeMethods.cpBodyKineticEnergy(body);
+
+
+
+
+
+
+
+
+
+
 
 
 
