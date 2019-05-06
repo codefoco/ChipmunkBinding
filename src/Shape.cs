@@ -1,6 +1,7 @@
 ﻿using System;
 
 using cpShape = System.IntPtr;
+using cpDataPointer = System.IntPtr;
 
 namespace ChipmunkBinding
 {
@@ -14,5 +15,11 @@ namespace ChipmunkBinding
         }
 
         public cpShape Handle => shape;
+
+        public static Shape FromHandle(cpShape constraint)
+        {
+            cpDataPointer handle = NativeMethods.cpShapeGetUserData(constraint);
+            return HandleInterop.FromIntPtr<Shape>(handle);
+        }
     }
 }

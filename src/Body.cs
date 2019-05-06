@@ -8,6 +8,8 @@ using ObjCRuntime;
 
 using cpBody = System.IntPtr;
 using cpArbiter = System.IntPtr;
+using cpConstraint = System.IntPtr;
+using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpDataPointer = System.IntPtr;
 
@@ -238,6 +240,60 @@ namespace ChipmunkBinding
             }
         }
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
+#endif
+        private static void AddEachConstraintToArray(cpBody body, cpConstraint constraint, IntPtr data)
+        {
+            var list = (List<Constraint>)GCHandle.FromIntPtr(data).Target;
+            var c = Constraint.FromHandle(constraint);
+            list.Add(c);
+        }
+
+        private static BodyConstraintIteratorFunction eachConstraintFunc = AddEachConstraintToArray;
+
+        /// <summary>
+        /// All constraints attached to the body
+        /// </summary>
+        public Constraint[] Constraints
+        {
+            get
+            {
+                var list = new List<Constraint>();
+                var gcHandle = GCHandle.Alloc(list);
+                NativeMethods.cpBodyEachConstraint(body, eachConstraintFunc.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+                gcHandle.Free();
+                return list.ToArray();
+            }
+        }
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(BodyShapeIteratorFunction))]
+#endif
+        private static void AddEachShapeToArray(cpBody body, cpShape shape, IntPtr data)
+        {
+            var list = (List<Shape>)GCHandle.FromIntPtr(data).Target;
+            var s = Shape.FromHandle(shape);
+            list.Add(s);
+        }
+
+        private static BodyShapeIteratorFunction eachShapeFunc = AddEachShapeToArray;
+
+        /// <summary>
+        /// All shapes attached to the body
+        /// </summary>
+        public Shape[] Shapes
+        {
+            get
+            {
+                var list = new List<Shape>();
+                var gcHandle = GCHandle.Alloc(list);
+                NativeMethods.cpBodyEachConstraint(body, eachShapeFunc.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+                gcHandle.Free();
+                return list.ToArray();
+            }
+        }
+
         /// <summary>
         /// Returns true if body is sleeping.
         /// </summary>
@@ -304,9 +360,6 @@ namespace ChipmunkBinding
         {
             NativeMethods.cpBodyApplyImpulseAtLocalPoint(body, impulse, point);
         }
-
-
-
 
         /// <summary>
         /// Forces a body to fall asleep immediately even if it’s in midair. Cannot be called from a callback.
@@ -414,24 +467,5 @@ namespace ChipmunkBinding
         /// 
         /// </summary>
         public double KineticEnergy => NativeMethods.cpBodyKineticEnergy(body);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

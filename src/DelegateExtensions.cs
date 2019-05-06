@@ -28,12 +28,58 @@ namespace ChipmunkBinding
 #endif
         }
 
+        public static BodyConstraintIteratorFunction ToBodyConstraintIteratorFunction(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (BodyConstraintIteratorFunction) Marshal.GetDelegateForFunctionPointer(ptr, typeof(BodyConstraintIteratorFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<BodyConstraintIteratorFunction>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this BodyConstraintIteratorFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<BodyConstraintIteratorFunction>(d);
+#endif
+        }
+
+        public static BodyShapeIteratorFunction ToBodyShapeIteratorFunction(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (BodyShapeIteratorFunction) Marshal.GetDelegateForFunctionPointer(ptr, typeof(BodyShapeIteratorFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<BodyShapeIteratorFunction>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this BodyShapeIteratorFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<BodyShapeIteratorFunction>(d);
+#endif
+        }
+
         public static BodyVelocityFunction ToBodyVelocityFunction(this IntPtr ptr)
         {
             if (ptr == IntPtr.Zero)
                 return null;
 #if NETFRAMEWORK
-            return (BodyArbiterIteratorFunction) Marshal.GetDelegateForFunctionPointer(ptr, typeof(BodyArbiterIteratorFunction));
+            return (BodyVelocityFunction) Marshal.GetDelegateForFunctionPointer(ptr, typeof(BodyVelocityFunction));
 #else
             return Marshal.GetDelegateForFunctionPointer<BodyVelocityFunction>(ptr);
 #endif
@@ -56,7 +102,7 @@ namespace ChipmunkBinding
             if (ptr == IntPtr.Zero)
                 return null;
 #if NETFRAMEWORK
-            return (BodyArbiterIteratorFunction) Marshal.GetDelegateForFunctionPointer(ptr, typeof(BodyArbiterIteratorFunction));
+            return (BodyPositionFunction) Marshal.GetDelegateForFunctionPointer(ptr, typeof(BodyPositionFunction));
 #else
             return Marshal.GetDelegateForFunctionPointer<BodyPositionFunction>(ptr);
 #endif

@@ -168,5 +168,25 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(0, arbiters.Length, "#1");
         }
 
+        [Test]
+        public void ShapesProperty()
+        {
+            var body = new Body();
+
+            Shape[] shapes = body.Shapes;
+
+            Assert.AreEqual(0, shapes.Length, "#1");
+        }
+
+        [Test]
+        public void ConstraintsProperty()
+        {
+            var body = new Body();
+
+            Constraint[] constraints = body.Constraints;
+
+            Assert.AreEqual(0, constraints.Length, "#1");
+        }
+
     }
 }
