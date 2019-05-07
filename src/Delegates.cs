@@ -6,6 +6,7 @@ using cpBody = System.IntPtr;
 using cpArbiter = System.IntPtr;
 using cpConstraint = System.IntPtr;
 using cpShape = System.IntPtr;
+using cpBool = System.Byte;
 
 namespace ChipmunkBinding
 {

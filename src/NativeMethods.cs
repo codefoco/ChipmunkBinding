@@ -4,7 +4,7 @@ using System.Security;
 
 using cpFloat = System.Double;
 using cpTimestamp = System.UInt32;
-using cpBool = System.Int32;
+using cpBool = System.Byte;
 
 using VoidPointer = System.IntPtr;
 using cpVectPointer = System.IntPtr;

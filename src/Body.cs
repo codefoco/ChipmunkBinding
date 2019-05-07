@@ -103,9 +103,6 @@ namespace ChipmunkBinding
             Free();
         }
 
-
-
-
         // Properties
 
         /// <summary>
@@ -464,7 +461,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// 
+        /// Get the kinetic energy of a body.
         /// </summary>
         public double KineticEnergy => NativeMethods.cpBodyKineticEnergy(body);
     }
