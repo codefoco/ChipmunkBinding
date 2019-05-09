@@ -2,6 +2,7 @@
 
 using cpSpace = System.IntPtr;
 using cpDataPointer = System.IntPtr;
+using cpBody = System.IntPtr;
 
 namespace ChipmunkBinding
 {
@@ -152,6 +153,43 @@ namespace ChipmunkBinding
             get => NativeMethods.cpSpaceGetCollisionBias(space);
             set => NativeMethods.cpSpaceSetCollisionBias(space, value);
         }
+
+        /// <summary>
+        /// Number of frames that contact information should persist.
+        /// Defaults to 3. There is probably never a reason to change this value.
+        /// </summary>
+        public int CollisionPersistence
+        {
+            get => (int)NativeMethods.cpSpaceGetCollisionPersistence(space);
+            set => NativeMethods.cpSpaceSetCollisionPersistence(space, (uint)value);
+        }
+
+        /// <summary>
+        /// The Space provided static body for a given cpSpace.
+        /// </summary>
+        public Body StaticBody
+        {
+            get
+            {
+                cpBody bodyHandle = NativeMethods.cpSpaceGetStaticBody(space);
+                cpDataPointer gcHandle = NativeMethods.cpBodyGetUserData(bodyHandle);
+                if (gcHandle != IntPtr.Zero)
+                    return HandleInterop.FromIntPtr<Body>(gcHandle);
+
+                return new Body(bodyHandle);
+            }
+        }
+
+        /// <summary>
+        /// Returns the current (or most recent) time step used with the given space.
+        /// Useful from callbacks if your time step is not a compile-time global.
+        /// </summary>
+        public double CurrentTimeStep => NativeMethods.cpSpaceGetCurrentTimeStep(space);
+
+        /// <summary>
+        /// Returns true from inside a callback when objects cannot be added/removed.
+        /// </summary>
+        public bool IsLocked => NativeMethods.cpSpaceIsLocked(space) != 0;
 
         // Actions
 

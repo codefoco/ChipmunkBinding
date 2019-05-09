@@ -33,6 +33,12 @@ namespace ChipmunkBinding
         {
         }
 
+        internal Body(cpBody handle)
+        {
+            body = handle;
+            RegisterUserData();
+        }
+
         void RegisterUserData()
         {
             cpDataPointer pointer = HandleInterop.RegisterHandle(this);

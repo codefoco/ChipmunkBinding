@@ -26,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Arbiter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shape.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CollisionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory).editorconfig" />

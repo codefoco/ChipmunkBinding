@@ -84,6 +84,16 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(0.10, space.IdleSpeedThreshold, "#1");
         }
 
+        [Test]
+        public void StaticBody()
+        {
+            var space = new Space();
+            Body body = space.StaticBody;
+            Body body2 = space.StaticBody;
+
+            Assert.AreSame(body, body2, "#1");
+        }
+
 
 
     }
