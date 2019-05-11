@@ -120,18 +120,18 @@ namespace ChipmunkBinding
 #endif
         }
 
-        public static CollisionBeginFunctioin ToCollisionBeginFunctioin(this IntPtr ptr)
+        public static CollisionBeginFunction ToCollisionBeginFunctioin(this IntPtr ptr)
         {
             if (ptr == IntPtr.Zero)
                 return null;
 #if NETFRAMEWORK
-            return (CollisionBeginFunctioin)Marshal.GetDelegateForFunctionPointer(ptr, typeof(CollisionBeginFunctioin));
+            return (CollisionBeginFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(CollisionBeginFunction));
 #else
-            return Marshal.GetDelegateForFunctionPointer<CollisionBeginFunctioin>(ptr);
+            return Marshal.GetDelegateForFunctionPointer<CollisionBeginFunction>(ptr);
 #endif
         }
 
-        public static IntPtr ToFunctionPointer(this CollisionBeginFunctioin d)
+        public static IntPtr ToFunctionPointer(this CollisionBeginFunction d)
         {
             if (d == null)
                 return IntPtr.Zero;
@@ -139,9 +139,34 @@ namespace ChipmunkBinding
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
 #else
-            return Marshal.GetFunctionPointerForDelegate<CollisionBeginFunctioin>(d);
+            return Marshal.GetFunctionPointerForDelegate<CollisionBeginFunction>(d);
 #endif
         }
+
+        public static PostStepFunction ToPostStepFunction(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (PostStepFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(PostStepFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<PostStepFunction>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this PostStepFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<PostStepFunction>(d);
+#endif
+        }
+
+        
 
 
     }

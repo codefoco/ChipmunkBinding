@@ -112,6 +112,18 @@ namespace ChipmunkBindingTest.Tests
             Assert.IsFalse(space.Contains(body), "#3");
         }
 
+        [Test]
+        public void AddPostStepCallback()
+        {
+            var space = new Space();
+            string foo = string.Empty;
+            
+            space.AddPostStepCallback((s, k, d) => foo = k + " " + d, "key", "data");
+
+            space.Step(0.1);
+
+            Assert.AreEqual("key data", foo, "#1");
+        }
 
 
     }

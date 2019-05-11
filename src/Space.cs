@@ -5,6 +5,7 @@ using cpDataPointer = System.IntPtr;
 using cpBody = System.IntPtr;
 using cpCollisionHandler = System.IntPtr;
 using cpCollisionType = System.UIntPtr;
+using voidptr_t = System.IntPtr;
 
 namespace ChipmunkBinding
 {
@@ -307,7 +308,46 @@ namespace ChipmunkBinding
             return NativeMethods.cpSpaceContainsConstraint(space, constraint.Handle) != 0;
         }
 
+   #if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(PostStepFunction))]
+#endif
+        private static void PostStepCallBack(cpSpace handleSpace, voidptr_t handleKey, voidptr_t handleData)
+        {
+            var space = Space.FromHandle(handleSpace);
+            var key = HandleInterop.FromIntPtr<object>(handleKey);
+            var data = HandleInterop.FromIntPtr<PostStepCallbackInfo>(handleData);
 
+            Action<Space, object, object> callback = data.Callback;
 
+            callback(space, key, data.Data);
+
+            HandleInterop.ReleaseHandle(handleKey);
+            HandleInterop.ReleaseHandle(handleData);
+        }
+
+        private static PostStepFunction postStepCallBack = PostStepCallBack;
+
+        public bool AddPostStepCallback(Action<Space, object, object> callback, object key, object data)
+        {
+            var info = new PostStepCallbackInfo(callback, data);
+
+            IntPtr dataHandle = HandleInterop.RegisterHandle(info);
+            IntPtr keyHandle = HandleInterop.RegisterHandle(key);
+
+            return NativeMethods.cpSpaceAddPostStepCallback(space, postStepCallBack.ToFunctionPointer(), keyHandle, dataHandle) != 0;
+        }
+
+        /// <summary>
+        /// Update the space for the given time step.
+        /// Using a fixed time step is highly recommended. Doing so will increase the efficiency of the contact persistence, requiring an order of magnitude fewer iterations to resolve the collisions in the usual case.
+        /// It is not the same to call step 10 times with a dt of 0.1 and calling it 100 times with a dt of 0.01 even if the end result is that the simulation moved forward 100 units. Performing multiple calls with a smaller dt creates a more stable and accurate simulation. Therefor it sometimes make sense to have a little for loop around the step call, like in this example:
+        /// </summary>
+        /// <param name="dt">Time step length</param>
+        public void Step(double dt)
+        {
+            NativeMethods.cpSpaceStep(space, dt);
+        }
+
+        
     }
 }

@@ -72,6 +72,16 @@ namespace ChipmunkBinding
     /// <param name="userData"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate cpBool CollisionBeginFunctioin(cpArbiter arbiter, cpSpace space, voidptr_t userData);
+    internal delegate cpBool CollisionBeginFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
+
+    /// <summary>
+    /// Post Step callback function type.
+    /// </summary>
+    /// <param name="space"></param>
+    /// <param name="key"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate void PostStepFunction(cpSpace space, voidptr_t key, voidptr_t data);
 
 }
