@@ -3,6 +3,8 @@
 using cpSpace = System.IntPtr;
 using cpDataPointer = System.IntPtr;
 using cpBody = System.IntPtr;
+using cpCollisionHandler = System.IntPtr;
+using cpCollisionType = System.UIntPtr;
 
 namespace ChipmunkBinding
 {
@@ -39,15 +41,6 @@ namespace ChipmunkBinding
         public void Dispose()
         {
             Free();
-        }
-
-        /// <summary>
-        /// Add a rigid body to the simulation. 
-        /// </summary>
-        /// <param name="body"></param>
-        public void AddBody(Body body)
-        {
-            NativeMethods.cpSpaceAddBody(space, body.Handle);
         }
 
         void RegisterUserData()
@@ -192,6 +185,128 @@ namespace ChipmunkBinding
         public bool IsLocked => NativeMethods.cpSpaceIsLocked(space) != 0;
 
         // Actions
+
+        // Collision Handlers
+
+        /// <summary>
+        /// Create or return the existing collision handler that is called for all collisions that are not handled by a more specific collision handler.
+        /// </summary>
+        /// <returns></returns>
+        public CollisionHandler AddDefaultCollisionHandler()
+        {
+            cpCollisionHandler handler = NativeMethods.cpSpaceAddDefaultCollisionHandler(space);
+            return new CollisionHandler(handler);
+        }
+
+        /// <summary>
+        /// Create or return the existing collision handler for the specified pair of collision types.
+        /// If wildcard handlers are used with either of the collision types, it's the responibility of the custom handler to invoke the wildcard handlers.
+        /// </summary>
+        /// <param name="typeA"></param>
+        /// <param name="typeB"></param>
+        /// <returns></returns>
+        public CollisionHandler AddCollisionHandler(int typeA, int typeB)
+        {
+            cpCollisionHandler handler = NativeMethods.cpSpaceAddCollisionHandler(space, (cpCollisionType) typeA, (cpCollisionType) typeB);
+            return new CollisionHandler(handler);
+        }
+
+        /// <summary>
+        /// Create or return the existing wildcard collision handler for the specified type.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public CollisionHandler AddWildcardHandler(int type)
+        {
+            cpCollisionHandler handler = NativeMethods.cpSpaceAddWildcardHandler(space, (cpCollisionType)type);
+            return new CollisionHandler(handler);
+        }
+
+        /// <summary>
+        /// Add a rigid body to the simulation.
+        /// </summary>
+        /// <param name="shape"></param>
+        public void AddShape(Shape shape)
+        {
+            NativeMethods.cpSpaceAddShape(space, shape.Handle);
+        }
+
+        /// <summary>
+        /// Add a rigid body to the simulation. 
+        /// </summary>
+        /// <param name="body"></param>
+        public void AddBody(Body body)
+        {
+            NativeMethods.cpSpaceAddBody(space, body.Handle);
+        }
+
+        /// <summary>
+        /// Add a constraint to the simulation.
+        /// </summary>
+        /// <param name="constraint"></param>
+        public void AddConstraint(Constraint constraint)
+        {
+            NativeMethods.cpSpaceAddConstraint(space, constraint.Handle);
+        }
+
+
+        /// <summary>
+        /// Remove a collision shape from the simulation.
+        /// </summary>
+        /// <param name="shape"></param>
+        public void Remove(Shape shape)
+        {
+            NativeMethods.cpSpaceRemoveShape(space, shape.Handle);
+        }
+
+        /// <summary>
+        /// Remove a rigid body from the simulation.
+        /// </summary>
+        /// <param name="body"></param>
+        public void Remove(Body body)
+        {
+            NativeMethods.cpSpaceRemoveBody(space, body.Handle);
+        }
+
+        /// <summary>
+        /// Remove a constraint from the simulation.
+        /// </summary>
+        /// <param name="constraint"></param>
+        public void Remove(Constraint constraint)
+        {
+            NativeMethods.cpSpaceRemoveConstraint(space, constraint.Handle);
+        }
+
+        /// <summary>
+        /// Test if a collision shape has been added to the space.
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <returns></returns>
+        public bool Contains(Shape shape)
+        {
+            return NativeMethods.cpSpaceContainsShape(space, shape.Handle) != 0;
+        }
+
+        /// <summary>
+        /// Test if a rigid body has been added to the space.
+        /// </summary>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        public bool Contains(Body body)
+        {
+            return NativeMethods.cpSpaceContainsBody(space, body.Handle) != 0;
+        }
+
+        /// <summary>
+        /// Test if a constraint has been added to the space.
+        /// </summary>
+        /// <param name="constraint"></param>
+        /// <returns></returns>
+        public bool Contains(Constraint constraint)
+        {
+            return NativeMethods.cpSpaceContainsConstraint(space, constraint.Handle) != 0;
+        }
+
 
 
     }

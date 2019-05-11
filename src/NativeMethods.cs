@@ -42,7 +42,7 @@ using cpSweep1D = System.IntPtr;
 
 
 using cpBodyType = System.Int32;
-using cpCollisionType = System.Int32;
+using cpCollisionType = System.UIntPtr;
 
 using cpSpatialIndexBBFunc = System.IntPtr;
 using cpBBTreeVelocityFunc = System.IntPtr;
@@ -1024,6 +1024,12 @@ namespace ChipmunkBinding
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBool cpSpaceContainsShape(cpSpace space, cpShape shape);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpBool cpSpaceContainsBody(cpSpace space, cpBody body);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpBool cpSpaceContainsConstraint(cpSpace space, cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceDebugDraw(cpSpace space, cpSpaceDebugDrawOptions options);

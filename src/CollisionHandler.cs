@@ -8,8 +8,11 @@ namespace ChipmunkBinding
     {
         cpCollisionHandler collisionHandler;
 
-        public CollisionHandler()
+        public CollisionHandler(cpCollisionHandler handle)
         {
+            collisionHandler = handle;
         }
+
+
     }
 }

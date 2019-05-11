@@ -94,6 +94,24 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreSame(body, body2, "#1");
         }
 
+        [Test]
+        public void ContainsRemove()
+        {
+            var space = new Space();
+            var body = new Body();
+
+
+            Assert.IsFalse(space.Contains(body), "#1");
+
+            space.AddBody(body);
+
+            Assert.IsTrue(space.Contains(body), "#2");
+
+            space.Remove(body);
+
+            Assert.IsFalse(space.Contains(body), "#3");
+        }
+
 
 
     }

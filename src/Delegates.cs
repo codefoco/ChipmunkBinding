@@ -6,6 +6,7 @@ using cpBody = System.IntPtr;
 using cpArbiter = System.IntPtr;
 using cpConstraint = System.IntPtr;
 using cpShape = System.IntPtr;
+using cpSpace = System.IntPtr;
 using cpBool = System.Byte;
 
 namespace ChipmunkBinding
@@ -61,5 +62,16 @@ namespace ChipmunkBinding
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void BodyShapeIteratorFunction(cpBody body, cpShape shape, voidptr_t data);
+
+    /// <summary>
+    /// Collision pre-solve event function callback type.
+    /// Returning false from a pre-step callback causes the collision to be ignored until the next step.
+    /// </summary>
+    /// <param name="arbiter"></param>
+    /// <param name="space"></param>
+    /// <param name="userData"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate cpBool CollisionBeginFunctioin(cpArbiter arbiter, cpSpace space, voidptr_t userData);
 
 }

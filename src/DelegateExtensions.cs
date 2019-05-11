@@ -119,5 +119,30 @@ namespace ChipmunkBinding
             return Marshal.GetFunctionPointerForDelegate<BodyPositionFunction>(d);
 #endif
         }
+
+        public static CollisionBeginFunctioin ToCollisionBeginFunctioin(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (CollisionBeginFunctioin)Marshal.GetDelegateForFunctionPointer(ptr, typeof(CollisionBeginFunctioin));
+#else
+            return Marshal.GetDelegateForFunctionPointer<CollisionBeginFunctioin>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this CollisionBeginFunctioin d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<CollisionBeginFunctioin>(d);
+#endif
+        }
+
+
     }
 }
