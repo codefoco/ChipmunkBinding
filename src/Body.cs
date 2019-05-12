@@ -12,6 +12,7 @@ using cpConstraint = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpDataPointer = System.IntPtr;
+using System.Diagnostics;
 
 namespace ChipmunkBinding
 {
@@ -104,9 +105,19 @@ namespace ChipmunkBinding
             NativeMethods.cpBodyFree(body);
         }
 
+        protected virtual void Dispose(bool dispose)
+        {
+            if (!dispose)
+            {
+                Debug.WriteLine("Disposing body {0} on finalizer... (consider Dispose explicitly)", body);
+            }
+            Free();
+        }
+
         public void Dispose()
         {
-            Free();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         // Properties
@@ -231,7 +242,7 @@ namespace ChipmunkBinding
         /// </summary>
         public cpVect Rotation => NativeMethods.cpBodyGetRotation(body);
 
-        public Arbiter[] Arbiters
+        public IReadOnlyList<Arbiter> Arbiters
         {
             get
             {
@@ -239,7 +250,7 @@ namespace ChipmunkBinding
                 var gcHandle = GCHandle.Alloc(list);
                 NativeMethods.cpBodyEachArbiter(body, eachArbiterFunc.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
                 gcHandle.Free();
-                return list.ToArray();
+                return list;
             }
         }
 
@@ -258,7 +269,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// All constraints attached to the body
         /// </summary>
-        public Constraint[] Constraints
+        public IReadOnlyList<Constraint> Constraints
         {
             get
             {
@@ -285,7 +296,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// All shapes attached to the body
         /// </summary>
-        public Shape[] Shapes
+        public IReadOnlyList<Shape> Shapes
         {
             get
             {
@@ -349,7 +360,7 @@ namespace ChipmunkBinding
         /// <param name="body"></param>
         /// <param name="impulse"></param>
         /// <param name="point"></param>
-        public void ApplyImpulseAtWorldPoint(cpBody body, cpVect impulse, cpVect point)
+        public void ApplyImpulseAtWorldPoint(cpVect impulse, cpVect point)
         {
             NativeMethods.cpBodyApplyImpulseAtWorldPoint(body, impulse, point);
         }
@@ -388,6 +399,9 @@ namespace ChipmunkBinding
 
         /// <summary>
         /// Set the callback used to update a body's velocity.
+        /// Note: The BodyVelocityFunction will be called from the native code.
+        /// if you are usingn iOS or tvOS you method will need to be static and 
+        /// contain the attribute MonoPInvokeCallback
         /// </summary>
         /// <param name="function"></param>
         public void SetVelocityUpdateFunction(BodyVelocityFunction function)
@@ -421,7 +435,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="body"></param>
         /// <param name="dt"></param>
-        public void UpdatePosition(cpBody body, double dt)
+        public void UpdatePosition(double dt)
         {
             NativeMethods.cpBodyUpdatePosition(body, dt);
         }

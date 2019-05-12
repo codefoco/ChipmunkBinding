@@ -60,7 +60,8 @@ namespace ChipmunkBindingTest.Tests
         public void Gravity()
         {
             var space = new Space();
-            var g = new cpVect() { x = 0, y = -10 };
+            var g = new cpVect(0, -10);
+
             space.Gravity = g;
 
             Assert.AreEqual(g, space.Gravity, "#1");
@@ -123,6 +124,24 @@ namespace ChipmunkBindingTest.Tests
             space.Step(0.1);
 
             Assert.AreEqual("key data", foo, "#1");
+        }
+
+        [Test]
+        public void PointQuery()
+        {
+            var space = new Space();
+            var body = new Body();
+            var shape = new Shape(body,100, 100, 0);
+
+            body.Position = new cpVect(0,0);
+
+            PointQueryInfo[] infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All);
+
+            space.AddShape(shape);
+
+            infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All);
+
+
         }
 
 

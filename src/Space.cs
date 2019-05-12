@@ -1,11 +1,20 @@
 ﻿using System;
 
 using cpSpace = System.IntPtr;
+using cpShape = System.IntPtr;
 using cpDataPointer = System.IntPtr;
 using cpBody = System.IntPtr;
 using cpCollisionHandler = System.IntPtr;
 using cpCollisionType = System.UIntPtr;
 using voidptr_t = System.IntPtr;
+using System.Collections.Generic;
+
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+using ObjCRuntime;
+#endif
 
 namespace ChipmunkBinding
 {
@@ -36,12 +45,26 @@ namespace ChipmunkBinding
             NativeMethods.cpSpaceFree(space);
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing)
+            {
+                Debug.WriteLine("Disposing space {0} on finalizer... (consider Dispose explicitly)", space);
+            }
+            Free();
+        }
         /// <summary>
         /// Disposes the Space object
         /// </summary>
         public void Dispose()
         {
-            Free();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~Space()
+        {
+            Dispose(false);
         }
 
         void RegisterUserData()
@@ -327,6 +350,16 @@ namespace ChipmunkBinding
 
         private static PostStepFunction postStepCallBack = PostStepCallBack;
 
+        /// <summary>
+        /// Schedule a post-step callback to be called when Step() finishes.
+        /// You can only register one callback per unique value for @c key.
+        /// Returns true only if @c key has never been scheduled before.
+        /// It's possible to pass @c NULL for @c func if you only want to mark @c key as being used.
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool AddPostStepCallback(Action<Space, object, object> callback, object key, object data)
         {
             var info = new PostStepCallbackInfo(callback, data);
@@ -336,6 +369,63 @@ namespace ChipmunkBinding
 
             return NativeMethods.cpSpaceAddPostStepCallback(space, postStepCallBack.ToFunctionPointer(), keyHandle, dataHandle) != 0;
         }
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(PostStepFunction))]
+#endif
+        private static void EachPointQuery(cpShape shapeHandle, cpVect point, double distance, cpVect gradient, voidptr_t data)
+        {
+            var list = (List<PointQueryInfo>)GCHandle.FromIntPtr(data).Target;
+
+            var shape = Shape.FromHandle(shapeHandle);
+            var pointQuery = new PointQueryInfo(shape, point, distance, gradient);
+
+            list.Add(pointQuery);
+        }
+
+        private static SpacePointQueryFunction eachPointQuery = EachPointQuery;
+
+        /// <summary>
+        /// Query space at point for shapes within the given distance range.
+        /// The filter is applied to the query and follows the same rules as the collision detection. If a maxDistance of 0.0 is used, the point must lie inside a shape. Negative max_distance is also allowed meaning that the point must be a under a certain depth within a shape to be considered a match.
+        /// </summary>
+        /// <param name="point">Where to check for collision in the Space</param>
+        /// <param name="maxDistance">Match only within this distance</param>
+        /// <param name="filter">Only pick shapes matching the filter</param>
+        /// <returns></returns>
+        public PointQueryInfo[] PointQuery(cpVect point, double maxDistance, ShapeFilter filter)
+        {
+            var list = new List<PointQueryInfo>();
+            var gcHandle = GCHandle.Alloc(list);
+            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
+
+            NativeMethods.cpSpacePointQuery(space, point, maxDistance, cpFilter, eachPointQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+            gcHandle.Free();
+            return list.ToArray();
+        }
+
+        /// <summary>
+        /// Query space at point the nearest shape within the given distance range.
+        /// The filter is applied to the query and follows the same rules as the collision detection. If a maxDistance of 0.0 is used, the point must lie inside a shape. Negative max_distance is also allowed meaning that the point must be a under a certain depth within a shape to be considered a match.
+        /// </summary>
+        /// <param name="point">Where to check for collision in the Space</param>
+        /// <param name="maxDistance">Match only within this distance</param>
+        /// <param name="filter">Only pick shapes matching the filter</param>
+        /// <returns></returns>
+        public PointQueryInfo PointQueryNearest(cpVect point, double maxDistance, ShapeFilter filter)
+        {
+            var queryInfo = new cpPointQueryInfo();
+            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
+            
+            cpShape shape = NativeMethods.cpSpacePointQueryNearest(space, point, maxDistance, cpFilter, ref queryInfo);
+            if (shape == IntPtr.Zero)
+                return null;
+            
+            return PointQueryInfo.FromQueryInfo(queryInfo);
+        }
+
+   
 
         /// <summary>
         /// Update the space for the given time step.

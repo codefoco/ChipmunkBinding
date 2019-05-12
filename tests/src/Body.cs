@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using ChipmunkBinding;
 using NUnit.Framework;
 
@@ -84,8 +85,8 @@ namespace ChipmunkBindingTest.Tests
             var body = new Body();
             var pos = new cpVect
             {
-                x = 10,
-                y = 20
+                X = 10,
+                Y = 20
             };
 
             body.Position = pos;
@@ -97,11 +98,7 @@ namespace ChipmunkBindingTest.Tests
         public void CenterOfGravityProperty()
         {
             var body = new Body();
-            var center = new cpVect
-            {
-                x = 10,
-                y = 20
-            };
+            var center = new cpVect (10, 20);
 
             body.CenterOfGravity = center;
 
@@ -112,11 +109,7 @@ namespace ChipmunkBindingTest.Tests
         public void VelocityProperty()
         {
             var body = new Body();
-            var velocity = new cpVect
-            {
-                x = 10,
-                y = -20
-            };
+            var velocity = new cpVect(10,-20);
 
             body.Velocity = velocity;
 
@@ -127,11 +120,7 @@ namespace ChipmunkBindingTest.Tests
         public void ForceProperty()
         {
             var body = new Body();
-            var force = new cpVect
-            {
-                x = 10,
-                y = -20
-            };
+            var force = new cpVect(10,-20);
 
             body.Force = force;
 
@@ -163,9 +152,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body();
 
-            Arbiter[] arbiters = body.Arbiters;
+            IReadOnlyList<Arbiter> arbiters = body.Arbiters;
 
-            Assert.AreEqual(0, arbiters.Length, "#1");
+            Assert.AreEqual(0, arbiters.Count, "#1");
         }
 
         [Test]
@@ -173,9 +162,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body();
 
-            Shape[] shapes = body.Shapes;
+            IReadOnlyList<Shape> shapes = body.Shapes;
 
-            Assert.AreEqual(0, shapes.Length, "#1");
+            Assert.AreEqual(0, shapes.Count, "#1");
         }
 
         [Test]
@@ -183,9 +172,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body();
 
-            Constraint[] constraints = body.Constraints;
+            IReadOnlyList<Constraint> constraints = body.Constraints;
 
-            Assert.AreEqual(0, constraints.Length, "#1");
+            Assert.AreEqual(0, constraints.Count, "#1");
         }
 
     }

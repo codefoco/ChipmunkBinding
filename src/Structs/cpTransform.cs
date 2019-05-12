@@ -3,7 +3,7 @@
 namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct cpTransform
+    internal struct cpTransform
     {
         public float a;
         public float b;

@@ -19,7 +19,7 @@ namespace ChipmunkBinding
     /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void BodyArbiterIteratorFunction(cpBody body, cpArbiter arbiter, voidptr_t data);
+    internal delegate void BodyArbiterIteratorFunction(cpBody body, cpArbiter arbiter, voidptr_t data);
 
     /// <summary>
     /// 
@@ -51,7 +51,7 @@ namespace ChipmunkBinding
     /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void BodyConstraintIteratorFunction(cpBody body, cpConstraint constraint, voidptr_t data);
+    internal delegate void BodyConstraintIteratorFunction(cpBody body, cpConstraint constraint, voidptr_t data);
 
     /// <summary>
     /// Delegate method to iterate over shapes
@@ -61,7 +61,7 @@ namespace ChipmunkBinding
     /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void BodyShapeIteratorFunction(cpBody body, cpShape shape, voidptr_t data);
+    internal delegate void BodyShapeIteratorFunction(cpBody body, cpShape shape, voidptr_t data);
 
     /// <summary>
     /// Collision pre-solve event function callback type.
@@ -83,5 +83,17 @@ namespace ChipmunkBinding
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate void PostStepFunction(cpSpace space, voidptr_t key, voidptr_t data);
+
+    /// <summary>
+    /// Nearest point query callback function type.
+    /// </summary>
+    /// <param name="shape"></param>
+    /// <param name="point"></param>
+    /// <param name="distance"></param>
+    /// <param name="gradient"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate void SpacePointQueryFunction(cpShape shape, cpVect point, double distance, cpVect gradient, voidptr_t data);
 
 }

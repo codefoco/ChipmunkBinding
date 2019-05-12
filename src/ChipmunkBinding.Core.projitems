@@ -14,8 +14,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)DelegateExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Delegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PointQueryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PostStepCallbackInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShapeFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Space.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpBB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpPointQueryInfo.cs" />

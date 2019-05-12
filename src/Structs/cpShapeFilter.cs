@@ -4,10 +4,19 @@ using System.Runtime.InteropServices;
 namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct cpShapeFilter
+    internal struct cpShapeFilter
     {
-        public UIntPtr group;
-        public uint categories;
-        public uint mask;
+        public IntPtr group;
+        public int categories;
+        public int mask;
+
+        public static cpShapeFilter FromShapeFilter(ShapeFilter filter)
+        {
+            var cpFilter = new cpShapeFilter();
+            cpFilter.group = (IntPtr)filter.Group;
+            cpFilter.categories = filter.Categories;
+            cpFilter.mask = filter.Mask;
+            return cpFilter;
+        }
     }
 }

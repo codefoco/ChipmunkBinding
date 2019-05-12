@@ -1,24 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Runtime.InteropServices;
 
 #pragma warning disable IDE1006
+#pragma warning disable IDE0032
 
 namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct cpVect : IEqualityComparer<cpVect>
+    public struct cpVect : IEquatable<cpVect>
     {
-        public double x;
-        public double y;
+        private double x;
+        private double y;
 
-        public bool Equals(cpVect x, cpVect y)
-        {
-            return x == y;
+        public double X 
+        { 
+          get => x;
+          set => x = value;
         }
 
-        public int GetHashCode(cpVect obj)
+        public double Y 
+        { 
+          get => y;
+          set => y = value;
+        }
+
+        public cpVect(double x, double y)
         {
-            return (obj.x.GetHashCode() << 16) ^ obj.y.GetHashCode();
+            this.x = x;
+            this.y = y;
         }
 
         public override bool Equals(object obj)
@@ -26,17 +35,22 @@ namespace ChipmunkBinding
             cpVect? vect = obj as cpVect?;
             if (!vect.HasValue)
                 return false;
-            return Equals(this, vect.Value);
+            return this == vect.Value;
         }
 
         public override int GetHashCode()
         {
-            return GetHashCode(this);
+            return (x.GetHashCode() << 16) ^ y.GetHashCode();
+        }
+
+        public bool Equals(cpVect other)
+        {
+            return this == other;
         }
 
         public static bool operator == (cpVect a, cpVect b)
         {
-            return System.Math.Abs(a.x - b.x) < float.Epsilon && System.Math.Abs(a.x - b.x) < float.Epsilon;
+            return Math.Abs(a.x - b.x) < float.Epsilon && Math.Abs(a.x - b.x) < float.Epsilon;
         }
 
         public static bool operator !=(cpVect a, cpVect b)
@@ -44,7 +58,7 @@ namespace ChipmunkBinding
             return !(a == b);
         }
     }
-
 }
 
 #pragma warning restore IDE1006
+#pragma warning restore IDE0032

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct cpPointQueryInfo
+    internal struct cpPointQueryInfo
     {
         public IntPtr shape;
         public cpVect point;

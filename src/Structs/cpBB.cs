@@ -5,7 +5,7 @@
 namespace ChipmunkBinding
 {
     [StructLayout (LayoutKind.Sequential)]
-    public struct cpBB
+    internal struct cpBB
     {
         public double left;
         public double bottom;
