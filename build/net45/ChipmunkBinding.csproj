@@ -30,6 +30,7 @@
     <DocumentationFile>
     </DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>ChipmunkBinding.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -41,11 +42,13 @@
     <DocumentationFile>
     </DocumentationFile>
     <DefineConstants>NETFRAMEWORK</DefineConstants>
+    <CodeAnalysisRuleSet>ChipmunkBinding.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ChipmunkBinding.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

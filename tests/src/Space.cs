@@ -65,6 +65,7 @@ namespace ChipmunkBindingTest.Tests
             space.Gravity = g;
 
             Assert.AreEqual(g, space.Gravity, "#1");
+            space.Dispose();
         }
 
         [Test]
@@ -74,6 +75,7 @@ namespace ChipmunkBindingTest.Tests
             space.Damping = 0.10;
 
             Assert.AreEqual(0.10, space.Damping, "#1");
+            space.Dispose();
         }
 
         [Test]
@@ -83,6 +85,7 @@ namespace ChipmunkBindingTest.Tests
             space.IdleSpeedThreshold = 0.10;
 
             Assert.AreEqual(0.10, space.IdleSpeedThreshold, "#1");
+            space.Dispose();
         }
 
         [Test]
@@ -93,6 +96,7 @@ namespace ChipmunkBindingTest.Tests
             Body body2 = space.StaticBody;
 
             Assert.AreSame(body, body2, "#1");
+            space.Dispose();
         }
 
         [Test]
@@ -111,6 +115,9 @@ namespace ChipmunkBindingTest.Tests
             space.Remove(body);
 
             Assert.IsFalse(space.Contains(body), "#3");
+
+            body.Dispose();
+            space.Dispose();
         }
 
         [Test]
@@ -124,6 +131,7 @@ namespace ChipmunkBindingTest.Tests
             space.Step(0.1);
 
             Assert.AreEqual("key data", foo, "#1");
+            space.Dispose();
         }
 
         [Test]
@@ -140,10 +148,9 @@ namespace ChipmunkBindingTest.Tests
             space.AddShape(shape);
 
             infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All);
-
-
+            shape.Dispose();
+            body.Dispose();
+            space.Dispose();
         }
-
-
     }
 }

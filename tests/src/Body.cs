@@ -28,6 +28,8 @@ namespace ChipmunkBindingTest.Tests
             var bodyFromHandle = Body.FromHandle(handle);
 
             Assert.AreSame(body, bodyFromHandle, "#1");
+
+            body.Dispose();
         }
 
         [Test]
@@ -37,11 +39,14 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.IsNotNull(body.Handle, "#1");
 
-            body = new Body(10.0, 0.0, BodyType.Dinamic);
+            var body2 = new Body(10.0, 0.0, BodyType.Dinamic);
 
-            Assert.AreEqual(10.0, body.Mass, "#2");
-            Assert.AreEqual(0.0, body.Moment, "#3");
-            Assert.AreEqual(BodyType.Dinamic, body.Type, "#4");
+            Assert.AreEqual(10.0, body2.Mass, "#2");
+            Assert.AreEqual(0.0, body2.Moment, "#3");
+            Assert.AreEqual(BodyType.Dinamic, body2.Type, "#4");
+
+            body.Dispose();
+            body2.Dispose();
         }
 
         [Test]
@@ -54,19 +59,24 @@ namespace ChipmunkBindingTest.Tests
             body.Type = BodyType.Static;
 
             Assert.AreEqual(BodyType.Static, body.Type, "#2");
+
+            body.Dispose();
         }
 
         [Test]
         public void SpaceProperty()
         {
-            var body = new Body();
             var space = new Space();
+            var body = new Body();
 
             Assert.IsNull(body.Space,"#1");
 
             space.AddBody(body);
 
             Assert.AreSame(space, body.Space, "#2");
+
+            body.Dispose();
+            space.Dispose();
         }
 
         [Test]
@@ -77,21 +87,20 @@ namespace ChipmunkBindingTest.Tests
             body.Angle = System.Math.PI;
 
             Assert.AreEqual(System.Math.PI, body.Angle, "#1");
+            body.Dispose();
         }
 
         [Test]
         public void PositionProperty()
         {
             var body = new Body();
-            var pos = new cpVect
-            {
-                X = 10,
-                Y = 20
-            };
+            var pos = new cpVect(10, 20);
 
             body.Position = pos;
 
             Assert.AreEqual(pos, body.Position, "#1");
+
+            body.Dispose();
         }
 
         [Test]
@@ -103,6 +112,7 @@ namespace ChipmunkBindingTest.Tests
             body.CenterOfGravity = center;
 
             Assert.AreEqual(center, body.CenterOfGravity, "#1");
+            body.Dispose();
         }
 
         [Test]
@@ -114,6 +124,7 @@ namespace ChipmunkBindingTest.Tests
             body.Velocity = velocity;
 
             Assert.AreEqual(velocity, body.Velocity, "#1");
+            body.Dispose();
         }
 
         [Test]
@@ -125,6 +136,7 @@ namespace ChipmunkBindingTest.Tests
             body.Force = force;
 
             Assert.AreEqual(force, body.Force, "#1");
+            body.Dispose();
         }
 
         [Test]
@@ -135,6 +147,7 @@ namespace ChipmunkBindingTest.Tests
             body.AngularVelocity = System.Math.PI;
 
             Assert.AreEqual(System.Math.PI, body.AngularVelocity, "#1");
+            body.Dispose();
         }
 
         [Test]
@@ -145,6 +158,7 @@ namespace ChipmunkBindingTest.Tests
             body.Torque = 10.0;
 
             Assert.AreEqual(10.0, body.Torque, "#1");
+            body.Dispose();
         }
 
         [Test]
@@ -155,6 +169,7 @@ namespace ChipmunkBindingTest.Tests
             IReadOnlyList<Arbiter> arbiters = body.Arbiters;
 
             Assert.AreEqual(0, arbiters.Count, "#1");
+            body.Dispose();
         }
 
         [Test]
@@ -165,6 +180,7 @@ namespace ChipmunkBindingTest.Tests
             IReadOnlyList<Shape> shapes = body.Shapes;
 
             Assert.AreEqual(0, shapes.Count, "#1");
+            body.Dispose();
         }
 
         [Test]
@@ -175,6 +191,7 @@ namespace ChipmunkBindingTest.Tests
             IReadOnlyList<Constraint> constraints = body.Constraints;
 
             Assert.AreEqual(0, constraints.Count, "#1");
+            body.Dispose();
         }
 
     }

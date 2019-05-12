@@ -72,6 +72,8 @@ namespace ChipmunkBinding
     [SuppressUnmanagedCodeSecurity]
     internal static class NativeMethods
     {
+#pragma warning disable CA1823 // Unused field 'ChipmunkLibraryName'
+
 #if __TVOS__ && __UNIFIED__
         private const string ChipmunkLibraryName = "@rpath/libchipmunk.framework/libchipmunk";
 #elif __WATCHOS__ && __UNIFIED__
@@ -87,6 +89,9 @@ namespace ChipmunkBinding
 #else
         private const string ChipmunkLibraryName = "chipmunk";
 #endif
+
+#pragma warning restore CA1823 // Unused field 'ChipmunkLibraryName'
+
 
 #pragma warning disable IDE1006 // Naming Styles
 
