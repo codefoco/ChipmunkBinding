@@ -101,6 +101,11 @@ namespace ChipmunkBinding
 
         public void Free()
         {
+            var space = Space;
+
+            if (space != null)
+                space.Remove(this);
+
             ReleaseUserData();
             NativeMethods.cpBodyFree(body);
         }
