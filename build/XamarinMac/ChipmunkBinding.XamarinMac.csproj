@@ -44,7 +44,7 @@
       <SmartLink>False</SmartLink>
     </NativeReference>
   </ItemGroup>
-  <Import Project="..\..\src\ChipmunkBinding.Core.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Core.projitems')" />
+  <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.ObjcBinding.CSharp.targets" />
   <Import Project="..\targets\BuildChipmunk.OSX.targets" />
   <Import Project="..\targets\ChipmunkBinding.Sign.targets" />

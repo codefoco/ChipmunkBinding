@@ -425,7 +425,12 @@ namespace ChipmunkBinding
             return PointQueryInfo.FromQueryInfo(queryInfo);
         }
 
-   
+        //public IReadOnlyCollection<Shape> BoundBoxQuery(cpBB bb, ShapeFilter filter)
+        //{
+
+        //}
+
+
 
         /// <summary>
         /// Update the space for the given time step.
