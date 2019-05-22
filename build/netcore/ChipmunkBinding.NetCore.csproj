@@ -19,7 +19,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
-  <Import Project="..\..\src\ChipmunkBinding.Core.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Core.projitems')" />
+  <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
   <Import Project="..\targets\BuildChipmunk.Windows.targets" />
   <Import Project="..\targets\BuildChipmunk.OSX.targets" />
   <Import Project="..\targets\BuildChipmunk.Linux.targets" />

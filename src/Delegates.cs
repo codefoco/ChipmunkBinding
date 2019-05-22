@@ -96,4 +96,13 @@ namespace ChipmunkBinding
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate void SpacePointQueryFunction(cpShape shape, cpVect point, double distance, cpVect gradient, voidptr_t data);
 
+    /// <summary>
+    /// Rectangle Query callback function type.
+    /// </summary>
+    /// <param name="shape"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate void SpaceBBQueryFunction(cpShape shape, voidptr_t data);
 }

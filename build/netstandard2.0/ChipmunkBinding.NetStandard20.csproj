@@ -16,6 +16,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\lib\Debug\netstandard2.0\</OutputPath>
   </PropertyGroup>
-  <Import Project="..\..\src\ChipmunkBinding.Core.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Core.projitems')" />
+  <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
   <Import Project="..\targets\ChipmunkBinding.Sign.targets" />
 </Project>

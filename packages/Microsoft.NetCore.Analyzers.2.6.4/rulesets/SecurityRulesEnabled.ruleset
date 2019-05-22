@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<RuleSet Name="Security Rules Enabled with default action" Description="All Security Rules are enabled with default action. Security Rules with IsEnabledByDefault = false are force enabled with default action. Rules from a different category are disabled." ToolsVersion="15.0">
+   <!-- Security Rules -->
+   <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+      <Rule Id="CA5350" Action="Warning" />          <!-- Do Not Use Weak Cryptographic Algorithms -->
+      <Rule Id="CA5351" Action="Warning" />          <!-- Do Not Use Broken Cryptographic Algorithms -->
+      <Rule Id="CA5358" Action="Warning" />          <!-- Do Not Use Unsafe Cipher Modes -->
+      <Rule Id="CA5359" Action="Warning" />          <!-- Do Not Disable Certificate Validation -->
+      <Rule Id="CA5360" Action="Warning" />          <!-- Do Not Call Dangerous Methods In Deserialization -->
+      <Rule Id="CA5361" Action="Warning" />          <!-- Do Not Disable SChannel Use of Strong Crypto -->
+      <Rule Id="CA5362" Action="Warning" />          <!-- Do Not Refer Self In Serializable Class -->
+   </Rules>
+   <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
+   </Rules>
+   <Rules AnalyzerId="Microsoft.NetCore.VisualBasic.Analyzers" RuleNamespace="Microsoft.NetCore.VisualBasic.Analyzers">
+   </Rules>
+
+   <!-- Other Rules -->
+   <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+      <Rule Id="CA1304" Action="None" />             <!-- Specify CultureInfo -->
+      <Rule Id="CA1305" Action="None" />             <!-- Specify IFormatProvider -->
+      <Rule Id="CA1307" Action="None" />             <!-- Specify StringComparison -->
+      <Rule Id="CA1308" Action="None" />             <!-- Normalize strings to uppercase -->
+      <Rule Id="CA1401" Action="None" />             <!-- P/Invokes should not be visible -->
+      <Rule Id="CA1813" Action="None" />             <!-- Avoid unsealed attributes -->
+      <Rule Id="CA1816" Action="None" />             <!-- Dispose methods should call SuppressFinalize -->
+      <Rule Id="CA1820" Action="None" />             <!-- Test for empty strings using string length -->
+      <Rule Id="CA1826" Action="None" />             <!-- Do not use Enumerable methods on indexable collections. Instead use the collection directly -->
+      <Rule Id="CA2002" Action="None" />             <!-- Do not lock on objects with weak identity -->
+      <Rule Id="CA2008" Action="None" />             <!-- Do not create tasks without passing a TaskScheduler -->
+      <Rule Id="CA2009" Action="None" />             <!-- Do not call ToImmutableCollection on an ImmutableCollection value -->
+      <Rule Id="CA2101" Action="None" />             <!-- Specify marshaling for P/Invoke string arguments -->
+      <Rule Id="CA2208" Action="None" />             <!-- Instantiate argument exceptions correctly -->
+      <Rule Id="CA2216" Action="None" />             <!-- Disposable types should declare finalizer -->
+      <Rule Id="CA2241" Action="None" />             <!-- Provide correct arguments to formatting methods -->
+      <Rule Id="CA2242" Action="None" />             <!-- Test for NaN correctly -->
+      <Rule Id="CA2243" Action="None" />             <!-- Attribute string literals should parse correctly -->
+   </Rules>
+   <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
+      <Rule Id="CA1309" Action="None" />             <!-- Use ordinal stringcomparison -->
+      <Rule Id="CA1810" Action="None" />             <!-- Initialize reference type static fields inline -->
+      <Rule Id="CA1824" Action="None" />             <!-- Mark assemblies with NeutralResourcesLanguageAttribute -->
+      <Rule Id="CA1825" Action="None" />             <!-- Avoid zero-length array allocations. -->
+      <Rule Id="CA2010" Action="None" />             <!-- Always consume the value returned by methods marked with PreserveSigAttribute -->
+      <Rule Id="CA2201" Action="None" />             <!-- Do not raise reserved exception types -->
+      <Rule Id="CA2207" Action="None" />             <!-- Initialize value type static fields inline -->
+   </Rules>
+   <Rules AnalyzerId="Microsoft.NetCore.VisualBasic.Analyzers" RuleNamespace="Microsoft.NetCore.VisualBasic.Analyzers">
+      <Rule Id="CA1309" Action="None" />             <!-- Use ordinal stringcomparison -->
+      <Rule Id="CA1810" Action="None" />             <!-- Initialize reference type static fields inline -->
+      <Rule Id="CA1824" Action="None" />             <!-- Mark assemblies with NeutralResourcesLanguageAttribute -->
+      <Rule Id="CA1825" Action="None" />             <!-- Avoid zero-length array allocations. -->
+      <Rule Id="CA2010" Action="None" />             <!-- Always consume the value returned by methods marked with PreserveSigAttribute -->
+      <Rule Id="CA2201" Action="None" />             <!-- Do not raise reserved exception types -->
+      <Rule Id="CA2207" Action="None" />             <!-- Initialize value type static fields inline -->
+   </Rules>
+</RuleSet>
