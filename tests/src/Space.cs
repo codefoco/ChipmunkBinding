@@ -1,4 +1,5 @@
 ﻿
+using System.Linq;
 using ChipmunkBinding;
 using NUnit.Framework;
 
@@ -135,7 +136,7 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
-        public void PointQuery()
+        public void PointQueryTest()
         {
             var space = new Space();
             var body = new Body();
@@ -143,11 +144,53 @@ namespace ChipmunkBindingTest.Tests
 
             body.Position = new cpVect(0,0);
 
-            PointQueryInfo[] infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All);
+            PointQueryInfo[] infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All).ToArray();
+
+            Assert.AreEqual(0, infos.Length, "#1");
 
             space.AddShape(shape);
 
-            infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All);
+            infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All).ToArray();
+
+            Assert.AreEqual(1, infos.Length, "#2");
+            Assert.AreSame(shape, infos[0].Shape, "#3");
+
+            shape.Dispose();
+            body.Dispose();
+            space.Dispose();
+        }
+
+        [Test]
+        [Ignore("Fix BoundBoxQuery")]
+        public void BoundBoxQueryTest()
+        {
+            var space = new Space();
+            var body = new Body();
+            var shape = new Shape(body, 5, 5, 0);
+
+            var pos = new cpVect(3, 3);
+
+            body.Position = pos;
+
+            var bb = new cpBB();
+            bb.left =  - 20;
+            bb.top =  - 20;
+            bb.right =  + 20;
+            bb.bottom = + 20;
+
+            Shape [] shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
+
+            Assert.AreEqual(0, shapes.Length, "#1");
+
+            space.AddShape(shape);
+            space.ReindexShape(shape);
+
+            shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
+
+            Assert.AreEqual(1, shapes.Length, "#2");
+            Assert.AreSame(shape, shapes[0], "#3");
+
+
             shape.Dispose();
             body.Dispose();
             space.Dispose();

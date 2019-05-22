@@ -371,7 +371,7 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
-        [MonoPInvokeCallback(typeof(PostStepFunction))]
+        [MonoPInvokeCallback(typeof(SpacePointQueryFunction))]
 #endif
         private static void EachPointQuery(cpShape shapeHandle, cpVect point, double distance, cpVect gradient, voidptr_t data)
         {
@@ -393,7 +393,7 @@ namespace ChipmunkBinding
         /// <param name="maxDistance">Match only within this distance</param>
         /// <param name="filter">Only pick shapes matching the filter</param>
         /// <returns></returns>
-        public PointQueryInfo[] PointQuery(cpVect point, double maxDistance, ShapeFilter filter)
+        public IReadOnlyCollection<PointQueryInfo> PointQuery(cpVect point, double maxDistance, ShapeFilter filter)
         {
             var list = new List<PointQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
@@ -402,7 +402,7 @@ namespace ChipmunkBinding
             NativeMethods.cpSpacePointQuery(space, point, maxDistance, cpFilter, eachPointQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
-            return list.ToArray();
+            return list;
         }
 
         /// <summary>
@@ -425,10 +425,48 @@ namespace ChipmunkBinding
             return PointQueryInfo.FromQueryInfo(queryInfo);
         }
 
-        //public IReadOnlyCollection<Shape> BoundBoxQuery(cpBB bb, ShapeFilter filter)
-        //{
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(SpaceBBQueryFunction))]
+#endif
+        private static void EachBBQuery(cpShape shapeHandle, voidptr_t data)
+        {
+            var list = (List<Shape>)GCHandle.FromIntPtr(data).Target;
 
-        //}
+            var shape = Shape.FromHandle(shapeHandle);
+
+            list.Add(shape);
+        }
+
+        private static SpaceBBQueryFunction eachBBQuery = EachBBQuery;
+
+
+        /// <summary>
+        /// Query space to find all shapes near bb.
+        /// </summary>
+        /// <param name="bb"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public IReadOnlyCollection<Shape> BoundBoxQuery(cpBB bb, ShapeFilter filter)
+        {
+            var list = new List<Shape>();
+
+            var gcHandle = GCHandle.Alloc(list);
+            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
+
+            NativeMethods.cpSpaceBBQuery(space, bb, cpFilter, eachBBQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+            gcHandle.Free();
+            return list;
+        }
+
+        /// <summary>
+        /// Update the collision detection data for a specific shape in the space.
+        /// </summary>
+        /// <param name="shape"></param>
+        public void ReindexShape(Shape shape)
+        {
+            NativeMethods.cpSpaceReindexShape(space, shape.Handle);
+        }
 
 
 

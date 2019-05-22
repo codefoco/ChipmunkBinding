@@ -14,11 +14,11 @@ namespace ChipmunkBinding
         readonly double distance;
         readonly cpVect gradient;
 
-        Shape Shape => shape;
-        cpVect Point => point;
-        double Distance => distance;
+        public Shape Shape => shape;
+        public cpVect Point => point;
+        public double Distance => distance;
 
-        cpVect Gradient => gradient;
+        public cpVect Gradient => gradient;
 
         public PointQueryInfo(Shape s, cpVect p, double d, cpVect g)
         {

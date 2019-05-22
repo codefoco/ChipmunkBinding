@@ -189,5 +189,28 @@ namespace ChipmunkBinding
 #endif
         }
 
+        public static SpaceBBQueryFunction ToSpaceBBQueryFunction(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (SpaceBBQueryFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceBBQueryFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<SpaceBBQueryFunction>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this SpaceBBQueryFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceBBQueryFunction>(d);
+#endif
+        }
+
     }
 }

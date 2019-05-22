@@ -104,5 +104,5 @@ namespace ChipmunkBinding
     /// <returns></returns>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate void SpaceBBQueryFunction (cpShape shape, voidptr_t data);
+    internal delegate void SpaceBBQueryFunction(cpShape shape, voidptr_t data);
 }
