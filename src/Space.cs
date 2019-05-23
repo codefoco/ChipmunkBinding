@@ -1,5 +1,6 @@
 ﻿using System;
 
+using cpConstraint = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpDataPointer = System.IntPtr;
@@ -459,6 +460,51 @@ namespace ChipmunkBinding
             return list;
         }
 
+
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(SpaceConstraintIteratorFunction))]
+#endif
+        private static void EachConstraint(cpConstraint constraintHandle, voidptr_t data)
+        {
+            var list = (List<Constraint>)GCHandle.FromIntPtr(data).Target;
+
+            var constraint = Constraint.FromHandle(constraintHandle);
+
+            list.Add(constraint);
+        }
+
+        private static SpaceConstraintIteratorFunction eachConstraint = EachConstraint;
+
+
+        /// <summary>
+        /// Return all constraints from Space.
+        /// </summary>
+        public IReadOnlyCollection<Constraint> Constraints
+        {
+            get
+            {
+                var list = new List<Constraint>();
+
+                var gcHandle = GCHandle.Alloc(list);
+
+                NativeMethods.cpSpaceEachConstraint(space, eachConstraint.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+                gcHandle.Free();
+
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// Update the collision detection info for the static shapes in the space.
+        /// </summary>
+        /// <param name="shape"></param>
+        public void ReindexStatic(Shape shape)
+        {
+            NativeMethods.cpSpaceReindexStatic(space);
+        }
+
         /// <summary>
         /// Update the collision detection data for a specific shape in the space.
         /// </summary>
@@ -468,7 +514,24 @@ namespace ChipmunkBinding
             NativeMethods.cpSpaceReindexShape(space, shape.Handle);
         }
 
+        /// <summary>
+        /// Update the collision detection data for all shapes attached to a body.
+        /// </summary>
+        /// <param name="body"></param>
+        public void ReindexShapesForBody(Body body)
+        {
+            NativeMethods.cpSpaceReindexShapesForBody(space, body.Handle);
+        }
 
+        /// <summary>
+        /// Switch the space to use a spatial has as it's spatial index.
+        /// </summary>
+        /// <param name="dim"></param>
+        /// <param name="count"></param>
+        public void UseSpatialHash(double dim, int count)
+        {
+            NativeMethods.cpSpaceUseSpatialHash(space, dim, count);
+        }
 
         /// <summary>
         /// Update the space for the given time step.
@@ -481,6 +544,9 @@ namespace ChipmunkBinding
             NativeMethods.cpSpaceStep(space, dt);
         }
 
-        
+
+
+
+
     }
 }

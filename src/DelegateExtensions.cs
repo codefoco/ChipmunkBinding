@@ -212,5 +212,28 @@ namespace ChipmunkBinding
 #endif
         }
 
+        public static SpaceConstraintIteratorFunction ToSpaceConstraintIteratorFunction(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (SpaceConstraintIteratorFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceConstraintIteratorFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<BodyConstraintIteratorFunction>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this SpaceConstraintIteratorFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceConstraintIteratorFunction>(d);
+#endif
+        }
+
     }
 }
