@@ -219,7 +219,7 @@ namespace ChipmunkBinding
 #if NETFRAMEWORK
             return (SpaceConstraintIteratorFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceConstraintIteratorFunction));
 #else
-            return Marshal.GetDelegateForFunctionPointer<BodyConstraintIteratorFunction>(ptr);
+            return Marshal.GetDelegateForFunctionPointer<SpaceConstraintIteratorFunction>(ptr);
 #endif
         }
 
