@@ -11,6 +11,9 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Body.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BodyType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugDrawColors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugDrawFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDebugDraw.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DelegateExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Delegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
@@ -23,6 +26,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpPointQueryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpSegmentQueryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpShapeFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\cpSpaceDebugColor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\cpSpaceDebugDrawOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpTransform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpVect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HandleInterop.cs" />

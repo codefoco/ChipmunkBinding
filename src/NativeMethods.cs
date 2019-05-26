@@ -33,7 +33,7 @@ using cpSegmentShape = System.IntPtr;
 using cpSimpleMotor = System.IntPtr;
 using cpSlideJoint = System.IntPtr;
 using cpCollisionHandler = System.IntPtr;
-using cpSpaceDebugDrawOptions = System.IntPtr;
+using cpSpaceDebugDrawOptionsPointer = System.IntPtr;
 using cpSpaceBodyIteratorFunc = System.IntPtr;
 using cpSpaceConstraintIteratorFunc = System.IntPtr;
 using cpSpaceShapeIteratorFunc = System.IntPtr;
@@ -1037,7 +1037,7 @@ namespace ChipmunkBinding
         internal static extern cpBool cpSpaceContainsConstraint(cpSpace space, cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceDebugDraw(cpSpace space, cpSpaceDebugDrawOptions options);
+        internal static extern void cpSpaceDebugDraw(cpSpace space, cpSpaceDebugDrawOptionsPointer options);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceDestroy(cpSpace space);

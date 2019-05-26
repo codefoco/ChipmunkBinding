@@ -9,6 +9,8 @@ using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpBool = System.Byte;
 
+using cpVertPointer = System.IntPtr;
+
 namespace ChipmunkBinding
 {
     /// <summary>
@@ -106,7 +108,84 @@ namespace ChipmunkBinding
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate void SpaceBBQueryFunction(cpShape shape, voidptr_t data);
 
+    /// <summary>
+    /// Space/constraint iterator callback function type.
+    /// </summary>
+    /// <param name="constraint"></param>
+    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate void SpaceConstraintIteratorFunction(cpConstraint constraint, voidptr_t data);
+
+    /// <summary>
+    /// Callback type for a function that draws a filled, stroked circle.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="angle"></param>
+    /// <param name="radius"></param>
+    /// <param name="outlineColor"></param>
+    /// <param name="fillColor"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate void SpaceDebugDrawCircleImpl(cpVect pos, double angle, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data);
+
+    /// <summary>
+    /// Callback type for a function that draws a line segment.
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <param name="color"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate void SpaceDebugDrawSegmentImpl(cpVect a, cpVect b, cpSpaceDebugColor color, voidptr_t data);
+
+    /// <summary>
+    /// Callback type for a function that draws a thick line segment.
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <param name="radius"></param>
+    /// <param name="outlineColor"></param>
+    /// <param name="fillColor"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate void SpaceDebugDrawFatSegmentImpl(cpVect a, cpVect b, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data);
+
+    /// <summary>
+    /// Callback type for a function that draws a convex polygon.
+    /// </summary>
+    /// <param name="count"></param>
+    /// <param name=""></param>
+    /// <param name="verts"></param>
+    /// <param name="radius"></param>
+    /// <param name="outlineColor"></param>
+    /// <param name="fillColor"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate void SpaceDebugDrawPolygonImpl(int count, cpVertPointer verts, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data);
+
+    /// <summary>
+    /// Callback type for a function that draws a dot.
+    /// </summary>
+    /// <param name="size"></param>
+    /// <param name="pos"></param>
+    /// <param name="color"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate void SpaceDebugDrawDotImpl(double size, cpVect pos, cpSpaceDebugColor color, voidptr_t data);
+
+    /// <summary>
+    /// Callback type for a function that returns a color for a given shape. This gives you an opportunity to color shapes based on how they are used in your engine.
+    /// </summary>
+    /// <param name="shape"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal delegate cpSpaceDebugColor SpaceDebugDrawColorForShapeImpl(cpShape shape, voidptr_t data);
 }
