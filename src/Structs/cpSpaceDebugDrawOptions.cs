@@ -16,6 +16,10 @@ using cpDataPointer = System.IntPtr;
 using cpSpaceDebugDrawFlags = System.Int32;
 using System;
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+using ObjCRuntime;
+#endif
+
 namespace ChipmunkBinding
 {
     [StructLayout (LayoutKind.Sequential)]
@@ -48,29 +52,39 @@ namespace ChipmunkBinding
         cpDataPointer data;
 
 
-
-
-        public static void ReleaseDebugDrawOptions(IntPtr debugDrawOptionsPointer)
+        private IntPtr ToPointer()
         {
+            IntPtr drawOptionsPtr = NativeInterop.AllocStructure<cpSpaceDebugDrawOptions>();
 
+#if NETFRAMEWORK
+            Marshal.StructureToPtr(this, drawOptionsPtr, false);
+#else
+            Marshal.StructureToPtr<cpSpaceDebugDrawOptions>(this, drawOptionsPtr, false);
+#endif
+            return drawOptionsPtr;
         }
+
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawCircleImpl))]
 #endif
         private static void SpaceDebugDrawCircleCallback(cpVect pos, double angle, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data)
         {
+            IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
+            debugDraw.DrawCircle(pos, angle, radius, outlineColor, fillColor);
         }
 
         private static SpaceDebugDrawCircleImpl spaceDebugDrawCircleCallback = SpaceDebugDrawCircleCallback;
 
-        #if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawSegmentImpl))]
 #endif
         private static void SpaceDebugDrawSegmentCallback(cpVect a, cpVect b, cpSpaceDebugColor color, voidptr_t data)
         {
+            IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
+            debugDraw.DrawSegment(a, b, color);
         }
 
         private static SpaceDebugDrawSegmentImpl spaceDebugDrawSegmentCallback = SpaceDebugDrawSegmentCallback;
@@ -80,7 +94,9 @@ namespace ChipmunkBinding
 #endif
         private static void SpaceDebugDrawFatSegmentCallback(cpVect a, cpVect b, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data)
         {
+            IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
+            debugDraw.DrawFatSegment(a, b, radius, outlineColor, fillColor);
         }
 
         private static SpaceDebugDrawFatSegmentImpl spaceDebugDrawFatSegmentCallback = SpaceDebugDrawFatSegmentCallback;
@@ -90,7 +106,11 @@ namespace ChipmunkBinding
 #endif
         private static void SpaceDebugDrawPolygonCallback(int count, cpVertPointer verts, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data)
         {
+            IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
+            cpVect[] vectors = NativeInterop.PtrToStructureArray<cpVect>(verts, count);
+
+            debugDraw.DrawPolygon(vectors, radius, outlineColor, fillColor);
         }
 
         private static SpaceDebugDrawPolygonImpl spaceDebugDrawPolygonCallback = SpaceDebugDrawPolygonCallback;
@@ -100,7 +120,9 @@ namespace ChipmunkBinding
 #endif
         private static void SpaceDebugDrawDotCallback(double size, cpVect pos, cpSpaceDebugColor color, voidptr_t data)
         {
+            IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
+            debugDraw.DrawDot(size, pos, color);
         }
 
         private static SpaceDebugDrawDotImpl spaceDebugDrawDotCallback = SpaceDebugDrawDotCallback;
@@ -108,31 +130,40 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawColorForShapeImpl))]
 #endif
-        private static cpSpaceDebugColor SpaceDebugDrawColorForShapeCallback(cpShape shape, voidptr_t data)
+        private static cpSpaceDebugColor SpaceDebugDrawColorForShapeCallback(cpShape handleShape, voidptr_t data)
         {
-            return new cpSpaceDebugColor();
+            IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
+            var shape = Shape.FromHandle(handleShape);
+
+            return debugDraw.ColorForShape(shape);
         }
 
         private static SpaceDebugDrawColorForShapeImpl spaceDebugDrawColorForShapeCallback = SpaceDebugDrawColorForShapeCallback;
 
 
-        public static IntPtr AcquireDebugDrawOptions(IDebugDraw debugDraw, DebugDrawFlags flags, DebugDrawColors colors)
+        public IntPtr AcquireDebugDrawOptions(IDebugDraw debugDraw, DebugDrawFlags flags, DebugDrawColors colors)
         {
-            var debugDrawOptions = new cpSpaceDebugDrawOptions();
+            this.flags = (int)flags;
+            collisionPointColor = colors.CollisionPoint;
+            constraintColor = colors.Constraint;
+            shapeOutlineColor = colors.ShapeOutline;
 
-            debugDrawOptions.flags = (int)flags;
-            debugDrawOptions.collisionPointColor = colors.CollisionPoint;
-            debugDrawOptions.constraintColor = colors.Constraint;
-            debugDrawOptions.shapeOutlineColor = colors.ShapeOutline;
+            drawCircle = spaceDebugDrawCircleCallback.ToFunctionPointer();
+            drawSegment = spaceDebugDrawSegmentCallback.ToFunctionPointer();
+            drawFatSegment = spaceDebugDrawFatSegmentCallback.ToFunctionPointer();
+            drawPolygon = spaceDebugDrawPolygonCallback.ToFunctionPointer();
+            drawDot = spaceDebugDrawPolygonCallback.ToFunctionPointer();
+            colorForShape = spaceDebugDrawColorForShapeCallback.ToFunctionPointer();
 
-            debugDrawOptions.drawCircle = spaceDebugDrawCircleCallback.ToFunctionPointer();
-            debugDrawOptions.drawSegment = spaceDebugDrawSegmentCallback.ToFunctionPointer();
-            debugDrawOptions.drawFatSegment = spaceDebugDrawFatSegmentCallback.ToFunctionPointer();
-            debugDrawOptions.drawPolygon = spaceDebugDrawPolygonCallback.ToFunctionPointer();
-            debugDrawOptions.drawDot = spaceDebugDrawPolygonCallback.ToFunctionPointer();
-            debugDrawOptions.colorForShape = spaceDebugDrawColorForShapeCallback.ToFunctionPointer();
+            data = NativeInterop.RegisterHandle(debugDraw);
 
-            return IntPtr.Zero;
+            return ToPointer();
+        }
+
+        public void ReleaseDebugDrawOptions(IntPtr debugDrawOptionsPointer)
+        {
+            NativeInterop.ReleaseHandle(data);
+            NativeInterop.FreeStructure(debugDrawOptionsPointer);
         }
     }
 }

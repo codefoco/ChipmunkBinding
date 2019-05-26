@@ -14,7 +14,7 @@ namespace ChipmunkBinding
         public static Constraint FromHandle(cpConstraint constraint)
         {
             cpDataPointer handle = NativeMethods.cpConstraintGetUserData(constraint);
-            return HandleInterop.FromIntPtr<Constraint>(handle);
+            return NativeInterop.FromIntPtr<Constraint>(handle);
         }
 
         protected Constraint(cpConstraint handle)
