@@ -7,6 +7,7 @@ using cpDataPointer = System.IntPtr;
 using cpBody = System.IntPtr;
 using cpCollisionHandler = System.IntPtr;
 using cpCollisionType = System.UIntPtr;
+
 using voidptr_t = System.IntPtr;
 using System.Collections.Generic;
 
@@ -337,7 +338,7 @@ namespace ChipmunkBinding
 #endif
         private static void PostStepCallBack(cpSpace handleSpace, voidptr_t handleKey, voidptr_t handleData)
         {
-            var space = Space.FromHandle(handleSpace);
+            var space = FromHandle(handleSpace);
             var key = HandleInterop.FromIntPtr<object>(handleKey);
             var data = HandleInterop.FromIntPtr<PostStepCallbackInfo>(handleData);
 
@@ -544,6 +545,25 @@ namespace ChipmunkBinding
             NativeMethods.cpSpaceStep(space, dt);
         }
 
+        public void DebugDraw(IDebugDraw debugDraw)
+        {
+           DebugDraw(debugDraw, DebugDrawFlags.All, DebugDrawColors.Default);
+        }
+
+        public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags)
+        {
+           DebugDraw(debugDraw, flags, DebugDrawColors.Default);
+        }
+
+
+        public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags, DebugDrawColors colors)
+        {
+            IntPtr debugDrawOptionsPointer = cpSpaceDebugDrawOptions.AcquireDebugDrawOptions(debugDraw, flags, colors);
+
+            NativeMethods.cpSpaceDebugDraw(space, debugDrawOptionsPointer);
+
+            cpSpaceDebugDrawOptions.ReleaseDebugDrawOptions(debugDrawOptionsPointer);
+        }
 
 
 

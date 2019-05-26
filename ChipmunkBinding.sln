@@ -17,11 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBinding.Android", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBinding.XamarinIOS", "build\XamariniOS\ChipmunkBinding.XamarinIOS.csproj", "{8FAFDF62-E07E-487A-863C-74F308AE7BA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBinding.NetCore", "build\netcore\ChipmunkBinding.NetCore.csproj", "{078D8C1B-0CD3-4500-9400-687609C1299C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChipmunkBinding.NetCore", "build\netcore\ChipmunkBinding.NetCore.csproj", "{078D8C1B-0CD3-4500-9400-687609C1299C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B3EAA632-D2D7-4272-9DB9-11F46C99DAE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBinding.NetStandard20", "build\netstandard2.0\ChipmunkBinding.NetStandard20.csproj", "{23F44CC0-64E4-4E29-8A99-1A6DADB4BBB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChipmunkBinding.NetStandard20", "build\netstandard2.0\ChipmunkBinding.NetStandard20.csproj", "{23F44CC0-64E4-4E29-8A99-1A6DADB4BBB4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBindingTest", "tests\build\net45\ChipmunkBindingTest.csproj", "{20AE709C-FB97-48E3-89B0-A34A5C3DA1DB}"
 EndProject
@@ -37,10 +37,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBindingTest.Xamarin
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		tests\src\ChipmunkBindingTest.Shared.projitems*{20225b34-18f0-477b-ae89-1c95b788c55d}*SharedItemsImports = 4
 		tests\src\ChipmunkBindingTest.Shared.projitems*{20ae709c-fb97-48e3-89b0-a34a5c3da1db}*SharedItemsImports = 4
 		src\ChipmunkBinding.Shared.projitems*{4b766e88-5872-4437-882d-c887a3c0cdf7}*SharedItemsImports = 4
 		src\ChipmunkBinding.Shared.projitems*{4e863c20-43c3-43a0-9678-8583b9614277}*SharedItemsImports = 4
 		tests\src\ChipmunkBindingTest.Shared.projitems*{7279d001-6f21-4ff3-a0ee-3a1d12004ba3}*SharedItemsImports = 13
+		tests\src\ChipmunkBindingTest.Shared.projitems*{73aa14f8-8a24-4011-8030-3fb3248044c3}*SharedItemsImports = 4
 		src\ChipmunkBinding.Shared.projitems*{8fafdf62-e07e-487a-863c-74f308ae7ba6}*SharedItemsImports = 4
 		src\ChipmunkBinding.Shared.projitems*{9238f6aa-2d63-4804-99d1-c279871f5669}*SharedItemsImports = 4
 		src\ChipmunkBinding.Shared.projitems*{bd205ad6-760e-48f3-bab2-21447396bd17}*SharedItemsImports = 13
@@ -56,10 +58,6 @@ Global
 		ReleaseAndroid|Any CPU = ReleaseAndroid|Any CPU
 		ReleaseCore|Any CPU = ReleaseCore|Any CPU
 		ReleaseMac|Any CPU = ReleaseMac|Any CPU
-		Debug|iPhoneSimulator = Debug|iPhoneSimulator
-		Release|iPhone = Release|iPhone
-		Release|iPhoneSimulator = Release|iPhoneSimulator
-		Debug|iPhone = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C45805A8-6436-4738-BD9F-4632EEA63BBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

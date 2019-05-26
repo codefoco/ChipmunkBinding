@@ -235,5 +235,143 @@ namespace ChipmunkBinding
 #endif
         }
 
+        public static SpaceDebugDrawCircleImpl ToSpaceDebugDrawCircleImpl(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (SpaceDebugDrawCircleImpl)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceDebugDrawCircleImpl));
+#else
+            return Marshal.GetDelegateForFunctionPointer<SpaceDebugDrawCircleImpl>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this SpaceDebugDrawCircleImpl d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawCircleImpl>(d);
+#endif
+        }
+
+        public static SpaceDebugDrawSegmentImpl ToSpaceDebugDrawSegmentImpl(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (SpaceDebugDrawSegmentImpl)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceDebugDrawSegmentImpl));
+#else
+            return Marshal.GetDelegateForFunctionPointer<SpaceDebugDrawSegmentImpl>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this SpaceDebugDrawSegmentImpl d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawSegmentImpl>(d);
+#endif
+        }
+
+        public static SpaceDebugDrawFatSegmentImpl ToSpaceDebugDrawFatSegmentImpl(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (SpaceDebugDrawFatSegmentImpl)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceDebugDrawFatSegmentImpl));
+#else
+            return Marshal.GetDelegateForFunctionPointer<SpaceDebugDrawFatSegmentImpl>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this SpaceDebugDrawFatSegmentImpl d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawFatSegmentImpl>(d);
+#endif
+        }
+
+        public static SpaceDebugDrawPolygonImpl ToSpaceDebugDrawPolygonImpl(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (SpaceDebugDrawPolygonImpl)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceDebugDrawPolygonImpl));
+#else
+            return Marshal.GetDelegateForFunctionPointer<SpaceDebugDrawPolygonImpl>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this SpaceDebugDrawPolygonImpl d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawPolygonImpl>(d);
+#endif
+        }
+
+        public static SpaceDebugDrawDotImpl ToSpaceDebugDrawDotImpl(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (SpaceDebugDrawDotImpl)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceConstraintIteratorFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<SpaceDebugDrawDotImpl>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this SpaceDebugDrawDotImpl d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawDotImpl>(d);
+#endif
+        }
+
+        public static SpaceDebugDrawColorForShapeImpl ToSpaceDebugDrawColorForShapeImpl(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (SpaceDebugDrawColorForShapeImpl)Marshal.GetDelegateForFunctionPointer(ptr, typeof(SpaceDebugDrawColorForShapeImpl));
+#else
+            return Marshal.GetDelegateForFunctionPointer<SpaceDebugDrawColorForShapeImpl>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this SpaceDebugDrawColorForShapeImpl d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawColorForShapeImpl>(d);
+#endif
+        }
+
     }
 }
