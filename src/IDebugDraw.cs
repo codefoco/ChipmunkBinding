@@ -42,7 +42,7 @@ namespace ChipmunkBinding
         /// <param name="radius"></param>
         /// <param name="outlineColor"></param>
         /// <param name="fillColor"></param>
-        void DebugDrawPolygon(cpVect [] vectors, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor);
+        void DrawPolygon(cpVect [] vectors, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor);
 
         /// <summary>
         /// Draws a dot

@@ -71,14 +71,14 @@ namespace ChipmunkBinding
 
         void RegisterUserData()
         {
-            cpDataPointer pointer = HandleInterop.RegisterHandle(this);
+            cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpSpaceSetUserData(space, pointer);
         }
 
         void ReleaseUserData()
         {
             cpDataPointer pointer = NativeMethods.cpSpaceGetUserData(space);
-            HandleInterop.ReleaseHandle(pointer);
+            NativeInterop.ReleaseHandle(pointer);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace ChipmunkBinding
         public static Space FromHandle(cpSpace space)
         {
             cpDataPointer handle = NativeMethods.cpSpaceGetUserData(space);
-            return HandleInterop.FromIntPtr<Space>(handle);
+            return NativeInterop.FromIntPtr<Space>(handle);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace ChipmunkBinding
                 cpBody bodyHandle = NativeMethods.cpSpaceGetStaticBody(space);
                 cpDataPointer gcHandle = NativeMethods.cpBodyGetUserData(bodyHandle);
                 if (gcHandle != IntPtr.Zero)
-                    return HandleInterop.FromIntPtr<Body>(gcHandle);
+                    return NativeInterop.FromIntPtr<Body>(gcHandle);
 
                 return new Body(bodyHandle);
             }
@@ -339,15 +339,15 @@ namespace ChipmunkBinding
         private static void PostStepCallBack(cpSpace handleSpace, voidptr_t handleKey, voidptr_t handleData)
         {
             var space = FromHandle(handleSpace);
-            var key = HandleInterop.FromIntPtr<object>(handleKey);
-            var data = HandleInterop.FromIntPtr<PostStepCallbackInfo>(handleData);
+            var key = NativeInterop.FromIntPtr<object>(handleKey);
+            var data = NativeInterop.FromIntPtr<PostStepCallbackInfo>(handleData);
 
             Action<Space, object, object> callback = data.Callback;
 
             callback(space, key, data.Data);
 
-            HandleInterop.ReleaseHandle(handleKey);
-            HandleInterop.ReleaseHandle(handleData);
+            NativeInterop.ReleaseHandle(handleKey);
+            NativeInterop.ReleaseHandle(handleData);
         }
 
         private static PostStepFunction postStepCallBack = PostStepCallBack;
@@ -366,8 +366,8 @@ namespace ChipmunkBinding
         {
             var info = new PostStepCallbackInfo(callback, data);
 
-            IntPtr dataHandle = HandleInterop.RegisterHandle(info);
-            IntPtr keyHandle = HandleInterop.RegisterHandle(key);
+            IntPtr dataHandle = NativeInterop.RegisterHandle(info);
+            IntPtr keyHandle = NativeInterop.RegisterHandle(key);
 
             return NativeMethods.cpSpaceAddPostStepCallback(space, postStepCallBack.ToFunctionPointer(), keyHandle, dataHandle) != 0;
         }
@@ -558,11 +558,13 @@ namespace ChipmunkBinding
 
         public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags, DebugDrawColors colors)
         {
-            IntPtr debugDrawOptionsPointer = cpSpaceDebugDrawOptions.AcquireDebugDrawOptions(debugDraw, flags, colors);
+            var debugDrawOptions = new cpSpaceDebugDrawOptions();
+
+            IntPtr debugDrawOptionsPointer = debugDrawOptions.AcquireDebugDrawOptions(debugDraw, flags, colors);
 
             NativeMethods.cpSpaceDebugDraw(space, debugDrawOptionsPointer);
 
-            cpSpaceDebugDrawOptions.ReleaseDebugDrawOptions(debugDrawOptionsPointer);
+            debugDrawOptions.ReleaseDebugDrawOptions(debugDrawOptionsPointer);
         }
 
 

@@ -42,20 +42,20 @@ namespace ChipmunkBinding
 
         void RegisterUserData()
         {
-            cpDataPointer pointer = HandleInterop.RegisterHandle(this);
+            cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpBodySetUserData(body, pointer);
         }
 
         void ReleaseUserData()
         {
             cpDataPointer pointer = NativeMethods.cpBodyGetUserData(body);
-            HandleInterop.ReleaseHandle(pointer);
+            NativeInterop.ReleaseHandle(pointer);
         }
 
         public static Body FromHandle(cpBody body)
         {
             cpDataPointer handle = NativeMethods.cpBodyGetUserData(body);
-            return HandleInterop.FromIntPtr<Body>(handle);
+            return NativeInterop.FromIntPtr<Body>(handle);
         }
 
         public static Body FromHandleSafe(cpBody space)

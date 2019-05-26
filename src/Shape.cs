@@ -20,20 +20,20 @@ namespace ChipmunkBinding
 
         void RegisterUserData()
         {
-            cpDataPointer pointer = HandleInterop.RegisterHandle(this);
+            cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpShapeSetUserData(shape, pointer);
         }
 
         void ReleaseUserData()
         {
             cpDataPointer pointer = NativeMethods.cpShapeGetUserData(shape);
-            HandleInterop.ReleaseHandle(pointer);
+            NativeInterop.ReleaseHandle(pointer);
         }
 
         public static Shape FromHandle(cpShape constraint)
         {
             cpDataPointer handle = NativeMethods.cpShapeGetUserData(constraint);
-            return HandleInterop.FromIntPtr<Shape>(handle);
+            return NativeInterop.FromIntPtr<Shape>(handle);
         }
 
         protected virtual void Dispose(bool dispose)

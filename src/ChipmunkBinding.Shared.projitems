@@ -30,7 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpSpaceDebugDrawOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpTransform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpVect.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HandleInterop.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NativeInterop.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Arbiter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shape.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraint.cs" />
