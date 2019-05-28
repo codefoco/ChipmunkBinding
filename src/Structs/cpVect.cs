@@ -48,6 +48,11 @@ namespace ChipmunkBinding
             return this == other;
         }
 
+        public override string ToString()
+        {
+             return $"({x},{y})";
+        }
+
         public static bool operator == (cpVect a, cpVect b)
         {
             return Math.Abs(a.x - b.x) < float.Epsilon && Math.Abs(a.x - b.x) < float.Epsilon;

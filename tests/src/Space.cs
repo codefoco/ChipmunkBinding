@@ -195,5 +195,30 @@ namespace ChipmunkBindingTest.Tests
             body.Dispose();
             space.Dispose();
         }
+
+        [Test]
+        public void DebugDrawTest()
+        {
+            var space = new Space();
+            var body = new Body();
+            var shape = new Shape(body, 100, 100, 0);
+
+            string expected_calls = "DrawPolygon\nvectors[0] = (50,-50)\nvectors[1] = (50,50)\nvectors[2] = (-50,50)\nvectors[3] = (-50,-50)\nradius = 0\noutlineColor = (0,0,0,1)\nfillColor = (0,0,1,1)\n";
+
+            body.Position = new cpVect(0,0);
+
+            space.AddShape(shape);
+
+            var debugDraw = new FakeDebugDraw();
+
+            space.DebugDraw(debugDraw);
+
+            Assert.AreEqual(expected_calls, debugDraw.TracedCalls, "#1");
+
+            shape.Dispose();
+            body.Dispose();
+            space.Dispose();
+        }
+
     }
 }

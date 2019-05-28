@@ -59,6 +59,11 @@ namespace ChipmunkBinding
             return hashCode;
         }
 
+        public override string ToString()
+        {
+            return $"({red},{green},{blue},{alpha})";
+        }
+
         public static bool operator == (cpSpaceDebugColor a, cpSpaceDebugColor b)
         {
             return a.red == b.red &&
