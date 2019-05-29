@@ -113,7 +113,7 @@ steps:
 - task: SendTelegramNotification@0
   inputs:
     botToken: '$(botToken)'
-    getChatId: true
+    chats: '$(chatId)'
 
 - task: TriggerBuild@3
   displayName: 'Trigger a new build of ChipmunkBinding.Linux'
