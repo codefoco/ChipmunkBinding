@@ -130,6 +130,7 @@ jobs:
       chats: '$(chatId)'
       taskStatus: false
       message: '❌ FAIL: ChipmunkBinding.Mac'
+      buildQueuedBy: true
 
 - job: NotifySuccessResult
   dependsOn: ChipmunkBindingMac
@@ -140,5 +141,6 @@ jobs:
       botToken: '$(botToken)'
       chats: '$(chatId)'
       taskStatus: false
-      message: '❌ FAIL: ChipmunkBinding.Mac'
+      message: '✅ Success: ChipmunkBinding.Mac'
+      buildQueuedBy: true
 
