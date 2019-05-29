@@ -13,8 +13,9 @@ steps:
     taskStatus: false
     buildQueuedBy: false
     message: |
-            ✅ Success!!! <a href="$(Build.Repository.Uri)">$(Build.Repository.Name)</a>
-            (<code>$(Build.SourceBranchName)</code>)  <pre>$(Build.SourceVersion)</pre> : $(Build.SourceVersionMessage)
+            ✅ <b>Success!</b> <a href="$(Build.Repository.Uri)">$(Build.Repository.Name)</a>(<code>$(Build.SourceBranchName)</code>)
+            <pre><a href="$(Build.BuildUri)">$(Build.SourceVersion)</a></pre>
+            $(Build.SourceVersionMessage) by $(Build.QueuedById)
 
 # Azure DevOps hosted pool is still using an old version of Xamarin.iOS, 
 # so we will use the previous major version of Xcode
