@@ -11,8 +11,11 @@ steps:
     botToken: '$(botToken)'
     chats: '$(chatId)'
     taskStatus: false
-    message: '✅ Success!!! <a href="$(Build.Repository.Uri])">$(Build.Repository.Name)</a> (`$(Build.SourceBranchName)`)\n <pre>$(Build.SourceVersion)</pre> - $(Build.SourceVersionMessage)'
     buildQueuedBy: false
+    message: |
+            ✅ Success!!! <a href="$(Build.Repository.Uri)">$(Build.Repository.Name)</a>
+            (<code>$(Build.SourceBranchName)</code>)  <pre>$(Build.SourceVersion)</pre> : $(Build.SourceVersionMessage)
+
 # Azure DevOps hosted pool is still using an old version of Xamarin.iOS, 
 # so we will use the previous major version of Xcode
 - task: CmdLine@2
