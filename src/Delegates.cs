@@ -11,8 +11,6 @@ using cpBool = System.Byte;
 
 using cpVertPointer = System.IntPtr;
 
-x
-
 namespace ChipmunkBinding
 {
     /// <summary>
