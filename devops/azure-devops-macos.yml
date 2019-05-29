@@ -6,18 +6,6 @@ steps:
 - checkout: self
   submodules: 'true'
 
-- task: SendTelegramNotification@0
-  inputs:
-    botToken: '$(botToken)'
-    chats: '$(chatId)'
-    taskStatus: false
-    buildQueuedBy: false
-    message: |
-            🎉
-            ✅ <b>Success!</b>  <a href="$(Build.Repository.Uri)">$(Build.Repository.Name)</a> (<code>$(Build.SourceBranchName)</code>)
-            <pre>$(Build.SourceVersion)</pre>
-            $(Build.SourceVersionMessage) by $(Build.QueuedBy)
-
 # Azure DevOps hosted pool is still using an old version of Xamarin.iOS, 
 # so we will use the previous major version of Xcode
 - task: CmdLine@2
@@ -135,8 +123,10 @@ steps:
     botToken: '$(botToken)'
     chats: '$(chatId)'
     taskStatus: false
-    message: '⚠️ Warning(s) : ChipmunkBinding.Mac'
-    buildQueuedBy: false
+    message: |
+            ⚠️ <b>Warning!</b>  <a href="$(Build.Repository.Uri)">$(Build.Repository.Name)</a> (<code>$(Build.SourceBranchName)</code>)
+            <pre>$(Build.SourceVersion)</pre>
+            $(Build.SourceVersionMessage) by $(Build.QueuedBy)
 
 - task: SendTelegramNotification@0
   condition: in(variables['Agent.JobStatus'], 'Failed')
@@ -144,8 +134,11 @@ steps:
     botToken: '$(botToken)'
     chats: '$(chatId)'
     taskStatus: false
-    message: '⛔️ Fail! : ChipmunkBinding.Mac '
     buildQueuedBy: false
+    message: |
+            ❌ <b>Fail!</b>  <a href="$(Build.Repository.Uri)">$(Build.Repository.Name)</a> (<code>$(Build.SourceBranchName)</code>)
+            <pre>$(Build.SourceVersion)</pre>
+            $(Build.SourceVersionMessage) by $(Build.QueuedBy)
 
 - task: SendTelegramNotification@0
   condition: in(variables['Agent.JobStatus'], 'Succeeded')
@@ -153,6 +146,10 @@ steps:
     botToken: '$(botToken)'
     chats: '$(chatId)'
     taskStatus: false
-    message: '✅ Success!!! :<a href=''$(variables[''Build.Repository.Uri''])''>$(variables[''Build.Repository.Name''])</a> (`$(variables[''Build.SourceBranchName''])`)\n <pre>$(variables[''Build.SourceVersion''])</pre> - $(variables[''Build.SourceVersionMessage''])'
     buildQueuedBy: false
+    message: |
+            ✅ <b>Success!</b>  <a href="$(Build.Repository.Uri)">$(Build.Repository.Name)</a> (<code>$(Build.SourceBranchName)</code>)
+            <pre>$(Build.SourceVersion)</pre>
+            $(Build.SourceVersionMessage) by $(Build.QueuedBy)
 
+# 
