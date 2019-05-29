@@ -1,5 +1,4 @@
 jobs:
-
 - job: ChipmunkBindingMac
 
   pool:
@@ -124,27 +123,22 @@ jobs:
 - job: NotifyFailedResult
   dependsOn: ChipmunkBindingMac
   condition: failed()
-
   steps:
-
   - task: SendTelegramNotification@0
     inputs:
       botToken: '$(botToken)'
       chats: '$(chatId)'
-      teamUrl: true
+      taskStatus: false
       message: '❌ FAIL: ChipmunkBinding.Mac'
-      buildQueuedBy: true
 
 - job: NotifySuccessResult
   dependsOn: ChipmunkBindingMac
   condition: succeeded()
-
   steps:
-
   - task: SendTelegramNotification@0
     inputs:
       botToken: '$(botToken)'
       chats: '$(chatId)'
-      teamUrl: true
-      message: '🎉 Success: ChipmunkBinding.Mac'
-      buildQueuedBy: true
+      taskStatus: false
+      message: '❌ FAIL: ChipmunkBinding.Mac'
+
