@@ -110,6 +110,11 @@ steps:
     PathtoPublish: runtimes/osx/native/libchipmunk.dylib
     ArtifactName: libchipmunk.dylib
 
+- task: SendTelegramNotification@0
+  inputs:
+    botToken: '$(botToken)'
+    getChatId: true
+
 - task: TriggerBuild@3
   displayName: 'Trigger a new build of ChipmunkBinding.Linux'
   inputs:
