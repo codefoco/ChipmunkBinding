@@ -114,6 +114,9 @@ steps:
   inputs:
     botToken: '$(botToken)'
     chats: '$(chatId)'
+    teamUrl: true
+    message: 'ChipmunkBinding.Mac'
+    buildQueuedBy: true
 
 - task: TriggerBuild@3
   displayName: 'Trigger a new build of ChipmunkBinding.Linux'
