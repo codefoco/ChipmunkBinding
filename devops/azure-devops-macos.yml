@@ -123,8 +123,8 @@ steps:
     botToken: '$(botToken)'
     chats: '$(chatId)'
     taskStatus: false
-    message: '⚠️ Succeed with Warning(s) : ChipmunkBinding.Mac'
-    buildQueuedBy: true
+    message: '⚠️ Warning(s) : ChipmunkBinding.Mac'
+    buildQueuedBy: false
 
 - task: SendTelegramNotification@0
   condition: in(variables['Agent.JobStatus'], 'Failed')
@@ -132,8 +132,8 @@ steps:
     botToken: '$(botToken)'
     chats: '$(chatId)'
     taskStatus: false
-    message: '❌ Fail! : ChipmunkBinding.Mac'
-    buildQueuedBy: true
+    message: '⛔️ Fail! : ChipmunkBinding.Mac '
+    buildQueuedBy: false
 
 - task: SendTelegramNotification@0
   condition: in(variables['Agent.JobStatus'], 'Succeeded')
@@ -141,6 +141,6 @@ steps:
     botToken: '$(botToken)'
     chats: '$(chatId)'
     taskStatus: false
-    message: '✅ Success!!! : ChipmunkBinding.Mac'
-    buildQueuedBy: true
+    message: '✅ Success!!! :<a href=''$(variables[''Build.Repository.Uri''])''>$(variables[''Build.Repository.Name''])</a> (`$(variables[''Build.SourceBranchName''])`)\n <pre>$(variables[''Build.SourceVersion''])</pre> - $(variables[''Build.SourceVersionMessage''])'
+    buildQueuedBy: false
 
