@@ -6,16 +6,6 @@ steps:
 - checkout: self
   submodules: 'true'
 
-- task: SendTelegramNotification@0
-  inputs:
-    botToken: '$(botToken)'
-    chats: '$(chatId)'
-    taskStatus: false
-    message: |
-            ⚠️ <b>Warning!</b>  <a href="$(Build.Repository.Uri)">$(Build.DefinitionName)</a> (<code>$(Build.SourceBranchName)</code>)
-            <pre>$(Build.SourceVersion)</pre>
-            $(Build.SourceVersionMessage) by $(Build.QueuedBy)
-
 # Azure DevOps hosted pool is still using an old version of Xamarin.iOS, 
 # so we will use the previous major version of Xcode
 - task: CmdLine@2
