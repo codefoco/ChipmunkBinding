@@ -11,11 +11,35 @@ steps:
   inputs:
     restoreSolution: ChipmunkBinding.sln
 
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: ChipmunkBinding.Core.sln
+
+# Build .NET 4.5
+
 - task: MSBuild@1
   displayName: 'Build solution ChipmunkBinding.sln'
   inputs:
     solution: ChipmunkBinding.sln
     configuration: Release
+
+# Build .NET Core (to be sure works on Linux)
+
+- task: MSBuild@1
+  displayName: 'Build .NET Core'
+  inputs:
+    solution: ChipmunkBinding.Core.sln
+    configuration: Release
+    msbuildArguments: /restore
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet vstest'
+  inputs:
+    command: custom
+    custom: vstest
+    arguments: './tests/build/netcore/bin/Release/netcoreapp2.0/ChipmunkBindingTest.dll'
+
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: libchipmunk.so'
