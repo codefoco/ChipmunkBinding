@@ -10,14 +10,19 @@ steps:
   submodules: true
 
 - task: NuGetToolInstaller@1
-  displayName: 'Use NuGet 4.7.3'
+  displayName: 'Use NuGet 5.0.2'
   inputs:
-    versionSpec: 4.7.3
+    versionSpec: 5.0.2
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore'
   inputs:
     restoreSolution: ChipmunkBinding.sln
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: ChipmunkBinding.Core.sln
 
 - powershell: 'Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString(''https://chocolatey.org/install.ps1''))'
   displayName: 'Install Choco'
@@ -41,8 +46,8 @@ steps:
 - task: MSBuild@1
   displayName: 'Build .NET Core'
   inputs:
-    solution: ChipmunkBinding.sln
-    configuration: ReleaseCore
+    solution: ChipmunkBinding.Core.sln
+    configuration: Release
     msbuildArguments: /restore
 
 - task: DotNetCoreCLI@2
@@ -55,8 +60,8 @@ steps:
 - task: MSBuild@1
   displayName: 'Build Android'
   inputs:
-    solution: ChipmunkBinding.sln
-    configuration: ReleaseAndroid
+    solution: ChipmunkBinding.Android.sln
+    configuration: Release
     msbuildArguments: '/p:AndroidNdkDirectory=%ANDROID_NDK_HOME%'
 
 - task: VSTest@2
