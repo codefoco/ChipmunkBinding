@@ -13,6 +13,5 @@ namespace ChipmunkBinding
             collisionHandler = handle;
         }
 
-
     }
 }
