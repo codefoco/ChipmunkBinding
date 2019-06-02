@@ -16,7 +16,7 @@ namespace ChipmunkBinding
 {
     public sealed class CollisionHandler<T> where T : class
     {
-        readonly cpCollisionHandlerPointer handle;
+        private readonly cpCollisionHandlerPointer handle;
 
         private static CollisionBeginFunction beginCallback = CollisionBeginFunctionCallback;
         private static CollisionPreSolveFunction preSolveCallback = CollisionPreSolveFunctionCallback;

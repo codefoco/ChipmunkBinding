@@ -25,13 +25,9 @@ namespace ChipmunkBinding
     /// </summary>
     public class Space : IDisposable
     {
-
-        enum CollisionType
-        {
-            Wildcard = ~0,
-        }
-
-        readonly cpSpace space;
+#pragma warning disable IDE0032
+        private readonly cpSpace space;
+#pragma warning restore IDE0032
 
         public cpSpace Handle => space;
 

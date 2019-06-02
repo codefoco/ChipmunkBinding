@@ -173,7 +173,7 @@ namespace ChipmunkBinding
 #if NETFRAMEWORK
             return (CollisionPostSolveFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(CollisionPostSolveFunction));
 #else
-            return Marshal.GetDelegateForFunctionPointer<CollisionPreSolveFunction>(ptr);
+            return Marshal.GetDelegateForFunctionPointer<CollisionPostSolveFunction>(ptr);
 #endif
         }
 
