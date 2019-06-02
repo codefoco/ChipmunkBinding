@@ -120,7 +120,7 @@ namespace ChipmunkBinding
 #endif
         }
 
-        public static CollisionBeginFunction ToCollisionBeginFunctioin(this IntPtr ptr)
+        public static CollisionBeginFunction ToCollisionBeginFunction(this IntPtr ptr)
         {
             if (ptr == IntPtr.Zero)
                 return null;
@@ -140,6 +140,75 @@ namespace ChipmunkBinding
             return Marshal.GetFunctionPointerForDelegate(d);
 #else
             return Marshal.GetFunctionPointerForDelegate<CollisionBeginFunction>(d);
+#endif
+        }
+
+        public static CollisionPreSolveFunction ToCollisionPreSolveFunction(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (CollisionPreSolveFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(CollisionPreSolveFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<CollisionPreSolveFunction>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this CollisionPreSolveFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<CollisionPreSolveFunction>(d);
+#endif
+        }
+
+        public static CollisionPostSolveFunction ToCollisionPostSolveFunction(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (CollisionPostSolveFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(CollisionPostSolveFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<CollisionPreSolveFunction>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this CollisionPostSolveFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<CollisionPostSolveFunction>(d);
+#endif
+        }
+
+        public static CollisionSeparateFunction ToCollisionSeparateFunction(this IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+#if NETFRAMEWORK
+            return (CollisionSeparateFunction)Marshal.GetDelegateForFunctionPointer(ptr, typeof(CollisionSeparateFunction));
+#else
+            return Marshal.GetDelegateForFunctionPointer<CollisionSeparateFunction>(ptr);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this CollisionSeparateFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<CollisionSeparateFunction>(d);
 #endif
         }
 

@@ -1,5 +1,6 @@
 ﻿
 using System.Linq;
+using System.Text;
 using ChipmunkBinding;
 using NUnit.Framework;
 
@@ -126,7 +127,7 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
             string foo = string.Empty;
-            
+
             space.AddPostStepCallback((s, k, d) => foo = k + " " + d, "key", "data");
 
             space.Step(0.1);
@@ -140,9 +141,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
             var body = new Body();
-            var shape = new Shape(body,100, 100, 0);
+            var shape = new Shape(body, 100, 100, 0);
 
-            body.Position = new cpVect(0,0);
+            body.Position = new cpVect(0, 0);
 
             PointQueryInfo[] infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All).ToArray();
 
@@ -173,12 +174,12 @@ namespace ChipmunkBindingTest.Tests
             body.Position = pos;
 
             var bb = new cpBB();
-            bb.left =  - 20;
-            bb.top =  - 20;
-            bb.right =  + 20;
-            bb.bottom = + 20;
+            bb.left = -20;
+            bb.top = -20;
+            bb.right = +20;
+            bb.bottom = +20;
 
-            Shape [] shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
+            Shape[] shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
 
             Assert.AreEqual(0, shapes.Length, "#1");
 
@@ -205,7 +206,7 @@ namespace ChipmunkBindingTest.Tests
 
             string expected_calls = "DrawPolygon\nvectors[0] = (50,-50)\nvectors[1] = (50,50)\nvectors[2] = (-50,50)\nvectors[3] = (-50,-50)\nradius = 0\noutlineColor = (0,0,0,1)\nfillColor = (0,0,1,1)\n";
 
-            body.Position = new cpVect(0,0);
+            body.Position = new cpVect(0, 0);
 
             space.AddShape(shape);
 
@@ -217,6 +218,70 @@ namespace ChipmunkBindingTest.Tests
 
             shape.Dispose();
             body.Dispose();
+            space.Dispose();
+        }
+
+        [Test]
+        public void TestCollisionHandler()
+        {
+            var space = new Space();
+            space.CollisionBias = 1.0;
+
+            float radius = 5.0f;
+
+            var body1 = new Body(1, 1)
+            {
+                Position = new cpVect(0 * radius * 1.5, 0)
+            };
+
+            space.AddBody(body1);
+            space.AddShape(new Circle(body1, radius));
+
+            var body2 = new Body(1, 1)
+            {
+                Position = new cpVect(0 * radius * 1.5, 0)
+            };
+
+            space.AddBody(body2);
+
+            var shape2 = new Circle(body2, radius);
+            space.AddShape(shape2);
+
+            CollisionHandler<StringBuilder> handler = space.GetOrCreateCollisionHandler<StringBuilder>(0, 0);
+
+            CollisionHandler<StringBuilder> handler2 = space.GetOrCreateCollisionHandler<StringBuilder>(0, 0);
+
+            Assert.AreSame(handler, handler2, "#0");
+
+            handler.Data = new StringBuilder();
+
+            handler.Begin = (a, s, builder) =>
+            {
+                builder.Append("Begin-");
+                return true;
+            };
+
+            handler.PreSolve = (a, s, builder) =>
+            {
+                builder.Append("PreSolve-");
+                return true;
+            };
+
+            handler.PostSolve = (a, s, builder) => builder.Append("PostSolve-");
+
+            handler.Separete = (a, s, builder) => builder.Append("Separete-");
+
+            space.Step(0.1);
+
+            Assert.AreEqual("Begin-PreSolve-PostSolve-", handler.Data.ToString(), "#1");
+
+            space.Step(0.1);
+
+            Assert.AreEqual("Begin-PreSolve-PostSolve-PreSolve-PostSolve-", handler.Data.ToString(), "#2");
+
+            shape2.Dispose();
+            body1.Dispose();
+            body2.Dispose();
             space.Dispose();
         }
 

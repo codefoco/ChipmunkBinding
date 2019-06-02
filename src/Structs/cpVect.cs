@@ -9,6 +9,8 @@ namespace ChipmunkBinding
     [StructLayout(LayoutKind.Sequential)]
     public struct cpVect : IEquatable<cpVect>
     {
+        private static readonly cpVect zero = new cpVect(0, 0);
+
         private double x;
         private double y;
 
@@ -62,6 +64,8 @@ namespace ChipmunkBinding
         {
             return !(a == b);
         }
+
+        public static cpVect Zero => zero;
     }
 }
 

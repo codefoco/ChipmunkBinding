@@ -24,8 +24,11 @@ namespace ChipmunkBinding
             All = ~0,
         }
 
-        private static ShapeFilter filterAll = new ShapeFilter(0, Categorie.All, Categorie.All);
-        private static ShapeFilter filterNone = new ShapeFilter(0, Categorie.None, Categorie.None);
+#pragma warning disable IDE0032
+        private static readonly ShapeFilter filterAll = new ShapeFilter(0, Categorie.All, Categorie.All);
+        private static readonly ShapeFilter filterNone = new ShapeFilter(0, Categorie.None, Categorie.None);
+#pragma warning restore IDE0032
+
 
         public static ShapeFilter All => filterAll;
         public static ShapeFilter None => filterNone;

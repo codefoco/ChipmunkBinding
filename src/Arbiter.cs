@@ -1,13 +1,18 @@
 ﻿using System;
 using cpArbiter = System.IntPtr;
+using cpDataPointer = System.IntPtr;
 
 namespace ChipmunkBinding
 {
-    public class Arbiter
+    public struct Arbiter
     {
-        cpArbiter arbiter;
+#pragma warning disable IDE0032
+        readonly cpArbiter arbiter;
+#pragma warning restore IDE0032
 
-        public Arbiter(cpArbiter handle)
+        internal cpArbiter Handle => arbiter;
+
+        internal Arbiter(cpArbiter handle)
         {
             arbiter = handle;
         }

@@ -32,7 +32,7 @@ using cpRotaryLimitJoint = System.IntPtr;
 using cpSegmentShape = System.IntPtr;
 using cpSimpleMotor = System.IntPtr;
 using cpSlideJoint = System.IntPtr;
-using cpCollisionHandler = System.IntPtr;
+using cpCollisionHandlerPointer = System.IntPtr;
 using cpSpaceDebugDrawOptionsPointer = System.IntPtr;
 using cpSpaceBodyIteratorFunc = System.IntPtr;
 using cpSpaceConstraintIteratorFunc = System.IntPtr;
@@ -1004,13 +1004,13 @@ namespace ChipmunkBinding
         internal static extern cpBody cpSpaceAddBody(cpSpace space, cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpCollisionHandler cpSpaceAddCollisionHandler(cpSpace space, cpCollisionType a, cpCollisionType b);
+        internal static extern cpCollisionHandlerPointer cpSpaceAddCollisionHandler(cpSpace space, cpCollisionType a, cpCollisionType b);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpConstraint cpSpaceAddConstraint(cpSpace space, cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpCollisionHandler cpSpaceAddDefaultCollisionHandler(cpSpace space);
+        internal static extern cpCollisionHandlerPointer cpSpaceAddDefaultCollisionHandler(cpSpace space);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBool cpSpaceAddPostStepCallback(cpSpace space, cpPostStepFunc func, IntPtr key, IntPtr data);
@@ -1019,7 +1019,7 @@ namespace ChipmunkBinding
         internal static extern cpShape cpSpaceAddShape(cpSpace space, cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpCollisionHandler cpSpaceAddWildcardHandler(cpSpace space, cpCollisionType type);
+        internal static extern cpCollisionHandlerPointer cpSpaceAddWildcardHandler(cpSpace space, cpCollisionType type);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpSpace cpSpaceAlloc();
