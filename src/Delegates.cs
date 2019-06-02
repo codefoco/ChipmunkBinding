@@ -85,6 +85,21 @@ namespace ChipmunkBinding
     internal delegate void BodyShapeIteratorFunction(cpBody body, cpShape shape, voidptr_t data);
 
     /// <summary>
+    /// Collision begin event function callback type.
+    /// Returning false from a begin callback causes the collision to be ignored until
+    /// the the separate callback is called when the objects stop colliding.
+    /// </summary>
+    /// <param name="arbiter"></param>
+    /// <param name="space"></param>
+    /// <param name="userData"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate cpBool CollisionBeginFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
+
+    /// <summary>
     /// Collision pre-solve event function callback type.
     /// Returning false from a pre-step callback causes the collision to be ignored until the next step.
     /// </summary>
@@ -96,7 +111,33 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate cpBool CollisionBeginFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
+    internal delegate cpBool CollisionPreSolveFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
+
+    /// <summary>
+    /// Collision Post-Solve 
+    /// </summary>
+    /// <param name="arbiter"></param>
+    /// <param name="space"></param>
+    /// <param name="userData"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate void CollisionPostSolveFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
+
+    /// <summary>
+    /// Collision separate event function callback type
+    /// </summary>
+    /// <param name="arbiter"></param>
+    /// <param name="space"></param>
+    /// <param name="userData"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate void CollisionSeparateFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
 
     /// <summary>
     /// Post Step callback function type.
@@ -240,4 +281,5 @@ namespace ChipmunkBinding
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate cpSpaceDebugColor SpaceDebugDrawColorForShapeImpl(cpShape shape, voidptr_t data);
+
 }

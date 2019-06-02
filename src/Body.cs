@@ -75,6 +75,11 @@ namespace ChipmunkBinding
             RegisterUserData();
         }
 
+        public Body(double mass, double moment):this(mass, moment, BodyType.Dinamic)
+        {
+        
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -489,5 +494,16 @@ namespace ChipmunkBinding
         /// Get the kinetic energy of a body.
         /// </summary>
         public double KineticEnergy => NativeMethods.cpBodyKineticEnergy(body);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public static double MomentForBox(double mass, double width, double height)
+        {
+            return NativeMethods.cpMomentForBox(mass, width, height);
+        }
     }
 }

@@ -9,10 +9,12 @@ namespace ChipmunkBinding
     /// </summary>
     public class PointQueryInfo : IEquatable<PointQueryInfo>
     {
-        readonly Shape shape;
-        readonly cpVect point;
-        readonly double distance;
-        readonly cpVect gradient;
+#pragma warning disable IDE0032
+        private readonly Shape shape;
+        private readonly cpVect point;
+        private readonly double distance;
+        private readonly cpVect gradient;
+#pragma warning restore IDE0032
 
         public Shape Shape => shape;
         public cpVect Point => point;

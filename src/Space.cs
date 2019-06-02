@@ -5,7 +5,7 @@ using cpSpace = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpDataPointer = System.IntPtr;
 using cpBody = System.IntPtr;
-using cpCollisionHandler = System.IntPtr;
+using cpCollisionHandlerPointer = System.IntPtr;
 using cpCollisionType = System.UIntPtr;
 
 using voidptr_t = System.IntPtr;
@@ -25,7 +25,9 @@ namespace ChipmunkBinding
     /// </summary>
     public class Space : IDisposable
     {
-        readonly cpSpace space;
+#pragma warning disable IDE0032
+        private readonly cpSpace space;
+#pragma warning restore IDE0032
 
         public cpSpace Handle => space;
 
@@ -210,7 +212,6 @@ namespace ChipmunkBinding
         /// </summary>
         public bool IsLocked => NativeMethods.cpSpaceIsLocked(space) != 0;
 
-        // Actions
 
         // Collision Handlers
 
@@ -218,10 +219,33 @@ namespace ChipmunkBinding
         /// Create or return the existing collision handler that is called for all collisions that are not handled by a more specific collision handler.
         /// </summary>
         /// <returns></returns>
-        public CollisionHandler AddDefaultCollisionHandler()
+        public CollisionHandler<T> GetOrCreateDefaultCollisionHandler<T>() where T : class
         {
-            cpCollisionHandler handler = NativeMethods.cpSpaceAddDefaultCollisionHandler(space);
-            return new CollisionHandler(handler);
+            cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddDefaultCollisionHandler(space);
+            return CollisionHandler<T>.GetOrCreate(collisionHandle);
+        }
+
+        /// <summary>
+        /// Create or return the existing collision handler that is called for all collisions that are not handled by a more specific collision handler.
+        /// </summary>
+        /// <returns></returns>
+        public CollisionHandler<object> GetOrCreateDefaultCollisionHandler()
+        {
+            return GetOrCreateDefaultCollisionHandler<object>();
+        }
+
+
+        /// <summary>
+        /// Create or return the existing collision handler for the specified pair of collision types.
+        /// If wildcard handlers are used with either of the collision types, it's the responibility of the custom handler to invoke the wildcard handlers.
+        /// </summary>
+        /// <param name="typeA"></param>
+        /// <param name="typeB"></param>
+        /// <returns></returns>
+        public CollisionHandler<T> GetOrCreateCollisionHandler<T>(int typeA, int typeB) where T : class
+        {
+            cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddCollisionHandler(space, (cpCollisionType)typeA, (cpCollisionType)typeB);
+            return CollisionHandler<T>.GetOrCreate(collisionHandle);
         }
 
         /// <summary>
@@ -231,10 +255,9 @@ namespace ChipmunkBinding
         /// <param name="typeA"></param>
         /// <param name="typeB"></param>
         /// <returns></returns>
-        public CollisionHandler AddCollisionHandler(int typeA, int typeB)
+        public CollisionHandler<object> GetOrCreateCollisionHandler(int typeA, int typeB)
         {
-            cpCollisionHandler handler = NativeMethods.cpSpaceAddCollisionHandler(space, (cpCollisionType) typeA, (cpCollisionType) typeB);
-            return new CollisionHandler(handler);
+            return GetOrCreateCollisionHandler<object>(typeA, typeB);
         }
 
         /// <summary>
@@ -242,11 +265,22 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public CollisionHandler AddWildcardHandler(int type)
+        public CollisionHandler<T> GetOrCreateWildcardHandler<T>(int type) where T : class
         {
-            cpCollisionHandler handler = NativeMethods.cpSpaceAddWildcardHandler(space, (cpCollisionType)type);
-            return new CollisionHandler(handler);
+            cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddWildcardHandler(space, (cpCollisionType)type);
+            return CollisionHandler<T>.GetOrCreate(collisionHandle);
         }
+
+        /// <summary>
+        /// Create or return the existing wildcard collision handler for the specified type.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public CollisionHandler<object> GetOrCreateWildcardHandler(int type)
+        {
+            return GetOrCreateWildcardHandler(type);
+        }
+
 
         /// <summary>
         /// Add a rigid body to the simulation.
@@ -333,7 +367,7 @@ namespace ChipmunkBinding
             return NativeMethods.cpSpaceContainsConstraint(space, constraint.Handle) != 0;
         }
 
-   #if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(PostStepFunction))]
 #endif
         private static void PostStepCallBack(cpSpace handleSpace, voidptr_t handleKey, voidptr_t handleData)
@@ -419,11 +453,11 @@ namespace ChipmunkBinding
         {
             var queryInfo = new cpPointQueryInfo();
             var cpFilter = cpShapeFilter.FromShapeFilter(filter);
-            
+
             cpShape shape = NativeMethods.cpSpacePointQueryNearest(space, point, maxDistance, cpFilter, ref queryInfo);
             if (shape == IntPtr.Zero)
                 return null;
-            
+
             return PointQueryInfo.FromQueryInfo(queryInfo);
         }
 
@@ -547,12 +581,12 @@ namespace ChipmunkBinding
 
         public void DebugDraw(IDebugDraw debugDraw)
         {
-           DebugDraw(debugDraw, DebugDrawFlags.All, DebugDrawColors.Default);
+            DebugDraw(debugDraw, DebugDrawFlags.All, DebugDrawColors.Default);
         }
 
         public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags)
         {
-           DebugDraw(debugDraw, flags, DebugDrawColors.Default);
+            DebugDraw(debugDraw, flags, DebugDrawColors.Default);
         }
 
 

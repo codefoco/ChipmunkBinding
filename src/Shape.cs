@@ -8,7 +8,10 @@ namespace ChipmunkBinding
 {
     public class Shape : IDisposable
     {
-        readonly cpShape shape;
+#pragma warning disable IDE0032
+        private readonly cpShape shape;
+#pragma warning restore IDE0032
+
 
         public Shape(Body body, double width, double height, double radius)
         {
@@ -16,9 +19,15 @@ namespace ChipmunkBinding
             RegisterUserData();
         }
 
-        public cpShape Handle => shape;
+        internal protected Shape(cpShape shapeHandle)
+        {
+            shape = shapeHandle;
+            RegisterUserData();
+        }
 
-        void RegisterUserData()
+        internal cpShape Handle => shape;
+
+        protected void RegisterUserData()
         {
             cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpShapeSetUserData(shape, pointer);
