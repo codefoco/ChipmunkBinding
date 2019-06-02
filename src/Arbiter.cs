@@ -10,7 +10,10 @@ namespace ChipmunkBinding
         readonly cpArbiter arbiter;
 #pragma warning restore IDE0032
 
-        internal cpArbiter Handle => arbiter;
+        /// <summary>
+        /// Native handle of Arbiter
+        /// </summary>
+        public cpArbiter Handle => arbiter;
 
         internal Arbiter(cpArbiter handle)
         {

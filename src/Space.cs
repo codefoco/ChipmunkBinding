@@ -29,6 +29,9 @@ namespace ChipmunkBinding
         private readonly cpSpace space;
 #pragma warning restore IDE0032
 
+        /// <summary>
+        /// Native handle cpSpace
+        /// </summary>
         public cpSpace Handle => space;
 
         /// <summary>
@@ -462,6 +465,64 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(SpaceSegmentQueryFunction))]
+#endif
+        private static void EachSegmentQuery(cpShape shapeHandle, cpVect point, cpVect normal, double alpha, voidptr_t data)
+        {
+            var list = (List<SegmentQueryInfo>)GCHandle.FromIntPtr(data).Target;
+
+            var shape = Shape.FromHandle(shapeHandle);
+            var pointQuery = new SegmentQueryInfo(shape, point, normal, alpha);
+
+            list.Add(pointQuery);
+        }
+
+        private static SpaceSegmentQueryFunction eachSegmentQuery = EachSegmentQuery;
+
+        /// <summary>
+        /// Query space along the line segment from start to end with the given radius.
+        //  The filter is applied to the query and follows the same rules as the collision detection.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="radius"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public IReadOnlyCollection<SegmentQueryInfo> SegmentQuery(cpVect start, cpVect end, double radius, ShapeFilter filter)
+        {
+            var list = new List<SegmentQueryInfo>();
+            var gcHandle = GCHandle.Alloc(list);
+            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
+
+            NativeMethods.cpSpaceSegmentQuery(space, start, end, radius, cpFilter, eachSegmentQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+            gcHandle.Free();
+            return list;
+        }
+
+        /// <summary>
+        /// Query space along the line segment from start to end with the given radius.
+        /// The filter is applied to the query and follows the same rules as the collision detection.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="radius"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public SegmentQueryInfo SegmentQueryFirst(cpVect start, cpVect end, double radius, ShapeFilter filter)
+        {
+            var queryInfo = new cpSegmentQueryInfo();
+            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
+
+            cpShape shape = NativeMethods.cpSpaceSegmentQueryFirst(space, start, end, radius, cpFilter, ref queryInfo);
+            if (shape == IntPtr.Zero)
+                return null;
+
+            return SegmentQueryInfo.FromQueryInfo(queryInfo);
+        }
+
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceBBQueryFunction))]
 #endif
         private static void EachBBQuery(cpShape shapeHandle, voidptr_t data)
@@ -495,10 +556,76 @@ namespace ChipmunkBinding
             return list;
         }
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
+#endif
+        private static void EachBody(cpBody bodyHandle, voidptr_t data)
+        {
+            var list = (List<Body>)GCHandle.FromIntPtr(data).Target;
+
+            var body = Body.FromHandle(bodyHandle);
+
+            list.Add(body);
+        }
+
+        private static SpaceObjectIteratorFunction eachBody = EachBody;
+
+        /// <summary>
+        /// Return all bodies from Space.
+        /// </summary>
+        public IReadOnlyCollection<Body> Bodies
+        {
+            get
+            {
+                var list = new List<Body>();
+
+                var gcHandle = GCHandle.Alloc(list);
+
+                NativeMethods.cpSpaceEachBody(space, eachBody.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+                gcHandle.Free();
+
+                return list;
+            }
+        }
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
+#endif
+        private static void EachShape(cpShape shapeHandle, voidptr_t data)
+        {
+            var list = (List<Shape>)GCHandle.FromIntPtr(data).Target;
+
+            var shape = Shape.FromHandle(shapeHandle);
+
+            list.Add(shape);
+        }
+
+        private static SpaceObjectIteratorFunction eachShape = EachShape;
+
+        /// <summary>
+        /// Return all shapes from Space.
+        /// </summary>
+        public IReadOnlyCollection<Shape> Shapes
+        {
+            get
+            {
+                var list = new List<Shape>();
+
+                var gcHandle = GCHandle.Alloc(list);
+
+                NativeMethods.cpSpaceEachShape(space, eachShape.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+                gcHandle.Free();
+
+                return list;
+            }
+        }
+
 
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
-        [MonoPInvokeCallback(typeof(SpaceConstraintIteratorFunction))]
+        [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
 #endif
         private static void EachConstraint(cpConstraint constraintHandle, voidptr_t data)
         {
@@ -509,7 +636,7 @@ namespace ChipmunkBinding
             list.Add(constraint);
         }
 
-        private static SpaceConstraintIteratorFunction eachConstraint = EachConstraint;
+        private static SpaceObjectIteratorFunction eachConstraint = EachConstraint;
 
 
         /// <summary>
@@ -600,9 +727,6 @@ namespace ChipmunkBinding
 
             debugDrawOptions.ReleaseDebugDrawOptions(debugDrawOptionsPointer);
         }
-
-
-
 
     }
 }

@@ -5,9 +5,11 @@ using voidptr_t = System.IntPtr;
 using cpBody = System.IntPtr;
 using cpArbiter = System.IntPtr;
 using cpConstraint = System.IntPtr;
+using cpHandle = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpBool = System.Byte;
+
 
 using cpVertPointer = System.IntPtr;
 
@@ -168,6 +170,23 @@ namespace ChipmunkBinding
     internal delegate void SpacePointQueryFunction(cpShape shape, cpVect point, double distance, cpVect gradient, voidptr_t data);
 
     /// <summary>
+    /// Segment query callback function type.
+    /// </summary>
+    /// <param name="shape"></param>
+    /// <param name="point"></param>
+    /// <param name="normal"></param>
+    /// <param name="alpha"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate void SpaceSegmentQueryFunction(cpShape shape, cpVect point, cpVect normal, double alpha, voidptr_t data);
+
+
+
+    /// <summary>
     /// Rectangle Query callback function type.
     /// </summary>
     /// <param name="shape"></param>
@@ -181,7 +200,7 @@ namespace ChipmunkBinding
     internal delegate void SpaceBBQueryFunction(cpShape shape, voidptr_t data);
 
     /// <summary>
-    /// Space/constraint iterator callback function type.
+    /// Space/object iterator callback function type.
     /// </summary>
     /// <param name="constraint"></param>
     /// <param name="data"></param>
@@ -190,7 +209,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate void SpaceConstraintIteratorFunction(cpConstraint constraint, voidptr_t data);
+    internal delegate void SpaceObjectIteratorFunction(cpHandle handle, voidptr_t data);
 
     /// <summary>
     /// Callback type for a function that draws a filled, stroked circle.

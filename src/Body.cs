@@ -24,8 +24,13 @@ namespace ChipmunkBinding
     /// </summary>
     public class Body : IDisposable
     {
-        readonly cpBody body;
+#pragma warning disable IDE0032
+        private readonly cpBody body;
+#pragma warning restore IDE0032
 
+        /// <summary>
+        /// Native handle of cpBody
+        /// </summary>
         public cpBody Handle => body;
         /// <summary>
         /// Create a Dynamic Body with no mass and no moment
