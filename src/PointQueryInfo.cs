@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChipmunkBinding
 {
@@ -62,6 +60,17 @@ namespace ChipmunkBinding
         public static bool operator != (PointQueryInfo a, PointQueryInfo b)
         {
             return !(a == b);
+        }
+
+        internal cpPointQueryInfo ToQueryInfo()
+        {
+            var info = new cpPointQueryInfo();
+            info.shape = shape.Handle;
+            info.point = point;
+            info.distance = distance;
+            info.gradient = gradient;
+
+            return info;
         }
 
         internal static PointQueryInfo FromQueryInfo(cpPointQueryInfo queryInfo)

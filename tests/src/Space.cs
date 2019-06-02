@@ -162,6 +162,37 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
+        public void SegmentQueryTest()
+        {
+            var space = new Space();
+            var body = new Body();
+            var shape = new Shape(body, 100, 100, 0);
+
+            body.Position = new cpVect(0, 0);
+            var end = new cpVect(0, 1);
+
+            SegmentQueryInfo[] infos = space.SegmentQuery(body.Position, end, 2.0, ShapeFilter.All).ToArray();
+
+            Assert.AreEqual(0, infos.Length, "#1");
+
+            space.AddShape(shape);
+
+            infos = space.SegmentQuery(body.Position, end, 2.0, ShapeFilter.All).ToArray();
+
+            SegmentQueryInfo first = space.SegmentQueryFirst(body.Position, end, 2.0, ShapeFilter.All);
+
+
+            Assert.AreEqual(1, infos.Length, "#2");
+            Assert.AreSame(shape, infos[0].Shape, "#3");
+
+            Assert.AreEqual(infos[0], first, "#4");
+
+            shape.Dispose();
+            body.Dispose();
+            space.Dispose();
+        }
+
+        [Test]
         [Ignore("Fix BoundBoxQuery")]
         public void BoundBoxQueryTest()
         {

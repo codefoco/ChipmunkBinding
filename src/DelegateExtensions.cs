@@ -246,6 +246,20 @@ namespace ChipmunkBinding
 #endif
         }
 
+        
+
+        public static IntPtr ToFunctionPointer(this SpaceSegmentQueryFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<SpaceSegmentQueryFunction>(d);
+#endif
+        }
+
         public static IntPtr ToFunctionPointer(this SpacePointQueryFunction d)
         {
             if (d == null)

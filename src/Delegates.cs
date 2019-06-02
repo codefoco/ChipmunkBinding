@@ -168,6 +168,23 @@ namespace ChipmunkBinding
     internal delegate void SpacePointQueryFunction(cpShape shape, cpVect point, double distance, cpVect gradient, voidptr_t data);
 
     /// <summary>
+    /// Segment query callback function type.
+    /// </summary>
+    /// <param name="shape"></param>
+    /// <param name="point"></param>
+    /// <param name="normal"></param>
+    /// <param name="alpha"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate void SpaceSegmentQueryFunction(cpShape shape, cpVect point, cpVect normal, double alpha, voidptr_t data);
+
+
+
+    /// <summary>
     /// Rectangle Query callback function type.
     /// </summary>
     /// <param name="shape"></param>

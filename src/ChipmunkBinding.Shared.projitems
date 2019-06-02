@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PointQueryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PostStepCallbackInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentQueryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShapeFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Space.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\cpBB.cs" />
