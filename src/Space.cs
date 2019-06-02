@@ -556,10 +556,76 @@ namespace ChipmunkBinding
             return list;
         }
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
+#endif
+        private static void EachBody(cpBody bodyHandle, voidptr_t data)
+        {
+            var list = (List<Body>)GCHandle.FromIntPtr(data).Target;
+
+            var body = Body.FromHandle(bodyHandle);
+
+            list.Add(body);
+        }
+
+        private static SpaceObjectIteratorFunction eachBody = EachBody;
+
+        /// <summary>
+        /// Return all bodies from Space.
+        /// </summary>
+        public IReadOnlyCollection<Body> Bodies
+        {
+            get
+            {
+                var list = new List<Body>();
+
+                var gcHandle = GCHandle.Alloc(list);
+
+                NativeMethods.cpSpaceEachBody(space, eachBody.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+                gcHandle.Free();
+
+                return list;
+            }
+        }
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
+#endif
+        private static void EachShape(cpShape shapeHandle, voidptr_t data)
+        {
+            var list = (List<Shape>)GCHandle.FromIntPtr(data).Target;
+
+            var shape = Shape.FromHandle(shapeHandle);
+
+            list.Add(shape);
+        }
+
+        private static SpaceObjectIteratorFunction eachShape = EachShape;
+
+        /// <summary>
+        /// Return all shapes from Space.
+        /// </summary>
+        public IReadOnlyCollection<Shape> Shapes
+        {
+            get
+            {
+                var list = new List<Shape>();
+
+                var gcHandle = GCHandle.Alloc(list);
+
+                NativeMethods.cpSpaceEachShape(space, eachShape.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+                gcHandle.Free();
+
+                return list;
+            }
+        }
+
 
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
-        [MonoPInvokeCallback(typeof(SpaceConstraintIteratorFunction))]
+        [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
 #endif
         private static void EachConstraint(cpConstraint constraintHandle, voidptr_t data)
         {
@@ -570,7 +636,7 @@ namespace ChipmunkBinding
             list.Add(constraint);
         }
 
-        private static SpaceConstraintIteratorFunction eachConstraint = EachConstraint;
+        private static SpaceObjectIteratorFunction eachConstraint = EachConstraint;
 
 
         /// <summary>

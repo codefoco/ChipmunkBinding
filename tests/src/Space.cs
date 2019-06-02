@@ -253,6 +253,73 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
+        public void BodiesProperty()
+        {
+            var space = new Space();
+            var body = new Body();
+            var body2 = new Body();
+
+
+            body.Position = new cpVect(10, 10);
+            body.Position = new cpVect(20, 20);
+
+            Assert.AreEqual(0, space.Bodies.Count, "#1");
+
+            space.AddBody(body);
+
+            Body[] bodies = space.Bodies.ToArray();
+            Assert.AreEqual(1, bodies.Length, "#2.1");
+            Assert.AreSame(body, bodies[0], "#2.2");
+
+            space.AddBody(body2);
+
+            bodies = space.Bodies.ToArray();
+
+            Assert.AreEqual(2, bodies.Length, "#3.1");
+            Assert.AreSame(body, bodies[0], "#3.2");
+            Assert.AreSame(body2, bodies[1], "#3.3");
+
+
+            body.Dispose();
+            space.Dispose();
+        }
+
+        [Test]
+        public void ShapesProperty()
+        {
+            var space = new Space();
+            var body = new Body();
+            var body2 = new Body();
+
+            var shape = new Shape(body, 100, 100, 0);
+            var shape2 = new Shape(body2, 100, 100, 0);
+
+
+            body.Position = new cpVect(10, 10);
+            body.Position = new cpVect(20, 20);
+
+            Assert.AreEqual(0, space.Shapes.Count, "#1");
+
+            space.AddShape(shape);
+
+            Shape[] shapes = space.Shapes.ToArray();
+            Assert.AreEqual(1, shapes.Length, "#2.1");
+            Assert.AreSame(shape, shapes[0], "#2.2");
+
+            space.AddShape(shape2);
+
+            shapes = space.Shapes.ToArray();
+
+            Assert.AreEqual(2, shapes.Length, "#3.1");
+            Assert.AreSame(shape, shapes[0], "#3.2");
+            Assert.AreSame(shape2, shapes[1], "#3.3");
+
+
+            body.Dispose();
+            space.Dispose();
+        }
+
+        [Test]
         public void TestCollisionHandler()
         {
             var space = new Space();
