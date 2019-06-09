@@ -94,19 +94,17 @@ namespace ChipmunkBinding
 
         /// <summary>
         /// Perform a nearest point query. It finds the closest point on the surface of shape to a specific point.
-        /// The value returned is the distance between the points. A negative distance means the point is inside the shape.
         /// </summary>
         /// <param name="point"></param>
         /// <param name="info"></param>
-        /// <returns></returns>
-        public double PointQuery(cpVect point, out PointQueryInfo info)
+        /// <returns>the point query info</returns>
+        public PointQueryInfo PointQuery(cpVect point)
         {
             var output = new cpPointQueryInfo();
-            double distance = NativeMethods.cpShapePointQuery(shape, point, ref output);
 
-            info = PointQueryInfo.FromQueryInfo(output);
+            NativeMethods.cpShapePointQuery(shape, point, ref output);
 
-            return distance;
+            return PointQueryInfo.FromQueryInfo(output);
         }
 
         /// <summary>
@@ -116,11 +114,13 @@ namespace ChipmunkBinding
         /// <param name="b"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        //public bool SegmentQuery(cpVect a, cpVect b, double radius, SegmentQueryInfo info)
-        //{
-        //    cpSegmentQueryInfo queryInfo = info.ToQueryInfo();
-        //    return NativeMethods.cpShapeSegmentQuery(shape, a, b, radius, ref queryInfo) != 0;
-        //}
+        public SegmentQueryInfo SegmentQuery(cpVect a, cpVect b, double radius)
+        {
+            var queryInfo = new cpSegmentQueryInfo();
+            NativeMethods.cpShapeSegmentQuery(shape, a, b, radius, ref queryInfo);
+
+            return SegmentQueryInfo.FromQueryInfo(queryInfo);
+        }
 
 
     }

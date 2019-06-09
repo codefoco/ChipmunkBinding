@@ -10,7 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)FakeDebugDraw.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Space.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShapeTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SpaceTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Body.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
   </ItemGroup>
