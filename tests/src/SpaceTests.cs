@@ -205,10 +205,10 @@ namespace ChipmunkBindingTest.Tests
             body.Position = pos;
 
             var bb = new cpBB();
-            bb.left = -20;
-            bb.top = -20;
-            bb.right = +20;
-            bb.bottom = +20;
+            bb.Left = -20;
+            bb.Top = -20;
+            bb.Right = +20;
+            bb.Bottom = +20;
 
             Shape[] shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
 

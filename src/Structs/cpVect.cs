@@ -57,7 +57,8 @@ namespace ChipmunkBinding
 
         public static bool operator == (cpVect a, cpVect b)
         {
-            return Math.Abs(a.x - b.x) < float.Epsilon && Math.Abs(a.x - b.x) < float.Epsilon;
+            return Math.Abs(a.x - b.x) < float.Epsilon && 
+                   Math.Abs(a.y - b.y) < float.Epsilon;
         }
 
         public static bool operator !=(cpVect a, cpVect b)

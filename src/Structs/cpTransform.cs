@@ -11,14 +11,14 @@ namespace ChipmunkBinding
     {
         private static readonly cpTransform identity = new cpTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
 
-        private float a;
-        private float b;
-        private float c;
-        private float d;
-        private float tx;
-        private float ty;
+        private double a;
+        private double b;
+        private double c;
+        private double d;
+        private double tx;
+        private double ty;
 
-        public cpTransform(float a, float b, float c, float d, float tx, float ty) : this()
+        public cpTransform(double a, double b, double c, double d, double tx, double ty) : this()
         {
             this.a = a;
             this.b = b;
@@ -28,14 +28,15 @@ namespace ChipmunkBinding
             this.ty = ty;
         }
 
+
         public static cpTransform Identity => identity;
 
-        public float A { get => a; set => a = value; }
-        public float B { get => b; set => b = value; }
-        public float C { get => c; set => c = value; }
-        public float D { get => d; set => d = value; }
-        public float Tx { get => tx; set => tx = value; }
-        public float Ty { get => ty; set => ty = value; }
+        public double A { get => a; set => a = value; }
+        public double B { get => b; set => b = value; }
+        public double C { get => c; set => c = value; }
+        public double D { get => d; set => d = value; }
+        public double Tx { get => tx; set => tx = value; }
+        public double Ty { get => ty; set => ty = value; }
 
         public override bool Equals(object obj)
         {
@@ -47,12 +48,12 @@ namespace ChipmunkBinding
 
         public bool Equals(cpTransform other)
         {
-            return Math.Abs(a - other.a) < float.Epsilon &&
-                   Math.Abs(b - other.b) < float.Epsilon &&
-                   Math.Abs(c - other.c) < float.Epsilon &&
-                   Math.Abs(d - other.d) < float.Epsilon &&
-                   Math.Abs(tx - other.tx) < float.Epsilon &&
-                   Math.Abs(ty - other.ty) < float.Epsilon;
+            return Math.Abs(a - other.a) < double.Epsilon &&
+                   Math.Abs(b - other.b) < double.Epsilon &&
+                   Math.Abs(c - other.c) < double.Epsilon &&
+                   Math.Abs(d - other.d) < double.Epsilon &&
+                   Math.Abs(tx - other.tx) < double.Epsilon &&
+                   Math.Abs(ty - other.ty) < double.Epsilon;
         }
 
         public override int GetHashCode()
