@@ -76,16 +76,6 @@ namespace ChipmunkBinding
             return !(a == b);
         }
 
-        internal cpSegmentQueryInfo ToQueryInfo()
-        {
-            var info = new cpSegmentQueryInfo();
-            info.shape = shape != null ? shape.Handle : IntPtr.Zero;
-            info.point = point;
-            info.normal = normal;
-            info.alpha = alpha;
-
-            return info;
-        }
 
         internal static SegmentQueryInfo FromQueryInfo(cpSegmentQueryInfo queryInfo)
         {

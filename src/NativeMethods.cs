@@ -9,7 +9,6 @@ using cpBool = System.Byte;
 using VoidPointer = System.IntPtr;
 using cpVectPointer = System.IntPtr;
 using cpDataPointer = System.IntPtr;
-using cpContactPointSet = System.IntPtr;
 using cpArbiter = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
@@ -85,9 +84,9 @@ namespace ChipmunkBinding
 #elif __MACOS__ 
         private const string ChipmunkLibraryName = "libchipmunk.dylib";
 #elif WINDOWS_UWP
-        private const string ChipmunkLibraryName = "chipmunk.dll";
+        private const string ChipmunkLibraryName = "chipmunkd.dll";
 #else
-        private const string ChipmunkLibraryName = "chipmunk";
+        private const string ChipmunkLibraryName = "chipmunkd";
 #endif
 
 #pragma warning restore CA1823 // Unused field 'ChipmunkLibraryName'
