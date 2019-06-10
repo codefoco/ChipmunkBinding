@@ -1,6 +1,9 @@
 ﻿using System;
 
 using cpShape = System.IntPtr;
+using cpSpace = System.IntPtr;
+using cpBody = System.IntPtr;
+
 using cpDataPointer = System.IntPtr;
 using System.Diagnostics;
 
@@ -73,6 +76,46 @@ namespace ChipmunkBinding
             Dispose(false);
         }
 
+        // Shape properties
+
+        /// <summary>
+        /// The Space this shape (of body) is added to.
+        /// </summary>
+        public Space Space
+        {
+            get
+            {
+                cpSpace space = NativeMethods.cpShapeGetSpace(shape);
+                return Space.FromHandleSafe(space);
+            }
+        }
+
+        /// <summary>
+        /// The Body this body is added to.
+        /// </summary>
+        public Body Body
+        {
+            get
+            {
+                cpBody space = NativeMethods.cpShapeGetBody(shape);
+                return Body.FromHandleSafe(space);
+            }
+            set
+            {
+                Debug.Assert(value != null && Space == null, "Body can't be null and you can only change body if the shape wasn't added to space");
+                NativeMethods.cpShapeSetBody(shape, value.Handle);
+            }
+        }
+
+        /// <summary>
+        /// Mass of this shape to have Chipmunk calculate mass properties for you.
+        /// </summary>
+        public double Mass
+        {
+            get => NativeMethods.cpShapeGetMass(shape);
+            set => NativeMethods.cpShapeSetMass(shape, value);
+        }
+
         /// <summary>
         /// Update, cache and return the bounding box of a shape based on the body it's attached to.
         /// </summary>
@@ -92,19 +135,7 @@ namespace ChipmunkBinding
             return NativeMethods.cpShapeUpdate(shape, transform);
         }
 
-        /// <summary>
-        /// Get contact information about this shape and other shape.
-        /// </summary>
-        /// <param name="shape2"></param>
-        /// <returns></returns>
-        public ContactPointSet Collide(Shape other)
-        {
-            Debug.Assert(System.Runtime.InteropServices.Marshal.SizeOf(typeof(cpContactPointSet)) == 104, "check Chipmunk sizeof(cpContactPointSet)");
 
-            cpContactPointSet contactPointSet = NativeMethods.cpShapesCollide(shape, other.Handle);
-
-            return ContactPointSet.FromContactPointSet(contactPointSet);
-        }
 
         /// <summary>
         /// Perform a nearest point query. It finds the closest point on the surface of shape to a specific point.
@@ -134,6 +165,20 @@ namespace ChipmunkBinding
             NativeMethods.cpShapeSegmentQuery(shape, a, b, radius, ref queryInfo);
 
             return SegmentQueryInfo.FromQueryInfo(queryInfo);
+        }
+
+        /// <summary>
+        /// Get contact information about this shape and other shape.
+        /// </summary>
+        /// <param name="shape2"></param>
+        /// <returns></returns>
+        public ContactPointSet Collide(Shape other)
+        {
+            Debug.Assert(System.Runtime.InteropServices.Marshal.SizeOf(typeof(cpContactPointSet)) == 104, "check Chipmunk sizeof(cpContactPointSet)");
+
+            cpContactPointSet contactPointSet = NativeMethods.cpShapesCollide(shape, other.Handle);
+
+            return ContactPointSet.FromContactPointSet(contactPointSet);
         }
 
 
