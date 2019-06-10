@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ChipmunkBinding
 {
@@ -38,7 +37,7 @@ namespace ChipmunkBinding
             if (points.Length != other.points.Length)
                 return false;
 
-            return Enumerable.SequenceEqual(points, other.points);
+            return points.SequenceEqual(other.points);
         }
 
         public override int GetHashCode()
