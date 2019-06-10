@@ -84,9 +84,9 @@ namespace ChipmunkBinding
 #elif __MACOS__ 
         private const string ChipmunkLibraryName = "libchipmunk.dylib";
 #elif WINDOWS_UWP
-        private const string ChipmunkLibraryName = "chipmunkd.dll";
+        private const string ChipmunkLibraryName = "chipmunk.dll";
 #else
-        private const string ChipmunkLibraryName = "chipmunkd";
+        private const string ChipmunkLibraryName = "chipmunk";
 #endif
 
 #pragma warning restore CA1823 // Unused field 'ChipmunkLibraryName'
