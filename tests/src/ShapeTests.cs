@@ -128,5 +128,47 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(new cpVect(1.5, 0.5), pointSet.Points[1].PointB, "#4.2");
             Assert.AreEqual(-1.5, pointSet.Points[1].Distance, "#4.3");
         }
+
+        [Test]
+        public void SpaceTest()
+        {
+            var space = new Space();
+
+            var body = new Body();
+            var shape = new Shape(body, 2, 2, 0);
+
+            Assert.IsNull(shape.Space, "#1");
+
+            space.AddBody(body);
+            space.AddShape(shape);
+
+            Assert.AreSame(space, shape.Space, "#2");
+        }
+
+        [Test]
+        public void BodyTest()
+        {
+            var body = new Body();
+            var shape = new Shape(body, 2, 2, 0);
+
+            Assert.AreSame(body, shape.Body, "#1");
+
+            var body2 = new Body(BodyType.Static);
+
+            shape.Body = body2;
+
+            Assert.AreSame(body2, shape.Body, "#2");
+        }
+
+        [Test]
+        public void MassTest()
+        {
+            var body = new Body(10, 16.666);
+            var shape = new Shape(body, 2, 2, 0);
+
+            shape.Mass = 10;
+
+            Assert.AreEqual(10, shape.Mass,  "#1");
+        }
     }
 }
