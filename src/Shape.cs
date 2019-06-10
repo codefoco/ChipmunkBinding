@@ -93,6 +93,20 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
+        /// Get contact information about this shape and other shape.
+        /// </summary>
+        /// <param name="shape2"></param>
+        /// <returns></returns>
+        public ContactPointSet Collide(Shape other)
+        {
+            Debug.Assert(System.Runtime.InteropServices.Marshal.SizeOf(typeof(cpContactPointSet)) == 104, "check Chipmunk sizeof(cpContactPointSet)");
+
+            cpContactPointSet contactPointSet = NativeMethods.cpShapesCollide(shape, other.Handle);
+
+            return ContactPointSet.FromContactPointSet(contactPointSet);
+        }
+
+        /// <summary>
         /// Perform a nearest point query. It finds the closest point on the surface of shape to a specific point.
         /// </summary>
         /// <param name="point"></param>
