@@ -117,6 +117,103 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
+        /// Density of the shape if you are having Chipmunk calculate mass properties for you.
+        /// </summary>
+        public double Density
+        {
+            get => NativeMethods.cpShapeGetDensity(shape);
+            set => NativeMethods.cpShapeSetDensity(shape, value);
+        }
+
+        /// <summary>
+        /// Get the calculated moment of inertia for this shape.
+        /// </summary>
+        public double Moment => NativeMethods.cpShapeGetMoment(shape);
+
+        /// <summary>
+        /// Get the calculated area of this shape.
+        /// </summary>
+        public double Area => NativeMethods.cpShapeGetArea(shape);
+
+        /// <summary>
+        /// Get the centroid of this shape.
+        /// </summary>
+        public cpVect CenterOfGravity => NativeMethods.cpShapeGetCenterOfGravity(shape);
+
+        /// <summary>
+        /// Get the bounding box that contains the shape given it's current position and angle.
+        /// </summary>
+        public cpBB BoundingBox => NativeMethods.cpShapeGetBB(shape);
+
+        /// <summary>
+        /// Enable/Disable shape is set to be a sensor or not.
+        /// </summary>
+        public bool Sensor
+        {
+            get => NativeMethods.cpShapeGetSensor(shape) != 0;
+            set => NativeMethods.cpShapeSetSensor(shape, value ? (byte)1 : (byte)0);
+        }
+
+        /// <summary>
+        /// Elasticity of this shape.
+        /// 
+        /// A value of 0.0 gives no bounce, while a value of 1.0 will give a ‘perfect’ bounce. However due to inaccuracies in the simulation using 1.0 or greater is not recommended.
+        /// </summary>
+        public double Elasticity
+        {
+            get => NativeMethods.cpShapeGetElasticity(shape);
+            set => NativeMethods.cpShapeSetElasticity(shape, value);
+        }
+
+        /// <summary>
+        /// Friction coefficient.
+        /// ChipmunkBinding uses the Coulomb friction model, a value of 0.0 is frictionless.
+        /// https://en.wikipedia.org/wiki/Friction#Coefficient_of_friction
+        /// </summary>
+        public double Friction
+        {
+            get => NativeMethods.cpShapeGetFriction(shape);
+            set => NativeMethods.cpShapeSetFriction(shape, value);
+        }
+
+        /// <summary>
+        ///  The surface velocity of the object.
+        ///  Useful for creating conveyor belts or players that move around.This value is only used when calculating friction, not resolving the collision.
+        /// </summary>
+        public cpVect SurfaceVelocity
+        {
+            get => NativeMethods.cpShapeGetSurfaceVelocity(shape);
+            set => NativeMethods.cpShapeSetSurfaceVelocity(shape, value);
+        }
+
+        /// <summary>
+        /// Collision type of this shape.
+        /// </summary>
+        public int CollisionType
+        {
+            get => (int)(uint)NativeMethods.cpShapeGetCollisionType(shape);
+            set => NativeMethods.cpShapeSetCollisionType(shape,  (UIntPtr)(uint)value);
+        }
+
+        /// <summary>
+        /// Set the collision ShapeFilter for this shape.
+        /// </summary>
+        public ShapeFilter Filter
+        {
+            get
+            {
+                cpShapeFilter shapeFilter = NativeMethods.cpShapeGetFilter(shape);
+                return shapeFilter.ToShapeFilter();
+            }
+            set
+            {
+                var shapeFilter = cpShapeFilter.FromShapeFilter(value);
+                NativeMethods.cpShapeSetFilter(shape, shapeFilter);
+            }
+        }
+
+
+        /// <summary>
         /// Update, cache and return the bounding box of a shape based on the body it's attached to.
         /// </summary>
         /// <returns></returns>
