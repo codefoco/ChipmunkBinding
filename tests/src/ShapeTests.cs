@@ -168,7 +168,59 @@ namespace ChipmunkBindingTest.Tests
 
             shape.Mass = 10;
 
-            Assert.AreEqual(10, shape.Mass,  "#1");
+            Assert.AreEqual(10, shape.Mass, "#1");
+        }
+
+        [Test]
+        public void MiscPropertyTest()
+        {
+            var space = new Space();
+            var body = new Body(10, 16.666);
+            var shape = new Shape(body, 2, 2, 0);
+
+            body.Position = new cpVect(3, 2);
+
+            shape.Density = 10;
+
+            space.AddBody(body);
+            space.AddShape(shape);
+
+            Assert.AreEqual(10, shape.Density, "#1");
+
+            double moment = shape.Moment;
+            Assert.AreEqual(26.666666666, moment, 0.0000001, "#2");
+
+            double area = shape.Area;
+            Assert.AreEqual(4, area, "#3");
+
+            cpVect center = shape.CenterOfGravity;
+            Assert.AreEqual(new cpVect(0, 0), center, "#4");
+
+            cpBB boundBox = shape.BoundingBox;
+            Assert.AreEqual(new cpBB(2, 1, 4, 3), boundBox, "#5");
+
+            bool sensor = shape.Sensor;
+            Assert.AreEqual(false, sensor, "#6");
+
+            shape.Sensor = true;
+            Assert.AreEqual(true, shape.Sensor, "#6.1");
+
+            shape.Elasticity = 0.7;
+            Assert.AreEqual(0.7, shape.Elasticity, "#7");
+
+            shape.Friction = 0.4;
+            Assert.AreEqual(0.4, shape.Friction, "#8");
+
+            shape.SurfaceVelocity = new cpVect(-1, 2);
+            Assert.AreEqual(new cpVect(-1, 2), shape.SurfaceVelocity, "#9");
+
+            shape.CollisionType = 13;
+            Assert.AreEqual(13, shape.CollisionType, "#10");
+
+            ShapeFilter filter = shape.Filter;
+
+            shape.Filter = ShapeFilter.All;
+            Assert.AreEqual(ShapeFilter.All, shape.Filter, "#11");
         }
     }
 }

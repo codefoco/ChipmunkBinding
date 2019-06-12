@@ -18,5 +18,10 @@ namespace ChipmunkBinding
             cpFilter.mask = filter.Mask;
             return cpFilter;
         }
+
+        public ShapeFilter ToShapeFilter()
+        {
+            return new ShapeFilter((int)group, categories, mask);
+        }
     }
 }

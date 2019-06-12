@@ -10,8 +10,6 @@ namespace ChipmunkBinding
     /// For example, a game has four collision categories: player (0), enemy (1), player bullet (2), and enemy bullet (3). Neither players nor enemies should not collide with their own bullets, and bullets should not collide with other bullets. However, players collide with enemy bullets, and enemies collide with player bullets.
     /// </summary>
     /// 
-
-
     public class ShapeFilter : IEquatable<ShapeFilter>
     {
         public int Group { get; }
