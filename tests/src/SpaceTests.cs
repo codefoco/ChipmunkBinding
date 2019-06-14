@@ -149,6 +149,7 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual(0, infos.Length, "#1");
 
+            space.AddBody(body);
             space.AddShape(shape);
 
             infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All).ToArray();
@@ -175,6 +176,7 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual(0, infos.Length, "#1");
 
+            space.AddBody(body);
             space.AddShape(shape);
 
             infos = space.SegmentQuery(body.Position, end, 2.0, ShapeFilter.All).ToArray();
@@ -214,6 +216,7 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual(0, shapes.Length, "#1");
 
+            space.AddBody(body);
             space.AddShape(shape);
             space.ReindexShape(shape);
 
@@ -239,6 +242,7 @@ namespace ChipmunkBindingTest.Tests
 
             body.Position = new cpVect(0, 0);
 
+            space.AddBody(body);
             space.AddShape(shape);
 
             var debugDraw = new FakeDebugDraw();
@@ -300,12 +304,14 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual(0, space.Shapes.Count, "#1");
 
+            space.AddBody(body);
             space.AddShape(shape);
 
             Shape[] shapes = space.Shapes.ToArray();
             Assert.AreEqual(1, shapes.Length, "#2.1");
             Assert.AreSame(shape, shapes[0], "#2.2");
 
+            space.AddBody(body2);
             space.AddShape(shape2);
 
             shapes = space.Shapes.ToArray();
