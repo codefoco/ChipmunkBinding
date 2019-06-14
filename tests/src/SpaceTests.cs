@@ -349,7 +349,6 @@ namespace ChipmunkBindingTest.Tests
             space.AddBody(body2);
 
             var shape2 = new Circle(body2, radius);
-            space.AddBody(body2);
             space.AddShape(shape2);
 
             CollisionHandler<StringBuilder> handler = space.GetOrCreateCollisionHandler<StringBuilder>(0, 0);
