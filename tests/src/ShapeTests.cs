@@ -222,5 +222,46 @@ namespace ChipmunkBindingTest.Tests
             shape.Filter = ShapeFilter.All;
             Assert.AreEqual(ShapeFilter.All, shape.Filter, "#11");
         }
+
+        [Test]
+        public void CircleOffset()
+        {
+            var space = new Space();
+            var body = new Body(10, 16.666);
+            var shape = new Circle(body, 2, new cpVect(3, 5));
+
+            body.Position = new cpVect(3, 2);
+
+            shape.Density = 10;
+
+            space.AddBody(body);
+            space.AddShape(shape);
+
+            Assert.AreEqual(new cpVect(3, 5), shape.Offset, "#1");
+            Assert.AreEqual(2, shape.Radius, "#2");
+        }
+
+        [Test]
+        public void SegmentTest()
+        {
+            var space = new Space();
+            var body = new Body(10, 16.666);
+            var shape = new Segment(body,new cpVect(1,2), new cpVect(3, 5), 2);
+
+            body.Position = new cpVect(3, 2);
+
+            shape.Density = 10;
+
+            space.AddBody(body);
+            space.AddShape(shape);
+
+            Assert.AreEqual(new cpVect(1, 2), shape.A, "#1");
+            Assert.AreEqual(new cpVect(3, 5), shape.B, "#2");
+
+            Assert.AreEqual(2, shape.Radius, "#3");
+
+            Assert.AreEqual(0.832050294337844, shape.Normal.X, 0.00001, "#4");
+            Assert.AreEqual(-0.554700196225229, shape.Normal.Y, 0.00001, "#4");
+        }
     }
 }

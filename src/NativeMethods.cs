@@ -831,6 +831,9 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpSegmentShape cpSegmentShapeAlloc();
 
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpVect cpSegmentShapeGetA(cpShape shape);
+
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpVect cpSegmentShapeGetB(cpShape shape);
 
