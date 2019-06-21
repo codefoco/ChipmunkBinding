@@ -94,7 +94,7 @@ namespace ChipmunkBindingTest.Tests
         public void PositionProperty()
         {
             var body = new Body();
-            var pos = new cpVect(10, 20);
+            var pos = new Vect(10, 20);
 
             body.Position = pos;
 
@@ -107,7 +107,7 @@ namespace ChipmunkBindingTest.Tests
         public void CenterOfGravityProperty()
         {
             var body = new Body();
-            var center = new cpVect (10, 20);
+            var center = new Vect (10, 20);
 
             body.CenterOfGravity = center;
 
@@ -119,7 +119,7 @@ namespace ChipmunkBindingTest.Tests
         public void VelocityProperty()
         {
             var body = new Body();
-            var velocity = new cpVect(10,-20);
+            var velocity = new Vect(10,-20);
 
             body.Velocity = velocity;
 
@@ -131,7 +131,7 @@ namespace ChipmunkBindingTest.Tests
         public void ForceProperty()
         {
             var body = new Body();
-            var force = new cpVect(10,-20);
+            var force = new Vect(10,-20);
 
             body.Force = force;
 

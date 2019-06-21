@@ -7,7 +7,7 @@ namespace ChipmunkBinding
     internal struct cpContactPointSet
     {
         public int count;
-        public cpVect normal;
+        public Vect normal;
 
         public cpContactPoint points0;
         public cpContactPoint points1;

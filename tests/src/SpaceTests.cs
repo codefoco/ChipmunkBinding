@@ -62,7 +62,7 @@ namespace ChipmunkBindingTest.Tests
         public void Gravity()
         {
             var space = new Space();
-            var g = new cpVect(0, -10);
+            var g = new Vect(0, -10);
 
             space.Gravity = g;
 
@@ -143,7 +143,7 @@ namespace ChipmunkBindingTest.Tests
             var body = new Body();
             var shape = new Shape(body, 100, 100, 0);
 
-            body.Position = new cpVect(0, 0);
+            body.Position = new Vect(0, 0);
 
             PointQueryInfo[] infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All).ToArray();
 
@@ -169,8 +169,8 @@ namespace ChipmunkBindingTest.Tests
             var body = new Body();
             var shape = new Shape(body, 100, 100, 0);
 
-            body.Position = new cpVect(0, 0);
-            var end = new cpVect(0, 1);
+            body.Position = new Vect(0, 0);
+            var end = new Vect(0, 1);
 
             SegmentQueryInfo[] infos = space.SegmentQuery(body.Position, end, 2.0, ShapeFilter.All).ToArray();
 
@@ -202,11 +202,11 @@ namespace ChipmunkBindingTest.Tests
             var body = new Body();
             var shape = new Shape(body, 5, 5, 0);
 
-            var pos = new cpVect(3, 3);
+            var pos = new Vect(3, 3);
 
             body.Position = pos;
 
-            var bb = new cpBB();
+            var bb = new BoundingBox();
             bb.Left = -20;
             bb.Top = -20;
             bb.Right = +20;
@@ -240,7 +240,7 @@ namespace ChipmunkBindingTest.Tests
 
             string expected_calls = "DrawPolygon\nvectors[0] = (50,-50)\nvectors[1] = (50,50)\nvectors[2] = (-50,50)\nvectors[3] = (-50,-50)\nradius = 0\noutlineColor = (0,0,0,1)\nfillColor = (0,0,1,1)\n";
 
-            body.Position = new cpVect(0, 0);
+            body.Position = new Vect(0, 0);
 
             space.AddBody(body);
             space.AddShape(shape);
@@ -264,8 +264,8 @@ namespace ChipmunkBindingTest.Tests
             var body2 = new Body();
 
 
-            body.Position = new cpVect(10, 10);
-            body.Position = new cpVect(20, 20);
+            body.Position = new Vect(10, 10);
+            body.Position = new Vect(20, 20);
 
             Assert.AreEqual(0, space.Bodies.Count, "#1");
 
@@ -299,8 +299,8 @@ namespace ChipmunkBindingTest.Tests
             var shape2 = new Shape(body2, 100, 100, 0);
 
 
-            body.Position = new cpVect(10, 10);
-            body.Position = new cpVect(20, 20);
+            body.Position = new Vect(10, 10);
+            body.Position = new Vect(20, 20);
 
             Assert.AreEqual(0, space.Shapes.Count, "#1");
 
@@ -335,7 +335,7 @@ namespace ChipmunkBindingTest.Tests
 
             var body1 = new Body(1, 1)
             {
-                Position = new cpVect(0 * radius * 1.5, 0)
+                Position = new Vect(0 * radius * 1.5, 0)
             };
 
             space.AddBody(body1);
@@ -343,7 +343,7 @@ namespace ChipmunkBindingTest.Tests
 
             var body2 = new Body(1, 1)
             {
-                Position = new cpVect(0 * radius * 1.5, 0)
+                Position = new Vect(0 * radius * 1.5, 0)
             };
 
             space.AddBody(body2);

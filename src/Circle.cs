@@ -12,7 +12,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="body"></param>
         /// <param name="radius"></param>
-        public Circle(Body body, double radius): this(body, radius, cpVect.Zero)
+        public Circle(Body body, double radius): this(body, radius, Vect.Zero)
         {
 
         }
@@ -23,7 +23,7 @@ namespace ChipmunkBinding
         /// <param name="body"></param>
         /// <param name="radius"></param>
         /// <param name="offset"></param>
-        public Circle(Body body, double radius, cpVect offset)
+        public Circle(Body body, double radius, Vect offset)
             :base (NativeMethods.cpCircleShapeNew(body.Handle, radius, offset))
         {
         }
@@ -31,7 +31,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Offset of a circle shape.
         /// </summary>
-        public cpVect Offset => NativeMethods.cpCircleShapeGetOffset(Handle);
+        public Vect Offset => NativeMethods.cpCircleShapeGetOffset(Handle);
 
         /// <summary>
         ///  Get the radius of a circle shape.

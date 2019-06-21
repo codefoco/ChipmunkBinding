@@ -9,15 +9,15 @@ namespace ChipmunkBinding
         #pragma warning disable IDE0032
         static readonly DebugDrawColors defaultColors = new DebugDrawColors()
         {
-            ShapeOutline = new cpSpaceDebugColor(0,0,0),
-            Constraint = new cpSpaceDebugColor(0, 1, 0),
-            CollisionPoint = new cpSpaceDebugColor(1, 0, 1)
+            ShapeOutline = new DebugColor(0,0,0),
+            Constraint = new DebugColor(0, 1, 0),
+            CollisionPoint = new DebugColor(1, 0, 1)
         };
         #pragma warning restore IDE0032
 
-        public cpSpaceDebugColor ShapeOutline { get; set; }
-        public cpSpaceDebugColor Constraint { get; set; }
-        public cpSpaceDebugColor CollisionPoint { get; set; }
+        public DebugColor ShapeOutline { get; set; }
+        public DebugColor Constraint { get; set; }
+        public DebugColor CollisionPoint { get; set; }
 
         public static DebugDrawColors Default => defaultColors;
       

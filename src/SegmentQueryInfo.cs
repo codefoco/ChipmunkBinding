@@ -12,8 +12,8 @@ namespace ChipmunkBinding
     {
 #pragma warning disable IDE0032
         private readonly Shape shape;
-        private readonly cpVect point;
-        private readonly cpVect normal;
+        private readonly Vect point;
+        private readonly Vect normal;
         private readonly double alpha;
 #pragma warning restore IDE0032
 
@@ -24,11 +24,11 @@ namespace ChipmunkBinding
         /// <summary>
         /// The point of impact.
         /// </summary>
-        public cpVect Point => point;
+        public Vect Point => point;
         /// <summary>
         /// The normal of the surface hit.
         /// </summary>
-        public cpVect Normal => normal;
+        public Vect Normal => normal;
         /// <summary>
         /// The normalized distance along the query segment in the range [0, 1]
         /// </summary>
@@ -41,7 +41,7 @@ namespace ChipmunkBinding
         /// <param name="p"></param>
         /// <param name="n"></param>
         /// <param name="a"></param>
-        public SegmentQueryInfo(Shape s, cpVect p, cpVect n, double a)
+        public SegmentQueryInfo(Shape s, Vect p, Vect n, double a)
         {
             shape = s;
             point = p;

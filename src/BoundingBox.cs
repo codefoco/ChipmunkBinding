@@ -7,14 +7,14 @@ using System;
 namespace ChipmunkBinding
 {
     [StructLayout (LayoutKind.Sequential)]
-    public struct cpBB : IEquatable<cpBB>
+    public struct BoundingBox : IEquatable<BoundingBox>
     {
         private double left;
         private double bottom;
         private double right;
         private double top;
 
-        public cpBB(double left, double bottom, double right, double top)
+        public BoundingBox(double left, double bottom, double right, double top)
         {
             this.left = left;
             this.bottom = bottom;
@@ -27,7 +27,7 @@ namespace ChipmunkBinding
         public double Right { get => right; set => right = value; }
         public double Top { get => top; set => top = value; }
 
-        public bool Equals(cpBB other)
+        public bool Equals(BoundingBox other)
         {
             return Math.Abs(left - other.left) < float.Epsilon &&
                    Math.Abs(bottom - other.bottom) < float.Epsilon &&
@@ -37,7 +37,7 @@ namespace ChipmunkBinding
 
         public override bool Equals(object obj)
         {
-            cpBB? vect = obj as cpBB?;
+            BoundingBox? vect = obj as BoundingBox?;
             if (!vect.HasValue)
                 return false;
             return this == vect.Value;
@@ -58,12 +58,12 @@ namespace ChipmunkBinding
              return $"({left},{bottom},{right},{top})";
         }
 
-        public static bool operator ==(cpBB left, cpBB right)
+        public static bool operator ==(BoundingBox left, BoundingBox right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(cpBB left, cpBB right)
+        public static bool operator !=(BoundingBox left, BoundingBox right)
         {
             return !(left == right);
         }

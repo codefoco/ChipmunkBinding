@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct cpTransform : IEquatable<cpTransform>
+    public struct Transform : IEquatable<Transform>
     {
-        private static readonly cpTransform identity = new cpTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
+        private static readonly Transform identity = new Transform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
 
         private double a;
         private double b;
@@ -18,7 +18,7 @@ namespace ChipmunkBinding
         private double tx;
         private double ty;
 
-        public cpTransform(double a, double b, double c, double d, double tx, double ty) : this()
+        public Transform(double a, double b, double c, double d, double tx, double ty) : this()
         {
             this.a = a;
             this.b = b;
@@ -29,7 +29,7 @@ namespace ChipmunkBinding
         }
 
 
-        public static cpTransform Identity => identity;
+        public static Transform Identity => identity;
 
         public double A { get => a; set => a = value; }
         public double B { get => b; set => b = value; }
@@ -40,13 +40,13 @@ namespace ChipmunkBinding
 
         public override bool Equals(object obj)
         {
-            cpTransform? transform = obj as cpTransform?;
+            Transform? transform = obj as Transform?;
             if (!transform.HasValue)
                 return false;
             return Equals(transform.Value);
         }
 
-        public bool Equals(cpTransform other)
+        public bool Equals(Transform other)
         {
             return Math.Abs(a - other.a) < double.Epsilon &&
                    Math.Abs(b - other.b) < double.Epsilon &&
@@ -73,12 +73,12 @@ namespace ChipmunkBinding
             return $"({a},{b}|{c},{d}|{tx},{ty})";
         }
 
-        public static bool operator ==(cpTransform transform1, cpTransform transform2)
+        public static bool operator ==(Transform transform1, Transform transform2)
         {
             return transform1.Equals(transform2);
         }
 
-        public static bool operator !=(cpTransform transform1, cpTransform transform2)
+        public static bool operator !=(Transform transform1, Transform transform2)
         {
             return !(transform1 == transform2);
         }

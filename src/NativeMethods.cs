@@ -134,13 +134,13 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpArbiterGetFriction(cpArbiter arb);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpArbiterGetNormal(cpArbiter arb);
+        internal static extern Vect cpArbiterGetNormal(cpArbiter arb);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpArbiterGetPointA(cpArbiter arb, int i);
+        internal static extern Vect cpArbiterGetPointA(cpArbiter arb, int i);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpArbiterGetPointB(cpArbiter arb, int i);
+        internal static extern Vect cpArbiterGetPointB(cpArbiter arb, int i);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpArbiterGetRestitution(cpArbiter arb);
@@ -149,7 +149,7 @@ namespace ChipmunkBinding
         internal static extern void cpArbiterGetShapes(cpArbiter arb, out cpShape a, out cpShape b);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpArbiterGetSurfaceVelocity(cpArbiter arb);
+        internal static extern Vect cpArbiterGetSurfaceVelocity(cpArbiter arb);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpDataPointer cpArbiterGetUserData(cpArbiter arb);
@@ -173,13 +173,13 @@ namespace ChipmunkBinding
         internal static extern void cpArbiterSetRestitution(cpArbiter arb, cpFloat restitution);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpArbiterSetSurfaceVelocity(cpArbiter arb, cpVect vr);
+        internal static extern void cpArbiterSetSurfaceVelocity(cpArbiter arb, Vect vr);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpArbiterSetUserData(cpArbiter arb, cpDataPointer userData);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpArbiterTotalImpulse(cpArbiter arb);
+        internal static extern Vect cpArbiterTotalImpulse(cpArbiter arb);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpArbiterTotalKE(cpArbiter arb);
@@ -191,7 +191,7 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpAreaForPoly(int count, cpVectPointer verts, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpFloat cpAreaForSegment(cpVect a, cpVect b, cpFloat radius);
+        internal static extern cpFloat cpAreaForSegment(Vect a, Vect b, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBBTree cpBBTreeAlloc();
@@ -218,16 +218,16 @@ namespace ChipmunkBinding
         internal static extern cpBody cpBodyAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodyApplyForceAtLocalPoint(cpBody body, cpVect force, cpVect point);
+        internal static extern void cpBodyApplyForceAtLocalPoint(cpBody body, Vect force, Vect point);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodyApplyForceAtWorldPoint(cpBody body, cpVect force, cpVect point);
+        internal static extern void cpBodyApplyForceAtWorldPoint(cpBody body, Vect force, Vect point);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodyApplyImpulseAtLocalPoint(cpBody body, cpVect impulse, cpVect point);
+        internal static extern void cpBodyApplyImpulseAtLocalPoint(cpBody body, Vect impulse, Vect point);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodyApplyImpulseAtWorldPoint(cpBody body, cpVect impulse, cpVect point);
+        internal static extern void cpBodyApplyImpulseAtWorldPoint(cpBody body, Vect impulse, Vect point);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodyDestroy(cpBody body);
@@ -251,10 +251,10 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpBodyGetAngularVelocity(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyGetCenterOfGravity(cpBody body);
+        internal static extern Vect cpBodyGetCenterOfGravity(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyGetForce(cpBody body);
+        internal static extern Vect cpBodyGetForce(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpBodyGetMass(cpBody body);
@@ -263,10 +263,10 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpBodyGetMoment(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyGetPosition(cpBody body);
+        internal static extern Vect cpBodyGetPosition(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyGetRotation(cpBody body);
+        internal static extern Vect cpBodyGetRotation(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpSpace cpBodyGetSpace(cpBody body);
@@ -281,13 +281,13 @@ namespace ChipmunkBinding
         internal static extern cpDataPointer cpBodyGetUserData(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyGetVelocity(cpBody body);
+        internal static extern Vect cpBodyGetVelocity(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyGetVelocityAtLocalPoint(cpBody body, cpVect point);
+        internal static extern Vect cpBodyGetVelocityAtLocalPoint(cpBody body, Vect point);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyGetVelocityAtWorldPoint(cpBody body, cpVect point);
+        internal static extern Vect cpBodyGetVelocityAtWorldPoint(cpBody body, Vect point);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBody cpBodyInit(cpBody body, cpFloat mass, cpFloat moment);
@@ -299,7 +299,7 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpBodyKineticEnergy(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyLocalToWorld(cpBody body, cpVect point);
+        internal static extern Vect cpBodyLocalToWorld(cpBody body, Vect point);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBody cpBodyNew(cpFloat mass, cpFloat moment);
@@ -317,10 +317,10 @@ namespace ChipmunkBinding
         internal static extern void cpBodySetAngularVelocity(cpBody body, cpFloat angularVelocity);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodySetCenterOfGravity(cpBody body, cpVect cog);
+        internal static extern void cpBodySetCenterOfGravity(cpBody body, Vect cog);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodySetForce(cpBody body, cpVect force);
+        internal static extern void cpBodySetForce(cpBody body, Vect force);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetMass(cpBody body, cpFloat m);
@@ -329,7 +329,7 @@ namespace ChipmunkBinding
         internal static extern void cpBodySetMoment(cpBody body, cpFloat i);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodySetPosition(cpBody body, cpVect pos);
+        internal static extern void cpBodySetPosition(cpBody body, Vect pos);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetPositionUpdateFunc(cpBody body, cpBodyPositionFunc positionFunc);
@@ -344,7 +344,7 @@ namespace ChipmunkBinding
         internal static extern void cpBodySetUserData(cpBody body, cpDataPointer userData);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodySetVelocity(cpBody body, cpVect velocity);
+        internal static extern void cpBodySetVelocity(cpBody body, Vect velocity);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetVelocityUpdateFunc(cpBody body, cpBodyVelocityFunc velocityFunc);
@@ -359,43 +359,43 @@ namespace ChipmunkBinding
         internal static extern void cpBodyUpdatePosition(cpBody body, cpFloat dt);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodyUpdateVelocity(cpBody body, cpVect gravity, cpFloat damping, cpFloat dt);
+        internal static extern void cpBodyUpdateVelocity(cpBody body, Vect gravity, cpFloat damping, cpFloat dt);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpBodyWorldToLocal(cpBody body, cpVect point);
+        internal static extern Vect cpBodyWorldToLocal(cpBody body, Vect point);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpPolyShape cpBoxShapeInit(cpPolyShape poly, cpBody body, cpFloat width, cpFloat height, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpPolyShape cpBoxShapeInit2(cpPolyShape poly, cpBody body, cpBB box, cpFloat radius);
+        internal static extern cpPolyShape cpBoxShapeInit2(cpPolyShape poly, cpBody body, BoundingBox box, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpShape cpBoxShapeNew(cpBody body, cpFloat width, cpFloat height, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShape cpBoxShapeNew2(cpBody body, cpBB box, cpFloat radius);
+        internal static extern cpShape cpBoxShapeNew2(cpBody body, BoundingBox box, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpCentroidForPoly(int count, cpVectPointer verts);
+        internal static extern Vect cpCentroidForPoly(int count, cpVectPointer verts);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpCircleShape cpCircleShapeAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpCircleShapeGetOffset(cpShape shape);
+        internal static extern Vect cpCircleShapeGetOffset(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpCircleShapeGetRadius(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpCircleShape cpCircleShapeInit(cpCircleShape circle, cpBody body, cpFloat radius, cpVect offset);
+        internal static extern cpCircleShape cpCircleShapeInit(cpCircleShape circle, cpBody body, cpFloat radius, Vect offset);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShape cpCircleShapeNew(cpBody body, cpFloat radius, cpVect offset);
+        internal static extern cpShape cpCircleShapeNew(cpBody body, cpFloat radius, Vect offset);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpCircleShapeSetOffset(cpShape shape, cpVect offset);
+        internal static extern void cpCircleShapeSetOffset(cpShape shape, Vect offset);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpCircleShapeSetRadius(cpShape shape, cpFloat radius);
@@ -530,10 +530,10 @@ namespace ChipmunkBinding
         internal static extern cpDampedSpring cpDampedSpringAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpDampedSpringGetAnchorA(cpConstraint constraint);
+        internal static extern Vect cpDampedSpringGetAnchorA(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpDampedSpringGetAnchorB(cpConstraint constraint);
+        internal static extern Vect cpDampedSpringGetAnchorB(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpDampedSpringGetDamping(cpConstraint constraint);
@@ -548,16 +548,16 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpDampedSpringGetStiffness(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpDampedSpring cpDampedSpringInit(cpDampedSpring joint, cpBody a, cpBody b, cpVect anchorA, cpVect anchorB, cpFloat restLength, cpFloat stiffness, cpFloat damping);
+        internal static extern cpDampedSpring cpDampedSpringInit(cpDampedSpring joint, cpBody a, cpBody b, Vect anchorA, Vect anchorB, cpFloat restLength, cpFloat stiffness, cpFloat damping);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpConstraint cpDampedSpringNew(cpBody a, cpBody b, cpVect anchorA, cpVect anchorB, cpFloat restLength, cpFloat stiffness, cpFloat damping);
+        internal static extern cpConstraint cpDampedSpringNew(cpBody a, cpBody b, Vect anchorA, Vect anchorB, cpFloat restLength, cpFloat stiffness, cpFloat damping);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpDampedSpringSetAnchorA(cpConstraint constraint, cpVect anchorA);
+        internal static extern void cpDampedSpringSetAnchorA(cpConstraint constraint, Vect anchorA);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpDampedSpringSetAnchorB(cpConstraint constraint, cpVect anchorB);
+        internal static extern void cpDampedSpringSetAnchorB(cpConstraint constraint, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpDampedSpringSetDamping(cpConstraint constraint, cpFloat damping);
@@ -596,28 +596,28 @@ namespace ChipmunkBinding
         internal static extern cpGrooveJoint cpGrooveJointAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpGrooveJointGetAnchorB(cpConstraint constraint);
+        internal static extern Vect cpGrooveJointGetAnchorB(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpGrooveJointGetGrooveA(cpConstraint constraint);
+        internal static extern Vect cpGrooveJointGetGrooveA(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpGrooveJointGetGrooveB(cpConstraint constraint);
+        internal static extern Vect cpGrooveJointGetGrooveB(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpGrooveJoint cpGrooveJointInit(cpGrooveJoint joint, cpBody a, cpBody b, cpVect groove_a, cpVect groove_b, cpVect anchorB);
+        internal static extern cpGrooveJoint cpGrooveJointInit(cpGrooveJoint joint, cpBody a, cpBody b, Vect groove_a, Vect groove_b, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpConstraint cpGrooveJointNew(cpBody a, cpBody b, cpVect groove_a, cpVect groove_b, cpVect anchorB);
+        internal static extern cpConstraint cpGrooveJointNew(cpBody a, cpBody b, Vect groove_a, Vect groove_b, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpGrooveJointSetAnchorB(cpConstraint constraint, cpVect anchorB);
+        internal static extern void cpGrooveJointSetAnchorB(cpConstraint constraint, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpGrooveJointSetGrooveA(cpConstraint constraint, cpVect grooveA);
+        internal static extern void cpGrooveJointSetGrooveA(cpConstraint constraint, Vect grooveA);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpGrooveJointSetGrooveB(cpConstraint constraint, cpVect grooveB);
+        internal static extern void cpGrooveJointSetGrooveB(cpConstraint constraint, Vect grooveB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpHastySpaceFree(cpSpace space);
@@ -636,14 +636,14 @@ namespace ChipmunkBinding
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpMarchHard(
-          cpBB bb, uint x_samples, uint y_samples, cpFloat threshold,
+          BoundingBox bb, uint x_samples, uint y_samples, cpFloat threshold,
           cpMarchSegmentFunc segment, IntPtr segment_data,
           cpMarchSampleFunc sample, IntPtr sample_data
         );
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpMarchSoft(
-          cpBB bb, uint x_samples, uint y_samples, cpFloat threshold,
+          BoundingBox bb, uint x_samples, uint y_samples, cpFloat threshold,
           cpMarchSegmentFunc segment, IntPtr segment_data,
           cpMarchSampleFunc sample, IntPtr sample_data
         );
@@ -652,40 +652,40 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpMomentForBox(cpFloat m, cpFloat width, cpFloat height);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpFloat cpMomentForBox2(cpFloat m, cpBB box);
+        internal static extern cpFloat cpMomentForBox2(cpFloat m, BoundingBox box);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpFloat cpMomentForCircle(cpFloat m, cpFloat r1, cpFloat r2, cpVect offset);
+        internal static extern cpFloat cpMomentForCircle(cpFloat m, cpFloat r1, cpFloat r2, Vect offset);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpFloat cpMomentForPoly(cpFloat m, int count, cpVectPointer verts, cpVect offset, cpFloat radius);
+        internal static extern cpFloat cpMomentForPoly(cpFloat m, int count, cpVectPointer verts, Vect offset, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpFloat cpMomentForSegment(cpFloat m, cpVect a, cpVect b, cpFloat radius);
+        internal static extern cpFloat cpMomentForSegment(cpFloat m, Vect a, Vect b, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpPinJoint cpPinJointAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpPinJointGetAnchorA(cpConstraint constraint);
+        internal static extern Vect cpPinJointGetAnchorA(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpPinJointGetAnchorB(cpConstraint constraint);
+        internal static extern Vect cpPinJointGetAnchorB(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpPinJointGetDist(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpPinJoint cpPinJointInit(cpPinJoint joint, cpBody a, cpBody b, cpVect anchorA, cpVect anchorB);
+        internal static extern cpPinJoint cpPinJointInit(cpPinJoint joint, cpBody a, cpBody b, Vect anchorA, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpConstraint cpPinJointNew(cpBody a, cpBody b, cpVect anchorA, cpVect anchorB);
+        internal static extern cpConstraint cpPinJointNew(cpBody a, cpBody b, Vect anchorA, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpPinJointSetAnchorA(cpConstraint constraint, cpVect anchorA);
+        internal static extern void cpPinJointSetAnchorA(cpConstraint constraint, Vect anchorA);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpPinJointSetAnchorB(cpConstraint constraint, cpVect anchorB);
+        internal static extern void cpPinJointSetAnchorB(cpConstraint constraint, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpPinJointSetDist(cpConstraint constraint, cpFloat dist);
@@ -694,25 +694,25 @@ namespace ChipmunkBinding
         internal static extern cpPivotJoint cpPivotJointAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpPivotJointGetAnchorA(cpConstraint constraint);
+        internal static extern Vect cpPivotJointGetAnchorA(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpPivotJointGetAnchorB(cpConstraint constraint);
+        internal static extern Vect cpPivotJointGetAnchorB(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpPivotJoint cpPivotJointInit(cpPivotJoint joint, cpBody a, cpBody b, cpVect anchorA, cpVect anchorB);
+        internal static extern cpPivotJoint cpPivotJointInit(cpPivotJoint joint, cpBody a, cpBody b, Vect anchorA, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpConstraint cpPivotJointNew(cpBody a, cpBody b, cpVect pivot);
+        internal static extern cpConstraint cpPivotJointNew(cpBody a, cpBody b, Vect pivot);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpConstraint cpPivotJointNew2(cpBody a, cpBody b, cpVect anchorA, cpVect anchorB);
+        internal static extern cpConstraint cpPivotJointNew2(cpBody a, cpBody b, Vect anchorA, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpPivotJointSetAnchorA(cpConstraint constraint, cpVect anchorA);
+        internal static extern void cpPivotJointSetAnchorA(cpConstraint constraint, Vect anchorA);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpPivotJointSetAnchorB(cpConstraint constraint, cpVect anchorB);
+        internal static extern void cpPivotJointSetAnchorB(cpConstraint constraint, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpPolyShape cpPolyShapeAlloc();
@@ -724,16 +724,16 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpPolyShapeGetRadius(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpPolyShapeGetVert(cpShape shape, int index);
+        internal static extern Vect cpPolyShapeGetVert(cpShape shape, int index);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpPolyShape cpPolyShapeInit(cpPolyShape poly, cpBody body, int count, cpVectPointer verts, cpTransform transform, cpFloat radius);
+        internal static extern cpPolyShape cpPolyShapeInit(cpPolyShape poly, cpBody body, int count, cpVectPointer verts, Transform transform, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpPolyShape cpPolyShapeInitRaw(cpPolyShape poly, cpBody body, int count, cpVectPointer verts, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShape cpPolyShapeNew(cpBody body, int count, cpVectPointer verts, cpTransform transform, cpFloat radius);
+        internal static extern cpShape cpPolyShapeNew(cpBody body, int count, cpVectPointer verts, Transform transform, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpShape cpPolyShapeNewRaw(cpBody body, int count, cpVectPointer verts, cpFloat radius);
@@ -742,7 +742,7 @@ namespace ChipmunkBinding
         internal static extern void cpPolyShapeSetRadius(cpShape shape, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpPolyShapeSetVerts(cpShape shape, int count, cpVectPointer verts, cpTransform transform);
+        internal static extern void cpPolyShapeSetVerts(cpShape shape, int count, cpVectPointer verts, Transform transform);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpPolyShapeSetVertsRaw(cpShape shape, int count, cpVectPointer verts);
@@ -760,7 +760,7 @@ namespace ChipmunkBinding
         internal static extern cpPolylineSet cpPolylineSetAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpPolylineSetCollectSegment(cpVect v0, cpVect v1, cpPolylineSet lines);
+        internal static extern void cpPolylineSetCollectSegment(Vect v0, Vect v1, cpPolylineSet lines);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpPolylineSetDestroy(cpPolylineSet set, cpBool freePolylines);
@@ -832,34 +832,34 @@ namespace ChipmunkBinding
         internal static extern cpSegmentShape cpSegmentShapeAlloc();
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpSegmentShapeGetA(cpShape shape);
+        internal static extern Vect cpSegmentShapeGetA(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpSegmentShapeGetB(cpShape shape);
+        internal static extern Vect cpSegmentShapeGetB(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpSegmentShapeGetNormal(cpShape shape);
+        internal static extern Vect cpSegmentShapeGetNormal(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpSegmentShapeGetRadius(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpSegmentShape cpSegmentShapeInit(cpSegmentShape seg, cpBody body, cpVect a, cpVect b, cpFloat radius);
+        internal static extern cpSegmentShape cpSegmentShapeInit(cpSegmentShape seg, cpBody body, Vect a, Vect b, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShape cpSegmentShapeNew(cpBody body, cpVect a, cpVect b, cpFloat radius);
+        internal static extern cpShape cpSegmentShapeNew(cpBody body, Vect a, Vect b, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSegmentShapeSetEndpoints(cpShape shape, cpVect a, cpVect b);
+        internal static extern void cpSegmentShapeSetEndpoints(cpShape shape, Vect a, Vect b);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSegmentShapeSetNeighbors(cpShape shape, cpVect prev, cpVect next);
+        internal static extern void cpSegmentShapeSetNeighbors(cpShape shape, Vect prev, Vect next);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSegmentShapeSetRadius(cpShape shape, cpFloat radius);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpBB cpShapeCacheBB(cpShape shape);
+        internal static extern BoundingBox cpShapeCacheBB(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpShapeDestroy(cpShape shape);
@@ -871,13 +871,13 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpShapeGetArea(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpBB cpShapeGetBB(cpShape shape);
+        internal static extern BoundingBox cpShapeGetBB(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBody cpShapeGetBody(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpShapeGetCenterOfGravity(cpShape shape);
+        internal static extern Vect cpShapeGetCenterOfGravity(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpCollisionType cpShapeGetCollisionType(cpShape shape);
@@ -907,16 +907,16 @@ namespace ChipmunkBinding
         internal static extern cpSpace cpShapeGetSpace(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpShapeGetSurfaceVelocity(cpShape shape);
+        internal static extern Vect cpShapeGetSurfaceVelocity(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpDataPointer cpShapeGetUserData(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpFloat cpShapePointQuery(cpShape shape, cpVect p, ref cpPointQueryInfo output);
+        internal static extern cpFloat cpShapePointQuery(cpShape shape, Vect p, ref cpPointQueryInfo output);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpBool cpShapeSegmentQuery(cpShape shape, cpVect a, cpVect b, cpFloat radius, ref cpSegmentQueryInfo info);
+        internal static extern cpBool cpShapeSegmentQuery(cpShape shape, Vect a, Vect b, cpFloat radius, ref cpSegmentQueryInfo info);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpShapeSetBody(cpShape shape, cpBody body);
@@ -943,13 +943,13 @@ namespace ChipmunkBinding
         internal static extern void cpShapeSetSensor(cpShape shape, cpBool sensor);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpShapeSetSurfaceVelocity(cpShape shape, cpVect surfaceVelocity);
+        internal static extern void cpShapeSetSurfaceVelocity(cpShape shape, Vect surfaceVelocity);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpShapeSetUserData(cpShape shape, cpDataPointer userData);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpBB cpShapeUpdate(cpShape shape, cpTransform transform);
+        internal static extern BoundingBox cpShapeUpdate(cpShape shape, Transform transform);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpContactPointSet cpShapesCollide(cpShape a, cpShape b);
@@ -973,10 +973,10 @@ namespace ChipmunkBinding
         internal static extern cpSlideJoint cpSlideJointAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpSlideJointGetAnchorA(cpConstraint constraint);
+        internal static extern Vect cpSlideJointGetAnchorA(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpSlideJointGetAnchorB(cpConstraint constraint);
+        internal static extern Vect cpSlideJointGetAnchorB(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpSlideJointGetMax(cpConstraint constraint);
@@ -985,16 +985,16 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpSlideJointGetMin(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpSlideJoint cpSlideJointInit(cpSlideJoint joint, cpBody a, cpBody b, cpVect anchorA, cpVect anchorB, cpFloat min, cpFloat max);
+        internal static extern cpSlideJoint cpSlideJointInit(cpSlideJoint joint, cpBody a, cpBody b, Vect anchorA, Vect anchorB, cpFloat min, cpFloat max);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpConstraint cpSlideJointNew(cpBody a, cpBody b, cpVect anchorA, cpVect anchorB, cpFloat min, cpFloat max);
+        internal static extern cpConstraint cpSlideJointNew(cpBody a, cpBody b, Vect anchorA, Vect anchorB, cpFloat min, cpFloat max);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSlideJointSetAnchorA(cpConstraint constraint, cpVect anchorA);
+        internal static extern void cpSlideJointSetAnchorA(cpConstraint constraint, Vect anchorA);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSlideJointSetAnchorB(cpConstraint constraint, cpVect anchorB);
+        internal static extern void cpSlideJointSetAnchorB(cpConstraint constraint, Vect anchorB);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSlideJointSetMax(cpConstraint constraint, cpFloat max);
@@ -1027,7 +1027,7 @@ namespace ChipmunkBinding
         internal static extern cpSpace cpSpaceAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceBBQuery(cpSpace space, cpBB bb, cpShapeFilter filter, cpSpaceBBQueryFunc func, IntPtr data);
+        internal static extern void cpSpaceBBQuery(cpSpace space, BoundingBox bb, cpShapeFilter filter, cpSpaceBBQueryFunc func, IntPtr data);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBool cpSpaceContainsShape(cpSpace space, cpShape shape);
@@ -1072,7 +1072,7 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpSpaceGetDamping(cpSpace space);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpVect cpSpaceGetGravity(cpSpace space);
+        internal static extern Vect cpSpaceGetGravity(cpSpace space);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpSpaceGetIdleSpeedThreshold(cpSpace space);
@@ -1111,10 +1111,10 @@ namespace ChipmunkBinding
         internal static extern cpSpace cpSpaceNew();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpacePointQuery(cpSpace space, cpVect point, cpFloat maxDistance, cpShapeFilter filter, cpSpacePointQueryFunc func, IntPtr data);
+        internal static extern void cpSpacePointQuery(cpSpace space, Vect point, cpFloat maxDistance, cpShapeFilter filter, cpSpacePointQueryFunc func, IntPtr data);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShape cpSpacePointQueryNearest(cpSpace space, cpVect point, cpFloat maxDistance, cpShapeFilter filter, ref cpPointQueryInfo output);
+        internal static extern cpShape cpSpacePointQueryNearest(cpSpace space, Vect point, cpFloat maxDistance, cpShapeFilter filter, ref cpPointQueryInfo output);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceReindexShape(cpSpace space, cpShape shape);
@@ -1135,10 +1135,10 @@ namespace ChipmunkBinding
         internal static extern void cpSpaceRemoveShape(cpSpace space, cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceSegmentQuery(cpSpace space, cpVect start, cpVect end, cpFloat radius, cpShapeFilter filter, cpSpaceSegmentQueryFunc func, IntPtr data);
+        internal static extern void cpSpaceSegmentQuery(cpSpace space, Vect start, Vect end, cpFloat radius, cpShapeFilter filter, cpSpaceSegmentQueryFunc func, IntPtr data);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShape cpSpaceSegmentQueryFirst(cpSpace space, cpVect start, cpVect end, cpFloat radius, cpShapeFilter filter, ref cpSegmentQueryInfo output);
+        internal static extern cpShape cpSpaceSegmentQueryFirst(cpSpace space, Vect start, Vect end, cpFloat radius, cpShapeFilter filter, ref cpSegmentQueryInfo output);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceSetCollisionBias(cpSpace space, cpFloat collisionBias);
@@ -1153,7 +1153,7 @@ namespace ChipmunkBinding
         internal static extern void cpSpaceSetDamping(cpSpace space, cpFloat damping);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceSetGravity(cpSpace space, cpVect gravity);
+        internal static extern void cpSpaceSetGravity(cpSpace space, Vect gravity);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceSetIdleSpeedThreshold(cpSpace space, cpFloat idleSpeedThreshold);

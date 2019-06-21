@@ -14,7 +14,7 @@ namespace ChipmunkBinding
         /// <param name="radius"></param>
         /// <param name="outlineColor"></param>
         /// <param name="fillColor"></param>
-        void DrawCircle(cpVect pos, double angle, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor);
+        void DrawCircle(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor);
 
         /// <summary>
         /// Draws a line segment
@@ -22,7 +22,7 @@ namespace ChipmunkBinding
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="color"></param>
-        void DrawSegment(cpVect a, cpVect b, cpSpaceDebugColor color);
+        void DrawSegment(Vect a, Vect b, DebugColor color);
 
         /// <summary>
         /// Draws a thick line segment
@@ -33,7 +33,7 @@ namespace ChipmunkBinding
         /// <param name="outlineColor"></param>
         /// <param name="fillColor"></param>
         /// <param name="data"></param>
-        void DrawFatSegment(cpVect a, cpVect b, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor);
+        void DrawFatSegment(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor);
 
         /// <summary>
         /// Draws a convex polygon
@@ -42,7 +42,7 @@ namespace ChipmunkBinding
         /// <param name="radius"></param>
         /// <param name="outlineColor"></param>
         /// <param name="fillColor"></param>
-        void DrawPolygon(cpVect [] vectors, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor);
+        void DrawPolygon(Vect [] vectors, double radius, DebugColor outlineColor, DebugColor fillColor);
 
         /// <summary>
         /// Draws a dot
@@ -50,13 +50,13 @@ namespace ChipmunkBinding
         /// <param name="size"></param>
         /// <param name="pos"></param>
         /// <param name="color"></param>
-        void DrawDot(double size, cpVect pos, cpSpaceDebugColor color);
+        void DrawDot(double size, Vect pos, DebugColor color);
         
         /// <summary>
         /// Returns a color for a given shape. This gives you an opportunity to color shapes based on how they are used in your engine.
         /// </summary>
         /// <param name="shape"></param>
         /// <returns></returns>
-        cpSpaceDebugColor ColorForShape(Shape shape);
+        DebugColor ColorForShape(Shape shape);
     }
 }

@@ -138,12 +138,12 @@ namespace ChipmunkBinding
         /// <summary>
         /// Get the centroid of this shape.
         /// </summary>
-        public cpVect CenterOfGravity => NativeMethods.cpShapeGetCenterOfGravity(shape);
+        public Vect CenterOfGravity => NativeMethods.cpShapeGetCenterOfGravity(shape);
 
         /// <summary>
         /// Get the bounding box that contains the shape given it's current position and angle.
         /// </summary>
-        public cpBB BoundingBox => NativeMethods.cpShapeGetBB(shape);
+        public BoundingBox BoundingBox => NativeMethods.cpShapeGetBB(shape);
 
         /// <summary>
         /// Enable/Disable shape is set to be a sensor or not.
@@ -180,7 +180,7 @@ namespace ChipmunkBinding
         ///  The surface velocity of the object.
         ///  Useful for creating conveyor belts or players that move around.This value is only used when calculating friction, not resolving the collision.
         /// </summary>
-        public cpVect SurfaceVelocity
+        public Vect SurfaceVelocity
         {
             get => NativeMethods.cpShapeGetSurfaceVelocity(shape);
             set => NativeMethods.cpShapeSetSurfaceVelocity(shape, value);
@@ -217,7 +217,7 @@ namespace ChipmunkBinding
         /// Update, cache and return the bounding box of a shape based on the body it's attached to.
         /// </summary>
         /// <returns></returns>
-        public cpBB CacheBB()
+        public BoundingBox CacheBB()
         {
             return NativeMethods.cpShapeCacheBB(shape);
         }
@@ -227,7 +227,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="transform"></param>
         /// <returns></returns>
-        public cpBB Update(cpTransform transform)
+        public BoundingBox Update(Transform transform)
         {
             return NativeMethods.cpShapeUpdate(shape, transform);
         }
@@ -240,7 +240,7 @@ namespace ChipmunkBinding
         /// <param name="point"></param>
         /// <param name="info"></param>
         /// <returns>the point query info</returns>
-        public PointQueryInfo PointQuery(cpVect point)
+        public PointQueryInfo PointQuery(Vect point)
         {
             var output = new cpPointQueryInfo();
 
@@ -256,7 +256,7 @@ namespace ChipmunkBinding
         /// <param name="b"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public SegmentQueryInfo SegmentQuery(cpVect a, cpVect b, double radius)
+        public SegmentQueryInfo SegmentQuery(Vect a, Vect b, double radius)
         {
             var queryInfo = new cpSegmentQueryInfo();
             NativeMethods.cpShapeSegmentQuery(shape, a, b, radius, ref queryInfo);

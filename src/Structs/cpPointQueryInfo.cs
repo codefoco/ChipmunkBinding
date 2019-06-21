@@ -7,8 +7,8 @@ namespace ChipmunkBinding
     internal struct cpPointQueryInfo
     {
         public IntPtr shape;
-        public cpVect point;
+        public Vect point;
         public double distance;
-        public cpVect gradient;
+        public Vect gradient;
     }
 }

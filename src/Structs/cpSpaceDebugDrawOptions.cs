@@ -40,13 +40,13 @@ namespace ChipmunkBinding
         /// Flags that request which things to draw (collision shapes, constraints, contact points).
         cpSpaceDebugDrawFlags flags;
         /// Outline color passed to the drawing function.
-        cpSpaceDebugColor shapeOutlineColor;
+        DebugColor shapeOutlineColor;
         /// Function that decides what fill color to draw shapes using.
         cpSpaceDebugDrawColorForShapeImpl colorForShape;
         /// Color passed to drawing functions for constraints.
-        cpSpaceDebugColor constraintColor;
+        DebugColor constraintColor;
         /// Color passed to drawing functions for collision points.
-        cpSpaceDebugColor collisionPointColor;
+        DebugColor collisionPointColor;
     
         /// User defined context pointer passed to all of the callback functions as the 'data' argument.
         cpDataPointer data;
@@ -68,7 +68,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawCircleImpl))]
 #endif
-        private static void SpaceDebugDrawCircleCallback(cpVect pos, double angle, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data)
+        private static void SpaceDebugDrawCircleCallback(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data)
         {
             IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
@@ -80,7 +80,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawSegmentImpl))]
 #endif
-        private static void SpaceDebugDrawSegmentCallback(cpVect a, cpVect b, cpSpaceDebugColor color, voidptr_t data)
+        private static void SpaceDebugDrawSegmentCallback(Vect a, Vect b, DebugColor color, voidptr_t data)
         {
             IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
@@ -92,7 +92,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawFatSegmentImpl))]
 #endif
-        private static void SpaceDebugDrawFatSegmentCallback(cpVect a, cpVect b, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data)
+        private static void SpaceDebugDrawFatSegmentCallback(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data)
         {
             IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
@@ -104,11 +104,11 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawPolygonImpl))]
 #endif
-        private static void SpaceDebugDrawPolygonCallback(int count, cpVertPointer verts, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data)
+        private static void SpaceDebugDrawPolygonCallback(int count, cpVertPointer verts, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data)
         {
             IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
-            cpVect[] vectors = NativeInterop.PtrToStructureArray<cpVect>(verts, count);
+            Vect[] vectors = NativeInterop.PtrToStructureArray<Vect>(verts, count);
 
             debugDraw.DrawPolygon(vectors, radius, outlineColor, fillColor);
         }
@@ -118,7 +118,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawDotImpl))]
 #endif
-        private static void SpaceDebugDrawDotCallback(double size, cpVect pos, cpSpaceDebugColor color, voidptr_t data)
+        private static void SpaceDebugDrawDotCallback(double size, Vect pos, DebugColor color, voidptr_t data)
         {
             IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
 
@@ -130,7 +130,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawColorForShapeImpl))]
 #endif
-        private static cpSpaceDebugColor SpaceDebugDrawColorForShapeCallback(cpShape handleShape, voidptr_t data)
+        private static DebugColor SpaceDebugDrawColorForShapeCallback(cpShape handleShape, voidptr_t data)
         {
             IDebugDraw debugDraw = NativeInterop.FromIntPtr<IDebugDraw>(data);
             var shape = Shape.FromHandle(handleShape);

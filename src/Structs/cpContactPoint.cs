@@ -6,8 +6,8 @@ namespace ChipmunkBinding
     [StructLayout(LayoutKind.Sequential)]
     internal struct cpContactPoint
     {
-        public cpVect pointA;
-        public cpVect pointB;
+        public Vect pointA;
+        public Vect pointB;
         public double distance;
     }
 }

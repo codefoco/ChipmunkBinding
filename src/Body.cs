@@ -189,7 +189,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Position of the body. When changing the position you may also want to call Space.ReindexShapesForBody() to update the collision detection information for the attached shapes if plan to make any queries against the space.
         /// </summary>
-        public cpVect Position
+        public Vect Position
         {
             get => NativeMethods.cpBodyGetPosition(body);
             set => NativeMethods.cpBodySetPosition(body, value);
@@ -198,7 +198,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Location of the center of gravity in body local coordinates. The default value is (0, 0), meaning the center of gravity is the same as the position of the body.
         /// </summary>
-        public cpVect CenterOfGravity
+        public Vect CenterOfGravity
         {
             get => NativeMethods.cpBodyGetCenterOfGravity(body);
             set => NativeMethods.cpBodySetCenterOfGravity(body, value);
@@ -207,7 +207,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Linear velocity of the center of gravity of the body.
         /// </summary>
-        public cpVect Velocity
+        public Vect Velocity
         {
             get => NativeMethods.cpBodyGetVelocity(body);
             set => NativeMethods.cpBodySetVelocity(body, value);
@@ -216,7 +216,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Force applied to the center of gravity of the body. This value is reset for every time step.
         /// </summary>
-        public cpVect Force
+        public Vect Force
         {
             get => NativeMethods.cpBodyGetForce(body);
             set => NativeMethods.cpBodySetForce(body, value);
@@ -255,7 +255,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// The rotation vector for the body. Can be used with cpvrotate() or cpvunrotate() to perform fast rotations.
         /// </summary>
-        public cpVect Rotation => NativeMethods.cpBodyGetRotation(body);
+        public Vect Rotation => NativeMethods.cpBodyGetRotation(body);
 
         public IReadOnlyList<Arbiter> Arbiters
         {
@@ -347,7 +347,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="force"></param>
         /// <param name="point"></param>
-        public void ApplyForceAtLocalPoint(cpVect force, cpVect point)
+        public void ApplyForceAtLocalPoint(Vect force, Vect point)
         {
             NativeMethods.cpBodyApplyForceAtLocalPoint(body, force, point);
         }
@@ -364,7 +364,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="force"></param>
         /// <param name="point"></param>
-        public void ApplyForceAtWorldPoint(cpVect force, cpVect point)
+        public void ApplyForceAtWorldPoint(Vect force, Vect point)
         {
             NativeMethods.cpBodyApplyForceAtWorldPoint(body, force, point);
         }
@@ -375,7 +375,7 @@ namespace ChipmunkBinding
         /// <param name="body"></param>
         /// <param name="impulse"></param>
         /// <param name="point"></param>
-        public void ApplyImpulseAtWorldPoint(cpVect impulse, cpVect point)
+        public void ApplyImpulseAtWorldPoint(Vect impulse, Vect point)
         {
             NativeMethods.cpBodyApplyImpulseAtWorldPoint(body, impulse, point);
         }
@@ -385,7 +385,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="impulse"></param>
         /// <param name="point"></param>
-        public void ApplyImpulseAtLocalPoint(cpVect impulse, cpVect point)
+        public void ApplyImpulseAtLocalPoint(Vect impulse, Vect point)
         {
             NativeMethods.cpBodyApplyImpulseAtLocalPoint(body, impulse, point);
         }
@@ -440,7 +440,7 @@ namespace ChipmunkBinding
         /// <param name="gravity"></param>
         /// <param name="damping"></param>
         /// <param name="dt"></param>
-        public void UpdateVelocity(cpVect gravity, double damping, double dt)
+        public void UpdateVelocity(Vect gravity, double damping, double dt)
         {
             NativeMethods.cpBodyUpdateVelocity(body, gravity, damping, dt);
         }
@@ -460,7 +460,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public cpVect LocalToWorld(cpVect point)
+        public Vect LocalToWorld(Vect point)
         {
             return NativeMethods.cpBodyLocalToWorld(body, point);
         }
@@ -470,7 +470,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public cpVect WorldToLocal(cpVect point)
+        public Vect WorldToLocal(Vect point)
         {
             return NativeMethods.cpBodyWorldToLocal(body, point);
         }
@@ -480,7 +480,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public cpVect GetVelocityAtWorldPoint(cpVect point)
+        public Vect GetVelocityAtWorldPoint(Vect point)
         {
             return NativeMethods.cpBodyGetVelocityAtWorldPoint(body, point);
         }
@@ -490,7 +490,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public cpVect GetVelocityAtLocalPoint(cpVect point)
+        public Vect GetVelocityAtLocalPoint(Vect point)
         {
             return NativeMethods.cpBodyGetVelocityAtLocalPoint(body, point);
         }

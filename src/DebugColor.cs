@@ -6,7 +6,7 @@ namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
 
-    public struct cpSpaceDebugColor : IEquatable<cpSpaceDebugColor>
+    public struct DebugColor : IEquatable<DebugColor>
     {
         #pragma warning disable IDE0032
         private float red;
@@ -21,13 +21,13 @@ namespace ChipmunkBinding
         public float Alfa => alpha;
         
 
-        public cpSpaceDebugColor(float red, float green, float blue) 
+        public DebugColor(float red, float green, float blue) 
             : this(red, green, blue, 1.0f)
         {
 
         }
 
-        public cpSpaceDebugColor(float red, float green, float blue, float alpha)
+        public DebugColor(float red, float green, float blue, float alpha)
         {
             this.red = red;
             this.green = green;
@@ -37,14 +37,14 @@ namespace ChipmunkBinding
 
         public override bool Equals(object obj)
         {
-            var other = obj as cpSpaceDebugColor?;
+            var other = obj as DebugColor?;
             if (!other.HasValue)
                 return false;
 
             return Equals(other.Value);
         }
 
-        public bool Equals(cpSpaceDebugColor color)
+        public bool Equals(DebugColor color)
         {
             return this == color;
         }
@@ -64,7 +64,7 @@ namespace ChipmunkBinding
             return $"({red},{green},{blue},{alpha})";
         }
 
-        public static bool operator == (cpSpaceDebugColor a, cpSpaceDebugColor b)
+        public static bool operator == (DebugColor a, DebugColor b)
         {
             return a.red == b.red &&
                    a.green == b.green &&
@@ -72,7 +72,7 @@ namespace ChipmunkBinding
                    a.alpha == b.alpha;
         }
 
-        public static bool operator !=(cpSpaceDebugColor a, cpSpaceDebugColor b)
+        public static bool operator !=(DebugColor a, DebugColor b)
         {
             return !(a == b);
         }

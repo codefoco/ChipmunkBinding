@@ -9,18 +9,18 @@ namespace ChipmunkBinding
     {
 #pragma warning disable IDE0032
         private readonly Shape shape;
-        private readonly cpVect point;
+        private readonly Vect point;
         private readonly double distance;
-        private readonly cpVect gradient;
+        private readonly Vect gradient;
 #pragma warning restore IDE0032
 
         public Shape Shape => shape;
-        public cpVect Point => point;
+        public Vect Point => point;
         public double Distance => distance;
 
-        public cpVect Gradient => gradient;
+        public Vect Gradient => gradient;
 
-        public PointQueryInfo(Shape s, cpVect p, double d, cpVect g)
+        public PointQueryInfo(Shape s, Vect p, double d, Vect g)
         {
             shape = s;
             point = p;

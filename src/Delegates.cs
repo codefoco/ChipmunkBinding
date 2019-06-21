@@ -44,7 +44,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    public delegate void BodyVelocityFunction(cpBody body, cpVect gravity, double damping, double dt);
+    public delegate void BodyVelocityFunction(cpBody body, Vect gravity, double damping, double dt);
 
 
 
@@ -167,7 +167,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate void SpacePointQueryFunction(cpShape shape, cpVect point, double distance, cpVect gradient, voidptr_t data);
+    internal delegate void SpacePointQueryFunction(cpShape shape, Vect point, double distance, Vect gradient, voidptr_t data);
 
     /// <summary>
     /// Segment query callback function type.
@@ -182,7 +182,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate void SpaceSegmentQueryFunction(cpShape shape, cpVect point, cpVect normal, double alpha, voidptr_t data);
+    internal delegate void SpaceSegmentQueryFunction(cpShape shape, Vect point, Vect normal, double alpha, voidptr_t data);
 
 
 
@@ -225,7 +225,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate void SpaceDebugDrawCircleImpl(cpVect pos, double angle, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data);
+    internal delegate void SpaceDebugDrawCircleImpl(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
 
     /// <summary>
     /// Callback type for a function that draws a line segment.
@@ -239,7 +239,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate void SpaceDebugDrawSegmentImpl(cpVect a, cpVect b, cpSpaceDebugColor color, voidptr_t data);
+    internal delegate void SpaceDebugDrawSegmentImpl(Vect a, Vect b, DebugColor color, voidptr_t data);
 
     /// <summary>
     /// Callback type for a function that draws a thick line segment.
@@ -255,7 +255,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate void SpaceDebugDrawFatSegmentImpl(cpVect a, cpVect b, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data);
+    internal delegate void SpaceDebugDrawFatSegmentImpl(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
 
     /// <summary>
     /// Callback type for a function that draws a convex polygon.
@@ -272,7 +272,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate void SpaceDebugDrawPolygonImpl(int count, cpVertPointer verts, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor, voidptr_t data);
+    internal delegate void SpaceDebugDrawPolygonImpl(int count, cpVertPointer verts, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
 
     /// <summary>
     /// Callback type for a function that draws a dot.
@@ -286,7 +286,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate void SpaceDebugDrawDotImpl(double size, cpVect pos, cpSpaceDebugColor color, voidptr_t data);
+    internal delegate void SpaceDebugDrawDotImpl(double size, Vect pos, DebugColor color, voidptr_t data);
 
     /// <summary>
     /// Callback type for a function that returns a color for a given shape. This gives you an opportunity to color shapes based on how they are used in your engine.
@@ -299,6 +299,6 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate cpSpaceDebugColor SpaceDebugDrawColorForShapeImpl(cpShape shape, voidptr_t data);
+    internal delegate DebugColor SpaceDebugDrawColorForShapeImpl(cpShape shape, voidptr_t data);
 
 }

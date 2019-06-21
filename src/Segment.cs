@@ -14,7 +14,7 @@ namespace ChipmunkBinding
         /// <param name="a">The first endpoint of the segment</param>
         /// <param name="b">The second endpoint of the segment</param>
         /// <param name="radius">The thickness of the segment</param>
-        public Segment(Body body, cpVect a, cpVect b, double radius)
+        public Segment(Body body, Vect a, Vect b, double radius)
             : base(NativeMethods.cpSegmentShapeNew(body.Handle, a, b, radius))
         {
         }
@@ -24,7 +24,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="prev"></param>
         /// <param name="next"></param>
-        public void SetNeighbors(cpVect prev, cpVect next)
+        public void SetNeighbors(Vect prev, Vect next)
         {
             NativeMethods.cpSegmentShapeSetNeighbors(Handle, prev, next);
         }
@@ -32,17 +32,17 @@ namespace ChipmunkBinding
         /// <summary>
         /// Get the first endpoint of a segment shape.
         /// </summary>
-        public cpVect A => NativeMethods.cpSegmentShapeGetA(Handle);
+        public Vect A => NativeMethods.cpSegmentShapeGetA(Handle);
 
         /// <summary>
         /// Get the second endpoint of a segment shape.
         /// </summary>
-        public cpVect B => NativeMethods.cpSegmentShapeGetB(Handle);
+        public Vect B => NativeMethods.cpSegmentShapeGetB(Handle);
 
         /// <summary>
         /// Get the normal of a segment shape.
         /// </summary>
-        public cpVect Normal => NativeMethods.cpSegmentShapeGetNormal(Handle);
+        public Vect Normal => NativeMethods.cpSegmentShapeGetNormal(Handle);
 
         /// <summary>
         /// Get segment radius

@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct cpVect : IEquatable<cpVect>
+    public struct Vect : IEquatable<Vect>
     {
-        private static readonly cpVect zero = new cpVect(0, 0);
+        private static readonly Vect zero = new Vect(0, 0);
 
         private double x;
         private double y;
@@ -26,7 +26,7 @@ namespace ChipmunkBinding
           set => y = value;
         }
 
-        public cpVect(double x, double y)
+        public Vect(double x, double y)
         {
             this.x = x;
             this.y = y;
@@ -34,7 +34,7 @@ namespace ChipmunkBinding
 
         public override bool Equals(object obj)
         {
-            cpVect? vect = obj as cpVect?;
+            Vect? vect = obj as Vect?;
             if (!vect.HasValue)
                 return false;
             return this == vect.Value;
@@ -45,7 +45,7 @@ namespace ChipmunkBinding
             return (x.GetHashCode() << 16) ^ y.GetHashCode();
         }
 
-        public bool Equals(cpVect other)
+        public bool Equals(Vect other)
         {
             return this == other;
         }
@@ -55,18 +55,18 @@ namespace ChipmunkBinding
              return $"({x},{y})";
         }
 
-        public static bool operator == (cpVect a, cpVect b)
+        public static bool operator == (Vect a, Vect b)
         {
             return Math.Abs(a.x - b.x) < float.Epsilon && 
                    Math.Abs(a.y - b.y) < float.Epsilon;
         }
 
-        public static bool operator !=(cpVect a, cpVect b)
+        public static bool operator !=(Vect a, Vect b)
         {
             return !(a == b);
         }
 
-        public static cpVect Zero => zero;
+        public static Vect Zero => zero;
     }
 }
 

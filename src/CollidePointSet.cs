@@ -13,11 +13,11 @@ namespace ChipmunkBinding
     {
 #pragma warning disable IDE0032
         private readonly int count;
-        private readonly cpVect normal;
+        private readonly Vect normal;
         private readonly ContactPoint[] points;
 #pragma warning restore IDE0032
 
-        private ContactPointSet(int count, cpVect normal, ContactPoint[] points)
+        private ContactPointSet(int count, Vect normal, ContactPoint[] points)
         {
             this.count = count;
             this.normal = normal;
@@ -25,7 +25,7 @@ namespace ChipmunkBinding
         }
 
         public int Count => count;
-        public cpVect Normal => normal;
+        public Vect Normal => normal;
         public IReadOnlyList<ContactPoint> Points => points;
 
         public bool Equals(ContactPointSet other)

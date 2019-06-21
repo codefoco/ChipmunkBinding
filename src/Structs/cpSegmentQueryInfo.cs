@@ -7,8 +7,8 @@ namespace ChipmunkBinding
     internal struct cpSegmentQueryInfo
     {
         public IntPtr shape;
-        public cpVect point;
-        public cpVect normal;
+        public Vect point;
+        public Vect normal;
         public double alpha;
     }
 }

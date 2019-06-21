@@ -14,14 +14,14 @@ namespace ChipmunkBindingTest
             stringBuilder = new StringBuilder();
         }
 
-        public cpSpaceDebugColor ColorForShape(Shape shape)
+        public DebugColor ColorForShape(Shape shape)
         {
-            return new cpSpaceDebugColor(0, 0, 1);
+            return new DebugColor(0, 0, 1);
         }
 
         public string TracedCalls => stringBuilder.ToString();
 
-        public void DrawCircle(cpVect pos, double angle, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor)
+        public void DrawCircle(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
             stringBuilder.Append($"DrawCircle\n");
             stringBuilder.Append($"pos = {pos.X}, {pos.Y}\n");
@@ -31,7 +31,7 @@ namespace ChipmunkBindingTest
             stringBuilder.Append($"outlineColor = {fillColor}\n");
         }
 
-        public void DrawDot(double size, cpVect pos, cpSpaceDebugColor color)
+        public void DrawDot(double size, Vect pos, DebugColor color)
         {
             stringBuilder.Append($"DrawDot\n");
             stringBuilder.Append($"size = {size}\n");
@@ -39,7 +39,7 @@ namespace ChipmunkBindingTest
             stringBuilder.Append($"color = {color}\n");
         }
 
-        public void DrawFatSegment(cpVect a, cpVect b, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor)
+        public void DrawFatSegment(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
             stringBuilder.Append($"DrawFatSegment\n");
             stringBuilder.Append($"a = {a}\n");
@@ -49,7 +49,7 @@ namespace ChipmunkBindingTest
             stringBuilder.Append($"fillColor = {fillColor}\n");
         }
 
-        public void DrawPolygon(cpVect[] vectors, double radius, cpSpaceDebugColor outlineColor, cpSpaceDebugColor fillColor)
+        public void DrawPolygon(Vect[] vectors, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
             stringBuilder.Append($"DrawPolygon\n");
 
@@ -60,7 +60,7 @@ namespace ChipmunkBindingTest
             stringBuilder.Append($"fillColor = {fillColor}\n");
         }
 
-        public void DrawSegment(cpVect a, cpVect b, cpSpaceDebugColor color)
+        public void DrawSegment(Vect a, Vect b, DebugColor color)
         {
             stringBuilder.Append($"DrawFatSegment\n");
             stringBuilder.Append($"a = {a}\n");
