@@ -122,7 +122,7 @@ namespace ChipmunkBinding
         internal static extern void cpArbiterGetBodies(cpArbiter arb, out cpBody a, out cpBody b);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpArbiterGetContactPointSet(cpArbiter arb);
+        internal static extern cpContactPointSet cpArbiterGetContactPointSet(cpArbiter arb);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int cpArbiterGetCount(cpArbiter arb);
@@ -164,7 +164,7 @@ namespace ChipmunkBinding
         internal static extern cpBool cpArbiterIsRemoval(cpArbiter arb);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpArbiterSetContactPointSet(cpArbiter arb, cpContactPointSet set);
+        internal static extern void cpArbiterSetContactPointSet(cpArbiter arb, ref cpContactPointSet set);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpArbiterSetFriction(cpArbiter arb, cpFloat friction);

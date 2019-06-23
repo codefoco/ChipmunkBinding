@@ -79,5 +79,15 @@ namespace ChipmunkBinding
             return new ContactPointSet(contactPointSet.count,
                                        contactPointSet.normal, points);
         }
+
+        internal cpContactPointSet ToContactPointSet()
+        {
+            var pointSet = new cpContactPointSet();
+            pointSet.normal = normal;
+            pointSet.points0 = points[0].ToContactPoint();
+            pointSet.points1 = points[1].ToContactPoint();
+            pointSet.count = count;
+            return pointSet;
+        }
     }
 }

@@ -76,5 +76,14 @@ namespace ChipmunkBinding
                                     contactPoint.pointB,
                                     contactPoint.distance);
         }
+
+        internal cpContactPoint ToContactPoint()
+        {
+            var contactPoint = new cpContactPoint();
+            contactPoint.pointA = pointA;
+            contactPoint.pointB = pointB;
+            contactPoint.distance = distance;
+            return contactPoint;
+        }
     }
 }
