@@ -35,6 +35,22 @@ namespace ChipmunkBinding
             handle.Free();
         }
 
+        public static T FromIntPtrAndFree<T>(IntPtr pointer)
+        {
+            Debug.Assert(pointer != IntPtr.Zero, "IntPtr parameter should never be Zero");
+
+            var handle = GCHandle.FromIntPtr(pointer);
+
+            Debug.Assert(handle.IsAllocated, "GCHandle not allocated.");
+            Debug.Assert(handle.Target is T, "Target is not of type T.");
+            T obj = (T)handle.Target;
+
+            handle.Free();
+
+            return obj;
+        }
+
+
         public static int SizeOf<T>()
         {
 #if NETFRAMEWORK

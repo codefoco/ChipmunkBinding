@@ -123,6 +123,28 @@ namespace ChipmunkBinding
             }
         }
 
+        public object Data
+        {
+            get
+            {
+                IntPtr handle = NativeMethods.cpArbiterGetUserData(arbiter);
+
+                if (handle == IntPtr.Zero)
+                    return null;
+
+                return NativeInterop.FromIntPtrAndFree<object>(handle);
+            }
+            set
+            {
+                var gcHandle = IntPtr.Zero;
+
+                if (value != null)
+                    gcHandle = NativeInterop.RegisterHandle(value);
+
+                NativeMethods.cpArbiterSetUserData(arbiter, gcHandle);
+            }
+        }
+
         /// <summary>
         /// Returns true if this is the first step a pair of objects started colliding.
         /// </summary>

@@ -421,6 +421,8 @@ namespace ChipmunkBindingTest.Tests
 
                 CollisionHandler<object> handler = space.GetOrCreateCollisionHandler(0, 0);
 
+                handler.Data = "object data";
+
                 Body bodyA = null;
                 Body bodyB = null;
                 Shape shapeA = null;
@@ -439,8 +441,14 @@ namespace ChipmunkBindingTest.Tests
                 Vect pointB = new Vect(-1, -1);
                 double depth = -1;
 
+                var arb = default(Arbiter);
+
                 handler.Begin = (arbiter, s, obj) =>
                 {
+                    Assert.IsNull(arbiter.Data, "arbiter.Data");
+
+                    arbiter.Data = "another data";
+
                     arbiter.GetBodies(out bodyA, out bodyB);
                     arbiter.GetShapes(out shapeA, out shapeB);
                     restituition = arbiter.Restitution;
@@ -456,6 +464,8 @@ namespace ChipmunkBindingTest.Tests
                     pointA = arbiter.GetPointA(0);
                     pointB = arbiter.GetPointB(0);
                     depth = arbiter.GetDepth(0);
+                    arb = arbiter;
+
                     return true;
                 };
 
@@ -463,6 +473,12 @@ namespace ChipmunkBindingTest.Tests
 
                 Assert.AreSame(body2, bodyA, "#1");
                 Assert.AreSame(body1, bodyB, "#1.1");
+
+                var arbiters = bodyA.Arbiters;
+
+                Assert.AreEqual(1, arbiters.Count, "#0");
+                Assert.AreEqual(arb, arbiters[0], "#0.1");
+                Assert.AreEqual("another data", arbiters[0].Data, "#0.2");
 
                 Assert.AreSame(shape2, shapeA, "#2");
                 Assert.AreSame(shape, shapeB, "#2.1");
