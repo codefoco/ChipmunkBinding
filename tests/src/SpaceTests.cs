@@ -389,5 +389,108 @@ namespace ChipmunkBindingTest.Tests
             space.Dispose();
         }
 
+        [Test]
+        public void TestArbiterProperties()
+        {
+            Space space;
+            using (space = new Space())
+            {
+                space.CollisionBias = 1.0;
+
+                float radius = 5.0f;
+
+                var body1 = new Body(1, 1)
+                {
+                    Position = new Vect(0 * radius * 1.5, 0)
+                };
+
+                space.AddBody(body1);
+
+                Shape shape = new Circle(body1, radius);
+                space.AddShape(shape);
+
+                var body2 = new Body(1, 1)
+                {
+                    Position = new Vect(0 * radius * 1.5, 0)
+                };
+
+                space.AddBody(body2);
+
+                var shape2 = new Circle(body2, radius);
+                space.AddShape(shape2);
+
+                CollisionHandler<object> handler = space.GetOrCreateCollisionHandler(0, 0);
+
+                Body bodyA = null;
+                Body bodyB = null;
+                Shape shapeA = null;
+                Shape shapeB = null;
+                double restituition = -1;
+                double fricction = -1;
+                Vect surfaceVelocity = new Vect(-1, -1);
+                Vect totalImpulse = new Vect(-1, -1);
+                double ke = -1;
+                ContactPointSet pointSet = null;
+                bool first = false;
+                bool removal = true;
+                int count = -1;
+                Vect normal = new Vect(-1, -1);
+                Vect pointA = new Vect(-1, -1);
+                Vect pointB = new Vect(-1, -1);
+                double depth = -1;
+
+                handler.Begin = (arbiter, s, obj) =>
+                {
+                    arbiter.GetBodies(out bodyA, out bodyB);
+                    arbiter.GetShapes(out shapeA, out shapeB);
+                    restituition = arbiter.Restitution;
+                    fricction = arbiter.Friction;
+                    surfaceVelocity = arbiter.SurfaceVelocity;
+                    totalImpulse = arbiter.TotalImpulse;
+                    ke = arbiter.TotalKE;
+                    pointSet = arbiter.ContactPointSet;
+                    first = arbiter.IsFirstContact;
+                    removal = arbiter.IsRemoval;
+                    count = arbiter.Count;
+                    normal = arbiter.Normal;
+                    pointA = arbiter.GetPointA(0);
+                    pointB = arbiter.GetPointB(0);
+                    depth = arbiter.GetDepth(0);
+                    return true;
+                };
+
+                space.Step(0.1);
+
+                Assert.AreSame(body2, bodyA, "#1");
+                Assert.AreSame(body1, bodyB, "#1.1");
+
+                Assert.AreSame(shape2, shapeA, "#2");
+                Assert.AreSame(shape, shapeB, "#2.1");
+
+                Assert.AreEqual(0, restituition, "#3");
+                Assert.AreEqual(0, fricction, "#4");
+                Assert.AreEqual(Vect.Zero, surfaceVelocity, "#5");
+                Assert.AreEqual(Vect.Zero, totalImpulse, "#6");
+                Assert.AreEqual(double.NaN, ke, "#7");
+
+                Assert.AreEqual(1, pointSet.Count, "8.1");
+                Assert.AreEqual(new Vect(1, 0), pointSet.Normal, "8.2");
+                Assert.AreEqual(-10, pointSet.Points[0].Distance, "8.3");
+                Assert.AreEqual(new Vect(5, 0), pointSet.Points[0].PointA, "8.4");
+                Assert.AreEqual(new Vect(-5, 0), pointSet.Points[0].PointB, "8.5");
+                Assert.AreEqual(0, pointSet.Points[1].Distance, "8.6");
+                Assert.AreEqual(new Vect(0, 0), pointSet.Points[1].PointA, "8.7");
+                Assert.AreEqual(new Vect(0, 0), pointSet.Points[1].PointB, "8.8");
+
+                Assert.IsTrue(first, "#9");
+                Assert.IsFalse(removal, "#10");
+                Assert.AreEqual(1, count, "#11");
+                Assert.AreEqual(new Vect(1, 0), normal, "#12");
+                Assert.AreEqual(new Vect(5, 0), pointA, "#13");
+                Assert.AreEqual(new Vect(-5, 0), pointB, "#14");
+                Assert.AreEqual(-10, depth, "#15");
+            }
+        }
     }
 }
+;
