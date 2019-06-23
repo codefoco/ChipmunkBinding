@@ -467,18 +467,18 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreSame(shape2, shapeA, "#2");
                 Assert.AreSame(shape, shapeB, "#2.1");
 
-                Assert.AreEqual(0, restituition, "#3");
-                Assert.AreEqual(0, fricction, "#4");
+                Assert.AreEqual(0, restituition, 0.00001, "#3");
+                Assert.AreEqual(0, fricction, 0.00001, "#4");
                 Assert.AreEqual(Vect.Zero, surfaceVelocity, "#5");
                 Assert.AreEqual(Vect.Zero, totalImpulse, "#6");
                 Assert.AreEqual(double.NaN, ke, "#7");
 
                 Assert.AreEqual(1, pointSet.Count, "8.1");
                 Assert.AreEqual(new Vect(1, 0), pointSet.Normal, "8.2");
-                Assert.AreEqual(-10, pointSet.Points[0].Distance, "8.3");
+                Assert.AreEqual(-10, pointSet.Points[0].Distance, 0.00001, "8.3");
                 Assert.AreEqual(new Vect(5, 0), pointSet.Points[0].PointA, "8.4");
                 Assert.AreEqual(new Vect(-5, 0), pointSet.Points[0].PointB, "8.5");
-                Assert.AreEqual(0, pointSet.Points[1].Distance, "8.6");
+                Assert.AreEqual(0, pointSet.Points[1].Distance, 0.00001,  "8.6");
                 Assert.AreEqual(new Vect(0, 0), pointSet.Points[1].PointA, "8.7");
                 Assert.AreEqual(new Vect(0, 0), pointSet.Points[1].PointB, "8.8");
 
@@ -488,7 +488,7 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreEqual(new Vect(1, 0), normal, "#12");
                 Assert.AreEqual(new Vect(5, 0), pointA, "#13");
                 Assert.AreEqual(new Vect(-5, 0), pointB, "#14");
-                Assert.AreEqual(-10, depth, "#15");
+                Assert.AreEqual(-10, depth, 0.00001, "#15");
             }
         }
     }
