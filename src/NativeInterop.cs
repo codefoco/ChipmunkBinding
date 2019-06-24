@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -98,6 +99,25 @@ namespace ChipmunkBinding
             var size = SizeOf<T>();
             var newPtr = new IntPtr(intPtr.ToInt64() + (index * size));
             return PtrToStructure<T>(newPtr);
+        }
+
+
+        internal static IntPtr StructureArrayToPtr<T>(IReadOnlyList<T> items)
+        {
+            var size = SizeOf<T>();
+            var memory = Marshal.AllocHGlobal(size * items.Count);
+
+            for (var i = 0; i < items.Count; i++)
+            {
+                var ptr = new IntPtr(memory.ToInt64() + (i * size));
+#if NETFRAMEWORK
+                Marshal.StructureToPtr(items[i], ptr, true);
+#else
+                Marshal.StructureToPtr<T>(items[i], ptr, true);
+#endif
+            }
+
+            return memory;
         }
     }
 }
