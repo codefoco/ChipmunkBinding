@@ -9,17 +9,11 @@ using System.Diagnostics;
 
 namespace ChipmunkBinding
 {
-    public class Shape : IDisposable
+    public abstract class Shape : IDisposable
     {
 #pragma warning disable IDE0032
         private readonly cpShape shape;
 #pragma warning restore IDE0032
-
-        public Shape(Body body, double width, double height, double radius)
-        {
-            shape = NativeMethods.cpBoxShapeNew(body.Handle, width, height, radius);
-            RegisterUserData();
-        }
 
         internal protected Shape(cpShape shapeHandle)
         {

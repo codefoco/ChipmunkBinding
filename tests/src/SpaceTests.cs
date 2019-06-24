@@ -141,7 +141,7 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
             var body = new Body();
-            var shape = new Shape(body, 100, 100, 0);
+            var shape = new Box(body, 100, 100, 0);
 
             body.Position = new Vect(0, 0);
 
@@ -167,7 +167,7 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
             var body = new Body();
-            var shape = new Shape(body, 100, 100, 0);
+            var shape = new Box(body, 100, 100, 0);
 
             body.Position = new Vect(0, 0);
             var end = new Vect(0, 1);
@@ -200,7 +200,7 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
             var body = new Body();
-            var shape = new Shape(body, 5, 5, 0);
+            var shape = new Box(body, 5, 5, 0);
 
             var pos = new Vect(3, 3);
 
@@ -236,7 +236,7 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
             var body = new Body();
-            var shape = new Shape(body, 100, 100, 0);
+            var shape = new Box(body, 100, 100, 0);
 
             string expected_calls = "DrawPolygon\nvectors[0] = (50,-50)\nvectors[1] = (50,50)\nvectors[2] = (-50,50)\nvectors[3] = (-50,-50)\nradius = 0\noutlineColor = (0,0,0,1)\nfillColor = (0,0,1,1)\n";
 
@@ -295,8 +295,8 @@ namespace ChipmunkBindingTest.Tests
             var body = new Body();
             var body2 = new Body();
 
-            var shape = new Shape(body, 100, 100, 0);
-            var shape2 = new Shape(body2, 100, 100, 0);
+            var shape = new Box(body, 100, 100, 0);
+            var shape2 = new Box(body2, 100, 100, 0);
 
 
             body.Position = new Vect(10, 10);
