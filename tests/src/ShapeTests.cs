@@ -1,6 +1,7 @@
 ﻿
 using System;
 using ChipmunkBinding;
+using ChipmunkBinding.Unsafe;
 using NUnit.Framework;
 
 using cpShape = System.IntPtr;
@@ -306,6 +307,80 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(1.0, polygon2.Radius, "#3.1");
 
             space.Dispose();
+        }
+
+        [Test]
+        public void UnsafeCircle()
+        {
+            var space = new Space();
+            var body = new Body(10, 16.666);
+            var shape = new Circle(body, 2, new Vect(3, 5));
+
+            body.Position = new Vect(3, 2);
+
+            shape.Density = 10;
+
+            space.AddBody(body);
+            space.AddShape(shape);
+
+            Assert.AreEqual(new Vect(3, 5), shape.Offset, "#1");
+            Assert.AreEqual(2, shape.Radius, "#2");
+
+            shape.SetOffset(new Vect(10, 13));
+            shape.SetRadius(4);
+
+            Assert.AreEqual(new Vect(10, 13), shape.Offset, "#3");
+            Assert.AreEqual(4, shape.Radius, "#4");
+
+            space.Dispose();
+        }
+
+        [Test]
+        public void UnsafePolygon()
+        {
+            var space = new Space();
+            var body = new Body(10, 16.666);
+
+            Vect[] vertexs = new[] { new Vect(-1, 0), new Vect(0, -1), new Vect(1, 0), new Vect(0, 1) };
+
+            var polygon = new Polygon(body, vertexs, 2.0);
+
+            space.AddBody(body);
+            space.AddShape(polygon);
+
+            Vect[] vertexs2 = new[] { new Vect(-2, 0), new Vect(0, -2), new Vect(2, 0), new Vect(0, 2) };
+
+            polygon.SetVertexes(vertexs2);
+
+            for (int i = 0; i < vertexs.Length; i++)
+            {
+                Assert.AreEqual(vertexs2[i], polygon.GetVertex(i), "#2.1." + i);
+            }
+
+            space.Dispose();
+
+        }
+
+        [Test]
+        public void UnsafeSegment()
+        {
+            var space = new Space();
+            var body = new Body(10, 16.666);
+            var shape = new Segment(body, new Vect(1, 2), new Vect(3, 5), 2);
+
+            body.Position = new Vect(3, 2);
+
+            shape.Density = 10;
+
+            space.AddBody(body);
+            space.AddShape(shape);
+
+            shape.SetEndpoints(new Vect(2, 4), new Vect(6, 2));
+            shape.SetRadius(3);
+
+            Assert.AreEqual(new Vect(2, 4), shape.A, "#1");
+            Assert.AreEqual(new Vect(6, 2), shape.B, "#2");
+            Assert.AreEqual(3, shape.Radius, "#3");
         }
     }
 }
