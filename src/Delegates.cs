@@ -301,4 +301,30 @@ namespace ChipmunkBinding
 #endif
     internal delegate DebugColor SpaceDebugDrawColorForShapeImpl(cpShape shape, voidptr_t data);
 
+    /// <summary>
+    /// Callback function type that gets called before solving a joint.
+    /// </summary>
+    /// <param name="constraint"></param>
+    /// <param name="space"></param>
+    /// 
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate void ConstraintPreSolveFunction(cpConstraint constraint, cpSpace space);
+
+    /// <summary>
+    /// Callback function type that gets called after solving a joint.
+    /// </summary>
+    /// <param name="constraint"></param>
+    /// <param name="space"></param>
+    /// 
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate void ConstraintPostSolveFunction(cpConstraint constraint, cpSpace space);
+
 }

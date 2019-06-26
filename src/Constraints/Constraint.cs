@@ -1,25 +1,190 @@
 ﻿using System;
+using System.Diagnostics;
 
 using cpConstraint = System.IntPtr;
 using cpDataPointer = System.IntPtr;
+using cpSpace = System.IntPtr;
+using cpBody = System.IntPtr;
 
 namespace ChipmunkBinding
 {
-    public abstract class Constraint
+    public abstract class Constraint : IDisposable
     {
+#pragma warning disable IDE0032
         cpConstraint constraint;
+#pragma warning restore IDE0032
 
+        internal protected Constraint(cpConstraint handle)
+        {
+            constraint = handle;
+        }
+
+        /// <summary>
+        /// Native handle to constraint
+        /// </summary>
         public cpConstraint Handle => constraint;
 
+        protected void RegisterUserData()
+        {
+            cpDataPointer pointer = NativeInterop.RegisterHandle(this);
+            NativeMethods.cpConstraintSetUserData(constraint, pointer);
+        }
+
+        void ReleaseUserData()
+        {
+            cpDataPointer pointer = NativeMethods.cpConstraintGetUserData(constraint);
+            NativeInterop.ReleaseHandle(pointer);
+        }
+
+        /// <summary>
+        /// Get a Constraint object from native handle
+        /// </summary>
+        /// <param name="constraint"></param>
+        /// <returns></returns>
         public static Constraint FromHandle(cpConstraint constraint)
         {
             cpDataPointer handle = NativeMethods.cpConstraintGetUserData(constraint);
             return NativeInterop.FromIntPtr<Constraint>(handle);
         }
 
-        protected Constraint(cpConstraint handle)
+        protected virtual void Dispose(bool dispose)
         {
-            constraint = handle;
+            if (!dispose)
+            {
+                Debug.WriteLine("Disposing constraint {0} on finalizer... (consider Dispose explicitly)", constraint);
+            }
+            Free();
         }
+
+        public void Free()
+        {
+            ReleaseUserData();
+            NativeMethods.cpConstraintFree(constraint);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~Constraint()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Get the cpSpace this constraint is added to.
+        /// </summary>
+        public Space Space
+        {
+            get
+            {
+                cpSpace space = NativeMethods.cpConstraintGetSpace(constraint);
+                return Space.FromHandleSafe(space);
+            }
+        }
+
+        /// <summary>
+        /// Get the first body the constraint is attached to.
+        /// </summary>
+        public Body BodyA
+        {
+            get
+            {
+                cpBody body = NativeMethods.cpConstraintGetBodyA(constraint);
+                return Body.FromHandleSafe(body);
+            }
+        }
+
+        /// <summary>
+        /// Get the second body the constraint is attached to.
+        /// </summary>
+        public Body BodyB
+        {
+            get
+            {
+                cpBody body = NativeMethods.cpConstraintGetBodyB(constraint);
+                return Body.FromHandleSafe(body);
+            }
+        }
+
+        /// <summary>;
+        /// The maximum force that this constraint is allowed to use.
+        /// </summary>
+        public double MaxForce
+        {
+            get => NativeMethods.cpConstraintGetMaxForce(constraint);
+            set => NativeMethods.cpConstraintSetMaxForce(constraint, value);
+        }
+
+        /// <summary>
+        /// Rate at which joint error is corrected.
+        /// Defaults to pow(1.0 - 0.1, 60.0) meaning that it will
+        /// correct 10% of the error every 1/60th of a second.
+        /// </summary>
+        public double ErrorBias
+        {
+            get => NativeMethods.cpConstraintGetErrorBias(constraint);
+            set => NativeMethods.cpConstraintSetErrorBias(constraint, value);
+        }
+
+
+        /// <summary>
+        /// The maximum rate at which joint error is corrected.
+        /// </summary>
+        public double MaxBias
+        {
+            get => NativeMethods.cpConstraintGetMaxBias(constraint);
+            set => NativeMethods.cpConstraintSetMaxBias(constraint, value);
+        }
+
+        /// <summary>
+        /// If the two bodies connected by the constraint are allowed to collide or not.
+        /// </summary>
+        public bool CollideBodies
+        {
+            get => NativeMethods.cpConstraintGetCollideBodies(constraint) != 0;
+            set => NativeMethods.cpConstraintSetCollideBodies(constraint, value ? (byte)1 : (byte)0);
+        }
+
+        private static ConstraintPreSolveFunction preSolveFunctionCallback = ConstraintPreSolveFunctionCallback;
+
+        private Action<Constraint, Space> preSolve;
+
+        /// <summary>
+        /// Pre-solve function that is called before the solver runs.
+        /// </summary>
+        public Action<Constraint, Space> PreSolve
+        {
+            get => preSolve;
+            set
+            {
+                IntPtr callbackPointer;
+
+                if (value == null)
+                    callbackPointer = IntPtr.Zero;
+                else
+                    callbackPointer = preSolveFunctionCallback.ToFunctionPointer();
+
+                NativeMethods.cpConstraintSetPreSolveFunc(constraint, callbackPointer);
+
+                preSolve = value;
+            }
+        }
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(ConstraintPreSolveFunction))]
+#endif
+        private static void ConstraintPreSolveFunctionCallback(cpConstraint constraintHandle, cpSpace spaceHandle)
+        {
+            var constraint = Constraint.FromHandle(constraintHandle);
+            var space = Space.FromHandle(spaceHandle);
+
+            Action<Constraint, Space> preSolve = constraint.PreSolve;
+
+            preSolve(constraint, space);
+        }
+
     }
 }
