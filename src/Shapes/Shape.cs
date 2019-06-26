@@ -38,7 +38,7 @@ namespace ChipmunkBinding
             NativeInterop.ReleaseHandle(pointer);
         }
 
-        public static Shape FromHandle(cpShape constraint)
+        internal static Shape FromHandle(cpShape constraint)
         {
             cpDataPointer handle = NativeMethods.cpShapeGetUserData(constraint);
             return NativeInterop.FromIntPtr<Shape>(handle);
@@ -91,8 +91,8 @@ namespace ChipmunkBinding
         {
             get
             {
-                cpBody space = NativeMethods.cpShapeGetBody(shape);
-                return Body.FromHandleSafe(space);
+                cpBody body = NativeMethods.cpShapeGetBody(shape);
+                return Body.FromHandleSafe(body);
             }
             set
             {
