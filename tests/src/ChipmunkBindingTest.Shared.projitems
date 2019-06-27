@@ -9,6 +9,7 @@
     <Import_RootNamespace>ChipmunkBindingTest.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ConstraintsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FakeDebugDraw.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShapeTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpaceTests.cs" />

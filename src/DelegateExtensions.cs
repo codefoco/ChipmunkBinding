@@ -253,7 +253,8 @@ namespace ChipmunkBinding
 #endif
         }
 
-        public static IntPtr ToFunctionPointer(this ConstraintPreSolveFunction d)
+
+        public static IntPtr ToFunctionPointer(this ConstraintSolveFunction d)
         {
             if (d == null)
                 return IntPtr.Zero;
@@ -261,19 +262,7 @@ namespace ChipmunkBinding
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
 #else
-            return Marshal.GetFunctionPointerForDelegate<ConstraintPreSolveFunction>(d);
-#endif
-        }
-
-        public static IntPtr ToFunctionPointer(this ConstraintPostSolveFunction d)
-        {
-            if (d == null)
-                return IntPtr.Zero;
-
-#if NETFRAMEWORK
-            return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<ConstraintPostSolveFunction>(d);
+            return Marshal.GetFunctionPointerForDelegate<ConstraintSolveFunction>(d);
 #endif
         }
 

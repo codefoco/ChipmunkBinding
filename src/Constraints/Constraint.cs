@@ -8,6 +8,10 @@ using cpBody = System.IntPtr;
 
 namespace ChipmunkBinding
 {
+    /// <summary>
+    /// Base class of all constraints.
+    /// You usually don’t want to create instances of this class directly, but instead use one of the specific constraints such as the PinJoint.
+    /// </summary>
     public abstract class Constraint : IDisposable
     {
 #pragma warning disable IDE0032
@@ -17,6 +21,7 @@ namespace ChipmunkBinding
         internal protected Constraint(cpConstraint handle)
         {
             constraint = handle;
+            RegisterUserData();
         }
 
         /// <summary>
@@ -141,6 +146,8 @@ namespace ChipmunkBinding
 
         /// <summary>
         /// If the two bodies connected by the constraint are allowed to collide or not.
+        /// 
+        /// When two bodies collide, Chipmunk ignores the collisions if this property is set to False on any constraint that connects the two bodies. Defaults to True. This can be used to create a chain that self collides, but adjacent links in the chain do not collide.
         /// </summary>
         public bool CollideBodies
         {
@@ -148,9 +155,11 @@ namespace ChipmunkBinding
             set => NativeMethods.cpConstraintSetCollideBodies(constraint, value ? (byte)1 : (byte)0);
         }
 
-        private static ConstraintPreSolveFunction preSolveFunctionCallback = ConstraintPreSolveFunctionCallback;
+        private static ConstraintSolveFunction preSolveFunctionCallback = ConstraintPreSolveFunctionCallback;
+        private static ConstraintSolveFunction postSolveFunctionCallback = ConstraintPostSolveFunctionCallback;
 
         private Action<Constraint, Space> preSolve;
+        private Action<Constraint, Space> postSolve;
 
         /// <summary>
         /// Pre-solve function that is called before the solver runs.
@@ -160,6 +169,8 @@ namespace ChipmunkBinding
             get => preSolve;
             set
             {
+                preSolve = value;
+
                 IntPtr callbackPointer;
 
                 if (value == null)
@@ -168,13 +179,32 @@ namespace ChipmunkBinding
                     callbackPointer = preSolveFunctionCallback.ToFunctionPointer();
 
                 NativeMethods.cpConstraintSetPreSolveFunc(constraint, callbackPointer);
+            }
+        }
 
-                preSolve = value;
+        /// <summary>
+        /// Post-solve function that is called after the solver runs.
+        /// </summary>
+        public Action<Constraint, Space> PostSolve
+        {
+            get => postSolve;
+            set
+            {
+                postSolve = value;
+
+                IntPtr callbackPointer;
+
+                if (value == null)
+                    callbackPointer = IntPtr.Zero;
+                else
+                    callbackPointer = postSolveFunctionCallback.ToFunctionPointer();
+
+                NativeMethods.cpConstraintSetPostSolveFunc(constraint, callbackPointer);
             }
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
-        [MonoPInvokeCallback(typeof(ConstraintPreSolveFunction))]
+        [MonoPInvokeCallback(typeof(ConstraintSolveFunction))]
 #endif
         private static void ConstraintPreSolveFunctionCallback(cpConstraint constraintHandle, cpSpace spaceHandle)
         {
@@ -186,5 +216,27 @@ namespace ChipmunkBinding
             preSolve(constraint, space);
         }
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(ConstraintSolveFunction))]
+#endif
+        private static void ConstraintPostSolveFunctionCallback(cpConstraint constraintHandle, cpSpace spaceHandle)
+        {
+            var constraint = Constraint.FromHandle(constraintHandle);
+            var space = Space.FromHandle(spaceHandle);
+
+            Action<Constraint, Space> postSolve = constraint.PostSolve;
+
+            postSolve(constraint, space);
+        }
+
+        /// <summary>
+        /// the user definable data pointer for this constraint
+        /// </summary>
+        public object Data { get; set; }
+
+        /// <summary>
+        /// Get the last impulse applied by this constraint.
+        /// </summary>
+        public double Impulse => NativeMethods.cpConstraintGetImpulse(constraint);
     }
 }
