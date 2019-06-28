@@ -6,6 +6,11 @@ using cpDataPointer = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpBody = System.IntPtr;
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+using ObjCRuntime;
+#endif
+
+
 namespace ChipmunkBinding
 {
     /// <summary>
