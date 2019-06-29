@@ -105,7 +105,7 @@ namespace ChipmunkBindingTest.Tests
         public void ContainsRemove()
         {
             var space = new Space();
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
 
             Assert.IsFalse(space.Contains(body), "#1");
@@ -140,7 +140,7 @@ namespace ChipmunkBindingTest.Tests
         public void PointQueryTest()
         {
             var space = new Space();
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 100, 100, 0);
 
             body.Position = new Vect(0, 0);
@@ -166,7 +166,7 @@ namespace ChipmunkBindingTest.Tests
         public void SegmentQueryTest()
         {
             var space = new Space();
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 100, 100, 0);
 
             body.Position = new Vect(0, 0);
@@ -199,7 +199,7 @@ namespace ChipmunkBindingTest.Tests
         public void BoundBoxQueryTest()
         {
             var space = new Space();
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 5, 5, 0);
 
             var pos = new Vect(3, 3);
@@ -235,7 +235,7 @@ namespace ChipmunkBindingTest.Tests
         public void DebugDrawTest()
         {
             var space = new Space();
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 100, 100, 0);
 
             string expected_calls = "DrawPolygon\nvectors[0] = (50,-50)\nvectors[1] = (50,50)\nvectors[2] = (-50,50)\nvectors[3] = (-50,-50)\nradius = 0\noutlineColor = (0,0,0,1)\nfillColor = (0,0,1,1)\n";
@@ -260,8 +260,8 @@ namespace ChipmunkBindingTest.Tests
         public void BodiesProperty()
         {
             var space = new Space();
-            var body = new Body();
-            var body2 = new Body();
+            var body = new Body(1, 1.66);
+            var body2 = new Body(1, 1.66);
 
 
             body.Position = new Vect(10, 10);
@@ -292,8 +292,8 @@ namespace ChipmunkBindingTest.Tests
         public void ShapesProperty()
         {
             var space = new Space();
-            var body = new Body();
-            var body2 = new Body();
+            var body = new Body(1, 1.66);
+            var body2 = new Body(1, 1.66);
 
             var shape = new Box(body, 100, 100, 0);
             var shape2 = new Box(body2, 100, 100, 0);
@@ -399,7 +399,7 @@ namespace ChipmunkBindingTest.Tests
 
                 float radius = 5.0f;
 
-                var body1 = new Body(1, 1)
+                var body1 = new Body(1, 1.666)
                 {
                     Position = new Vect(0 * radius * 1.5, 0)
                 };
@@ -409,7 +409,7 @@ namespace ChipmunkBindingTest.Tests
                 Shape shape = new Circle(body1, radius);
                 space.AddShape(shape);
 
-                var body2 = new Body(1, 1)
+                var body2 = new Body(1, 1.666)
                 {
                     Position = new Vect(0 * radius * 1.5, 0)
                 };

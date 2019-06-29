@@ -23,11 +23,12 @@ namespace ChipmunkBindingTest.Tests
         {
             space = new Space();
 
-            bodyA = new Body();
+            bodyA = new Body(1, 1.666);
             shapeA = new Box(bodyA, 2, 2, 0);
 
-            bodyB = new Body();
+            bodyB = new Body(2, 3.222);
             shape2 = new Box(bodyB, 3, 3, 0);
+
 
             bodyA.Position = new Vect(2, 1);
             bodyB.Position = new Vect(3, 2);

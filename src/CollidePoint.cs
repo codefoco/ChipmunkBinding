@@ -70,6 +70,8 @@ namespace ChipmunkBinding
             return !(left == right);
         }
 
+        internal static ContactPoint Empty => new ContactPoint(Vect.Zero, Vect.Zero, 0.0);
+
         internal static ContactPoint FromCollidePoint(cpContactPoint contactPoint)
         {
             return new ContactPoint(contactPoint.pointA,

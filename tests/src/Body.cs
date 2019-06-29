@@ -21,7 +21,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void ManagedToNativeRoundtrip()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             cpBody handle = body.Handle;
 
@@ -35,7 +35,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void CreateBody ()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             Assert.IsNotNull(body.Handle, "#1");
 
@@ -67,7 +67,7 @@ namespace ChipmunkBindingTest.Tests
         public void SpaceProperty()
         {
             var space = new Space();
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             Assert.IsNull(body.Space,"#1");
 
@@ -82,7 +82,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void AngleProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             body.Angle = System.Math.PI;
 
@@ -93,7 +93,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void PositionProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var pos = new Vect(10, 20);
 
             body.Position = pos;
@@ -106,7 +106,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void CenterOfGravityProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var center = new Vect (10, 20);
 
             body.CenterOfGravity = center;
@@ -130,7 +130,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void ForceProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var force = new Vect(10,-20);
 
             body.Force = force;
@@ -142,7 +142,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void AngularVelocityProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             body.AngularVelocity = System.Math.PI;
 
@@ -153,7 +153,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void TorqueProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             body.Torque = 10.0;
 
@@ -164,7 +164,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void ArbitersProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             IReadOnlyList<Arbiter> arbiters = body.Arbiters;
 
@@ -175,7 +175,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void ShapesProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             IReadOnlyList<Shape> shapes = body.Shapes;
 
@@ -186,7 +186,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void ConstraintsProperty()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
 
             IReadOnlyList<Constraint> constraints = body.Constraints;
 
