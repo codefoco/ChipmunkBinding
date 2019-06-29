@@ -73,8 +73,15 @@ namespace ChipmunkBinding
             ContactPoint[] points;
 
             points = new ContactPoint[2];
-            points[0] = ContactPoint.FromCollidePoint(contactPointSet.points0);
-            points[1] = ContactPoint.FromCollidePoint(contactPointSet.points1);
+            if (contactPointSet.count > 0)
+                points[0] = ContactPoint.FromCollidePoint(contactPointSet.points0);
+            else
+                points[0] = ContactPoint.Empty;
+
+            if (contactPointSet.count > 1)
+                points[1] = ContactPoint.FromCollidePoint(contactPointSet.points1);
+            else
+                points[1] = ContactPoint.Empty;
 
             return new ContactPointSet(contactPointSet.count,
                                        contactPointSet.normal, points);

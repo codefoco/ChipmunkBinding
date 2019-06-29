@@ -22,7 +22,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void ManagedToNativeRoundtrip()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 10, 10, 1);
 
             cpShape handle = shape.Handle;
@@ -37,7 +37,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void CacheBoundBox()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 10, 10, 0);
 
             body.Position = new Vect(5, 5);
@@ -51,7 +51,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void UpdateTransform()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 10, 10, 0);
             body.Angle = Math.PI / 4;
             var scale = new Transform(2, 0, 0, 2, 0, 0);
@@ -65,7 +65,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void PointQueryTest()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 2, 2, 0);
 
             PointQueryInfo point = shape.PointQuery(new Vect(3, 4));
@@ -80,7 +80,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void SegmentQueryTest()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 1, 1, 0);
 
             var a = new Vect(-3, 0);
@@ -99,10 +99,10 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
 
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 2, 2, 0);
 
-            var body2 = new Body();
+            var body2 = new Body(1, 1.66);
             var shape2 = new Box(body2, 3, 3, 0);
 
             body.Position = new Vect(2, 1);
@@ -137,7 +137,7 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
 
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 2, 2, 0);
 
             Assert.IsNull(shape.Space, "#1");
@@ -153,7 +153,7 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void BodyTest()
         {
-            var body = new Body();
+            var body = new Body(1, 1.66);
             var shape = new Box(body, 2, 2, 0);
 
             Assert.AreSame(body, shape.Body, "#1");
