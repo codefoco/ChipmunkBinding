@@ -116,5 +116,162 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual("PreSolvePostSolve", solve, "#8");
         }
+
+        [Test]
+        public void PinJointProperties()
+        {
+            var anchorA = new Vect(1, 1);
+            var anchorB = new Vect(0.5, 0.5);
+
+            var constraint = new PinJoint(bodyA, bodyB, anchorA, anchorB);
+
+            constraint.Distance = 13;
+
+            Assert.IsTrue(PinJoint.IsPinJoint(constraint), "#0");
+            Assert.AreEqual(13, constraint.Distance, "#1");
+        }
+
+        [Test]
+        public void SlideJointProperties()
+        {
+            var anchorA = new Vect(1, 1);
+            var anchorB = new Vect(0.5, 0.5);
+
+            var constraint = new SlideJoint(bodyA,
+                                            bodyB,
+                                            anchorA, 
+                                            anchorB, 0.13, 0.80);
+
+            Assert.AreEqual(anchorA, constraint.AnchorA, "#1");
+            Assert.AreEqual(anchorB, constraint.AnchorB, "#2");
+
+            constraint.AnchorA = anchorB;
+            constraint.AnchorB = anchorA;
+
+            Assert.AreEqual(anchorB, constraint.AnchorA, "#3");
+            Assert.AreEqual(anchorA, constraint.AnchorB, "#4");
+
+            Assert.IsTrue(SlideJoint.IsSlideJoint(constraint), "#5");
+
+            Assert.AreEqual(0.13, constraint.Minimum, "#1");
+            Assert.AreEqual(0.80, constraint.Maximum, "#2");
+
+            constraint.Minimum = 0.14;
+            constraint.Maximum = 0.90;
+
+            Assert.AreEqual(0.14, constraint.Minimum, "#1");
+            Assert.AreEqual(0.90, constraint.Maximum, "#2");
+        }
+
+        [Test]
+        public void PivotJointProperties()
+        {
+            var anchorA = new Vect(1, 1);
+            var anchorB = new Vect(0.5, 0.5);
+
+            var constraint = new PivotJoint(bodyA,
+                                            bodyB,
+                                            anchorA,
+                                            anchorB);
+
+            var constraint2 = new PivotJoint(bodyA,
+                                bodyB,
+                                Vect.Zero
+                                );
+
+            Assert.AreEqual(anchorA, constraint.AnchorA, "#1");
+            Assert.AreEqual(anchorB, constraint.AnchorB, "#2");
+
+            constraint.AnchorA = anchorB;
+            constraint.AnchorB = anchorA;
+
+            Assert.AreEqual(anchorB, constraint.AnchorA, "#3");
+            Assert.AreEqual(anchorA, constraint.AnchorB, "#4");
+
+            Assert.IsTrue(PivotJoint.IsPivotJoint(constraint), "#5");
+
+            Assert.AreEqual(new Vect(-3,-2), constraint2.AnchorB, "#6");
+            Assert.AreEqual(new Vect(-2, -1), constraint2.AnchorA, "#7");
+        }
+
+        [Test]
+        public void GrooveJointProperties()
+        {
+            var grooveA = new Vect(1, 1);
+            var grooveB = new Vect(0.5, 0.5);
+            var anchorB = new Vect(1.5, 1.5);
+
+            var constraint = new GrooveJoint(bodyA,
+                                            bodyB,
+                                            grooveA,
+                                            grooveB, anchorB);
+
+
+            Assert.AreEqual(anchorB, constraint.AnchorB, "#1");
+            Assert.AreEqual(grooveA, constraint.GrooveA, "#2");
+            Assert.AreEqual(grooveB, constraint.GrooveB, "#3");
+
+            constraint.GrooveA = grooveB;
+            constraint.GrooveB = grooveA;
+
+            Assert.AreEqual(grooveB, constraint.GrooveA, "#4");
+            Assert.AreEqual(grooveA, constraint.GrooveB, "#5");
+
+            Assert.IsTrue(GrooveJoint.IsGrooveJoint(constraint), "#6");
+
+            constraint.AnchorB = new Vect(0.75, 1);
+
+
+            Assert.AreEqual(new Vect(0.75, 1), constraint.AnchorB, "#7");
+        }
+
+        [Test]
+        public void DampedSpringProperties()
+        {
+            var anchorA = new Vect(1, 1);
+            var anchorB = new Vect(0.5, 0.5);
+
+            double restLength = 1.2222;
+            double stiffness = 0.888;
+            double damping = 0.9090;
+
+            space.Gravity = new Vect(0, -10);
+
+            var spring = new DampedSpring(bodyA,
+                                            bodyB,
+                                            anchorA,
+                                            anchorB, restLength, stiffness, damping);
+
+
+            Assert.AreEqual(anchorA, spring.AnchorA, "#1");
+            Assert.AreEqual(anchorB, spring.AnchorB, "#2");
+
+            Assert.AreEqual(restLength, spring.RestLength, "#3");
+            Assert.AreEqual(stiffness, spring.Stiffness, "#4");
+            Assert.AreEqual(damping, spring.Damping, "#5");
+
+            spring.AnchorB = anchorA;
+            spring.AnchorA = anchorB;
+
+            Assert.AreEqual(anchorB, spring.AnchorA, "#6");
+            Assert.AreEqual(anchorA, spring.AnchorB, "#7");
+
+            spring.RestLength = 2.0;
+            spring.Stiffness = 1.0;
+            spring.Damping = 1.1;
+
+            Assert.AreEqual(2.0, spring.RestLength, "#8");
+            Assert.AreEqual(1.0, spring.Stiffness, "#9");
+            Assert.AreEqual(1.1, spring.Damping, "#10");
+
+            Assert.IsTrue(DampedSpring.IsDampedSpring(spring), "#11");
+
+            var obj = new StringBuilder();
+
+            spring.Data = obj;
+
+        }
+
+
     }
 }

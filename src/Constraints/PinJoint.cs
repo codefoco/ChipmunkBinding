@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ChipmunkBinding
+﻿namespace ChipmunkBinding
 {
     /// <summary>
     /// PinJoint links shapes with a solid bar or pin.
