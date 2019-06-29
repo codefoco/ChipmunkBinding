@@ -266,5 +266,17 @@ namespace ChipmunkBinding
 #endif
         }
 
+        public static IntPtr ToFunctionPointer(this DampedSpringForceFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<DampedSpringForceFunction>(d);
+#endif
+        }
+
     }
 }

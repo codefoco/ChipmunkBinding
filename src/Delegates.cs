@@ -315,4 +315,17 @@ namespace ChipmunkBinding
 #endif
     internal delegate void ConstraintSolveFunction(cpConstraint constraint, cpSpace space);
 
+    /// <summary>
+    /// Function type used for damped spring force callbacks.
+    /// </summary>
+    /// <param name="spring"></param>
+    /// <param name="dist"></param>
+    /// <returns></returns>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate double DampedSpringForceFunction(cpConstraint spring, double dist);
+
 }
