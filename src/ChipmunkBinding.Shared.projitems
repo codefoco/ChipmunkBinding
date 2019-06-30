@@ -55,6 +55,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\Constraint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CollisionHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\RotaryLimitJoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constraints\RatchetJoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory).editorconfig" />

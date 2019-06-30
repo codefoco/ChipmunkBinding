@@ -351,5 +351,30 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.IsTrue(RotaryLimitJoint.IsRotaryLimitJoint(constraint), "#6");
         }
+
+        [Test]
+        public void RatchetJointProperties()
+        {
+            double phase = 0.111;
+            double ratchet = 0.999;
+
+            var constraint = new RatchetJoint(bodyA,
+                                            bodyB,
+                                            phase,
+                                            ratchet);
+
+            Assert.AreEqual(phase, constraint.Phase, "#1");
+            Assert.AreEqual(ratchet, constraint.Rachet, "#2");
+
+            constraint.Phase = 0.222;
+            constraint.Rachet = 0.888;
+            constraint.Angle = 0.5;
+
+            Assert.AreEqual(0.222, constraint.Phase, "#3");
+            Assert.AreEqual(0.888, constraint.Rachet, "#4");
+            Assert.AreEqual(0.5, constraint.Angle, "#5");
+
+            Assert.IsTrue(RatchetJoint.IsRatchetJoint(constraint), "#6");
+        }
     }
 }
