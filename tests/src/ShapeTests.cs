@@ -4,6 +4,8 @@ using ChipmunkBinding;
 using ChipmunkBinding.Unsafe;
 using NUnit.Framework;
 
+using System.Linq;
+
 using cpShape = System.IntPtr;
 
 
@@ -291,8 +293,8 @@ namespace ChipmunkBindingTest.Tests
         public void PolygonTest()
         {
             var space = new Space();
-            var body = new Body(10, 16.666);
-            var body2 = new Body(10, 16.666);
+            var body = new Body(10, 3.33333333333333);
+            var body2 = new Body(10, 3.33333333333333);
 
             Vect[] vertexs = { new Vect(-1, 0), new Vect(0, -1), new Vect(1, 0), new Vect(0, 1) };
 
@@ -305,6 +307,13 @@ namespace ChipmunkBindingTest.Tests
             space.AddBody(body2);
             space.AddShape(polygon2);
 
+            double area = polygon.Area;
+            double area2 = polygon.Area;
+
+            Assert.AreEqual(25.8800791133439, area, 0.000001, "#0.1");
+            Assert.AreEqual(25.8800791133439, area2, 0.000001, "#0.1");
+
+            Assert.IsTrue(vertexs.SequenceEqual(polygon.Vertices), "#0");
 
             Assert.AreEqual(vertexs.Length, polygon.Count, "#1");
             Assert.AreEqual(vertexs.Length, polygon2.Count, "#1.1");
@@ -317,6 +326,12 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual(2.0, polygon.Radius, "#3.1");
             Assert.AreEqual(1.0, polygon2.Radius, "#3.1");
+
+            Assert.AreEqual(Vect.Zero, polygon.Centroid, "#3");
+
+            double moment = Polygon.MomentForPolygon(body.Mass, polygon.Vertices, Vect.Zero, polygon.Radius);
+
+            Assert.AreEqual(3.33333333333333, moment, 0.0000001, "#4");
 
             space.Dispose();
         }
