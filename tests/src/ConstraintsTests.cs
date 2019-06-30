@@ -376,5 +376,23 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.IsTrue(RatchetJoint.IsRatchetJoint(constraint), "#6");
         }
+
+        [Test]
+        public void SimpleMotorProperties()
+        {
+            double rate = 0.111;
+
+            var constraint = new SimpleMotor(bodyA,
+                                            bodyB,
+                                            rate);
+
+            Assert.AreEqual(rate, constraint.Rate, "#1");
+
+            constraint.Rate = 0.222;
+
+            Assert.AreEqual(0.222, constraint.Rate, "#2");
+
+            Assert.IsTrue(SimpleMotor.IsSimpleMotor(constraint), "#3");
+        }
     }
 }
