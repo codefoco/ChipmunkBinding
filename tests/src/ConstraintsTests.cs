@@ -139,7 +139,7 @@ namespace ChipmunkBindingTest.Tests
 
             var constraint = new SlideJoint(bodyA,
                                             bodyB,
-                                            anchorA, 
+                                            anchorA,
                                             anchorB, 0.13, 0.80);
 
             Assert.AreEqual(anchorA, constraint.AnchorA, "#1");
@@ -190,7 +190,7 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.IsTrue(PivotJoint.IsPivotJoint(constraint), "#5");
 
-            Assert.AreEqual(new Vect(-3,-2), constraint2.AnchorB, "#6");
+            Assert.AreEqual(new Vect(-3, -2), constraint2.AnchorB, "#6");
             Assert.AreEqual(new Vect(-2, -1), constraint2.AnchorA, "#7");
         }
 
@@ -247,7 +247,7 @@ namespace ChipmunkBindingTest.Tests
             spring.ForceFunction = ForceCallback;
 
             space.AddConstraint(spring);
-            
+
             space.Step(1.0);
 
             Assert.AreEqual("ForceCallback", sb.ToString(), "#0");
@@ -327,6 +327,29 @@ namespace ChipmunkBindingTest.Tests
             var sb = (StringBuilder)spring.Data;
             sb.Append("TorqueCallback");
             return force;
+        }
+
+        [Test]
+        public void RotaryLimitJointProperties()
+        {
+            double min = 0.111;
+            double max = 0.999;
+
+            var constraint = new RotaryLimitJoint(bodyA,
+                                            bodyB,
+                                            min,
+                                            max);
+
+            Assert.AreEqual(min, constraint.Minimum, "#1");
+            Assert.AreEqual(max, constraint.Maximum, "#2");
+
+            constraint.Minimum = 0.222;
+            constraint.Maximum = 0.888;
+
+            Assert.AreEqual(0.222, constraint.Minimum, "#4");
+            Assert.AreEqual(0.888, constraint.Maximum, "#5");
+
+            Assert.IsTrue(RotaryLimitJoint.IsRotaryLimitJoint(constraint), "#6");
         }
     }
 }
