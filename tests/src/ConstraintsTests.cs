@@ -276,6 +276,7 @@ namespace ChipmunkBindingTest.Tests
             Assert.IsTrue(DampedSpring.IsDampedSpring(spring), "#11");
         }
 
+
         private static double ForceCallback(DampedSpring spring, double force)
         {
             var sb = (StringBuilder)spring.Data;
@@ -283,6 +284,49 @@ namespace ChipmunkBindingTest.Tests
             return force;
         }
 
+        [Test]
+        public void DampedRotarySpringProperties()
+        {
+            double restAngle = 1.2222;
+            double stiffness = 0.888;
+            double damping = 0.9090;
 
+            space.Gravity = new Vect(0, -10);
+
+            var spring = new DampedRotarySpring(bodyA,
+                                            bodyB,
+                                            restAngle, stiffness, damping);
+            var sb = new StringBuilder();
+            spring.Data = sb;
+
+            spring.TorqueFunction = TorqueCallback;
+
+            space.AddConstraint(spring);
+
+            space.Step(1.0);
+
+            Assert.AreEqual("TorqueCallback", sb.ToString(), "#0");
+
+            Assert.AreEqual(restAngle, spring.RestAngle, "#1");
+            Assert.AreEqual(stiffness, spring.Stiffness, "#2");
+            Assert.AreEqual(damping, spring.Damping, "#3");
+
+            spring.RestAngle = 2.0;
+            spring.Stiffness = 1.0;
+            spring.Damping = 1.1;
+
+            Assert.AreEqual(2.0, spring.RestAngle, "#4");
+            Assert.AreEqual(1.0, spring.Stiffness, "#5");
+            Assert.AreEqual(1.1, spring.Damping, "#6");
+
+            Assert.IsTrue(DampedRotarySpring.IsDampedRotarySpring(spring), "#7");
+        }
+
+        private static double TorqueCallback(DampedRotarySpring spring, double force)
+        {
+            var sb = (StringBuilder)spring.Data;
+            sb.Append("TorqueCallback");
+            return force;
+        }
     }
 }

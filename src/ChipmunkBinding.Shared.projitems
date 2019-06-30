@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Body.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BodyType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constraints\DampedRotarySpring.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\DampedSpring.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\GrooveJoint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\PinJoint.cs" />
