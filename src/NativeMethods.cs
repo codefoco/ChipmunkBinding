@@ -575,7 +575,7 @@ namespace ChipmunkBinding
         internal static extern cpGearJoint cpGearJointAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpFloat cpGearJointGetPhase();
+        internal static extern cpFloat cpGearJointGetPhase(cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpGearJointGetRatio(cpConstraint constraint);
