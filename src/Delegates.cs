@@ -328,4 +328,16 @@ namespace ChipmunkBinding
 #endif
     internal delegate double DampedSpringForceFunction(cpConstraint spring, double dist);
 
+    /// <summary>
+    /// Function type used for damped rotary spring force callbacks
+    /// </summary>
+    /// <param name="spring"></param>
+    /// <param name="relativeAngle"></param>
+    /// <returns></returns>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate double DampedRotarySpringTorqueFunction(cpConstraint  spring, double relativeAngle);
 }
