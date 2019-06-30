@@ -241,7 +241,16 @@ namespace ChipmunkBindingTest.Tests
                                             bodyB,
                                             anchorA,
                                             anchorB, restLength, stiffness, damping);
+            var sb = new StringBuilder();
+            spring.Data = sb;
 
+            spring.ForceFunction = ForceCallback;
+
+            space.AddConstraint(spring);
+            
+            space.Step(1.0);
+
+            Assert.AreEqual("ForceCallback", sb.ToString(), "#0");
 
             Assert.AreEqual(anchorA, spring.AnchorA, "#1");
             Assert.AreEqual(anchorB, spring.AnchorB, "#2");
@@ -265,11 +274,13 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(1.1, spring.Damping, "#10");
 
             Assert.IsTrue(DampedSpring.IsDampedSpring(spring), "#11");
+        }
 
-            var obj = new StringBuilder();
-
-            spring.Data = obj;
-
+        private static double ForceCallback(DampedSpring spring, double force)
+        {
+            var sb = (StringBuilder)spring.Data;
+            sb.Append("ForceCallback");
+            return force;
         }
 
 
