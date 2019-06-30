@@ -31,5 +31,27 @@ namespace ChipmunkBinding
 
         }
 
+        /// <summary>
+        /// Calculate the moment of inertia for a solid box.
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double MomentForBox(double mass, double width, double height)
+        {
+            return NativeMethods.cpMomentForBox(mass, width, height);
+        }
+
+        /// <summary>
+        /// Calculate the moment of inertia for a solid box.
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <param name="boundingBox"></param>
+        /// <returns></returns>
+        public static double MomentForBox(double mass, BoundingBox boundingBox)
+        {
+            return NativeMethods.cpMomentForBox2(mass, boundingBox);
+        }
     }
 }
