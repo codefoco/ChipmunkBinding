@@ -38,5 +38,55 @@ namespace ChipmunkBinding
         /// </summary>
         public double Radius => NativeMethods.cpCircleShapeGetRadius(Handle);
 
+        /// <summary>
+        /// Calculate area this circle.
+        /// </summary>
+        public new double Area => AreaForCircle(0.0, Radius);
+
+        /// <summary>
+        /// Calculate moment of this circle for the given mass
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public double MomentForMass(double mass)
+        {
+            return MomentForCircle(mass, Radius, Offset);
+        }
+
+        /// <summary>
+        /// Calculate the moment of inertia for a circle.
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <param name="innerRadius"></param>
+        /// <param name="radius"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static double MomentForCircle(double mass, double innerRadius, double radius, Vect offset)
+        {
+            return NativeMethods.cpMomentForCircle(mass, innerRadius, radius, offset);
+        }
+
+        /// <summary>
+        /// Calculate the moment of inertia for a circle.
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <param name="radius"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static double MomentForCircle(double mass, double radius, Vect offset)
+        {
+            return NativeMethods.cpMomentForCircle(mass, 0.0, radius, offset);
+        }
+
+        /// <summary>
+        /// Calculate area of a hollow circle.
+        /// </summary>
+        /// <param name="innerRadius"></param>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static double AreaForCircle(double innerRadius, double radius)
+        {
+            return NativeMethods.cpAreaForCircle(innerRadius, radius);
+        }
     }
 }

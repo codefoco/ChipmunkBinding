@@ -234,7 +234,7 @@ namespace ChipmunkBindingTest.Tests
         public void CircleOffset()
         {
             var space = new Space();
-            var body = new Body(10, 16.666);
+            var body = new Body(10, 360);
             var shape = new Circle(body, 2, new Vect(3, 5));
 
             body.Position = new Vect(3, 2);
@@ -247,6 +247,12 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(new Vect(3, 5), shape.Offset, "#1");
             Assert.AreEqual(2, shape.Radius, "#2");
 
+            double moment = shape.MomentForMass(10);
+            double area = shape.Area;
+
+            Assert.AreEqual(360, moment, "#3");
+            Assert.AreEqual(12.5663706143592, area, 0.00001, "#4");
+
             space.Dispose();
         }
 
@@ -254,7 +260,7 @@ namespace ChipmunkBindingTest.Tests
         public void SegmentTest()
         {
             var space = new Space();
-            var body = new Body(10, 16.666);
+            var body = new Body(10, 224.037008503093);
             var shape = new Segment(body, new Vect(1, 2), new Vect(3, 5), 2);
 
             body.Position = new Vect(3, 2);
@@ -269,8 +275,14 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual(2, shape.Radius, "#3");
 
-            Assert.AreEqual(0.832050294337844, shape.Normal.X, 0.00001, "#4");
+            Assert.AreEqual(0.832050294337844, shape.Normal.X, 0.00001, "#3");
             Assert.AreEqual(-0.554700196225229, shape.Normal.Y, 0.00001, "#4");
+
+            double moment = shape.MomentForMass(10);
+            double area = shape.Area;
+
+            Assert.AreEqual(224.037008503093, moment, 0.0000001, "#5");
+            Assert.AreEqual(26.9885757162151, area, 0.0000001, "#6");
 
             space.Dispose();
         }
@@ -282,7 +294,7 @@ namespace ChipmunkBindingTest.Tests
             var body = new Body(10, 16.666);
             var body2 = new Body(10, 16.666);
 
-            Vect[] vertexs = new[] { new Vect(-1, 0), new Vect(0, -1), new Vect(1, 0), new Vect(0, 1) };
+            Vect[] vertexs = { new Vect(-1, 0), new Vect(0, -1), new Vect(1, 0), new Vect(0, 1) };
 
             var polygon = new Polygon(body, vertexs, 2.0);
             var polygon2 = new Polygon(body2, vertexs, Transform.Identity, 1.0);
@@ -341,14 +353,14 @@ namespace ChipmunkBindingTest.Tests
             var space = new Space();
             var body = new Body(10, 16.666);
 
-            Vect[] vertexs = new[] { new Vect(-1, 0), new Vect(0, -1), new Vect(1, 0), new Vect(0, 1) };
+            Vect[] vertexs = { new Vect(-1, 0), new Vect(0, -1), new Vect(1, 0), new Vect(0, 1) };
 
             var polygon = new Polygon(body, vertexs, 2.0);
 
             space.AddBody(body);
             space.AddShape(polygon);
 
-            Vect[] vertexs2 = new[] { new Vect(-2, 0), new Vect(0, -2), new Vect(2, 0), new Vect(0, 2) };
+            Vect[] vertexs2 = { new Vect(-2, 0), new Vect(0, -2), new Vect(2, 0), new Vect(0, 2) };
 
             polygon.SetVertexes(vertexs2);
 
@@ -381,6 +393,13 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(new Vect(2, 4), shape.A, "#1");
             Assert.AreEqual(new Vect(6, 2), shape.B, "#2");
             Assert.AreEqual(3, shape.Radius, "#3");
+        }
+
+
+        [Test]
+        public void MiscFunctions()
+        {
+
         }
     }
 }

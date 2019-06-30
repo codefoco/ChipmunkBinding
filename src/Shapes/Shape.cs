@@ -232,7 +232,6 @@ namespace ChipmunkBinding
         /// Perform a nearest point query. It finds the closest point on the surface of shape to a specific point.
         /// </summary>
         /// <param name="point"></param>
-        /// <param name="info"></param>
         /// <returns>the point query info</returns>
         public PointQueryInfo PointQuery(Vect point)
         {
@@ -248,7 +247,6 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <param name="info"></param>
         /// <returns></returns>
         public SegmentQueryInfo SegmentQuery(Vect a, Vect b, double radius)
         {
@@ -261,7 +259,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Get contact information about this shape and other shape.
         /// </summary>
-        /// <param name="shape2"></param>
+        /// <param name="other"></param>
         /// <returns></returns>
         public ContactPointSet Collide(Shape other)
         {
@@ -271,6 +269,5 @@ namespace ChipmunkBinding
 
             return ContactPointSet.FromContactPointSet(contactPointSet);
         }
-
     }
 }
