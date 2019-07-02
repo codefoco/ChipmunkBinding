@@ -317,7 +317,7 @@ namespace ChipmunkBinding
             {
                 var list = new List<Shape>();
                 var gcHandle = GCHandle.Alloc(list);
-                NativeMethods.cpBodyEachConstraint(body, eachShapeFunc.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+                NativeMethods.cpBodyEachShape(body, eachShapeFunc.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
                 gcHandle.Free();
                 return list.ToArray();
             }
