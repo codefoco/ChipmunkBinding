@@ -384,6 +384,10 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreEqual(vertexs2[i], polygon.GetVertex(i), "#2.1." + i);
             }
 
+            polygon.SetRadius(1.33);
+
+            Assert.AreEqual(1.33, polygon.Radius, "#3");
+
             space.Dispose();
 
         }
