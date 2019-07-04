@@ -195,6 +195,32 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
+        [Ignore("TODO: ShapeQuery test better")] // TODO: ShapeQuery test better
+        public void ShapeQueryTest()
+        {
+            var space = new Space();
+            var body = new Body(1, 1.66);
+            var shape = new Box(body, 1, 1, 0);
+
+            body.Position = new Vect(0, 0);
+
+            ContactPointSet[] pointSet = space.ShapeQuery(shape).ToArray();
+
+            Assert.AreEqual(0, pointSet.Length, "#1");
+
+            space.AddBody(body);
+            space.AddShape(shape);
+
+            pointSet = space.ShapeQuery(shape).ToArray();
+
+            Assert.AreEqual(1, pointSet.Length, "#2");
+
+            shape.Dispose();
+            body.Dispose();
+            space.Dispose();
+        }
+
+        [Test]
         [Ignore("Fix BoundBoxQuery")]
         public void BoundBoxQueryTest()
         {

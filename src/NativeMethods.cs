@@ -1078,11 +1078,11 @@ namespace ChipmunkBinding
         //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         //internal static extern cpSpatialIndex cpSpaceHashInit(cpSpaceHash hash, cpFloat celldim, int numcells, cpSpatialIndexBBFunc bbfunc, cpSpatialIndex staticIndex);
 
-        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpSpatialIndex cpSpaceHashNew(cpFloat celldim, int cells, cpSpatialIndexBBFunc bbfunc, cpSpatialIndex staticIndex);
+        //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern cpSpatialIndex cpSpaceHashNew(cpFloat celldim, int cells, cpSpatialIndexBBFunc bbfunc, cpSpatialIndex staticIndex);
 
-        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceHashResize(cpSpaceHash hash, cpFloat celldim, int numcells);
+        //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void cpSpaceHashResize(cpSpaceHash hash, cpFloat celldim, int numcells);
 
         //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         //internal static extern cpSpace cpSpaceInit(cpSpace space);

@@ -9,7 +9,7 @@ using cpHandle = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpBool = System.Byte;
-
+using cpContactPointSetPointer = System.IntPtr;
 
 using cpVertPointer = System.IntPtr;
 
@@ -340,4 +340,17 @@ namespace ChipmunkBinding
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate double DampedRotarySpringTorqueFunction(cpConstraint  spring, double relativeAngle);
+    
+    /// <summary>
+    /// Shape query callback function type.
+    /// </summary>
+    /// <param name="shape"></param>
+    /// <param name="points"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate void SpaceShapeQueryFunction(cpShape shape, cpContactPointSetPointer points, voidptr_t data);
 }
