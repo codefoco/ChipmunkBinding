@@ -94,13 +94,6 @@ namespace ChipmunkBinding
             return items;
         }
 
-        public static T PtrToStructure<T>(IntPtr intPtr, int index)
-        {
-            var size = SizeOf<T>();
-            var newPtr = new IntPtr(intPtr.ToInt64() + (index * size));
-            return PtrToStructure<T>(newPtr);
-        }
-
 
         internal static IntPtr StructureArrayToPtr<T>(IReadOnlyList<T> items)
         {

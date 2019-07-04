@@ -62,17 +62,6 @@ namespace ChipmunkBinding
             return !(a == b);
         }
 
-        internal cpPointQueryInfo ToQueryInfo()
-        {
-            var info = new cpPointQueryInfo();
-            info.shape = shape.Handle;
-            info.point = point;
-            info.distance = distance;
-            info.gradient = gradient;
-
-            return info;
-        }
-
         internal static PointQueryInfo FromQueryInfo(cpPointQueryInfo queryInfo)
         {
             var shape = Shape.FromHandle(queryInfo.shape);

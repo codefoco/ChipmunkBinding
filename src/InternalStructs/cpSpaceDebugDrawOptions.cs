@@ -152,7 +152,7 @@ namespace ChipmunkBinding
             drawSegment = spaceDebugDrawSegmentCallback.ToFunctionPointer();
             drawFatSegment = spaceDebugDrawFatSegmentCallback.ToFunctionPointer();
             drawPolygon = spaceDebugDrawPolygonCallback.ToFunctionPointer();
-            drawDot = spaceDebugDrawPolygonCallback.ToFunctionPointer();
+            drawDot = spaceDebugDrawDotCallback.ToFunctionPointer();
             colorForShape = spaceDebugDrawColorForShapeCallback.ToFunctionPointer();
 
             data = NativeInterop.RegisterHandle(debugDraw);
