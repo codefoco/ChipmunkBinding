@@ -1159,11 +1159,11 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceUseSpatialHash(cpSpace space, cpFloat dim, int count);
 
-        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpatialIndexCollideStatic(cpSpatialIndex dynamicIndex, cpSpatialIndex staticIndex, cpSpatialIndexQueryFunc func, IntPtr data);
+        //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void cpSpatialIndexCollideStatic(cpSpatialIndex dynamicIndex, cpSpatialIndex staticIndex, cpSpatialIndexQueryFunc func, IntPtr data);
 
-        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpatialIndexFree(cpSpatialIndex index);
+        //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void cpSpatialIndexFree(cpSpatialIndex index);
 
         //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         //internal static extern cpSweep1D cpSweep1DAlloc();
@@ -1171,8 +1171,8 @@ namespace ChipmunkBinding
         //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         //internal static extern cpSpatialIndex cpSweep1DInit(cpSweep1D sweep, cpSpatialIndexBBFunc bbfunc, cpSpatialIndex staticIndex);
 
-        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpSpatialIndex cpSweep1DNew(cpSpatialIndexBBFunc bbfunc, cpSpatialIndex staticIndex);
+        //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern cpSpatialIndex cpSweep1DNew(cpSpatialIndexBBFunc bbfunc, cpSpatialIndex staticIndex);
 
 #pragma warning restore IDE1006 // Naming Styles
 
