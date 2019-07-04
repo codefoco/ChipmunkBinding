@@ -252,6 +252,17 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual("ForceCallback", sb.ToString(), "#0");
 
+            spring.ForceFunction = null;
+
+            space.Step(1.0);
+
+            Assert.AreEqual("ForceCallback", sb.ToString(), "#0.1");
+
+            spring.ForceFunction = ForceCallback;
+            space.Step(1.0);
+
+            Assert.AreEqual("ForceCallbackForceCallback", sb.ToString(), "#0.1");
+
             Assert.AreEqual(anchorA, spring.AnchorA, "#1");
             Assert.AreEqual(anchorB, spring.AnchorB, "#2");
 
@@ -306,6 +317,18 @@ namespace ChipmunkBindingTest.Tests
             space.Step(1.0);
 
             Assert.AreEqual("TorqueCallback", sb.ToString(), "#0");
+
+            spring.TorqueFunction = null;
+
+            space.Step(1.0);
+
+            Assert.AreEqual("TorqueCallback", sb.ToString(), "#0.1");
+
+            spring.TorqueFunction = TorqueCallback;
+
+            space.Step(1.0);
+
+            Assert.AreEqual("TorqueCallbackTorqueCallback", sb.ToString(), "#0.2");
 
             Assert.AreEqual(restAngle, spring.RestAngle, "#1");
             Assert.AreEqual(stiffness, spring.Stiffness, "#2");

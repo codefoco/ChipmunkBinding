@@ -47,7 +47,7 @@ namespace ChipmunkBinding
                                                  stiffness,
                                                  damping))
         {
-
+            originalForceCallbackPointer = NativeMethods.cpDampedSpringGetSpringForceFunc(Handle);
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -111,6 +111,8 @@ namespace ChipmunkBinding
 
         private Func<DampedSpring, double, double> forceFunction;
 
+        private IntPtr originalForceCallbackPointer;
+
         /// <summary>
         /// Damped spring force custom function callback.
         /// </summary>
@@ -124,7 +126,7 @@ namespace ChipmunkBinding
                 IntPtr callbackPointer;
 
                 if (value == null)
-                    callbackPointer = IntPtr.Zero;
+                    callbackPointer = originalForceCallbackPointer;
                 else
                     callbackPointer = dampedSpringForceCallback.ToFunctionPointer();
 
