@@ -58,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\RatchetJoint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\GearJoint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\SimpleMotor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HastySpace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory).editorconfig" />

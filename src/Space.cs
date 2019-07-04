@@ -43,13 +43,24 @@ namespace ChipmunkBinding
             RegisterUserData();
         }
 
+        internal protected Space(cpSpace handle)
+        {
+            space = handle;
+            RegisterUserData();
+        }
+
         /// <summary>
         /// Destroys and frees
         /// </summary>
         public void Free()
         {
             ReleaseUserData();
-            NativeMethods.cpSpaceFree(space);
+            FreeSpace(space);
+        }
+
+        protected virtual void FreeSpace(cpSpace handle)
+        {
+            NativeMethods.cpSpaceFree(handle);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -701,7 +712,7 @@ namespace ChipmunkBinding
         /// It is not the same to call step 10 times with a dt of 0.1 and calling it 100 times with a dt of 0.01 even if the end result is that the simulation moved forward 100 units. Performing multiple calls with a smaller dt creates a more stable and accurate simulation. Therefor it sometimes make sense to have a little for loop around the step call, like in this example:
         /// </summary>
         /// <param name="dt">Time step length</param>
-        public void Step(double dt)
+        public virtual void Step(double dt)
         {
             NativeMethods.cpSpaceStep(space, dt);
         }

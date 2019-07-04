@@ -506,6 +506,24 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreEqual(new Vect(-5, 0), pointB, "#14");
                 Assert.AreEqual(-10, depth, 0.00001, "#15");
             }
+
+
+        }
+
+        [Test]
+        public void AddHastyPostStepCallback()
+        {
+            var space = new HastySpace();
+            string foo = string.Empty;
+
+            space.Threads = 0;
+
+            space.AddPostStepCallback((s, k, d) => foo = k + " " + d, "key", "data");
+
+            space.Step(0.1);
+
+            Assert.AreEqual("key data", foo, "#1");
+            space.Dispose();
         }
     }
 }
