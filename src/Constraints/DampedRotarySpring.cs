@@ -40,7 +40,7 @@ namespace ChipmunkBinding
                                                  stiffness,
                                                  damping))
         {
-
+            originalTorqueCallbackPointer = NativeMethods.cpDampedRotarySpringGetSpringTorqueFunc(Handle);
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -85,6 +85,7 @@ namespace ChipmunkBinding
         }
 
         private Func<DampedRotarySpring, double, double> torqueFunction;
+        private IntPtr originalTorqueCallbackPointer;
 
         /// <summary>
         /// Damped rotary spring torque custom function callback.
@@ -99,7 +100,7 @@ namespace ChipmunkBinding
                 IntPtr callbackPointer;
 
                 if (value == null)
-                    callbackPointer = IntPtr.Zero;
+                    callbackPointer = originalTorqueCallbackPointer;
                 else
                     callbackPointer = DampedRotarySpringForceCallback.ToFunctionPointer();
 
