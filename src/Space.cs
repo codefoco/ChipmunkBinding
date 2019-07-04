@@ -633,7 +633,30 @@ namespace ChipmunkBinding
             }
         }
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(SpaceShapeQueryFunction))]
+#endif
+        private static void ShapeQueryCallback(cpShape shape, IntPtr pointsPointer, voidptr_t data)
+        {
+            var list = (List<ContactPointSet>)GCHandle.FromIntPtr(data).Target;
 
+            var pointSet = NativeInterop.PtrToStructure<cpContactPointSet>(pointsPointer);
+
+            list.Add(ContactPointSet.FromContactPointSet(pointSet));
+        }
+
+        private static SpaceShapeQueryFunction shapeQueryCallback = ShapeQueryCallback;
+
+        public IReadOnlyList<ContactPointSet> ShapeQuery(Shape shape)
+        {
+            var list = new List<ContactPointSet>();
+            var gcHandle = GCHandle.Alloc(list);
+
+            NativeMethods.cpSpaceShapeQuery(space, shape.Handle, shapeQueryCallback.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+            gcHandle.Free();
+            return list;
+        }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]

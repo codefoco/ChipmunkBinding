@@ -19,8 +19,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\SlideJoint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shapes\Box.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shapes\Circle.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CollidePoint.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CollidePointSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContactPoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContactPointSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DebugDrawColors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DebugDrawFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDebugDraw.cs" />
