@@ -3,6 +3,11 @@ using System.Runtime.InteropServices;
 
 namespace ChipmunkBinding
 {
+    /// <summary>
+    /// Create a ToFunctionPointer extension method for each delegate type
+    /// Unfortunately C# 7.0 can't do something like that (you will need C# 7.3), thus we create one extension method for each delegate
+    ///  public static IntPtr ToFunctionPointer T (this T d) where T : Delegate
+    /// </summary>
     static class DelegateExtensions
     {
         public static IntPtr ToFunctionPointer(this BodyArbiterIteratorFunction d)
@@ -299,6 +304,30 @@ namespace ChipmunkBinding
             return Marshal.GetFunctionPointerForDelegate(d);
 #else
             return Marshal.GetFunctionPointerForDelegate<SpaceShapeQueryFunction>(d);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this MarchSegmentFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<MarchSegmentFunction>(d);
+#endif
+        }
+
+        public static IntPtr ToFunctionPointer(this MarchSampleFunction d)
+        {
+            if (d == null)
+                return IntPtr.Zero;
+
+#if NETFRAMEWORK
+            return Marshal.GetFunctionPointerForDelegate(d);
+#else
+            return Marshal.GetFunctionPointerForDelegate<MarchSampleFunction>(d);
 #endif
         }
     }

@@ -11,6 +11,9 @@ using System.Runtime.InteropServices;
 
 namespace ChipmunkBinding
 {
+    /// <summary>
+    /// 2D Vector struct
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Vect : IEquatable<Vect>
     {
@@ -185,7 +188,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Returns a perpendicular vector. (-90 degree rotation)
         /// </summary>
-        public Vect Perpendicurlar => new Vect(y, -x);
+        public Vect Perpendicurlar => new Vect(- y, x);
 
         /// <summary>
         /// Returns the vector projection of v1 onto v2.
@@ -311,11 +314,9 @@ namespace ChipmunkBinding
                 // If the angle between two vectors is very small, lerp instead to avoid precision issues.
                 return Lerp(v2, t);
             }
-            else
-            {
-                double denom = 1.0 / Math.Sin(omega);
-                return (this * Math.Sin((1.0f - t) * omega) * denom) + v2 * Math.Sin(t * omega) * denom;
-            }
+
+            double denom = 1.0 / Math.Sin(omega);
+            return (this * Math.Sin((1.0f - t) * omega) * denom) + v2 * Math.Sin(t * omega) * denom;
         }
 
         /// <summary>
@@ -387,10 +388,7 @@ namespace ChipmunkBinding
             return DistanceSquare(v2) < distance * distance;
         }
 
-
         public static Vect Zero => zero;
-
-
     }
 }
 
