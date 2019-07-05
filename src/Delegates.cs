@@ -353,4 +353,32 @@ namespace ChipmunkBinding
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceShapeQueryFunction(cpShape shape, cpContactPointSetPointer points, voidptr_t data);
+
+    /// <summary>
+    /// Function type used as a callback from the marching squares algorithm to output a line segment.
+    /// It passes you the two endpoints and your context pointer.
+    /// </summary>
+    /// <param name="v0"></param>
+    /// <param name="v1"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate void MarchSegmentFunction(Vect v0, Vect v1, voidptr_t data);
+
+    /// <summary>
+    /// Function type used as a callback from the marching squares algorithm to sample an image function.
+    /// It passes you the point to sample and your context pointer, and you return the density.
+    /// </summary>
+    /// <param name="point"></param>
+    /// <param name="data"></param>
+    [SuppressUnmanagedCodeSecurity]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+#if __IOS__ || __TVOS__ || __WATCHOS__
+    [MonoNativeFunctionWrapper]
+#endif
+    internal delegate double MarchSampleFunction(Vect point, voidptr_t data);
+
 }

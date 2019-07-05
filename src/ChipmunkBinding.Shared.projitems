@@ -59,6 +59,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\GearJoint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constraints\SimpleMotor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HastySpace.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalStructs\cpPolyline.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoGeometry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MarchData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory).editorconfig" />

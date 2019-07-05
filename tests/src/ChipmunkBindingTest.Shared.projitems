@@ -15,5 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)SpaceTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Body.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoGeometryTests.cs" />
   </ItemGroup>
 </Project>
