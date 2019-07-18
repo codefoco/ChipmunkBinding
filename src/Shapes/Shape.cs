@@ -65,11 +65,6 @@ namespace ChipmunkBinding
             GC.SuppressFinalize(this);
         }
 
-        ~Shape()
-        {
-            Dispose(false);
-        }
-
         // Shape properties
 
         /// <summary>

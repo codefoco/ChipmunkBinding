@@ -78,11 +78,6 @@ namespace ChipmunkBinding
             GC.SuppressFinalize(this);
         }
 
-        ~Constraint()
-        {
-            Dispose(false);
-        }
-
         /// <summary>
         /// Get the cpSpace this constraint is added to.
         /// </summary>
