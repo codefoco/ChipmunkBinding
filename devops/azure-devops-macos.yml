@@ -12,7 +12,7 @@ steps:
   displayName: 'Provisioning Xamarin.iOS'
   inputs:
     script: 'cd ~;
-            curl -O https://download.visualstudio.microsoft.com/download/pr/87d63fb1-c713-4c5f-b2c8-ae309a3b829c/91c05c2d5587f8f7efc5f7959f55eddf/xamarin.ios-12.10.0.157.pkg
+            curl -O https://download.visualstudio.microsoft.com/download/pr/87d63fb1-c713-4c5f-b2c8-ae309a3b829c/91c05c2d5587f8f7efc5f7959f55eddf/xamarin.ios-12.10.0.157.pkg;
             sudo installer -pkg ~/xamarin.ios-12.10.0.157.pkg -target /'
 
 # Print the current version of Xamarin.iOS
