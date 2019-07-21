@@ -10,7 +10,7 @@ namespace ChipmunkBinding
     /// For example, a game has four collision categories: player (0), enemy (1), player bullet (2), and enemy bullet (3). Neither players nor enemies should not collide with their own bullets, and bullets should not collide with other bullets. However, players collide with enemy bullets, and enemies collide with player bullets.
     /// </summary>
     /// 
-    public class ShapeFilter : IEquatable<ShapeFilter>
+    public sealed class ShapeFilter : IEquatable<ShapeFilter>
     {
         public int Group { get; }
         public int Categories { get; }
@@ -46,7 +46,12 @@ namespace ChipmunkBinding
 
         public bool Equals(ShapeFilter other)
         {
-            return this == other;
+            if (ReferenceEquals(other, null))
+                return false;
+
+            return Group == other.Group &&
+                   Categories == other.Categories &&
+                   Mask == other.Mask;
         }
 
         public override int GetHashCode()
@@ -67,11 +72,14 @@ namespace ChipmunkBinding
             return Equals(other);
         }
 
-        public static bool operator == (ShapeFilter a, ShapeFilter b)
+        public static bool operator == (ShapeFilter left, ShapeFilter right)
         {
-            return a.Group == b.Group && 
-                   a.Categories == b.Categories &&
-                   a.Mask == b.Mask;
+            if (ReferenceEquals(left, null))
+            {
+                return ReferenceEquals(right, null);
+            }
+
+            return left.Equals(right);
         }
 
         public static bool operator !=(ShapeFilter a, ShapeFilter b)

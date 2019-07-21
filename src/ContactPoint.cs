@@ -32,6 +32,9 @@ namespace ChipmunkBinding
 
         public bool Equals(ContactPoint other)
         {
+            if (ReferenceEquals(other, null))
+                return false;
+
             return other.pointA.Equals(pointA) &&
                    other.pointB.Equals(pointB) &&
                    Math.Abs(other.distance - distance) < float.Epsilon;
@@ -62,6 +65,11 @@ namespace ChipmunkBinding
 
         public static bool operator ==(ContactPoint left, ContactPoint right)
         {
+            if (ReferenceEquals(left, null))
+            {
+                return ReferenceEquals(right, null);
+            }
+
             return left.Equals(right);
         }
 

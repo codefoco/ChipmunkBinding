@@ -5,7 +5,7 @@ namespace ChipmunkBinding
     /// <summary>
     /// 
     /// </summary>
-    public class PointQueryInfo : IEquatable<PointQueryInfo>
+    public sealed class PointQueryInfo : IEquatable<PointQueryInfo>
     {
 #pragma warning disable IDE0032
         private readonly Shape shape;
@@ -45,16 +45,14 @@ namespace ChipmunkBinding
                 (gradient.GetHashCode () << 4); 
         }
 
-        public static bool operator == (PointQueryInfo a, PointQueryInfo b)
+        public static bool operator == (PointQueryInfo left, PointQueryInfo right)
         {
-            if (a.shape.Handle != b.shape.Handle)
-                return false;
-            if (a.point != b.point)
-                return false;
-            if (a.gradient != b.gradient)
-                return false;
+            if (ReferenceEquals(left, null))
+            {
+                return ReferenceEquals(right, null);
+            }
 
-            return Math.Abs(a.distance - b.distance) < float.Epsilon;
+            return left.Equals(right);
         }
 
         public static bool operator != (PointQueryInfo a, PointQueryInfo b)
@@ -73,7 +71,17 @@ namespace ChipmunkBinding
 
         public bool Equals(PointQueryInfo other)
         {
-            return this == other;
+            if (ReferenceEquals(other, null))
+                return false;
+
+            if (shape.Handle != other.shape.Handle)
+                return false;
+            if (point != other.point)
+                return false;
+            if (gradient != other.gradient)
+                return false;
+
+            return Math.Abs(distance - other.distance) < float.Epsilon;
         }
     }
 }

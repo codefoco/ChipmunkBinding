@@ -1,5 +1,6 @@
 ﻿
 using System;
+using ChipmunkBinding;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,7 +18,29 @@ namespace ChipmunkDemo
         ChipmunkDebugDraw debugDraw;
         PyramidStack demo;
 
+        Vect chipmunkDemoMouse;
+        Body mouseBody;
+        Constraint mouseJoint;
+        MouseState previousState;
+
+        Matrix world;
+        Matrix view;
+        Matrix projection;
+
+        Matrix inverse;
+
+        Space space;
+
         static Color backgroundColor = new Color(0x07, 0x36, 0x42);
+
+        public enum ShapeCategorie
+        {
+            GrabbableMaskBit = 1 << 31,
+            NotGrabbableMaskBit = ~(1 << 31)
+        }
+
+        public static readonly ShapeFilter GrabbableFilter = new ShapeFilter(0, (int)ShapeCategorie.GrabbableMaskBit, (int)ShapeCategorie.GrabbableMaskBit);
+        public static readonly ShapeFilter NotGrabbableFilter = new ShapeFilter(0, (int)ShapeCategorie.NotGrabbableMaskBit, (int)ShapeCategorie.NotGrabbableMaskBit);
 
         public ChipmunkDemoGame()
         {
@@ -26,6 +49,7 @@ namespace ChipmunkDemo
 
             Content.RootDirectory = "Content";
 
+            mouseBody = new Body(BodyType.Kinematic);
             demo = new PyramidStack();
         }
 
@@ -40,7 +64,6 @@ namespace ChipmunkDemo
         {
             base.Initialize();
 
-            demo.Initialize();
         }
 
         /// <summary>
@@ -56,7 +79,15 @@ namespace ChipmunkDemo
 
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
 
-            primitiveBatch.LoadContent();
+            world = Matrix.CreateScale(1, -1, 1);
+            view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Down);
+            projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, -1);
+
+            Matrix matrix =  Matrix.Invert(view) * Matrix.CreateTranslation(GraphicsDevice.Viewport.Width/2, GraphicsDevice.Viewport.Height/2, 0);
+            inverse = matrix;
+
+            primitiveBatch.LoadContent(ref world);
+            space = demo.Initialize();
         }
 
         /// <summary>
@@ -71,9 +102,82 @@ namespace ChipmunkDemo
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            MouseState state = Mouse.GetState();
+
+            if (state.LeftButton == ButtonState.Pressed && previousState.LeftButton != ButtonState.Pressed)
+                MouseLeftButtonDown(state);
+            if (previousState.LeftButton == ButtonState.Pressed && state.LeftButton != ButtonState.Pressed)
+                MouseLeftButtonUp();
+            if (previousState.Position != state.Position)
+                MouseMove(state);
+
+            UpdateMouseBody();
+
             demo.Update(gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0);
 
             base.Update(gameTime);
+
+            previousState = state;
+        }
+
+        private void UpdateMouseBody()
+        {
+            Vect mousePosition = mouseBody.Position;
+
+            Vect newPoint = mousePosition.Lerp(chipmunkDemoMouse, 0.25);
+            mouseBody.Velocity = (newPoint - mousePosition) * 30.0;
+            mouseBody.Position = newPoint;
+        }
+
+        private void MouseLeftButtonUp()
+        {
+            if (mouseJoint == null)
+                return;
+
+            space.Remove(mouseJoint);
+            mouseJoint.Dispose();
+            mouseJoint = null;
+        }
+
+        private void MouseMove(MouseState state)
+        {
+            chipmunkDemoMouse = MouseToSpace(state);
+        }
+
+        private void MouseLeftButtonDown(MouseState state)
+        {
+            Vect mousePosition = MouseToSpace(state);
+            // give the mouse click a little radius to make it easier to click small shapes.
+            double radius = 5.0;
+
+
+            PointQueryInfo info = space.PointQueryNearest(mousePosition, radius, GrabbableFilter);
+            if (info == null)
+                return;
+
+            Shape shape = info.Shape;
+            Body body = shape.Body;
+
+            double mass = body.Mass;
+
+            if (double.IsInfinity(mass))
+                return;
+
+            // Use the closest point on the surface if the click is outside of the shape.
+            Vect nearest = info.Distance > 0.0 ? info.Point : mousePosition;
+
+            mouseJoint = new PivotJoint(mouseBody, body, Vect.Zero, body.WorldToLocal(nearest));
+            mouseJoint.MaxForce = 5000.0;
+            mouseJoint.ErrorBias = Math.Pow(1.0 - 0.15, 60.0);
+            space.AddConstraint(mouseJoint);
+        }
+
+        private Vect MouseToSpace(MouseState state)
+        {
+            var position = new Vector2(state.X, state.Y);
+            position = Vector2.Transform(position, inverse);
+
+            return new Vect(position.X, position.Y);
         }
 
         /// <summary>
@@ -83,14 +187,12 @@ namespace ChipmunkDemo
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(backgroundColor);
-            float left = -graphics.GraphicsDevice.Viewport.Width / 2 - 320;
-            float bottom = -graphics.GraphicsDevice.Viewport.Height / 2 - 240;
-            var projection = Matrix.CreateOrthographicOffCenter(left, 640, 480, bottom, 0, -1);
-            var view = Matrix.CreateLookAt(new Vector3(0, 0, 0), Vector3.Forward, Vector3.Down);
 
             primitiveBatch.Begin(ref projection, ref view);
 
             demo.Draw(debugDraw);
+
+            primitiveBatch.DrawCircle(new Vector2((float)chipmunkDemoMouse.X, (float)chipmunkDemoMouse.Y), 5, Color.LimeGreen, Color.Magenta);
 
             primitiveBatch.End();
 

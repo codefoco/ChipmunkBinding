@@ -8,7 +8,7 @@ namespace ChipmunkBinding
     /// To test if the query hit something, check if SegmentQueryInfo.Shape == null or not.
     /// Segment queries are like ray casting, but because not all spatial indexes allow processing infinitely long ray queries it is limited to segments. In practice this is still very fast and you don’t need to worry too much about the performance as long as you aren’t using extremely long segments for your queries.
     /// </summary>
-    public class SegmentQueryInfo : IEquatable<SegmentQueryInfo>
+    public sealed class SegmentQueryInfo : IEquatable<SegmentQueryInfo>
     {
 #pragma warning disable IDE0032
         private readonly Shape shape;
@@ -58,24 +58,20 @@ namespace ChipmunkBinding
             return this == other;
         }
 
-
-        public static bool operator ==(SegmentQueryInfo a, SegmentQueryInfo b)
+        public static bool operator ==(SegmentQueryInfo left, SegmentQueryInfo right)
         {
-            if (a.shape?.Handle != b.shape?.Handle)
-                return false;
-            if (a.point != b.point)
-                return false;
-            if (a.normal != b.normal)
-                return false;
+            if (ReferenceEquals(left, null))
+            {
+                return ReferenceEquals(right, null);
+            }
 
-            return Math.Abs(a.alpha - b.alpha) < float.Epsilon;
+            return left.Equals(right);
         }
 
         public static bool operator !=(SegmentQueryInfo a, SegmentQueryInfo b)
         {
             return !(a == b);
         }
-
 
         internal static SegmentQueryInfo FromQueryInfo(cpSegmentQueryInfo queryInfo)
         {
@@ -94,7 +90,17 @@ namespace ChipmunkBinding
 
         public bool Equals(SegmentQueryInfo other)
         {
-            return this == other;
+            if (ReferenceEquals(other, null))
+                return false;
+
+            if (shape?.Handle != other.shape?.Handle)
+                return false;
+            if (point != other.point)
+                return false;
+            if (normal != other.normal)
+                return false;
+
+            return Math.Abs(alpha - other.alpha) < float.Epsilon;
         }
 
         public override int GetHashCode()
