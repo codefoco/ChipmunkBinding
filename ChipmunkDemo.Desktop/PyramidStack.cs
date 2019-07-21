@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using ChipmunkBinding;
+﻿using ChipmunkBinding;
 
 namespace ChipmunkDemo
 {
     public class PyramidStack
     {
-        public PyramidStack()
-        {
-        }
-
         Space space;
 
-
-        public Space Initialize()
+        public Space LoadContent()
         {
             space = new Space();
             space.Iterations = 30;

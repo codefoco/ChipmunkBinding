@@ -87,7 +87,7 @@ namespace ChipmunkDemo
             inverse = matrix;
 
             primitiveBatch.LoadContent(ref world);
-            space = demo.Initialize();
+            space = demo.LoadContent();
         }
 
         /// <summary>
@@ -108,8 +108,8 @@ namespace ChipmunkDemo
                 MouseLeftButtonDown(state);
             if (previousState.LeftButton == ButtonState.Pressed && state.LeftButton != ButtonState.Pressed)
                 MouseLeftButtonUp();
-            if (previousState.Position != state.Position)
-                MouseMove(state);
+
+            MouseMove(state);
 
             UpdateMouseBody();
 
@@ -125,7 +125,7 @@ namespace ChipmunkDemo
             Vect mousePosition = mouseBody.Position;
 
             Vect newPoint = mousePosition.Lerp(chipmunkDemoMouse, 0.25);
-            mouseBody.Velocity = (newPoint - mousePosition) * 30.0;
+            mouseBody.Velocity = (newPoint - mousePosition) * 60.0;
             mouseBody.Position = newPoint;
         }
 
@@ -167,7 +167,7 @@ namespace ChipmunkDemo
             Vect nearest = info.Distance > 0.0 ? info.Point : mousePosition;
 
             mouseJoint = new PivotJoint(mouseBody, body, Vect.Zero, body.WorldToLocal(nearest));
-            mouseJoint.MaxForce = 5000.0;
+            mouseJoint.MaxForce = 1000.0;
             mouseJoint.ErrorBias = Math.Pow(1.0 - 0.15, 60.0);
             space.AddConstraint(mouseJoint);
         }
