@@ -11,7 +11,8 @@ steps:
 - task: CmdLine@2
   inputs:
     script: 'sudo rm -rf /Applications/Xcode.app/;
-            sudo /bin/mv /Applications/Xcode_9.4.1.app/ /Applications/Xcode.app/'
+            sudo /bin/mv /Applications/Xcode_9.4.1.app/ /Applications/Xcode.app/;
+            sudo xcodebuild -runFirstLaunch'
 
 # Print the current version of Xamarin.iOS
 - task: CmdLine@2
