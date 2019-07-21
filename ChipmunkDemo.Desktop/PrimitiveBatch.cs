@@ -34,20 +34,21 @@ namespace ChipmunkDemo
             triangleVertices = new List<VertexPositionColor>();
         }
 
-        public void LoadContent()
+        public void LoadContent(ref Matrix world)
         {
             basicEffect = new BasicEffect(graphicsDevice);
             basicEffect.VertexColorEnabled = true;
-            basicEffect.World = Matrix.Identity;
+            basicEffect.World = world;
         }
 
         public void Begin()
         {
-            var projection = Matrix.CreateOrthographicOffCenter(0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height, 0, 0, -1);
-            var view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Up);
+            var view       = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Down);
+            var projection = Matrix.CreateOrthographic(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height, 0, -1);
 
             Begin(ref projection, ref view);
         }
+
 
         public void Begin(ref Matrix projection, ref Matrix view)
         {
@@ -149,6 +150,12 @@ namespace ChipmunkDemo
             Vector2 v1 = vertices[1];
             Vector2 v2;
 
+            if (outline.HasValue)
+            {
+                AddLineVertex(v0, outline.Value);
+                AddLineVertex(v1, outline.Value);
+            }
+
             for (var i = 2; i < count; i++)
             {
                 v2 = vertices[i];
@@ -164,6 +171,12 @@ namespace ChipmunkDemo
                 }
 
                 v1 = v2;
+            }
+
+            if (outline.HasValue)
+            {
+                AddLineVertex(v1, outline.Value);
+                AddLineVertex(v0, outline.Value);
             }
         }
 

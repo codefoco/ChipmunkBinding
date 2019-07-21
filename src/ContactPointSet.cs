@@ -30,6 +30,9 @@ namespace ChipmunkBinding
 
         public bool Equals(ContactPointSet other)
         {
+            if (ReferenceEquals(other, null))
+                return false;
+
             if (count != other.count)
                 return false;
             if (normal != other.normal)
@@ -60,6 +63,11 @@ namespace ChipmunkBinding
 
         public static bool operator ==(ContactPointSet left, ContactPointSet right)
         {
+            if (ReferenceEquals(left, null))
+            {
+                return ReferenceEquals(right, null);
+            }
+
             return left.Equals(right);
         }
 

@@ -12,14 +12,6 @@ namespace ChipmunkDemo
 
         Space space;
 
-        public enum ShapeCategorie
-        {
-            GrabbableMaskBit = 1 << 31,
-            NotGrabbableMaskBit = ~(1 << 31)
-        }
-
-        readonly ShapeFilter GrabbableFilter = new ShapeFilter(0, (int)ShapeCategorie.GrabbableMaskBit, (int)ShapeCategorie.GrabbableMaskBit);
-        readonly ShapeFilter NotGrabbableFilter = new ShapeFilter(0, (int)ShapeCategorie.NotGrabbableMaskBit, (int)ShapeCategorie.NotGrabbableMaskBit);
 
         public Space Initialize()
         {
@@ -36,21 +28,21 @@ namespace ChipmunkDemo
 
             shape.Elasticity = 1.0f;
             shape.Friction = 1.0f;
-            shape.Filter = NotGrabbableFilter;
+            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(staticBody, new Vect(320, -240), new Vect(320, 240), 0.0f);
             space.AddShape(shape);
 
             shape.Elasticity = 1.0f;
             shape.Friction = 1.0f;
-            shape.Filter = NotGrabbableFilter;
+            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(staticBody, new Vect(-320, -240), new Vect(320, -240), 0.0f);
             space.AddShape(shape);
 
             shape.Elasticity = 1.0f;
             shape.Friction = 1.0f;
-            shape.Filter = NotGrabbableFilter;
+            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             // Add lots of boxes.
             for (int i = 0; i < 14; i++)
