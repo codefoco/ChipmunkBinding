@@ -16,7 +16,7 @@ namespace ChipmunkDemo
         SpriteBatch spriteBatch;
         PrimitiveBatch primitiveBatch;
         ChipmunkDebugDraw debugDraw;
-        PyramidStack demo;
+        Plink demo;
 
         Vect chipmunkDemoMouse;
         Body mouseBody;
@@ -50,7 +50,7 @@ namespace ChipmunkDemo
             Content.RootDirectory = "Content";
 
             mouseBody = new Body(BodyType.Kinematic);
-            demo = new PyramidStack();
+            demo = new Plink();
         }
 
 
@@ -63,7 +63,6 @@ namespace ChipmunkDemo
         protected override void Initialize()
         {
             base.Initialize();
-
         }
 
         /// <summary>
@@ -173,7 +172,6 @@ namespace ChipmunkDemo
             // Use the closest point on the surface if the click is outside of the shape.
             Vect nearest = info.Distance > 0.0 ? info.Point : mousePosition;
 
-
             mouseJoint = new PivotJoint(mouseBody, body, Vect.Zero, body.WorldToLocal(nearest));
             mouseJoint.MaxForce = 10000.0;
             mouseJoint.ErrorBias = Math.Pow(1.0 - 0.15, 60.0);
@@ -199,7 +197,7 @@ namespace ChipmunkDemo
 
             primitiveBatch.Begin(ref projection, ref view);
 
-            demo.Draw(debugDraw);
+            space.DebugDraw(debugDraw);
 
             primitiveBatch.DrawCircle(new Vector2((float)chipmunkDemoMouse.X, (float)chipmunkDemoMouse.Y), 5, Color.LimeGreen, Color.Magenta);
 
@@ -208,6 +206,23 @@ namespace ChipmunkDemo
             primitiveBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void FreeSpace()
+        {
+            foreach (Shape s in space.Shapes)
+            {
+                space.Remove(s);
+                s.Dispose();
+            }
+
+            foreach (Constraint c in space.Constraints)
+            {
+                space.Remove(c);
+                c.Dispose();
+            }
+
+            space.Dispose();
         }
     }
 }

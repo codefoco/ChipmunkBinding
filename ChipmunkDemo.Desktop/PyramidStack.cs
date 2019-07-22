@@ -75,27 +75,5 @@ namespace ChipmunkDemo
         {
             space.Step(dt);
         }
-
-        public void Dispose()
-        {
-            foreach (Shape s in space.Shapes)
-            {
-                space.Remove(s);
-                s.Dispose();
-            }
-
-            foreach(Constraint c in space.Constraints)
-            {
-                space.Remove(c);
-                c.Dispose();
-            }
-
-            space.Dispose();
-        }
-
-        internal void Draw(IDebugDraw debugDraw)
-        {
-            space.DebugDraw(debugDraw);
-        }
     }
 }

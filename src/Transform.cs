@@ -28,6 +28,21 @@ namespace ChipmunkBinding
             this.ty = ty;
         }
 
+        public static Transform CreateTranspose(double a, double c, double tx, double b, double d, double ty)
+        {
+            return new Transform(a, b, c, d, tx, ty);
+        }
+
+        /// <summary>
+        /// Create a transation matrix.
+        /// </summary>
+        /// <param name="translate"></param>
+        public static Transform CreateTranslation(Vect translate)
+        {
+            return CreateTranspose(1.0, 0.0, translate.X,
+                                   0.0, 1.0, translate.Y);
+        }
+
 
         public static Transform Identity => identity;
 
