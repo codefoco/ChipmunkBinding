@@ -97,7 +97,7 @@ namespace ChipmunkBinding
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect operator -(Vect a, Vect b)
         {
-            return new Vect(a.x + b.x, a.y + b.y);
+            return new Vect(a.x - b.x, a.y - b.y);
         }
 
         /// <summary>

@@ -110,7 +110,6 @@ namespace ChipmunkDemo
                 MouseLeftButtonUp();
 
             MouseMove(state);
-
             UpdateMouseBody();
 
             demo.Update(gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0);
@@ -122,10 +121,14 @@ namespace ChipmunkDemo
 
         private void UpdateMouseBody()
         {
+            if (mouseJoint == null)
+                return;
+
             Vect mousePosition = mouseBody.Position;
 
             Vect newPoint = mousePosition.Lerp(chipmunkDemoMouse, 0.25);
-            mouseBody.Velocity = (newPoint - mousePosition) * 60.0;
+
+            mouseBody.Velocity = (newPoint - mousePosition) * 60;
             mouseBody.Position = newPoint;
         }
 
@@ -142,6 +145,11 @@ namespace ChipmunkDemo
         private void MouseMove(MouseState state)
         {
             chipmunkDemoMouse = MouseToSpace(state);
+
+            if (mouseJoint != null)
+                return;
+
+            mouseBody.Position = chipmunkDemoMouse;
         }
 
         private void MouseLeftButtonDown(MouseState state)
@@ -149,7 +157,6 @@ namespace ChipmunkDemo
             Vect mousePosition = MouseToSpace(state);
             // give the mouse click a little radius to make it easier to click small shapes.
             double radius = 5.0;
-
 
             PointQueryInfo info = space.PointQueryNearest(mousePosition, radius, GrabbableFilter);
             if (info == null)
@@ -166,9 +173,11 @@ namespace ChipmunkDemo
             // Use the closest point on the surface if the click is outside of the shape.
             Vect nearest = info.Distance > 0.0 ? info.Point : mousePosition;
 
+
             mouseJoint = new PivotJoint(mouseBody, body, Vect.Zero, body.WorldToLocal(nearest));
-            mouseJoint.MaxForce = 1000.0;
+            mouseJoint.MaxForce = 10000.0;
             mouseJoint.ErrorBias = Math.Pow(1.0 - 0.15, 60.0);
+
             space.AddConstraint(mouseJoint);
         }
 
@@ -193,6 +202,8 @@ namespace ChipmunkDemo
             demo.Draw(debugDraw);
 
             primitiveBatch.DrawCircle(new Vector2((float)chipmunkDemoMouse.X, (float)chipmunkDemoMouse.Y), 5, Color.LimeGreen, Color.Magenta);
+
+            primitiveBatch.DrawCircle(new Vector2((float)mouseBody.Position.X, (float)mouseBody.Position.Y), 5, Color.BlueViolet, Color.WhiteSmoke);
 
             primitiveBatch.End();
 
