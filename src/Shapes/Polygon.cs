@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ChipmunkBinding
 {
@@ -36,6 +37,8 @@ namespace ChipmunkBinding
 
         static private IntPtr CreatePolygonShape (Body body, Vect[] verts, Transform transform, double radius)
         {
+            Debug.Assert(verts.Length > 2);
+
             IntPtr ptrVectors = NativeInterop.StructureArrayToPtr(verts);
 
             IntPtr handle = NativeMethods.cpPolyShapeNew(body.Handle, verts.Length, ptrVectors, transform, radius);
@@ -47,6 +50,8 @@ namespace ChipmunkBinding
 
         static private IntPtr CreatePolygonShape(Body body, Vect[] verts, double radius)
         {
+            Debug.Assert(verts.Length > 2);
+
             IntPtr ptrVectors = NativeInterop.StructureArrayToPtr(verts);
 
             IntPtr handle = NativeMethods.cpPolyShapeNewRaw(body.Handle, verts.Length, ptrVectors, radius);
