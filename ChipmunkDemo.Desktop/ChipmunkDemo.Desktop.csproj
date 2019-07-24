@@ -75,6 +75,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="PyramidStack.cs" />
+    <Compile Include="Tumble.cs" />
+    <Compile Include="DemoBase.cs" />
+    <Compile Include="PyramidTopple.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

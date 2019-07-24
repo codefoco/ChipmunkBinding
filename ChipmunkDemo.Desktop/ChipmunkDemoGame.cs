@@ -16,7 +16,7 @@ namespace ChipmunkDemo
         SpriteBatch spriteBatch;
         PrimitiveBatch primitiveBatch;
         ChipmunkDebugDraw debugDraw;
-        Plink demo;
+        DemoBase demo;
 
         Vect chipmunkDemoMouse;
         Body mouseBody;
@@ -50,7 +50,7 @@ namespace ChipmunkDemo
             Content.RootDirectory = "Content";
 
             mouseBody = new Body(BodyType.Kinematic);
-            demo = new Plink();
+            demo = new PyramidTopple();
         }
 
 
@@ -101,21 +101,41 @@ namespace ChipmunkDemo
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            HandleMouse();
+
+            UpdateMouseBody();
+
+            demo.Update(gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0);
+
+            base.Update(gameTime);
+        }
+
+        private void HandleMouse()
+        {
             MouseState state = Mouse.GetState();
 
             if (state.LeftButton == ButtonState.Pressed && previousState.LeftButton != ButtonState.Pressed)
                 MouseLeftButtonDown(state);
             if (previousState.LeftButton == ButtonState.Pressed && state.LeftButton != ButtonState.Pressed)
                 MouseLeftButtonUp();
+            if (state.RightButton == ButtonState.Pressed && previousState.RightButton != ButtonState.Pressed)
+                MouseRightButtonDown();
+            if (previousState.RightButton == ButtonState.Pressed && state.RightButton != ButtonState.Pressed)
+                MouseRightButtonUp();
 
             MouseMove(state);
-            UpdateMouseBody();
-
-            demo.Update(gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0);
-
-            base.Update(gameTime);
 
             previousState = state;
+        }
+
+        private void MouseRightButtonUp()
+        {
+            demo.OnMouseRightButtonUp(chipmunkDemoMouse);
+        }
+
+        private void MouseRightButtonDown()
+        {
+            demo.OnMouseRightButtonDown(chipmunkDemoMouse);
         }
 
         private void UpdateMouseBody()
@@ -139,6 +159,8 @@ namespace ChipmunkDemo
             space.Remove(mouseJoint);
             mouseJoint.Dispose();
             mouseJoint = null;
+
+            demo.OnMouseLeftButtonUp(chipmunkDemoMouse);
         }
 
         private void MouseMove(MouseState state)
@@ -149,6 +171,8 @@ namespace ChipmunkDemo
                 return;
 
             mouseBody.Position = chipmunkDemoMouse;
+
+            demo.OnMouseMove(chipmunkDemoMouse);
         }
 
         private void MouseLeftButtonDown(MouseState state)
@@ -177,6 +201,8 @@ namespace ChipmunkDemo
             mouseJoint.ErrorBias = Math.Pow(1.0 - 0.15, 60.0);
 
             space.AddConstraint(mouseJoint);
+
+            demo.OnMouseLeftButtonDown(chipmunkDemoMouse);
         }
 
         private Vect MouseToSpace(MouseState state)

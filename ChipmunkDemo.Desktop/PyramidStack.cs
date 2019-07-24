@@ -2,11 +2,9 @@
 
 namespace ChipmunkDemo
 {
-    public class PyramidStack
+    public class PyramidStack : DemoBase
     {
-        Space space;
-
-        public Space LoadContent()
+        public override Space LoadContent()
         {
             space = new Space();
             space.Iterations = 30;
@@ -69,11 +67,6 @@ namespace ChipmunkDemo
             shape.Friction = 0.9f;
 
             return space;
-        }
-
-        public void Update(double dt)
-        {
-            space.Step(dt);
         }
     }
 }

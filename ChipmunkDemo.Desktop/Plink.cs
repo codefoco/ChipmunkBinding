@@ -1,12 +1,12 @@
 ﻿using ChipmunkBinding;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ChipmunkDemo
 {
-    public class Plink
+    public class Plink : DemoBase
     {
-        private Space space;
-
         private const int NumVertices = 5;
 
         double pentagonMass;
@@ -21,7 +21,7 @@ namespace ChipmunkDemo
                 new Vect( 15,-15),
         };
 
-        public Space LoadContent()
+        public override Space LoadContent()
         {
             space = new Space();
             space.Iterations = 5;
@@ -77,9 +77,43 @@ namespace ChipmunkDemo
             return space;
         }
 
-        public void Update(double dt)
+        public override void Update(double dt)
         {
-            space.Step(dt);
+            MoveBodysBack();
+
+            base.Update(dt);
+        }
+
+        void MoveBodysBack()
+        {
+            IReadOnlyList<Body> bodies = space.Bodies;
+
+            var outsideBodies = bodies.Where(b => b.Position.Y < -260);
+
+            foreach (Body body in outsideBodies)
+            {
+                double x = random.NextDouble() * 640 - 320;
+                body.Position = new Vect(x, 260);
+            }
+        }
+
+        public override void OnMouseRightButtonDown(Vect chipmunkDemoMouse)
+        {
+            PointQueryInfo info = space.PointQueryNearest(chipmunkDemoMouse, 0.0, ChipmunkDemoGame.GrabbableFilter);
+            if (info == null || info.Shape == null)
+                return;
+
+            Body body = info.Shape.Body;
+            if (body.Type == BodyType.Static)
+            {
+                body.Type = BodyType.Dinamic;
+                body.Mass = pentagonMass;
+                body.Moment = pentagonMoment;
+            }
+            else
+            {
+                body.Type = BodyType.Static;
+            }
         }
     }
 }

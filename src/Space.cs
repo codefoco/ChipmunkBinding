@@ -443,7 +443,7 @@ namespace ChipmunkBinding
         /// <param name="maxDistance">Match only within this distance</param>
         /// <param name="filter">Only pick shapes matching the filter</param>
         /// <returns></returns>
-        public IReadOnlyCollection<PointQueryInfo> PointQuery(Vect point, double maxDistance, ShapeFilter filter)
+        public IReadOnlyList<PointQueryInfo> PointQuery(Vect point, double maxDistance, ShapeFilter filter)
         {
             var list = new List<PointQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
@@ -499,7 +499,7 @@ namespace ChipmunkBinding
         /// <param name="radius"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public IReadOnlyCollection<SegmentQueryInfo> SegmentQuery(Vect start, Vect end, double radius, ShapeFilter filter)
+        public IReadOnlyList<SegmentQueryInfo> SegmentQuery(Vect start, Vect end, double radius, ShapeFilter filter)
         {
             var list = new List<SegmentQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
@@ -554,7 +554,7 @@ namespace ChipmunkBinding
         /// <param name="bb"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public IReadOnlyCollection<Shape> BoundBoxQuery(BoundingBox bb, ShapeFilter filter)
+        public IReadOnlyList<Shape> BoundBoxQuery(BoundingBox bb, ShapeFilter filter)
         {
             var list = new List<Shape>();
 
@@ -584,7 +584,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Return all bodies from Space.
         /// </summary>
-        public IReadOnlyCollection<Body> Bodies
+        public IReadOnlyList<Body> Bodies
         {
             get
             {
@@ -617,7 +617,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Return all shapes from Space.
         /// </summary>
-        public IReadOnlyCollection<Shape> Shapes
+        public IReadOnlyList<Shape> Shapes
         {
             get
             {
@@ -676,7 +676,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Return all constraints from Space.
         /// </summary>
-        public IReadOnlyCollection<Constraint> Constraints
+        public IReadOnlyList<Constraint> Constraints
         {
             get
             {
