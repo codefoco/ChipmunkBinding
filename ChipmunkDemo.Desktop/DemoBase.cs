@@ -41,6 +41,8 @@ namespace ChipmunkDemo
 
         public virtual void Draw(GameTime gameTime, IDebugDraw debugDraw)
         {
+            space.DebugDraw(debugDraw);
+
             var colorMagenta = new DebugColor(1, 0, 1, 1);
             debugDraw.DrawCircle(ChipmunkDemoGame.ChipmunkDemoMouse, 0.0, 5, colorMagenta, colorMagenta);
         }

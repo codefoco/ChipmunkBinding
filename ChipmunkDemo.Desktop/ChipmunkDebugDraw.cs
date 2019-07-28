@@ -62,17 +62,13 @@ namespace ChipmunkDemo
         {
             Vector2 center = new Vector2((float)pos.X, (float)pos.Y);
 
-            primitiveBatch.DrawCircle(center, (float)0.25, new Color(color.Red, color.Green, color.Blue));
+            primitiveBatch.DrawCircle(center, (float)size, new Color(color.Red, color.Green, color.Blue),null, 5);
         }
 
         public void DrawFatSegment(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
             var pos1 = new Vector2((float)a.X, (float)a.Y);
             var pos2 = new Vector2((float)b.X, (float)b.Y);
-            if (radius > 1)
-            {
-                Console.WriteLine("Maior q um");
-            }
 
             primitiveBatch.DrawLine(pos1, pos2, new Color(fillColor.Red, fillColor.Green, fillColor.Blue));
         }
