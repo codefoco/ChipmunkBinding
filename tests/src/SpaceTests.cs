@@ -114,7 +114,7 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.IsTrue(space.Contains(body), "#2");
 
-            space.Remove(body);
+            space.RemoveBody(body);
 
             Assert.IsFalse(space.Contains(body), "#3");
 
