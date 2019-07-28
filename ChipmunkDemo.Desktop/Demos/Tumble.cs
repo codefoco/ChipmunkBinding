@@ -58,7 +58,7 @@ namespace ChipmunkDemo
 
             space.AddBody(_kinematicBoxBody);
 
-            _kinematicBoxBody.AngularVelocity = -0.4;
+            _kinematicBoxBody.AngularVelocity = 0.4;
 
             // Set up the static box.
             var a = new Vect(-200, -200);

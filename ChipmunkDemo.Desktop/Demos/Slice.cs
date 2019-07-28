@@ -98,7 +98,7 @@ namespace ChipmunkDemo
                 return;
 
             PointQueryInfo infoB = shape.PointQuery(b);
-            if (infoB == null || infoA.Distance <= 0.0)
+            if (infoB == null || infoB.Distance <= 0.0)
                 return;
 
             // Can't modify the space during a query.

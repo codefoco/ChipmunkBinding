@@ -65,10 +65,6 @@ namespace ChipmunkBinding
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposing)
-            {
-                Debug.WriteLine("Disposing space {0} on finalizer... (consider Dispose explicitly)", space);
-            }
             Free();
         }
         /// <summary>
@@ -78,11 +74,6 @@ namespace ChipmunkBinding
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        ~Space()
-        {
-            Dispose(false);
         }
 
         void RegisterUserData()

@@ -16,12 +16,16 @@ namespace ChipmunkDemo
         SpriteBatch spriteBatch;
         PrimitiveBatch primitiveBatch;
         ChipmunkDebugDraw debugDraw;
-        DemoBase demo;
+        DemoBase [] demo;
 
         static Vect chipmunkDemoMouse;
-        Body mouseBody;
-        Constraint mouseJoint;
-        MouseState previousState;
+        Body cursorBody;
+        Constraint cursorJoint;
+
+        MouseState previousMouseState;
+        KeyboardState previousKeyboardState;
+
+        int currentDemo = 0;
 
         Matrix world;
         Matrix view;
@@ -50,7 +54,7 @@ namespace ChipmunkDemo
 
             Content.RootDirectory = "Content";
 
-            mouseBody = new Body(BodyType.Kinematic);
+            cursorBody = new Body(BodyType.Kinematic);
         }
 
 
@@ -76,25 +80,31 @@ namespace ChipmunkDemo
                 CullMode = CullMode.None
             };
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch    = new SpriteBatch(GraphicsDevice);
             primitiveBatch = new PrimitiveBatch(GraphicsDevice);
-            debugDraw = new ChipmunkDebugDraw(primitiveBatch);
+            debugDraw      = new ChipmunkDebugDraw(primitiveBatch);
 
-            demo = new LogoSmash();
+            demo = new DemoBase[6]
+            {
+                new LogoSmash(),
+                new PyramidStack(),
+                new Tumble(),
+                new Plink(),
+                new PyramidTopple(),
+                new Slice()
+            };
 
-            float width = GraphicsDevice.Viewport.Width;
+            float width  = GraphicsDevice.Viewport.Width;
             float height = GraphicsDevice.Viewport.Height;
 
-            world = Matrix.Identity;
-
-            view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Up);
-            projection =  Matrix.CreateOrthographic(width, height, 0, -1);
-
-            Matrix matrix = Matrix.CreateScale(1,-1, 1) * Matrix.CreateTranslation(-width/2, height/2, 0);
-            inverse = matrix;
+            world      = Matrix.Identity;
+            view       = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Up);
+            projection = Matrix.CreateOrthographic(width, height, 0, -1);
+            inverse    = Matrix.CreateScale(1, -1, 1) * Matrix.CreateTranslation(-width / 2, height / 2, 0);
 
             primitiveBatch.LoadContent(ref world, ref view, ref projection);
-            space = demo.LoadContent();
+
+            LoadDemo();
         }
 
         /// <summary>
@@ -114,75 +124,119 @@ namespace ChipmunkDemo
             UpdateMouseBody();
 
             double dt = gameTime.ElapsedGameTime.TotalMilliseconds / 2000.0;
-            demo.Update(dt);
-            demo.Update(dt);
+
+            demo[currentDemo].Update(dt);
+            demo[currentDemo].Update(dt);
 
             base.Update(gameTime);
+
+            HandleKeyboard();
         }
 
         private void HandleMouse()
         {
             MouseState state = Mouse.GetState();
 
-            if (state.LeftButton == ButtonState.Pressed && previousState.LeftButton != ButtonState.Pressed)
+            if (state.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton != ButtonState.Pressed)
                 MouseLeftButtonDown(state);
-            if (previousState.LeftButton == ButtonState.Pressed && state.LeftButton != ButtonState.Pressed)
+            if (previousMouseState.LeftButton == ButtonState.Pressed && state.LeftButton != ButtonState.Pressed)
                 MouseLeftButtonUp();
-            if (state.RightButton == ButtonState.Pressed && previousState.RightButton != ButtonState.Pressed)
+            if (state.RightButton == ButtonState.Pressed && previousMouseState.RightButton != ButtonState.Pressed)
                 MouseRightButtonDown();
-            if (previousState.RightButton == ButtonState.Pressed && state.RightButton != ButtonState.Pressed)
+            if (previousMouseState.RightButton == ButtonState.Pressed && state.RightButton != ButtonState.Pressed)
                 MouseRightButtonUp();
 
             MouseMove(state);
 
-            previousState = state;
+            previousMouseState = state;
+        }
+
+        private void HandleKeyboard()
+        {
+            var keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyUp(Keys.Left) && previousKeyboardState.IsKeyDown(Keys.Left))
+                LeftKeyUp();
+            if (keyboardState.IsKeyUp(Keys.Right) && previousKeyboardState.IsKeyDown(Keys.Right))
+                RightKeyUp();
+
+            previousKeyboardState = keyboardState;
+        }
+
+        private void LeftKeyUp()
+        {
+            if (currentDemo == 0)
+                currentDemo = demo.Length - 1;
+            else
+                currentDemo = currentDemo - 1;
+
+            LoadDemo();
+        }
+
+        private void RightKeyUp()
+        {
+            if (currentDemo == demo.Length - 1)
+                currentDemo = 0;
+            else
+                currentDemo = currentDemo + 1;
+
+            LoadDemo();
+        }
+
+        private void LoadDemo()
+        {
+            if (space != null)
+            {
+                FreeSpace();
+            }
+
+            space = demo[currentDemo].LoadContent();
         }
 
         private void MouseRightButtonUp()
         {
-            demo.OnMouseRightButtonUp(chipmunkDemoMouse);
+            demo[currentDemo].OnMouseRightButtonUp(chipmunkDemoMouse);
         }
 
         private void MouseRightButtonDown()
         {
-            demo.OnMouseRightButtonDown(chipmunkDemoMouse);
+            demo[currentDemo].OnMouseRightButtonDown(chipmunkDemoMouse);
         }
 
         private void UpdateMouseBody()
         {
-            if (mouseJoint == null)
+            if (cursorJoint == null)
                 return;
 
-            Vect mousePosition = mouseBody.Position;
+            Vect mousePosition = cursorBody.Position;
 
             Vect newPoint = mousePosition.Lerp(chipmunkDemoMouse, 0.25);
 
-            mouseBody.Velocity = (newPoint - mousePosition) * 60;
-            mouseBody.Position = newPoint;
+            cursorBody.Velocity = (newPoint - mousePosition) * 60;
+            cursorBody.Position = newPoint;
         }
 
         private void MouseLeftButtonUp()
         {
-            if (mouseJoint == null)
+            if (cursorJoint == null)
                 return;
 
-            space.RemoveConstraint(mouseJoint);
-            mouseJoint.Dispose();
-            mouseJoint = null;
+            space.RemoveConstraint(cursorJoint);
+            cursorJoint.Dispose();
+            cursorJoint = null;
 
-            demo.OnMouseLeftButtonUp(chipmunkDemoMouse);
+            demo[currentDemo].OnMouseLeftButtonUp(chipmunkDemoMouse);
         }
 
         private void MouseMove(MouseState state)
         {
             chipmunkDemoMouse = MouseToSpace(state);
 
-            demo.OnMouseMove(chipmunkDemoMouse);
+            demo[currentDemo].OnMouseMove(chipmunkDemoMouse);
 
-            if (mouseJoint != null)
+            if (cursorJoint != null)
                 return;
 
-            mouseBody.Position = chipmunkDemoMouse;
+            cursorBody.Position = chipmunkDemoMouse;
         }
 
         private void MouseLeftButtonDown(MouseState state)
@@ -206,13 +260,13 @@ namespace ChipmunkDemo
             // Use the closest point on the surface if the click is outside of the shape.
             Vect nearest = info.Distance > 0.0 ? info.Point : mousePosition;
 
-            mouseJoint = new PivotJoint(mouseBody, body, Vect.Zero, body.WorldToLocal(nearest));
-            mouseJoint.MaxForce = 10000.0;
-            mouseJoint.ErrorBias = Math.Pow(1.0 - 0.15, 60.0);
+            cursorJoint = new PivotJoint(cursorBody, body, Vect.Zero, body.WorldToLocal(nearest));
+            cursorJoint.MaxForce = 10000.0;
+            cursorJoint.ErrorBias = Math.Pow(1.0 - 0.15, 60.0);
 
-            space.AddConstraint(mouseJoint);
+            space.AddConstraint(cursorJoint);
 
-            demo.OnMouseLeftButtonDown(chipmunkDemoMouse);
+            demo[currentDemo].OnMouseLeftButtonDown(chipmunkDemoMouse);
         }
 
         private Vect MouseToSpace(MouseState state)
@@ -234,9 +288,9 @@ namespace ChipmunkDemo
             primitiveBatch.Begin(ref projection, ref view);
 
 
-            primitiveBatch.DrawCircle(new Vector2((float)mouseBody.Position.X, (float)mouseBody.Position.Y), 5, Color.BlueViolet, Color.WhiteSmoke);
+            primitiveBatch.DrawCircle(new Vector2((float)cursorBody.Position.X, (float)cursorBody.Position.Y), 5, Color.BlueViolet, Color.WhiteSmoke);
 
-            demo.Draw(gameTime, debugDraw);
+            demo[currentDemo].Draw(gameTime, debugDraw);
            
             primitiveBatch.End();
 
@@ -257,7 +311,8 @@ namespace ChipmunkDemo
                 c.Dispose();
             }
 
-            space.Dispose();
+            space.Free();
+            space = null;
         }
     }
 }
