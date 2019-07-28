@@ -71,6 +71,10 @@ namespace ChipmunkDemo
         /// </summary>
         protected override void LoadContent()
         {
+            GraphicsDevice.RasterizerState = new RasterizerState
+            {
+                CullMode = CullMode.None
+            };
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             primitiveBatch = new PrimitiveBatch(GraphicsDevice);
@@ -78,17 +82,15 @@ namespace ChipmunkDemo
 
             demo = new LogoSmash();
 
-            //GraphicsDevice.BlendState = BlendState.NonPremultiplied;
             float width = GraphicsDevice.Viewport.Width;
             float height = GraphicsDevice.Viewport.Height;
 
-            world = Matrix.CreateScale(1, 1, 1);
-           // var w = Matrix.CreateReflection(new Plane(new Vector3(0, 0, 1), 1));
+            world = Matrix.Identity;
 
-            view =  Matrix.CreateLookAt(new Vector3(0, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 1, 0));
+            view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Up);
             projection =  Matrix.CreateOrthographic(width, height, 0, -1);
 
-            Matrix matrix = Matrix.Invert(view) * Matrix.CreateTranslation(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2, 0);
+            Matrix matrix = Matrix.CreateScale(1,-1, 1) * Matrix.CreateTranslation(-width/2, height/2, 0);
             inverse = matrix;
 
             primitiveBatch.LoadContent(ref world, ref view, ref projection);
