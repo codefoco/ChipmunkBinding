@@ -28,8 +28,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>
-    </DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>ChipmunkBinding.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -40,8 +38,6 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>
-    </DocumentationFile>
     <DefineConstants>NETFRAMEWORK</DefineConstants>
     <CodeAnalysisRuleSet>ChipmunkBinding.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>

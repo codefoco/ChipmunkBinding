@@ -16,7 +16,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="body"></param>
         /// <param name="radius"></param>
-        public Polygon(Body body, Vect [] verts, Transform transform, double radius) :
+        public Polygon(Body body, IReadOnlyList<Vect> verts, Transform transform, double radius) :
             base(CreatePolygonShape(body, verts, transform, radius))
         {
 
@@ -35,13 +35,13 @@ namespace ChipmunkBinding
 
         }
 
-        static private IntPtr CreatePolygonShape (Body body, Vect[] verts, Transform transform, double radius)
+        static private IntPtr CreatePolygonShape (Body body, IReadOnlyList<Vect> verts, Transform transform, double radius)
         {
-            Debug.Assert(verts.Length > 2);
+            Debug.Assert(verts.Count > 2);
 
             IntPtr ptrVectors = NativeInterop.StructureArrayToPtr(verts);
 
-            IntPtr handle = NativeMethods.cpPolyShapeNew(body.Handle, verts.Length, ptrVectors, transform, radius);
+            IntPtr handle = NativeMethods.cpPolyShapeNew(body.Handle, verts.Count, ptrVectors, transform, radius);
 
             NativeInterop.FreeStructure(ptrVectors);
 
