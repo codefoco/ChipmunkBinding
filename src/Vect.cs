@@ -280,7 +280,7 @@ namespace ChipmunkBinding
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Normalize()
         {
-            return this * (1.0 / (Length() + double.MinValue));
+            return this * (1.0 / (Length() + double.Epsilon));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -290,7 +290,7 @@ namespace ChipmunkBinding
             {
                 return min;
             }
-            else if (value > max)
+            if (value > max)
             {
                 return max;
             }

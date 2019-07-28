@@ -57,6 +57,11 @@ namespace ChipmunkBinding
             NativeInterop.ReleaseHandle(pointer);
         }
 
+        /// <summary>
+        /// Get a Body object from a native cpBody handle
+        /// </summary>
+        /// <param name="body"></param>
+        /// <returns></returns>
         public static Body FromHandle(cpBody body)
         {
             cpDataPointer handle = NativeMethods.cpBodyGetUserData(body);
@@ -80,9 +85,9 @@ namespace ChipmunkBinding
             RegisterUserData();
         }
 
-        public Body(double mass, double moment):this(mass, moment, BodyType.Dinamic)
+        public Body(double mass, double moment) : this(mass, moment, BodyType.Dinamic)
         {
-        
+
         }
 
         /// <summary>
@@ -114,7 +119,7 @@ namespace ChipmunkBinding
             var space = Space;
 
             if (space != null)
-                space.Remove(this);
+                space.RemoveBody(this);
 
             ReleaseUserData();
             NativeMethods.cpBodyFree(body);
@@ -360,7 +365,6 @@ namespace ChipmunkBinding
         ///     Chipmunk treats impulses as if they occur instantaneously by adding directly to the velocity of an object.
         ///     Both impulses and forces are affected the mass of an object.
         ///     Doubling the mass of the object will halve the effect.
-
         /// </summary>
         /// <param name="force"></param>
         /// <param name="point"></param>

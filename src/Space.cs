@@ -328,7 +328,7 @@ namespace ChipmunkBinding
         /// Remove a collision shape from the simulation.
         /// </summary>
         /// <param name="shape"></param>
-        public void Remove(Shape shape)
+        public void RemoveShape(Shape shape)
         {
             NativeMethods.cpSpaceRemoveShape(space, shape.Handle);
         }
@@ -337,7 +337,7 @@ namespace ChipmunkBinding
         /// Remove a rigid body from the simulation.
         /// </summary>
         /// <param name="body"></param>
-        public void Remove(Body body)
+        public void RemoveBody(Body body)
         {
             NativeMethods.cpSpaceRemoveBody(space, body.Handle);
         }
@@ -346,7 +346,7 @@ namespace ChipmunkBinding
         /// Remove a constraint from the simulation.
         /// </summary>
         /// <param name="constraint"></param>
-        public void Remove(Constraint constraint)
+        public void RemoveConstraint(Constraint constraint)
         {
             NativeMethods.cpSpaceRemoveConstraint(space, constraint.Handle);
         }
@@ -492,7 +492,7 @@ namespace ChipmunkBinding
 
         /// <summary>
         /// Query space along the line segment from start to end with the given radius.
-        //  The filter is applied to the query and follows the same rules as the collision detection.
+        ///  The filter is applied to the query and follows the same rules as the collision detection.
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>

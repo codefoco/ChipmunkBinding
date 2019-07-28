@@ -1,11 +1,16 @@
 ﻿using System;
 using ChipmunkBinding;
+using Microsoft.Xna.Framework;
 
 namespace ChipmunkDemo
 {
     public abstract class DemoBase
     {
         protected Space space;
+
+        protected DemoBase()
+        {
+        }
 
         public abstract Space LoadContent();
 
@@ -32,6 +37,12 @@ namespace ChipmunkDemo
 
         public virtual void OnMouseLeftButtonDown(Vect chipmunkDemoMouse)
         {
+        }
+
+        public virtual void Draw(GameTime gameTime, IDebugDraw debugDraw)
+        {
+            var colorMagenta = new DebugColor(1, 0, 1, 1);
+            debugDraw.DrawCircle(ChipmunkDemoGame.ChipmunkDemoMouse, 0.0, 5, colorMagenta, colorMagenta);
         }
     }
 }

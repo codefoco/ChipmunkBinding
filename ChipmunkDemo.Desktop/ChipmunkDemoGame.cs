@@ -18,7 +18,7 @@ namespace ChipmunkDemo
         ChipmunkDebugDraw debugDraw;
         DemoBase demo;
 
-        Vect chipmunkDemoMouse;
+        static Vect chipmunkDemoMouse;
         Body mouseBody;
         Constraint mouseJoint;
         MouseState previousState;
@@ -41,6 +41,7 @@ namespace ChipmunkDemo
 
         public static readonly ShapeFilter GrabbableFilter = new ShapeFilter(0, (int)ShapeCategorie.GrabbableMaskBit, (int)ShapeCategorie.GrabbableMaskBit);
         public static readonly ShapeFilter NotGrabbableFilter = new ShapeFilter(0, (int)ShapeCategorie.NotGrabbableMaskBit, (int)ShapeCategorie.NotGrabbableMaskBit);
+        public static Vect ChipmunkDemoMouse => chipmunkDemoMouse;
 
         public ChipmunkDemoGame()
         {
@@ -50,7 +51,6 @@ namespace ChipmunkDemo
             Content.RootDirectory = "Content";
 
             mouseBody = new Body(BodyType.Kinematic);
-            demo = new PyramidTopple();
         }
 
 
@@ -76,13 +76,15 @@ namespace ChipmunkDemo
             primitiveBatch = new PrimitiveBatch(GraphicsDevice);
             debugDraw = new ChipmunkDebugDraw(primitiveBatch);
 
+            demo = new Slice();
+
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
 
             world = Matrix.CreateScale(1, -1, 1);
             view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Down);
             projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, -1);
 
-            Matrix matrix =  Matrix.Invert(view) * Matrix.CreateTranslation(GraphicsDevice.Viewport.Width/2, GraphicsDevice.Viewport.Height/2, 0);
+            Matrix matrix = Matrix.Invert(view) * Matrix.CreateTranslation(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2, 0);
             inverse = matrix;
 
             primitiveBatch.LoadContent(ref world);
@@ -105,7 +107,9 @@ namespace ChipmunkDemo
 
             UpdateMouseBody();
 
-            demo.Update(gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0);
+            double dt = gameTime.ElapsedGameTime.TotalMilliseconds / 2000.0;
+            demo.Update(dt);
+            demo.Update(dt);
 
             base.Update(gameTime);
         }
@@ -156,7 +160,7 @@ namespace ChipmunkDemo
             if (mouseJoint == null)
                 return;
 
-            space.Remove(mouseJoint);
+            space.RemoveConstraint(mouseJoint);
             mouseJoint.Dispose();
             mouseJoint = null;
 
@@ -167,12 +171,12 @@ namespace ChipmunkDemo
         {
             chipmunkDemoMouse = MouseToSpace(state);
 
+            demo.OnMouseMove(chipmunkDemoMouse);
+
             if (mouseJoint != null)
                 return;
 
             mouseBody.Position = chipmunkDemoMouse;
-
-            demo.OnMouseMove(chipmunkDemoMouse);
         }
 
         private void MouseLeftButtonDown(MouseState state)
@@ -225,10 +229,10 @@ namespace ChipmunkDemo
 
             space.DebugDraw(debugDraw);
 
-            primitiveBatch.DrawCircle(new Vector2((float)chipmunkDemoMouse.X, (float)chipmunkDemoMouse.Y), 5, Color.LimeGreen, Color.Magenta);
-
             primitiveBatch.DrawCircle(new Vector2((float)mouseBody.Position.X, (float)mouseBody.Position.Y), 5, Color.BlueViolet, Color.WhiteSmoke);
 
+            demo.Draw(gameTime, debugDraw);
+           
             primitiveBatch.End();
 
             base.Draw(gameTime);
@@ -238,13 +242,13 @@ namespace ChipmunkDemo
         {
             foreach (Shape s in space.Shapes)
             {
-                space.Remove(s);
+                space.RemoveShape(s);
                 s.Dispose();
             }
 
             foreach (Constraint c in space.Constraints)
             {
-                space.Remove(c);
+                space.RemoveConstraint(c);
                 c.Dispose();
             }
 

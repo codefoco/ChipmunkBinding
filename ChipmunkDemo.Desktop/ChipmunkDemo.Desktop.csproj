@@ -78,6 +78,7 @@
     <Compile Include="Tumble.cs" />
     <Compile Include="DemoBase.cs" />
     <Compile Include="PyramidTopple.cs" />
+    <Compile Include="Slice.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

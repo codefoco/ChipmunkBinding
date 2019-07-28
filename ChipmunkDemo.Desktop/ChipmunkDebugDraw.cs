@@ -50,7 +50,7 @@ namespace ChipmunkDemo
 
         public void DrawCircle(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
-            Vector2 center = new Vector2((float)pos.X, (float)pos.Y);
+            var center = new Vector2((float)pos.X, (float)pos.Y);
 
             primitiveBatch.DrawCircle(center, (float)radius, 
                 new Color(fillColor.Red, fillColor.Green, fillColor.Blue),
@@ -69,6 +69,10 @@ namespace ChipmunkDemo
         {
             var pos1 = new Vector2((float)a.X, (float)a.Y);
             var pos2 = new Vector2((float)b.X, (float)b.Y);
+            if (radius > 1)
+            {
+                Console.WriteLine("Maior q um");
+            }
 
             primitiveBatch.DrawLine(pos1, pos2, new Color(fillColor.Red, fillColor.Green, fillColor.Blue));
         }
