@@ -76,18 +76,22 @@ namespace ChipmunkDemo
             primitiveBatch = new PrimitiveBatch(GraphicsDevice);
             debugDraw = new ChipmunkDebugDraw(primitiveBatch);
 
-            demo = new Slice();
+            demo = new LogoSmash();
 
-            GraphicsDevice.BlendState = BlendState.NonPremultiplied;
+            //GraphicsDevice.BlendState = BlendState.NonPremultiplied;
+            float width = GraphicsDevice.Viewport.Width;
+            float height = GraphicsDevice.Viewport.Height;
 
-            world = Matrix.CreateScale(1, -1, 1);
-            view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Down);
-            projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, -1);
+            world = Matrix.CreateScale(1, 1, 1);
+           // var w = Matrix.CreateReflection(new Plane(new Vector3(0, 0, 1), 1));
+
+            view =  Matrix.CreateLookAt(new Vector3(0, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 1, 0));
+            projection =  Matrix.CreateOrthographic(width, height, 0, -1);
 
             Matrix matrix = Matrix.Invert(view) * Matrix.CreateTranslation(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2, 0);
             inverse = matrix;
 
-            primitiveBatch.LoadContent(ref world);
+            primitiveBatch.LoadContent(ref world, ref view, ref projection);
             space = demo.LoadContent();
         }
 
@@ -227,7 +231,6 @@ namespace ChipmunkDemo
 
             primitiveBatch.Begin(ref projection, ref view);
 
-            space.DebugDraw(debugDraw);
 
             primitiveBatch.DrawCircle(new Vector2((float)mouseBody.Position.X, (float)mouseBody.Position.Y), 5, Color.BlueViolet, Color.WhiteSmoke);
 

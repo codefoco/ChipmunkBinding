@@ -14,6 +14,8 @@ namespace ChipmunkDemo
     {
         private BasicEffect basicEffect;
         private readonly GraphicsDevice graphicsDevice;
+        private Matrix view;
+        private Matrix projection;
 
         private readonly List<VertexPositionColor> lineVertices;
         private readonly List<VertexPositionColor> triangleVertices;
@@ -39,13 +41,23 @@ namespace ChipmunkDemo
             basicEffect = new BasicEffect(graphicsDevice);
             basicEffect.VertexColorEnabled = true;
             basicEffect.World = world;
+
+            view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Backward, Vector3.Down);
+            projection = Matrix.CreateOrthographic(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height, -1, 1);
+        }
+
+        public void LoadContent(ref Matrix world, ref Matrix v, ref Matrix p)
+        {
+            basicEffect = new BasicEffect(graphicsDevice);
+            basicEffect.VertexColorEnabled = true;
+            basicEffect.World = world;
+
+            view = v;
+            projection = p;
         }
 
         public void Begin()
         {
-            var view       = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Down);
-            var projection = Matrix.CreateOrthographic(graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height, 0, -1);
-
             Begin(ref projection, ref view);
         }
 
