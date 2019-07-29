@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBinding", "build\ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkDemo.Desktop", "ChipmunkDemo.Desktop\ChipmunkDemo.Desktop.csproj", "{E3E0AD4F-A465-4F62-BC7D-CEBB2EA67015}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChipmunkDemo.Shared", "ChipmunkDemo.Shared\ChipmunkDemo.Shared.shproj", "{81D5C31E-3677-4B48-935A-D105AA41C431}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\ChipmunkBinding.Shared.projitems*{c45805a8-6436-4738-bd9f-4632eea63bbc}*SharedItemsImports = 4

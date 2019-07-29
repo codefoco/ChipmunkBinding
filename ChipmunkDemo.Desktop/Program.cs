@@ -13,8 +13,6 @@ namespace ChipmunkDemo
         [STAThread]
         static void Main()
         {
-            Console.WriteLine("Aqui 2");
-
             using (var game = new ChipmunkDemoGame())
                 game.Run();
         }

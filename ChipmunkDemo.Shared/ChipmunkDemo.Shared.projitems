@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{81D5C31E-3677-4B48-935A-D105AA41C431}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ChipmunkDemo.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DemoBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChipmunkDebugDraw.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChipmunkDemoGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Demos\Tumble.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Demos\Slice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Demos\Plink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Demos\PyramidTopple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Demos\PyramidStack.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Demos\LogoSmash.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PrimitiveBatch.cs" />
+  </ItemGroup>
+</Project>
