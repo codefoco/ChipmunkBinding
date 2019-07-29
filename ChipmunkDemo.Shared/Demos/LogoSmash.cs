@@ -85,7 +85,7 @@ namespace ChipmunkDemo
 
         public override Space LoadContent()
         {
-            space = new Space();
+            space = ChipmunkDemoGame.CreateSpace();
             space.Iterations = 1;
 
             // The space will contain a very large number of similary sized objects.

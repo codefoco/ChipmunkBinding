@@ -19,6 +19,9 @@ namespace ChipmunkDemo
         bool rightClick;
         Vect sliceStart;
 
+        bool pinching = false;
+        Vect sliceEnd;
+
         private void ClipPoly(Polygon shape, Vect n, double distance)
         {
             Body body = shape.Body;
@@ -108,7 +111,7 @@ namespace ChipmunkDemo
 
         public override Space LoadContent()
         {
-            space = new Space();
+            space = ChipmunkDemoGame.CreateSpace();
             space.Iterations = 30;
             space.Gravity = new Vect(0, -500);
             space.SleepTimeThreshold = 0.5;
@@ -157,9 +160,15 @@ namespace ChipmunkDemo
         public override void OnMouseRightButtonUp(Vect chipmunkDemoMouse)
         {
             rightClick = false;
+
+            SliceObject(sliceStart, ChipmunkDemoGame.ChipmunkDemoMouse);
+        }
+
+        private void SliceObject(Vect from, Vect to)
+        {
             var context = new SliceContext {
-                A = sliceStart,
-                B = ChipmunkDemoGame.ChipmunkDemoMouse
+                A = from,
+                B = to
             };
 
             SegmentQueryInfo[] infos = space.SegmentQuery(sliceStart, context.B, 0.0, ChipmunkDemoGame.GrabbableFilter).ToArray();
@@ -173,6 +182,20 @@ namespace ChipmunkDemo
             }
         }
 
+        public override void OnPinch(Vect from, Vect to)
+        {
+            sliceStart = from;
+            sliceEnd = to;
+            pinching = true;
+        }
+
+        public override void OnPinchComplete()
+        {
+            pinching = false;
+
+            SliceObject(sliceStart, sliceEnd);
+        }
+
         public override void Update(double dt)
         {
             base.Update(dt);
@@ -184,6 +207,8 @@ namespace ChipmunkDemo
 
             if (rightClick)
                 debugDraw.DrawSegment(sliceStart, ChipmunkDemoGame.ChipmunkDemoMouse, new DebugColor(1, 0, 0, 1));
+            if (pinching)
+                debugDraw.DrawSegment(sliceStart, sliceEnd, new DebugColor(1, 0, 0, 1));
         }
     }
 }

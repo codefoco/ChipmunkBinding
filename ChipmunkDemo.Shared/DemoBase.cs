@@ -39,6 +39,14 @@ namespace ChipmunkDemo
         {
         }
 
+        public virtual void OnPinch(Vect from, Vect to)
+        {
+        }
+
+        public virtual void OnPinchComplete()
+        {
+        }
+
         public virtual void Draw(GameTime gameTime, IDebugDraw debugDraw)
         {
             space.DebugDraw(debugDraw);

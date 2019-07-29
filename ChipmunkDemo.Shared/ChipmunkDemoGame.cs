@@ -71,7 +71,16 @@ namespace ChipmunkDemo
         {
             base.Initialize();
 
-            TouchPanel.EnabledGestures = GestureType.FreeDrag | GestureType.DragComplete | GestureType.DoubleTap;
+            TouchPanel.EnabledGestures = GestureType.FreeDrag | GestureType.DragComplete | GestureType.DoubleTap | GestureType.Pinch | GestureType.PinchComplete;
+        }
+
+        public static Space CreateSpace()
+        {
+#if __MOBILE__
+            return new HastySpace();
+#else
+            return new Space();
+#endif
         }
 
         /// <summary>
@@ -91,8 +100,8 @@ namespace ChipmunkDemo
 
             demo = new DemoBase[6]
             {
-                new PyramidStack(),
                 new LogoSmash(),
+                new PyramidStack(),
                 new Tumble(),
                 new Plink(),
                 new PyramidTopple(),
@@ -178,7 +187,28 @@ namespace ChipmunkDemo
                 {
                     HandleDragComplete(sampledGesture);
                 }
+                else if ((GestureType.PinchComplete & sampledGesture.GestureType) == GestureType.PinchComplete)
+                {
+                    HandlePinchComplete(sampledGesture);
+                }
+                else if ((GestureType.Pinch & sampledGesture.GestureType) == GestureType.Pinch)
+                {
+                    HandlePinch(sampledGesture);
+                }
             }
+        }
+
+        private void HandlePinch(GestureSample sampledGesture)
+        {
+            Vect from = MouseToSpace(sampledGesture.Position);
+            Vect to = MouseToSpace(sampledGesture.Position2);
+
+            demo[currentDemo].OnPinch(from, to);
+        }
+
+        private void HandlePinchComplete(GestureSample sampledGesture)
+        {
+            demo[currentDemo].OnPinchComplete();
         }
 
         private void HandleDragComplete(GestureSample sampledGesture)

@@ -51,7 +51,7 @@ namespace ChipmunkDemo
 
         public override Space LoadContent()
         {
-            space = new Space();
+            space = ChipmunkDemoGame.CreateSpace();
             space.Gravity = new Vect(0, -600);
 
             _kinematicBoxBody = new Body(BodyType.Kinematic);

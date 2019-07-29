@@ -6,7 +6,7 @@ namespace ChipmunkDemo
     {
         public override Space LoadContent()
         {
-            space = new Space();
+            space = ChipmunkDemoGame.CreateSpace();
             space.Iterations = 30;
             space.Gravity = new Vect(0, -100);
             space.SleepTimeThreshold = 0.5f;
