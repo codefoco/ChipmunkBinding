@@ -4,6 +4,7 @@ using ChipmunkBinding;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace ChipmunkDemo
 {
@@ -24,6 +25,7 @@ namespace ChipmunkDemo
 
         MouseState previousMouseState;
         KeyboardState previousKeyboardState;
+        bool touchDragging;
 
         int currentDemo = 0;
 
@@ -53,6 +55,7 @@ namespace ChipmunkDemo
             IsMouseVisible = true;
 
             Content.RootDirectory = "Content";
+            touchDragging = false;
 
             cursorBody = new Body(BodyType.Kinematic);
         }
@@ -67,6 +70,8 @@ namespace ChipmunkDemo
         protected override void Initialize()
         {
             base.Initialize();
+
+            TouchPanel.EnabledGestures = GestureType.FreeDrag | GestureType.DragComplete | GestureType.DoubleTap;
         }
 
         /// <summary>
@@ -86,8 +91,8 @@ namespace ChipmunkDemo
 
             demo = new DemoBase[6]
             {
-                new LogoSmash(),
                 new PyramidStack(),
+                new LogoSmash(),
                 new Tumble(),
                 new Plink(),
                 new PyramidTopple(),
@@ -114,12 +119,16 @@ namespace ChipmunkDemo
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+#if !__MOBILE__
             // For Mobile devices, this logic will close the Game when the Back button is pressed
             // Exit() is obsolete on iOS
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             HandleMouse();
+#endif
+
+            HandleTouchGesture();
 
             UpdateMouseBody();
 
@@ -138,7 +147,7 @@ namespace ChipmunkDemo
             MouseState state = Mouse.GetState();
 
             if (state.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton != ButtonState.Pressed)
-                MouseLeftButtonDown(state);
+                MouseLeftButtonDown(state.Position.ToVector2());
             if (previousMouseState.LeftButton == ButtonState.Pressed && state.LeftButton != ButtonState.Pressed)
                 MouseLeftButtonUp();
             if (state.RightButton == ButtonState.Pressed && previousMouseState.RightButton != ButtonState.Pressed)
@@ -146,9 +155,65 @@ namespace ChipmunkDemo
             if (previousMouseState.RightButton == ButtonState.Pressed && state.RightButton != ButtonState.Pressed)
                 MouseRightButtonUp();
 
-            MouseMove(state);
+            MouseMove(state.Position.ToVector2());
 
             previousMouseState = state;
+        }
+
+        private void HandleTouchGesture()
+        {
+            while (TouchPanel.IsGestureAvailable)
+            {
+                GestureSample sampledGesture = TouchPanel.ReadGesture();
+
+                if ((GestureType.DoubleTap & sampledGesture.GestureType) == GestureType.DoubleTap)
+                {
+                    HandleDoubleTap(sampledGesture);
+                }
+                else if ((GestureType.FreeDrag & sampledGesture.GestureType) == GestureType.FreeDrag)
+                {
+                    HandleDrag(sampledGesture);
+                }
+                else if ((GestureType.DragComplete & sampledGesture.GestureType) == GestureType.DragComplete)
+                {
+                    HandleDragComplete(sampledGesture);
+                }
+            }
+        }
+
+        private void HandleDragComplete(GestureSample sampledGesture)
+        {
+            touchDragging = false;
+
+            MouseLeftButtonUp();
+        }
+
+        private void HandleDrag(GestureSample sampledGesture)
+        {
+            if (touchDragging)
+            {
+                HandleDragMove(sampledGesture);
+                return;
+            }
+
+            HandleDragBegin(sampledGesture);
+        }
+
+        private void HandleDragBegin(GestureSample sampledGesture)
+        {
+            touchDragging = true;
+
+            MouseLeftButtonDown(sampledGesture.Position);
+        }
+
+        private void HandleDragMove(GestureSample sampledGesture)
+        {
+            MouseMove(sampledGesture.Position);
+        }
+
+        private void HandleDoubleTap(GestureSample sampledGesture)
+        {
+            RightKeyUp();
         }
 
         private void HandleKeyboard()
@@ -227,9 +292,9 @@ namespace ChipmunkDemo
             demo[currentDemo].OnMouseLeftButtonUp(chipmunkDemoMouse);
         }
 
-        private void MouseMove(MouseState state)
+        private void MouseMove(Vector2 position)
         {
-            chipmunkDemoMouse = MouseToSpace(state);
+            chipmunkDemoMouse = MouseToSpace(position);
 
             demo[currentDemo].OnMouseMove(chipmunkDemoMouse);
 
@@ -239,9 +304,10 @@ namespace ChipmunkDemo
             cursorBody.Position = chipmunkDemoMouse;
         }
 
-        private void MouseLeftButtonDown(MouseState state)
+        private void MouseLeftButtonDown(Vector2 position)
         {
-            Vect mousePosition = MouseToSpace(state);
+            Vect mousePosition = MouseToSpace(position);
+
             // give the mouse click a little radius to make it easier to click small shapes.
             double radius = 5.0;
 
@@ -261,7 +327,7 @@ namespace ChipmunkDemo
             Vect nearest = info.Distance > 0.0 ? info.Point : mousePosition;
 
             cursorJoint = new PivotJoint(cursorBody, body, Vect.Zero, body.WorldToLocal(nearest));
-            cursorJoint.MaxForce = 10000.0;
+            cursorJoint.MaxForce = 5000.0;
             cursorJoint.ErrorBias = Math.Pow(1.0 - 0.15, 60.0);
 
             space.AddConstraint(cursorJoint);
@@ -269,9 +335,8 @@ namespace ChipmunkDemo
             demo[currentDemo].OnMouseLeftButtonDown(chipmunkDemoMouse);
         }
 
-        private Vect MouseToSpace(MouseState state)
+        private Vect MouseToSpace(Vector2 position)
         {
-            var position = new Vector2(state.X, state.Y);
             position = Vector2.Transform(position, inverse);
 
             return new Vect(position.X, position.Y);
