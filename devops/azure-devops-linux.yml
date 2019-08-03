@@ -25,13 +25,11 @@ steps:
     configuration: Release
 
 # Build .NET Core (to be sure works on Linux)
-
-- task: MSBuild@1
-  displayName: 'Build .NET Core'
+- task: DotNetCoreCLI@2
   inputs:
-    solution: ChipmunkBinding.Core.sln
-    configuration: Release
-    msbuildArguments: /restore
+    command: 'build'
+    projects: 'ChipmunkBinding.Core.sln'
+    arguments: '/p:Configuration=Release'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet vstest'
