@@ -26,9 +26,10 @@ steps:
 
 # Build .NET Core (to be sure works on Linux)
 
-- task: MSBuild@1
+- task: DotNetCoreCLI@2
   displayName: 'Build .NET Core'
   inputs:
+    command: msbuild
     solution: ChipmunkBinding.Core.sln
     configuration: Release
     msbuildArguments: /restore
