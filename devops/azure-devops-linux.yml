@@ -29,10 +29,9 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Build .NET Core'
   inputs:
-    command: msbuild
+    command: build
     solution: ChipmunkBinding.Core.sln
     configuration: Release
-    msbuildArguments: /restore
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet vstest'
