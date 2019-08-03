@@ -5,10 +5,16 @@ using Android.Runtime;
 using Android.Widget;
 using Microsoft.Xna.Framework;
 using Android.Views;
+using Android.Content.PM;
 
 namespace ChipmunkDemo.Android
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, AlwaysRetainTaskState = true)]
+    [Activity(Label = "@string/app_name",
+              Theme = "@style/AppTheme",
+              MainLauncher = true,
+              AlwaysRetainTaskState = true,
+              ConfigurationChanges = ConfigChanges.Orientation,
+              ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : AndroidGameActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
