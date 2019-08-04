@@ -14,6 +14,7 @@ namespace ChipmunkDemo
 
         private Random random = new Random();
 
+
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(BodyVelocityFunction))]
 #endif
@@ -29,6 +30,8 @@ namespace ChipmunkDemo
 
             body.UpdateVelocity(g, damping, dt);
         }
+
+        static BodyVelocityFunction planetGravityFunctionCallback = PlanetGravityVelocityFunction;
 
         Vect RandPosition(double radius)
         {
@@ -60,7 +63,7 @@ namespace ChipmunkDemo
             var body = new Body(mass, Polygon.MomentForPolygon(mass, verts, Vect.Zero, 0.0));
             space.AddBody(body);
 
-            body.SetVelocityUpdateFunction(PlanetGravityVelocityFunction);
+            body.SetVelocityUpdateFunction(planetGravityFunctionCallback);
 
             body.Position = position;
 

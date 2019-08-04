@@ -123,6 +123,9 @@ namespace ChipmunkBinding
             }
         }
 
+        /// <summary>
+        /// Arbiter user data
+        /// </summary>
         public object Data
         {
             get

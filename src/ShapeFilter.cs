@@ -12,13 +12,33 @@ namespace ChipmunkBinding
     /// 
     public sealed class ShapeFilter : IEquatable<ShapeFilter>
     {
+        /// <summary>
+        /// Shape filter Group
+        /// </summary>
         public int Group { get; }
+
+        /// <summary>
+        /// Shape filter Categorie
+        /// </summary>
         public int Categories { get; }
+
+        /// <summary>
+        /// Shape filter Mask
+        /// </summary>
         public int Mask { get; }
 
+        /// <summary>
+        /// Categorie enum
+        /// </summary>
         public enum Categorie
         {
+            /// <summary>
+            /// None
+            /// </summary>
             None = 0,
+            /// <summary>
+            /// All
+            /// </summary>
             All = ~0,
         }
 
@@ -27,16 +47,34 @@ namespace ChipmunkBinding
         private static readonly ShapeFilter filterNone = new ShapeFilter(0, Categorie.None, Categorie.None);
 #pragma warning restore IDE0032
 
-
+        /// <summary>
+        /// Shape filter All
+        /// </summary>
         public static ShapeFilter All => filterAll;
+        /// <summary>
+        /// Shape filter None
+        /// </summary>
         public static ShapeFilter None => filterNone;
 
+        /// <summary>
+        /// Create a ShapeFilter
+        /// </summary>
+        /// <param name="group"></param>
+        /// <param name="categories"></param>
+        /// <param name="mask"></param>
         public ShapeFilter(int group, Categorie categories, Categorie mask)
         {
             Group = group;
             Categories = (int)categories;
             Mask = (int)mask;
         }
+
+        /// <summary>
+        /// Create a ShapeFilter with group, categorie and mask
+        /// </summary>
+        /// <param name="group"></param>
+        /// <param name="categories"></param>
+        /// <param name="mask"></param>
         public ShapeFilter(int group, int categories, int mask)
         {
             Group = group;
@@ -44,6 +82,11 @@ namespace ChipmunkBinding
             Mask = mask;
         }
 
+        /// <summary>
+        /// Check if a ShapeFilter is equal to another
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(ShapeFilter other)
         {
             if (ReferenceEquals(other, null))
@@ -54,6 +97,10 @@ namespace ChipmunkBinding
                    Mask == other.Mask;
         }
 
+        /// <summary>
+        /// object GetHashCode
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = 470831370;
@@ -63,6 +110,11 @@ namespace ChipmunkBinding
             return hashCode;
         }
 
+        /// <summary>
+        /// object equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as ShapeFilter;
@@ -72,6 +124,12 @@ namespace ChipmunkBinding
             return Equals(other);
         }
 
+        /// <summary>
+        /// operator ==
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator == (ShapeFilter left, ShapeFilter right)
         {
             if (ReferenceEquals(left, null))
@@ -82,12 +140,15 @@ namespace ChipmunkBinding
             return left.Equals(right);
         }
 
+        /// <summary>
+        /// operator !=
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator !=(ShapeFilter a, ShapeFilter b)
         {
             return !(a == b);
         }
     }
-
-
-
 }

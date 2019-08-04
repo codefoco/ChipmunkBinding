@@ -202,7 +202,7 @@ namespace ChipmunkBinding
     /// <summary>
     /// Space/object iterator callback function type.
     /// </summary>
-    /// <param name="constraint"></param>
+    /// <param name="handle"></param>
     /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -261,7 +261,6 @@ namespace ChipmunkBinding
     /// Callback type for a function that draws a convex polygon.
     /// </summary>
     /// <param name="count"></param>
-    /// <param name=""></param>
     /// <param name="verts"></param>
     /// <param name="radius"></param>
     /// <param name="outlineColor"></param>

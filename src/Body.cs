@@ -68,11 +68,16 @@ namespace ChipmunkBinding
             return NativeInterop.FromIntPtr<Body>(handle);
         }
 
-        public static Body FromHandleSafe(cpBody space)
+        /// <summary>
+        /// Get the managed Body object from the native handle
+        /// </summary>
+        /// <param name="nativeBodyHandle"></param>
+        /// <returns></returns>
+        public static Body FromHandleSafe(cpBody nativeBodyHandle)
         {
-            if (space == IntPtr.Zero)
+            if (nativeBodyHandle == IntPtr.Zero)
                 return null;
-            return FromHandle(space);
+            return FromHandle(nativeBodyHandle);
         }
 
         /// <summary>
@@ -85,6 +90,11 @@ namespace ChipmunkBinding
             RegisterUserData();
         }
 
+        /// <summary>
+        /// Creates a body with given mass and moment
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <param name="moment"></param>
         public Body(double mass, double moment) : this(mass, moment, BodyType.Dinamic)
         {
 
@@ -114,6 +124,9 @@ namespace ChipmunkBinding
             return NativeMethods.cpBodyNew(0.0, 0.0);
         }
 
+        /// <summary>
+        /// Destroy and free the Body
+        /// </summary>
         public void Free()
         {
             var space = Space;
@@ -125,6 +138,10 @@ namespace ChipmunkBinding
             NativeMethods.cpBodyFree(body);
         }
 
+        /// <summary>
+        /// Dispose body
+        /// </summary>
+        /// <param name="dispose"></param>
         protected virtual void Dispose(bool dispose)
         {
             if (!dispose)
@@ -134,6 +151,9 @@ namespace ChipmunkBinding
             Free();
         }
 
+        /// <summary>
+        /// Dispose the body
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
@@ -262,6 +282,9 @@ namespace ChipmunkBinding
         /// </summary>
         public Vect Rotation => NativeMethods.cpBodyGetRotation(body);
 
+        /// <summary>
+        /// Get the list of body Arbiters
+        /// </summary>
         public IReadOnlyList<Arbiter> Arbiters
         {
             get
@@ -376,7 +399,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Apply an impulse to a body. Both the impulse and point are expressed in world coordinates.
         /// </summary>
-        /// <param name="body"></param>
         /// <param name="impulse"></param>
         /// <param name="point"></param>
         public void ApplyImpulseAtWorldPoint(Vect impulse, Vect point)
@@ -452,7 +474,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Default position integration function.
         /// </summary>
-        /// <param name="body"></param>
         /// <param name="dt"></param>
         public void UpdatePosition(double dt)
         {
@@ -505,10 +526,11 @@ namespace ChipmunkBinding
         public double KineticEnergy => NativeMethods.cpBodyKineticEnergy(body);
 
         /// <summary>
-        /// 
+        /// Calculate the moment of inertia for a solid box centered on the body.
         /// </summary>
         /// <param name="mass"></param>
-        /// <param name=""></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         /// <returns></returns>
         public static double MomentForBox(double mass, double width, double height)
         {

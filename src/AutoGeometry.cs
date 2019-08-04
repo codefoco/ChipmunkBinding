@@ -8,6 +8,9 @@ using ObjCRuntime;
 
 namespace ChipmunkBinding
 {
+    /// <summary>
+    /// This class contain functions for automatic generation of geometry
+    /// </summary>
     public static class AutoGeometry
     {
 #if __IOS__ || __TVOS__ || __WATCHOS__

@@ -24,6 +24,7 @@
     <JavaMaximumHeapSize>
     </JavaMaximumHeapSize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\lib\Debug\MonoAndroid\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -36,6 +37,7 @@
     <JavaMaximumHeapSize>
     </JavaMaximumHeapSize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\lib\Release\MonoAndroid\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

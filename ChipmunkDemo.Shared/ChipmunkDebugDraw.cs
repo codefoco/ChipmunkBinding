@@ -54,15 +54,15 @@ namespace ChipmunkDemo
 
             primitiveBatch.DrawCircle(center, (float)radius, 
                 new Color(fillColor.Red, fillColor.Green, fillColor.Blue),
-                Color.White
+                new Color(outlineColor.Red, outlineColor.Green, outlineColor.Blue)
                 );
         }
 
         public void DrawDot(double size, Vect pos, DebugColor color)
         {
-            Vector2 center = new Vector2((float)pos.X, (float)pos.Y);
+            var center = new Vector2((float)pos.X, (float)pos.Y);
 
-            primitiveBatch.DrawCircle(center, (float)size, new Color(color.Red, color.Green, color.Blue),null, 5);
+            primitiveBatch.DrawDot(center, (float)size, new Color(color.Red, color.Green, color.Blue));
         }
 
         public void DrawFatSegment(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor)
@@ -77,14 +77,14 @@ namespace ChipmunkDemo
         {
             Vector2[] vertices = vectors.Select(v => new Vector2((float)v.X, (float)v.Y)).ToArray();
 
-            primitiveBatch.DrawPolygon(vertices, new Color(fillColor.Red, fillColor.Green, fillColor.Blue), 
-                Color.White);
+            primitiveBatch.DrawPolygon(vertices, new Color(fillColor.Red, fillColor.Green, fillColor.Blue),
+                new Color(outlineColor.Red, outlineColor.Green, outlineColor.Blue));
         }
 
         public void DrawSegment(Vect a, Vect b, DebugColor color)
         {
-            Vector2 pos1 = new Vector2((float)a.X, (float)a.Y);
-            Vector2 pos2 = new Vector2((float)b.X, (float)b.Y);
+            var pos1 = new Vector2((float)a.X, (float)a.Y);
+            var pos2 = new Vector2((float)b.X, (float)b.Y);
 
             primitiveBatch.DrawLine(pos1, pos2, new Color(color.Red, color.Green, color.Blue));
         }

@@ -2,6 +2,9 @@
 
 namespace ChipmunkBinding.Unsafe
 {
+    /// <summary>
+    /// Unsafe Polygon shape extensions
+    /// </summary>
     public static class PolygonExtensions
     {
         /// <summary>

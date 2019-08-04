@@ -49,6 +49,11 @@ namespace ChipmunkBinding
             alpha = a;
         }
 
+        /// <summary>
+        /// object Equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as SegmentQueryInfo;
@@ -58,6 +63,12 @@ namespace ChipmunkBinding
             return this == other;
         }
 
+        /// <summary>
+        /// operator == 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(SegmentQueryInfo left, SegmentQueryInfo right)
         {
             if (ReferenceEquals(left, null))
@@ -68,11 +79,22 @@ namespace ChipmunkBinding
             return left.Equals(right);
         }
 
+        /// <summary>
+        /// operator !=
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator !=(SegmentQueryInfo a, SegmentQueryInfo b)
         {
             return !(a == b);
         }
 
+        /// <summary>
+        /// Create a SegmentQuery from a native struct cpSegmentQueryInfo
+        /// </summary>
+        /// <param name="queryInfo"></param>
+        /// <returns></returns>
         internal static SegmentQueryInfo FromQueryInfo(cpSegmentQueryInfo queryInfo)
         {
             Shape shape;
@@ -88,6 +110,11 @@ namespace ChipmunkBinding
                                         queryInfo.alpha);
         }
 
+        /// <summary>
+        /// Equals SegmentQueryInfo
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(SegmentQueryInfo other)
         {
             if (ReferenceEquals(other, null))
@@ -103,6 +130,10 @@ namespace ChipmunkBinding
             return Math.Abs(alpha - other.alpha) < float.Epsilon;
         }
 
+        /// <summary>
+        /// object GetHashCode 
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -1275187100;

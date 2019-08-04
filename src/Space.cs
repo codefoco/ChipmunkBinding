@@ -43,6 +43,10 @@ namespace ChipmunkBinding
             RegisterUserData();
         }
 
+        /// <summary>
+        /// Create a space from a native Handle (used by derived classes)
+        /// </summary>
+        /// <param name="handle"></param>
         internal protected Space(cpSpace handle)
         {
             space = handle;
@@ -58,11 +62,19 @@ namespace ChipmunkBinding
             FreeSpace(space);
         }
 
+        /// <summary>
+        /// Destroy and Free space
+        /// </summary>
+        /// <param name="handle"></param>
         protected virtual void FreeSpace(cpSpace handle)
         {
             NativeMethods.cpSpaceFree(handle);
         }
 
+        /// <summary>
+        /// Destroy and Free space
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             Free();
@@ -638,6 +650,11 @@ namespace ChipmunkBinding
 
         private static SpaceShapeQueryFunction shapeQueryCallback = ShapeQueryCallback;
 
+        /// <summary>
+        /// Query a space for any shapes overlapping the given shape
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <returns></returns>
         public IReadOnlyList<ContactPointSet> ShapeQuery(Shape shape)
         {
             var list = new List<ContactPointSet>();
@@ -731,17 +748,31 @@ namespace ChipmunkBinding
             NativeMethods.cpSpaceStep(space, dt);
         }
 
+        /// <summary>
+        /// Debug Draw all objects in space
+        /// </summary>
+        /// <param name="debugDraw"></param>
         public void DebugDraw(IDebugDraw debugDraw)
         {
             DebugDraw(debugDraw, DebugDrawFlags.All, DebugDrawColors.Default);
         }
 
+        /// <summary>
+        /// Debug draw objects based on flags
+        /// </summary>
+        /// <param name="debugDraw"></param>
+        /// <param name="flags"></param>
         public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags)
         {
             DebugDraw(debugDraw, flags, DebugDrawColors.Default);
         }
 
-
+        /// <summary>
+        /// Debug draw object with flags, and given colors
+        /// </summary>
+        /// <param name="debugDraw"></param>
+        /// <param name="flags"></param>
+        /// <param name="colors"></param>
         public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags, DebugDrawColors colors)
         {
             var debugDrawOptions = new cpSpaceDebugDrawOptions();
