@@ -266,7 +266,7 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
-        [MonoPInvokeCallback(typeof(BodyVelocityFunction))]
+        [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
 #endif
         private static void AddEachArbiterToArray(cpBody body, cpArbiter arbiter, IntPtr data)
         {
