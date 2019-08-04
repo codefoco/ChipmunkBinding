@@ -264,7 +264,7 @@ namespace ChipmunkBindingTest.Tests
             var body = new Body(1, 1.66);
             var shape = new Box(body, 100, 100, 0);
 
-            string expected_calls = "DrawPolygon\nvectors[0] = (50,-50)\nvectors[1] = (50,50)\nvectors[2] = (-50,50)\nvectors[3] = (-50,-50)\nradius = 0\noutlineColor = (0,0,0,1)\nfillColor = (0,0,1,1)\n";
+            string expected_calls = "DrawPolygon\nvectors[0] = (50,-50)\nvectors[1] = (50,50)\nvectors[2] = (-50,50)\nvectors[3] = (-50,-50)\nradius = 0\noutlineColor = (1,1,1,1)\nfillColor = (0,0,1,1)\n";
 
             body.Position = new Vect(0, 0);
 
