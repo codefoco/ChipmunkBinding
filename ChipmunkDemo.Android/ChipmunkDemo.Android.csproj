@@ -110,7 +110,7 @@
       <Version>3.7.1.189</Version>
     </PackageReference>
     <PackageReference Include="ChipmunkBinding">
-      <Version>1.0.2</Version>
+      <Version>1.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems" Label="Shared" Condition="Exists('..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems')" />
