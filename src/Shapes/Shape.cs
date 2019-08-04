@@ -9,12 +9,19 @@ using System.Diagnostics;
 
 namespace ChipmunkBinding
 {
+    /// <summary>
+    /// Abstract Chipmunk Shape
+    /// </summary>
     public abstract class Shape : IDisposable
     {
 #pragma warning disable IDE0032
         private readonly cpShape shape;
 #pragma warning restore IDE0032
 
+        /// <summary>
+        /// Creates a Shape with the given shapeHandle
+        /// </summary>
+        /// <param name="shapeHandle">Native shape handle</param>
         internal protected Shape(cpShape shapeHandle)
         {
             shape = shapeHandle;
@@ -26,6 +33,9 @@ namespace ChipmunkBinding
         /// </summary>
         public cpShape Handle => shape;
 
+        /// <summary>
+        /// Register managed object in the native user data
+        /// </summary>
         protected void RegisterUserData()
         {
             cpDataPointer pointer = NativeInterop.RegisterHandle(this);
@@ -38,12 +48,21 @@ namespace ChipmunkBinding
             NativeInterop.ReleaseHandle(pointer);
         }
 
+        /// <summary>
+        /// Get a managed Shape from a native handle
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <returns></returns>
         public static Shape FromHandle(cpShape shape)
         {
             cpDataPointer handle = NativeMethods.cpShapeGetUserData(shape);
             return NativeInterop.FromIntPtr<Shape>(handle);
         }
 
+        /// <summary>
+        /// Dispose the shape
+        /// </summary>
+        /// <param name="dispose"></param>
         protected virtual void Dispose(bool dispose)
         {
             if (!dispose)
@@ -53,12 +72,18 @@ namespace ChipmunkBinding
             Free();
         }
 
+        /// <summary>
+        /// Destroy and Free the Shape
+        /// </summary>
         public void Free()
         {
             ReleaseUserData();
             NativeMethods.cpShapeFree(shape);
         }
 
+        /// <summary>
+        /// Destroy and Free the Shape
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
@@ -242,6 +267,7 @@ namespace ChipmunkBinding
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
+        /// <param name="radius"></param>
         /// <returns></returns>
         public SegmentQueryInfo SegmentQuery(Vect a, Vect b, double radius)
         {

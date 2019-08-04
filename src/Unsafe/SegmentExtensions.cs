@@ -1,6 +1,8 @@
 ﻿namespace ChipmunkBinding.Unsafe
 {
-
+    /// <summary>
+    /// Unsafe Segment shape extensions
+    /// </summary>
     public static class SegmentExtensions
     {
         /// <summary>

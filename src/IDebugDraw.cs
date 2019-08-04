@@ -32,7 +32,6 @@ namespace ChipmunkBinding
         /// <param name="radius"></param>
         /// <param name="outlineColor"></param>
         /// <param name="fillColor"></param>
-        /// <param name="data"></param>
         void DrawFatSegment(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor);
 
         /// <summary>

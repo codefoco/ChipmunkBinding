@@ -24,10 +24,26 @@ namespace ChipmunkBinding
             this.points = points;
         }
 
+        /// <summary>
+        /// Number of contact points in the contact set
+        /// </summary>
         public int Count => count;
+
+        /// <summary>
+        /// Returns the normal of the collision.
+        /// </summary>
         public Vect Normal => normal;
+
+        /// <summary>
+        /// List of points in the contact point set
+        /// </summary>
         public IReadOnlyList<ContactPoint> Points => points;
 
+        /// <summary>
+        /// Check if a contact point set is equal to another.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(ContactPointSet other)
         {
             if (ReferenceEquals(other, null))
@@ -43,6 +59,10 @@ namespace ChipmunkBinding
             return points.SequenceEqual(other.points);
         }
 
+        /// <summary>
+        /// GetHashCode of ContactPointSet
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -475635172;
@@ -52,6 +72,11 @@ namespace ChipmunkBinding
             return hashCode;
         }
 
+        /// <summary>
+        /// Check if the ContactPointSet is equal to an object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as ContactPointSet;
@@ -61,6 +86,12 @@ namespace ChipmunkBinding
             return Equals(other);
         }
 
+        /// <summary>
+        /// operator ==
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(ContactPointSet left, ContactPointSet right)
         {
             if (ReferenceEquals(left, null))
@@ -71,6 +102,12 @@ namespace ChipmunkBinding
             return left.Equals(right);
         }
 
+        /// <summary>
+        /// operator !=
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator !=(ContactPointSet left, ContactPointSet right)
         {
             return !(left == right);

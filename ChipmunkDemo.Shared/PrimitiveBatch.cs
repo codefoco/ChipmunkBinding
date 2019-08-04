@@ -125,6 +125,23 @@ namespace ChipmunkDemo
             lineVertices.Clear();
         }
 
+        public void DrawDot(Vector2 center, float radius, Color color)
+        {
+            var top = new Vector2(center.X, center.Y - radius);
+            var left = new Vector2(center.X - radius, center.Y);
+            var bottom = new Vector2(center.X, center.Y + radius);
+            var right = new Vector2(center.X + radius, center.Y);
+
+            AddTriangleVertex(top, color);
+            AddTriangleVertex(left, color);
+            AddTriangleVertex(bottom, color);
+
+            AddTriangleVertex(bottom, color);
+            AddTriangleVertex(right, color);
+            AddTriangleVertex(top, color);
+        }
+
+
         public void DrawCircle(Vector2 center, float radius, Color color, Color? outline = null, int circleSegments = 32)
         {
             float increment = MathHelper.Pi * 2.0f / circleSegments;
@@ -133,11 +150,17 @@ namespace ChipmunkDemo
             var v0 = center + radius * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
             theta += increment;
 
+            var v1 = center + radius * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
+            var v2 = center + radius * new Vector2((float)Math.Cos(theta + increment), (float)Math.Sin(theta + increment));
+
+            if (outline.HasValue)
+            {
+                AddLineVertex(v0, outline.Value);
+                AddLineVertex(v1, outline.Value);
+            }
+
             for (int i = 1; i < circleSegments - 1; i++)
             {
-                var v1 = center + radius * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
-                var v2 = center + radius * new Vector2((float)Math.Cos(theta + increment), (float)Math.Sin(theta + increment));
-
                 AddTriangleVertex(v0, color);
                 AddTriangleVertex(v1, color);
                 AddTriangleVertex(v2, color);
@@ -148,7 +171,19 @@ namespace ChipmunkDemo
                     AddLineVertex(v2, outline.Value);
                 }
 
+                v1 = center + radius * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
+                v2 = center + radius * new Vector2((float)Math.Cos(theta + increment), (float)Math.Sin(theta + increment));
+
                 theta += increment;
+            }
+
+            if (outline.HasValue)
+            {
+                AddLineVertex(v1, outline.Value);
+                AddLineVertex(v2, outline.Value);
+
+                AddLineVertex(v2, outline.Value);
+                AddLineVertex(v0, outline.Value);
             }
         }
 

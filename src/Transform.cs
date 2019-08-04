@@ -6,6 +6,14 @@ using System.Runtime.InteropServices;
 
 namespace ChipmunkBinding
 {
+    /// <summary>
+    /// Type used for 2x3 affine transforms.
+    /// See wikipedia for details: http://en.wikipedia.org/wiki/Affine_transformation
+    /// The properties map to the matrix in this way:
+    /// a  c   tx
+    /// b  d   ty
+    ///  We can't use System.Numerics.Matrix32 since it does't use doubles
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Transform : IEquatable<Transform>
     {
@@ -18,6 +26,15 @@ namespace ChipmunkBinding
         private double tx;
         private double ty;
 
+        /// <summary>
+        /// Create a matrix transformation
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="tx"></param>
+        /// <param name="ty"></param>
         public Transform(double a, double b, double c, double d, double tx, double ty) : this()
         {
             this.a = a;
@@ -28,6 +45,16 @@ namespace ChipmunkBinding
             this.ty = ty;
         }
 
+        /// <summary>
+        /// Create a Transpose matrix
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="c"></param>
+        /// <param name="tx"></param>
+        /// <param name="b"></param>
+        /// <param name="d"></param>
+        /// <param name="ty"></param>
+        /// <returns></returns>
         public static Transform CreateTranspose(double a, double c, double tx, double b, double d, double ty)
         {
             return new Transform(a, b, c, d, tx, ty);
@@ -43,16 +70,43 @@ namespace ChipmunkBinding
                                    0.0, 1.0, translate.Y);
         }
 
-
+        /// <summary>
+        /// Identidy Matrix
+        /// </summary>
         public static Transform Identity => identity;
 
+        /// <summary>
+        /// A
+        /// </summary>
         public double A { get => a; set => a = value; }
+        /// <summary>
+        /// B
+        /// </summary>
         public double B { get => b; set => b = value; }
+        /// <summary>
+        /// C
+        /// </summary>
         public double C { get => c; set => c = value; }
+        /// <summary>
+        /// D
+        /// </summary>
         public double D { get => d; set => d = value; }
+
+        /// <summary>
+        /// Tx
+        /// </summary>
         public double Tx { get => tx; set => tx = value; }
+
+        /// <summary>
+        /// Ty
+        /// </summary>
         public double Ty { get => ty; set => ty = value; }
 
+        /// <summary>
+        /// object Equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             Transform? transform = obj as Transform?;
@@ -61,6 +115,11 @@ namespace ChipmunkBinding
             return Equals(transform.Value);
         }
 
+        /// <summary>
+        /// IEquatable Equals
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(Transform other)
         {
             return Math.Abs(a - other.a) < double.Epsilon &&
@@ -71,6 +130,10 @@ namespace ChipmunkBinding
                    Math.Abs(ty - other.ty) < double.Epsilon;
         }
 
+        /// <summary>
+        /// object GetHashCode
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -884009331;
@@ -83,16 +146,32 @@ namespace ChipmunkBinding
             return hashCode;
         }
 
+        /// <summary>
+        /// object ToString
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"({a},{b}|{c},{d}|{tx},{ty})";
         }
 
+        /// <summary>
+        /// operator ==
+        /// </summary>
+        /// <param name="transform1"></param>
+        /// <param name="transform2"></param>
+        /// <returns></returns>
         public static bool operator ==(Transform transform1, Transform transform2)
         {
             return transform1.Equals(transform2);
         }
 
+        /// <summary>
+        /// operator !=
+        /// </summary>
+        /// <param name="transform1"></param>
+        /// <param name="transform2"></param>
+        /// <returns></returns>
         public static bool operator !=(Transform transform1, Transform transform2)
         {
             return !(transform1 == transform2);

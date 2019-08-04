@@ -5,6 +5,11 @@
     /// </summary>
     public class GearJoint : Constraint
     {
+        /// <summary>
+        /// Check if a constraint is a GearJoint
+        /// </summary>
+        /// <param name="constraint"></param>
+        /// <returns></returns>
         public static bool IsGearJoint(Constraint constraint) => NativeMethods.cpConstraintIsGearJoint(constraint.Handle) != 0;
 
         /// <summary>

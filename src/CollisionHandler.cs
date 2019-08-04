@@ -14,6 +14,12 @@ using ObjCRuntime;
 
 namespace ChipmunkBinding
 {
+    /// <summary>
+    /// A collision handler is a set of 4 function callbacks for the different collision events that Chipmunk recognizes.
+    /// Collision callbacks are closely associated with Arbiter objects.You should familiarize yourself with those as well.
+    /// Note #1: Shapes tagged as sensors (Shape.sensor == true) never generate collisions that get processed, so collisions between sensors shapes and other shapes will never call the post_solve() callback. They still generate begin(), and separate() callbacks, and the pre_solve() callback is also called every frame even though there is no collision response. Note #2: pre_solve() callbacks are called before the sleeping algorithm runs. If an object falls asleep, its post_solve() callback won’t be called until it’s re-awoken.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public sealed class CollisionHandler<T> where T : class
     {
         private readonly cpCollisionHandlerPointer handle;

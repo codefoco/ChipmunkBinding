@@ -11,10 +11,12 @@ namespace ChipmunkBinding
     public class Polygon : Shape
     {
         /// <summary>
-        /// Create and initialize a polygon shape with rounded corners.
-        /// A convex hull will be created from the vertexes.
+        /// A convex polygon shape
+        /// Slowest, but most flexible collision shape.
         /// </summary>
         /// <param name="body"></param>
+        /// <param name="verts"></param>
+        /// <param name="transform"></param>
         /// <param name="radius"></param>
         public Polygon(Body body, IReadOnlyList<Vect> verts, Transform transform, double radius) :
             base(CreatePolygonShape(body, verts, transform, radius))

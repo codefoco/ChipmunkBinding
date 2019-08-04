@@ -1,6 +1,9 @@
 ﻿
 namespace ChipmunkBinding.Unsafe
 {
+    /// <summary>
+    /// Unsafe method for Circle shape
+    /// </summary>
     public static class CircleExtensions
     {
         /// <summary>

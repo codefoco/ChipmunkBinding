@@ -30,6 +30,7 @@
     <ConsolePause>false</ConsolePause>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>ChipmunkBinding.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>..\..\lib\Debug\net45\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -40,6 +41,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DefineConstants>NETFRAMEWORK</DefineConstants>
     <CodeAnalysisRuleSet>ChipmunkBinding.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>..\..\lib\Release\net45\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

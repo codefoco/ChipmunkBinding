@@ -37,6 +37,10 @@ namespace ChipmunkBinding
             NativeMethods.cpHastySpaceStep(Handle, dt);
         }
 
+        /// <summary>
+        /// Destroy and Free the Hasty Space
+        /// </summary>
+        /// <param name="handle"></param>
         protected override void FreeSpace(IntPtr handle)
         {
             NativeMethods.cpHastySpaceFree(handle);

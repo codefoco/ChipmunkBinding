@@ -23,6 +23,10 @@ namespace ChipmunkBinding
         cpConstraint constraint;
 #pragma warning restore IDE0032
 
+        /// <summary>
+        /// Construct a constraint with the given native handle
+        /// </summary>
+        /// <param name="handle"></param>
         internal protected Constraint(cpConstraint handle)
         {
             constraint = handle;
@@ -34,7 +38,10 @@ namespace ChipmunkBinding
         /// </summary>
         public cpConstraint Handle => constraint;
 
-        protected void RegisterUserData()
+        /// <summary>
+        /// Register managed object to native user data
+        /// </summary>
+        internal protected void RegisterUserData()
         {
             cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpConstraintSetUserData(constraint, pointer);
@@ -57,6 +64,10 @@ namespace ChipmunkBinding
             return NativeInterop.FromIntPtr<Constraint>(handle);
         }
 
+        /// <summary>
+        /// Dispose the constraint
+        /// </summary>
+        /// <param name="dispose"></param>
         protected virtual void Dispose(bool dispose)
         {
             if (!dispose)
@@ -66,12 +77,18 @@ namespace ChipmunkBinding
             Free();
         }
 
+        /// <summary>
+        /// Destroy and free the constraint
+        /// </summary>
         public void Free()
         {
             ReleaseUserData();
             NativeMethods.cpConstraintFree(constraint);
         }
 
+        /// <summary>
+        /// Destroy the constraint
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

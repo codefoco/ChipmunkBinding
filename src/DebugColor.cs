@@ -4,8 +4,10 @@ using System.Runtime.InteropServices;
 
 namespace ChipmunkBinding
 {
+    /// <summary>
+    /// 4 floating point values representing the color to debug drawing functions
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-
     public struct DebugColor : IEquatable<DebugColor>
     {
         #pragma warning disable IDE0032
@@ -15,18 +17,45 @@ namespace ChipmunkBinding
         private float alpha;
         #pragma warning restore IDE0032
 
+        /// <summary>
+        /// Red component
+        /// </summary>
         public float Red => red;
-        public float Green => green;
-        public float Blue => blue;
-        public float Alfa => alpha;
-        
 
+        /// <summary>
+        /// Green component
+        /// </summary>
+        public float Green => green;
+
+        /// <summary>
+        /// Blue component
+        /// </summary>
+        public float Blue => blue;
+
+        /// <summary>
+        /// Alfa component
+        /// </summary>
+        public float Alpha => alpha;
+        
+        /// <summary>
+        /// Create a DebugColor with given red, green blue components
+        /// </summary>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
         public DebugColor(float red, float green, float blue) 
             : this(red, green, blue, 1.0f)
         {
 
         }
 
+        /// <summary>
+        /// Create a DebugColor with given red, green, blue and alpha components
+        /// </summary>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
         public DebugColor(float red, float green, float blue, float alpha)
         {
             this.red = red;
@@ -35,6 +64,11 @@ namespace ChipmunkBinding
             this.alpha = alpha;
         }
 
+        /// <summary>
+        /// Check if an DebugColor is equal to an object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as DebugColor?;
@@ -44,11 +78,20 @@ namespace ChipmunkBinding
             return Equals(other.Value);
         }
 
+        /// <summary>
+        /// Check if a DebugColor is equal to another
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public bool Equals(DebugColor color)
         {
             return this == color;
         }
 
+        /// <summary>
+        /// GetHashCode from a DebugColor
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -1813971818;
@@ -59,11 +102,21 @@ namespace ChipmunkBinding
             return hashCode;
         }
 
+        /// <summary>
+        /// ToString
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"({red},{green},{blue},{alpha})";
         }
 
+        /// <summary>
+        /// operator ==
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator == (DebugColor a, DebugColor b)
         {
             return a.red == b.red &&
@@ -72,6 +125,13 @@ namespace ChipmunkBinding
                    a.alpha == b.alpha;
         }
 
+
+        /// <summary>
+        /// operator !=
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator !=(DebugColor a, DebugColor b)
         {
             return !(a == b);

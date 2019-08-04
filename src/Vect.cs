@@ -8,7 +8,6 @@ using System.Runtime.InteropServices;
 // Chipmunk has it own Vector class, 
 // We can't use System.Numerics.Vector2 since is not blitable with the native Vect from Chipmunk
 
-
 namespace ChipmunkBinding
 {
     /// <summary>
@@ -22,26 +21,41 @@ namespace ChipmunkBinding
         private double x;
         private double y;
 
+        /// <summary>
+        /// X value
+        /// </summary>
         public double X
         {
             get => x;
             set => x = value;
         }
 
+        /// <summary>
+        /// Y value
+        /// </summary>
         public double Y
         {
             get => y;
             set => y = value;
         }
 
+        /// <summary>
+        /// Create Vect
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-
         public Vect(double x, double y)
         {
             this.x = x;
             this.y = y;
         }
 
+        /// <summary>
+        /// object Equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             Vect? vect = obj as Vect?;
@@ -50,27 +64,52 @@ namespace ChipmunkBinding
             return this == vect.Value;
         }
 
+        /// <summary>
+        /// object GetHashCode
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return (x.GetHashCode() << 16) ^ y.GetHashCode();
         }
 
+        /// <summary>
+        /// IEquatable Equals
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(Vect other)
         {
             return this == other;
         }
 
+        /// <summary>
+        /// object ToString()
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"({x},{y})";
         }
 
+        /// <summary>
+        /// operator ==
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator ==(Vect a, Vect b)
         {
             return Math.Abs(a.x - b.x) < double.Epsilon &&
                    Math.Abs(a.y - b.y) < double.Epsilon;
         }
 
+        /// <summary>
+        /// operator !=
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator !=(Vect a, Vect b)
         {
             return !(a == b);
@@ -388,6 +427,9 @@ namespace ChipmunkBinding
             return DistanceSquare(v2) < distance * distance;
         }
 
+        /// <summary>
+        /// (0, 0) Vector
+        /// </summary>
         public static Vect Zero => zero;
     }
 }

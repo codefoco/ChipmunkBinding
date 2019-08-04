@@ -5,6 +5,11 @@
     /// </summary>
     public class RatchetJoint : Constraint
     {
+        /// <summary>
+        /// Check if Constraint  is a RatchetJoint
+        /// </summary>
+        /// <param name="constraint"></param>
+        /// <returns></returns>
         public static bool IsRatchetJoint(Constraint constraint) => NativeMethods.cpConstraintIsRatchetJoint(constraint.Handle) != 0;
         /// <summary>
         ///     Works like a socket wrench.
