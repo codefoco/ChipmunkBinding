@@ -19,5 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Demos\PyramidStack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Demos\LogoSmash.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PrimitiveBatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Demos\Planet.cs" />
   </ItemGroup>
 </Project>

@@ -133,12 +133,9 @@
       <PackageReference Include="MonoGame.Framework.iOS">
         <Version>3.7.1.189</Version>
       </PackageReference>
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\build\XamariniOS\ChipmunkBinding.XamariniOS.csproj">
-        <Project>{8FAFDF62-E07E-487A-863C-74F308AE7BA6}</Project>
-        <Name>ChipmunkBinding.XamariniOS</Name>
-      </ProjectReference>
+      <PackageReference Include="ChipmunkBinding">
+        <Version>1.0.2</Version>
+      </PackageReference>
     </ItemGroup>
     <Import Project="..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems" Label="Shared" Condition="Exists('..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems')" />
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
