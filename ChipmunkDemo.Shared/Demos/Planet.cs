@@ -14,13 +14,8 @@ namespace ChipmunkDemo
 
         private Random random = new Random();
 
-
-#if __IOS__ || __TVOS__ || __WATCHOS__
-        [MonoPInvokeCallback(typeof(BodyVelocityFunction))]
-#endif
-        private static void PlanetGravityVelocityFunction(IntPtr pbody, Vect gravity, double damping, double dt)
+        private static void PlanetGravityVelocityFunction(Body body, Vect gravity, double damping, double dt)
         {
-            var body = Body.FromHandle(pbody);
             // Gravitational acceleration is proportional to the inverse square of
             // distance, and directed toward the origin. The central planet is assumed
             // to be massive enough that it affects the satellites but not vice versa.
@@ -31,7 +26,7 @@ namespace ChipmunkDemo
             body.UpdateVelocity(g, damping, dt);
         }
 
-        static BodyVelocityFunction planetGravityFunctionCallback = PlanetGravityVelocityFunction;
+        static Action<Body,Vect,double,double> planetGravityFunctionCallback = PlanetGravityVelocityFunction;
 
         Vect RandPosition(double radius)
         {
@@ -63,7 +58,7 @@ namespace ChipmunkDemo
             var body = new Body(mass, Polygon.MomentForPolygon(mass, verts, Vect.Zero, 0.0));
             space.AddBody(body);
 
-            body.SetVelocityUpdateFunction(planetGravityFunctionCallback);
+            body.VelocityUpdateFunction = planetGravityFunctionCallback;
 
             body.Position = position;
 

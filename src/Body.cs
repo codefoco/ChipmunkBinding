@@ -32,17 +32,72 @@ namespace ChipmunkBinding
         /// Native handle of cpBody
         /// </summary>
         public cpBody Handle => body;
+
+        /// <summary>
+        /// Original function pointer of Velocity update, used to restore the original callback
+        /// </summary>
+        private IntPtr originalVelocityUpdateFunction;
+
+        /// <summary>
+        /// Original function pointer of Position update, used to restore the original callback
+        /// </summary>
+        private IntPtr originalPositionUpdateFunction;
+
         /// <summary>
         /// Create a Dynamic Body with no mass and no moment
         /// </summary>
         public Body() : this(BodyType.Dinamic)
         {
+
         }
 
         internal Body(cpBody handle)
         {
             body = handle;
             RegisterUserData();
+
+            originalVelocityUpdateFunction = NativeMethods.cpBodyGetVelocityUpdateFunc(body);
+            originalPositionUpdateFunction = NativeMethods.cpBodyGetPositionUpdateFunc(body);
+        }
+
+        /// <summary>
+        ///  Create a Body of the type (Dinamic, Kinematic, Static)
+        /// </summary>
+        /// <param name="type"></param>
+        public Body(BodyType type)
+        {
+            body = InitializeBody(type);
+            RegisterUserData();
+
+            originalVelocityUpdateFunction = NativeMethods.cpBodyGetVelocityUpdateFunc(body);
+            originalPositionUpdateFunction = NativeMethods.cpBodyGetPositionUpdateFunc(body);
+        }
+
+        /// <summary>
+        /// Creates a body with given mass and moment
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <param name="moment"></param>
+        public Body(double mass, double moment) : this(mass, moment, BodyType.Dinamic)
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass">Mass of the body</param>
+        /// <param name="moment">Moment of body</param>
+        /// <param name="type">Type (Dinamic, Kinematic, Static)</param>
+        public Body(double mass, double moment, BodyType type)
+        {
+            body = InitializeBody(type);
+            NativeMethods.cpBodySetMass(body, mass);
+            NativeMethods.cpBodySetMoment(body, moment);
+            RegisterUserData();
+
+            originalVelocityUpdateFunction = NativeMethods.cpBodyGetVelocityUpdateFunc(body);
+            originalPositionUpdateFunction = NativeMethods.cpBodyGetPositionUpdateFunc(body);
         }
 
         void RegisterUserData()
@@ -78,40 +133,6 @@ namespace ChipmunkBinding
             if (nativeBodyHandle == IntPtr.Zero)
                 return null;
             return FromHandle(nativeBodyHandle);
-        }
-
-        /// <summary>
-        ///  Create a Body of the type (Dinamic, Kinematic, Static)
-        /// </summary>
-        /// <param name="type"></param>
-        public Body(BodyType type)
-        {
-            body = InitializeBody(type);
-            RegisterUserData();
-        }
-
-        /// <summary>
-        /// Creates a body with given mass and moment
-        /// </summary>
-        /// <param name="mass"></param>
-        /// <param name="moment"></param>
-        public Body(double mass, double moment) : this(mass, moment, BodyType.Dinamic)
-        {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mass">Mass of the body</param>
-        /// <param name="moment">Moment of body</param>
-        /// <param name="type">Type (Dinamic, Kinematic, Static)</param>
-        public Body(double mass, double moment, BodyType type)
-        {
-            body = InitializeBody(type);
-            NativeMethods.cpBodySetMass(body, mass);
-            NativeMethods.cpBodySetMoment(body, moment);
-            RegisterUserData();
         }
 
         private static cpBody InitializeBody(BodyType type)
@@ -438,26 +459,75 @@ namespace ChipmunkBinding
             NativeMethods.cpBodySleepWithGroup(body, group != null ? group.Handle : IntPtr.Zero);
         }
 
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(BodyVelocityFunction))]
+#endif
+        private static void BodyVelocityFunctionCallback(cpBody bodyHandle, Vect gravity, double damping, double dt)
+        {
+            var body = FromHandle(bodyHandle);
+
+            body.velocityUpdateFunction(body, gravity, damping, dt);
+        }
+
+        private static BodyVelocityFunction BodyVelocityFunctionCallbackDelegate = BodyVelocityFunctionCallback;
+
+        private Action<Body, Vect, double, double> velocityUpdateFunction;
         /// <summary>
         /// Set the callback used to update a body's velocity.
-        /// Note: The BodyVelocityFunction will be called from the native code.
-        /// if you are usingn iOS or tvOS you method will need to be static and 
-        /// contain the attribute MonoPInvokeCallback
+        /// Parameters: body, gravity, damping and deltaTime
         /// </summary>
-        /// <param name="function"></param>
-        public void SetVelocityUpdateFunction(BodyVelocityFunction function)
+        public Action<Body, Vect, double, double>  VelocityUpdateFunction
         {
-            NativeMethods.cpBodySetVelocityUpdateFunc(body, function.ToFunctionPointer());
+            get => velocityUpdateFunction;
+            set
+            {
+                velocityUpdateFunction = value;
+
+                IntPtr callbackPointer;
+
+                if (value == null)
+                    callbackPointer = originalVelocityUpdateFunction;
+                else
+                    callbackPointer = BodyVelocityFunctionCallbackDelegate.ToFunctionPointer();
+
+                NativeMethods.cpBodySetVelocityUpdateFunc(body, callbackPointer);
+            }
         }
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+        [MonoPInvokeCallback(typeof(BodyPositionFunction))]
+#endif
+        private static void BodyPositionFunctionCallback(cpBody bodyHandle, double dt)
+        {
+            var body = FromHandle(bodyHandle);
+
+            body.positionUpdateFunction(body, dt);
+        }
+
+        private static BodyPositionFunction BodyUpdateFunctionCallbackDelegate = BodyPositionFunctionCallback;
+
+        private Action<Body, double> positionUpdateFunction;
 
         /// <summary>
         /// Set the callback used to update a body's position.
-        /// NOTE: It's not generally recommended to override this unless you call the default position update function.
+        /// Parameters: body, deltaTime
         /// </summary>
-        /// <param name="function"></param>
-        public void SetPositionUpdateFunction(BodyPositionFunction function)
+        public Action<Body, double> PositionUpdateFunction
         {
-            NativeMethods.cpBodySetPositionUpdateFunc(body, function.ToFunctionPointer());
+            get => positionUpdateFunction;
+            set
+            {
+                positionUpdateFunction = value;
+
+                IntPtr callbackPointer;
+
+                if (value == null)
+                    callbackPointer = originalPositionUpdateFunction;
+                else
+                    callbackPointer = BodyUpdateFunctionCallbackDelegate.ToFunctionPointer();
+
+                NativeMethods.cpBodySetPositionUpdateFunc(body, callbackPointer);
+            }
         }
 
         /// <summary>

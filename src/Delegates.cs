@@ -44,9 +44,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    public delegate void BodyVelocityFunction(cpBody body, Vect gravity, double damping, double dt);
-
-
+    internal delegate void BodyVelocityFunction(cpBody body, Vect gravity, double damping, double dt);
 
     /// <summary>
     /// Rigid body position update function type.
@@ -58,7 +56,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    public delegate void BodyPositionFunction(cpBody body, double dt);
+    internal delegate void BodyPositionFunction(cpBody body, double dt);
 
     /// <summary>
     /// Delegate method to iterate over constraints
