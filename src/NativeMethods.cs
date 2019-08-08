@@ -248,6 +248,9 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Vect cpBodyGetPosition(cpBody body);
 
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpBodyPositionFunc cpBodyGetPositionUpdateFunc(cpBody body);
+
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Vect cpBodyGetRotation(cpBody body);
 
@@ -271,6 +274,9 @@ namespace ChipmunkBinding
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Vect cpBodyGetVelocityAtWorldPoint(cpBody body, Vect point);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpBodyVelocityFunc cpBodyGetVelocityUpdateFunc(cpBody body);
 
         //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         //internal static extern cpBody cpBodyInit(cpBody body, cpFloat mass, cpFloat moment);
