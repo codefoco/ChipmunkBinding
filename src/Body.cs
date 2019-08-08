@@ -34,16 +34,6 @@ namespace ChipmunkBinding
         public cpBody Handle => body;
 
         /// <summary>
-        /// Original function pointer of Velocity update, used to restore the original callback
-        /// </summary>
-        private IntPtr originalVelocityUpdateFunction;
-
-        /// <summary>
-        /// Original function pointer of Position update, used to restore the original callback
-        /// </summary>
-        private IntPtr originalPositionUpdateFunction;
-
-        /// <summary>
         /// Create a Dynamic Body with no mass and no moment
         /// </summary>
         public Body() : this(BodyType.Dinamic)
@@ -55,9 +45,6 @@ namespace ChipmunkBinding
         {
             body = handle;
             RegisterUserData();
-
-            originalVelocityUpdateFunction = NativeMethods.cpBodyGetVelocityUpdateFunc(body);
-            originalPositionUpdateFunction = NativeMethods.cpBodyGetPositionUpdateFunc(body);
         }
 
         /// <summary>
@@ -68,9 +55,6 @@ namespace ChipmunkBinding
         {
             body = InitializeBody(type);
             RegisterUserData();
-
-            originalVelocityUpdateFunction = NativeMethods.cpBodyGetVelocityUpdateFunc(body);
-            originalPositionUpdateFunction = NativeMethods.cpBodyGetPositionUpdateFunc(body);
         }
 
         /// <summary>
@@ -95,9 +79,6 @@ namespace ChipmunkBinding
             NativeMethods.cpBodySetMass(body, mass);
             NativeMethods.cpBodySetMoment(body, moment);
             RegisterUserData();
-
-            originalVelocityUpdateFunction = NativeMethods.cpBodyGetVelocityUpdateFunc(body);
-            originalPositionUpdateFunction = NativeMethods.cpBodyGetPositionUpdateFunc(body);
         }
 
         void RegisterUserData()
@@ -486,7 +467,7 @@ namespace ChipmunkBinding
                 IntPtr callbackPointer;
 
                 if (value == null)
-                    callbackPointer = originalVelocityUpdateFunction;
+                    callbackPointer = NativeMethods.cpBodyGetDefaultVelocityUpdateFunc();
                 else
                     callbackPointer = BodyVelocityFunctionCallbackDelegate.ToFunctionPointer();
 
@@ -522,7 +503,7 @@ namespace ChipmunkBinding
                 IntPtr callbackPointer;
 
                 if (value == null)
-                    callbackPointer = originalPositionUpdateFunction;
+                    callbackPointer = NativeMethods.cpBodyGetDefaultPositionUpdateFunc();
                 else
                     callbackPointer = BodyUpdateFunctionCallbackDelegate.ToFunctionPointer();
 
