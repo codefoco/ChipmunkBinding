@@ -1,10 +1,6 @@
 ﻿using System;
 using ChipmunkBinding;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
-using ObjCRuntime;
-#endif
-
 namespace ChipmunkDemo
 {
     public class Planet : DemoBase

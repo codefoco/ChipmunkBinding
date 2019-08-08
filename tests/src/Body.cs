@@ -194,5 +194,94 @@ namespace ChipmunkBindingTest.Tests
             body.Dispose();
         }
 
+        bool calledMyVelocityUpdateFunction;
+        Body myUpdateFunctionBody;
+        Vect myVelocityUpdateFunctionGravity = new Vect(10, 0);
+        double myVelocityUpdateFunctionDamping = -1;
+        double myUpdateFunctionDt;
+
+        [Test]
+        public void VelocityUpdateFunctionCallback()
+        {
+            myUpdateFunctionDt = 0.0;
+            myUpdateFunctionBody = null;
+
+            var body = new Body(1, 1.66);
+            var space = new Space();
+
+            space.AddBody(body);
+
+            body.VelocityUpdateFunction = MyVelocityUpdateFunction;
+
+            body.Force = new Vect(10, 0);
+
+            space.Step(0.2);
+
+            Assert.True(calledMyVelocityUpdateFunction, "#1");
+
+            Assert.AreSame(myUpdateFunctionBody, body, "#2");
+            Assert.AreEqual(Vect.Zero, myVelocityUpdateFunctionGravity, "#3");
+            Assert.AreEqual(1, myVelocityUpdateFunctionDamping, "#4");
+            Assert.AreEqual(0.2, myUpdateFunctionDt, "#5");
+
+            body.VelocityUpdateFunction = null;
+            calledMyVelocityUpdateFunction = false;
+
+            space.Step(0.2);
+
+            Assert.False(calledMyVelocityUpdateFunction, "#6");
+
+            space.Dispose();
+        }
+
+        private void MyVelocityUpdateFunction(Body body, Vect gravity, double damping, double dt)
+        {
+            calledMyVelocityUpdateFunction = true;
+            myUpdateFunctionBody = body;
+            myVelocityUpdateFunctionGravity = gravity;
+            myUpdateFunctionDt = dt;
+            myVelocityUpdateFunctionDamping = damping;
+        }
+
+        bool calledMyPositionUpdateFunction;
+
+        [Test]
+        public void PositionUpdateFunctionCallback()
+        {
+            myUpdateFunctionDt = 0.0;
+            myUpdateFunctionBody = null;
+
+            var body = new Body(1, 1.66);
+            var space = new Space();
+
+            space.AddBody(body);
+
+            body.PositionUpdateFunction = MyPositionUpdateFunction;
+
+            body.Velocity = new Vect(10, 0);
+
+            space.Step(0.2);
+
+            Assert.True(calledMyPositionUpdateFunction, "#1");
+
+            Assert.AreSame(myUpdateFunctionBody, body, "#2");
+            Assert.AreEqual(0.2, myUpdateFunctionDt, "#3");
+
+            body.PositionUpdateFunction = null;
+            calledMyPositionUpdateFunction = false;
+
+            space.Step(0.2);
+
+            Assert.False(calledMyVelocityUpdateFunction, "#4");
+
+            space.Dispose();
+        }
+
+        private void MyPositionUpdateFunction(Body body, double dt)
+        {
+            calledMyPositionUpdateFunction = true;
+            myUpdateFunctionDt = dt;
+            myUpdateFunctionBody = body;
+        }
     }
 }
