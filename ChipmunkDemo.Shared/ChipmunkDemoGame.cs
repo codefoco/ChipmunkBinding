@@ -98,7 +98,7 @@ namespace ChipmunkDemo
             primitiveBatch = new PrimitiveBatch(GraphicsDevice);
             debugDraw      = new ChipmunkDebugDraw(primitiveBatch);
 
-            demo = new DemoBase[7]
+            demo = new DemoBase[]
             {
                 new LogoSmash(),
                 new PyramidStack(),
@@ -106,7 +106,8 @@ namespace ChipmunkDemo
                 new Plink(),
                 new PyramidTopple(),
                 new Slice(),
-                new Planet()
+                new Planet(),
+                new Tank()
             };
 
             float width  = GraphicsDevice.Viewport.Width;
