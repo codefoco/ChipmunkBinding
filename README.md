@@ -2,9 +2,9 @@
 ------------ | 
 > 🔭 Thank you for checking out this project.
 >
-> 🍻 We've made the project Open Source and **MIT** license so everyone can enjoyed. 
+> 🍻 We've made the project Open Source and **MIT** license so everyone can enjoy it. 
 >
-> 🛠 To deliver a project with quality we have to spent a lot of time working on it .
+> 🛠 To deliver a project with quality we have to spent a lot of time working on it.
 > 
 > ⭐️ If you liked the project please star it.
 >
