@@ -1,3 +1,15 @@
+👋 Hello there! | 
+------------ | 
+> 🔭 Thank you for checking out this project.
+>
+> 🍻 We've made the project Open Source and **MIT** license so everyone can enjoyed. 
+>
+> 🛠 To deliver a project with quality we have to spent a lot of time working on it .
+> 
+> ⭐️ If you liked the project please star it.
+>
+> 💕 We also appreaciate any **Sponsor**  [ [Patreon](https://www.patreon.com/codefoco) | [PayPal](paypal.me/viniciusjarina) ] 
+
 [![Logo](https://raw.githubusercontent.com/codefoco/ChipmunkBinding/master/ChipmunkBinding.png)]()
 
 ChipmunkBinding
@@ -7,6 +19,11 @@ ChipmunkBinding
 | NuGet |
 | ------|
 |[![nuget](https://badgen.net/nuget/v/ChipmunkBinding?icon=nuget)](https://www.nuget.org/packages/ChipmunkBinding)|
+
+Demo (MonoGame)
+--------------
+
+![demogif](https://raw.githubusercontent.com/codefoco/ChipmunkBinding/master/demos.gif)
 
 |  | Status | 
 | :------ | :------: | 
