@@ -75,27 +75,38 @@ steps:
     configuration: Release
 
 # Build Desktop Demo - we will not run on the CI, but we don't want the demo to break
+- task: NuGetCommand@2
+  displayName: 'NuGet restore ChipmunkDemo.Desktop.sln'
+  inputs:
+    restoreSolution: ChipmunkDemo.Desktop.sln
 
 - task: MSBuild@1
   displayName: 'Build Desktop Demo'
   inputs:
     solution: ChipmunkDemo.Desktop.sln
     configuration: Release
-    msbuildArguments: /restore
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore ChipmunkDemo.iOS.sln'
+  inputs:
+    restoreSolution: ChipmunkDemo.iOS.sln
 
 - task: MSBuild@1
   displayName: 'Build iOS Demo'
   inputs:
     solution: ChipmunkDemo.iOS.sln
     configuration: Release
-    msbuildArguments: /restore
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore ChipmunkDemo.Android.sln'
+  inputs:
+    restoreSolution: ChipmunkDemo.Android.sln
 
 - task: MSBuild@1
   displayName: 'Build Android Demo'
   inputs:
     solution: ChipmunkDemo.Android.sln
     configuration: Release
-    msbuildArguments: /restore
 
 # Run tests
 
