@@ -8,7 +8,7 @@
 > 
 > ⭐️ If you liked the project please star it.
 >
-> 💕 We also appreaciate any **Sponsor**  [ [Patreon](https://www.patreon.com/codefoco) | [PayPal](paypal.me/viniciusjarina) ] 
+> 💕 We also appreaciate any **Sponsor**  [ [Patreon](https://www.patreon.com/codefoco) | [PayPal](https://paypal.me/viniciusjarina) ] 
 
 [![Logo](https://raw.githubusercontent.com/codefoco/ChipmunkBinding/master/ChipmunkBinding.png)]()
 
