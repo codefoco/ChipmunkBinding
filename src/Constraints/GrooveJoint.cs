@@ -2,31 +2,36 @@
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// GrooveJoint is similar to a PivotJoint, but with a linear slide.
-    /// One of the anchor points is a line segment that the pivot can slide in instead of being fixed.
+    /// <see cref="GrooveJoint"/> is similar to a <see cref="PivotJoint"/>, but with a linear slide.
+    /// One of the anchor points is a line segment that the pivot can slide on instead of being fixed.
     /// </summary>
     public class GrooveJoint : Constraint
     {
         /// <summary>
-        /// Check if a constraint is a Groove Joint.
+        /// Check if a constraint is a <see cref="GrooveJoint"/>.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
         public static bool IsGrooveJoint(Constraint constraint) => NativeMethods.cpConstraintIsGrooveJoint(constraint.Handle) != 0;
 
         /// <summary>
-        /// The groove goes from groove_a to groove_b on body a, and the pivot is attached to anchor_b on body b.
-        /// All coordinates are body local.
+        /// Create an anchor where <paramref name="bodyB"/> can rotate similar to a
+        /// <see cref="PivotJoint"/>, except it's anchored at <paramref name="anchorB"/>, which is a
+        /// point that can slide between <paramref name="grooveA"/> and <paramref name="grooveB"/>.
         /// </summary>
-        /// <param name="bodyA"></param>
-        /// <param name="bodyB"></param>
-        /// <param name="grooveA"></param>
-        /// <param name="grooveB"></param>
-        /// <param name="anchorB"></param>
-        public GrooveJoint(Body bodyA, Body bodyB, Vect grooveA, Vect grooveB, Vect anchorB):
-            base(NativeMethods.cpGrooveJointNew(bodyA.Handle, bodyB.Handle, grooveA, grooveB, anchorB))
+        /// <param name="bodyA">The first connected body.</param>
+        /// <param name="bodyB">The second connected body.</param>
+        /// <param name="grooveA">
+        /// The start of the groove on <paramref name="bodyA"/>. Coordinates are local to the body.
+        /// </param>
+        /// <param name="grooveB">
+        /// The end of the groove on <paramref name="bodyA"/>. Coordinates are local to the body.
+        /// </param>
+        /// <param name="anchorB">
+        /// The location of the pivot on <paramref name="bodyB"/>. Coordinates are local to the
+        /// body.
+        /// </param>
+        public GrooveJoint(Body bodyA, Body bodyB, Vect grooveA, Vect grooveB, Vect anchorB)
+            : base(NativeMethods.cpGrooveJointNew(bodyA.Handle, bodyB.Handle, grooveA, grooveB, anchorB))
         {
-
         }
 
         /// <summary>
@@ -39,7 +44,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// The second endpoint of the groove relative to the first body
+        /// The second endpoint of the groove relative to the first body.
         /// </summary>
         public Vect GrooveB
         {

@@ -21,7 +21,8 @@ using ObjCRuntime;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Spaces in Chipmunk are the basic unit of simulation. You add rigid bodies, shapes, and constraints to the space and then step them all forward through time together.
+    /// Spaces in Chipmunk are the basic unit of simulation. You add rigid bodies, shapes, and
+    /// constraints to the space and then step them all forward through time together.
     /// </summary>
     public class Space : IDisposable
     {
@@ -30,12 +31,12 @@ namespace ChipmunkBinding
 #pragma warning restore IDE0032
 
         /// <summary>
-        /// Native handle cpSpace
+        /// Native handle cpSpace.
         /// </summary>
         public cpSpace Handle => space;
 
         /// <summary>
-        /// Create a new Space object
+        /// Create a new Space object.
         /// </summary>
         public Space()
         {
@@ -44,17 +45,17 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Create a space from a native Handle (used by derived classes)
+        /// Create a space from a native Handle (used by derived classes).
         /// </summary>
         /// <param name="handle"></param>
-        internal protected Space(cpSpace handle)
+        protected internal Space(cpSpace handle)
         {
             space = handle;
             RegisterUserData();
         }
 
         /// <summary>
-        /// Destroys and frees
+        /// Destroys and frees.
         /// </summary>
         public void Free()
         {
@@ -63,7 +64,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Destroy and Free space
+        /// Destroy and free space.
         /// </summary>
         /// <param name="handle"></param>
         protected virtual void FreeSpace(cpSpace handle)
@@ -72,15 +73,14 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Destroy and Free space
+        /// Destroy and free space.
         /// </summary>
-        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             Free();
         }
         /// <summary>
-        /// Disposes the Space object
+        /// Disposes the Space object.
         /// </summary>
         public void Dispose()
         {
@@ -101,10 +101,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get a Space object from nativa cpSpace handle
+        /// Get a Space object from native cpSpace handle.
         /// </summary>
-        /// <param name="space"></param>
-        /// <returns></returns>
         public static Space FromHandle(cpSpace space)
         {
             cpDataPointer handle = NativeMethods.cpSpaceGetUserData(space);
@@ -112,20 +110,23 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get a Space object from nativa cpSpace handle, but return null if the handle == 0
+        /// Get a Space object from native cpSpace handle, but return null if the handle is 0.
         /// </summary>
-        /// <param name="space"></param>
-        /// <returns></returns>
         public static Space FromHandleSafe(cpSpace space)
         {
             if (space == IntPtr.Zero)
+            {
                 return null;
+            }
+
             return FromHandle(space);
         }
 
         // Properties
+
         /// <summary>
-        /// Number of iterations to use in the impulse solver to solve contacts and other constraints. 
+        /// Number of iterations to use in the impulse solver to solve contacts and other
+        /// constraints.
         /// </summary>
         public int Iterations
         {
@@ -143,9 +144,10 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Damping rate expressed as the fraction of velocity bodies retain each second
-        /// A value of 0.9 would mean that each body's velocity will drop 10% per second. The default value is 1.0, meaning no damping is applied.
-        /// Note: This damping value is different than those of cpDampedSpring and cpDampedRotarySpring
+        /// Damping rate expressed as the fraction of velocity that bodies retain each second. A
+        /// value of 0.9 would mean that each body's velocity will drop 10% per second. The default
+        /// value is 1.0, meaning no damping is applied. Note: This damping value is different than
+        /// those of <see cref="DampedSpring"/> and <see cref="DampedRotarySpring"/>.
         /// </summary>
         public double Damping
         {
@@ -154,8 +156,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Speed threshold for a body to be considered idle.
-        /// The default value of 0 means to let the space guess a good threshold based on gravity. 
+        /// Speed threshold for a body to be considered idle. The default value of 0 means to let
+        /// the space guess a good threshold based on gravity. 
         /// </summary>
         public double IdleSpeedThreshold
         {
@@ -164,8 +166,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Time a group of bodies must remain idle in order to fall asleep
-        /// Enabling sleeping also implicitly enables the the contact graph. The default value of INFINITY disables the sleeping algorithm. 
+        /// Time a group of bodies must remain idle in order to fall asleep. Enabling sleeping also
+        /// implicitly enables the the contact graph. The default value of infinity disables the
+        /// sleeping algorithm. 
         /// </summary>
         public double SleepTimeThreshold
         {
@@ -174,8 +177,10 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Amount of encouraged penetration between colliding shapes
-        /// Used to reduce oscillating contacts and keep the collision cache warm. Defaults to 0.1. If you have poor simulation quality, increase this number as much as possible without allowing visible amounts of overlap. 
+        /// Amount of encouraged penetration between colliding shapes. This is used to reduce
+        /// oscillating contacts and keep the collision cache warm. Defaults to 0.1. If you have
+        /// poor simulation quality, increase this number as much as possible without allowing
+        /// visible amounts of overlap. 
         /// </summary>
         public double CollisionSlop
         {
@@ -193,8 +198,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Number of frames that contact information should persist.
-        /// Defaults to 3. There is probably never a reason to change this value.
+        /// Number of frames that contact information should persist. Defaults to 3. There is
+        /// probably never a reason to change this value.
         /// </summary>
         public int CollisionPersistence
         {
@@ -203,7 +208,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// The Space provided static body for a given cpSpace.
+        /// The Space provided static body for a given <see cref="Space"/>.
         /// </summary>
         public Body StaticBody
         {
@@ -211,8 +216,11 @@ namespace ChipmunkBinding
             {
                 cpBody bodyHandle = NativeMethods.cpSpaceGetStaticBody(space);
                 cpDataPointer gcHandle = NativeMethods.cpBodyGetUserData(bodyHandle);
+
                 if (gcHandle != IntPtr.Zero)
+                {
                     return NativeInterop.FromIntPtr<Body>(gcHandle);
+                }
 
                 return new Body(bodyHandle);
             }
@@ -233,9 +241,9 @@ namespace ChipmunkBinding
         // Collision Handlers
 
         /// <summary>
-        /// Create or return the existing collision handler that is called for all collisions that are not handled by a more specific collision handler.
+        /// Create or return the existing collision handler that is called for all collisions that are
+        /// not handled by a more specific collision handler.
         /// </summary>
-        /// <returns></returns>
         public CollisionHandler<T> GetOrCreateDefaultCollisionHandler<T>() where T : class
         {
             cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddDefaultCollisionHandler(space);
@@ -243,9 +251,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Create or return the existing collision handler that is called for all collisions that are not handled by a more specific collision handler.
+        /// Create or return the existing collision handler that is called for all collisions that are
+        /// not handled by a more specific collision handler.
         /// </summary>
-        /// <returns></returns>
         public CollisionHandler<object> GetOrCreateDefaultCollisionHandler()
         {
             return GetOrCreateDefaultCollisionHandler<object>();
@@ -253,12 +261,10 @@ namespace ChipmunkBinding
 
 
         /// <summary>
-        /// Create or return the existing collision handler for the specified pair of collision types.
-        /// If wildcard handlers are used with either of the collision types, it's the responibility of the custom handler to invoke the wildcard handlers.
+        /// Create or return the existing collision handler for the specified pair of collision
+        /// types. If wildcard handlers are used with either of the collision types, it's the
+        /// responsibility of the custom handler to invoke the wildcard handlers.
         /// </summary>
-        /// <param name="typeA"></param>
-        /// <param name="typeB"></param>
-        /// <returns></returns>
         public CollisionHandler<T> GetOrCreateCollisionHandler<T>(int typeA, int typeB) where T : class
         {
             cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddCollisionHandler(space, (cpCollisionType)typeA, (cpCollisionType)typeB);
@@ -266,12 +272,10 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Create or return the existing collision handler for the specified pair of collision types.
-        /// If wildcard handlers are used with either of the collision types, it's the responibility of the custom handler to invoke the wildcard handlers.
+        /// Create or return the existing collision handler for the specified pair of collision
+        /// types. If wildcard handlers are used with either of the collision types, it's the
+        /// responsibility of the custom handler to invoke the wildcard handlers.
         /// </summary>
-        /// <param name="typeA"></param>
-        /// <param name="typeB"></param>
-        /// <returns></returns>
         public CollisionHandler<object> GetOrCreateCollisionHandler(int typeA, int typeB)
         {
             return GetOrCreateCollisionHandler<object>(typeA, typeB);
@@ -280,8 +284,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Create or return the existing wildcard collision handler for the specified type.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
         public CollisionHandler<T> GetOrCreateWildcardHandler<T>(int type) where T : class
         {
             cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddWildcardHandler(space, (cpCollisionType)type);
@@ -291,18 +293,14 @@ namespace ChipmunkBinding
         /// <summary>
         /// Create or return the existing wildcard collision handler for the specified type.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
         public CollisionHandler<object> GetOrCreateWildcardHandler(int type)
         {
             return GetOrCreateWildcardHandler(type);
         }
 
-
         /// <summary>
-        /// Add a rigid body to the simulation.
+        /// Add a collision shape to the simulation.
         /// </summary>
-        /// <param name="shape"></param>
         public void AddShape(Shape shape)
         {
             NativeMethods.cpSpaceAddShape(space, shape.Handle);
@@ -311,7 +309,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Add a rigid body to the simulation. 
         /// </summary>
-        /// <param name="body"></param>
         public void AddBody(Body body)
         {
             NativeMethods.cpSpaceAddBody(space, body.Handle);
@@ -320,17 +317,14 @@ namespace ChipmunkBinding
         /// <summary>
         /// Add a constraint to the simulation.
         /// </summary>
-        /// <param name="constraint"></param>
         public void AddConstraint(Constraint constraint)
         {
             NativeMethods.cpSpaceAddConstraint(space, constraint.Handle);
         }
 
-
         /// <summary>
         /// Remove a collision shape from the simulation.
         /// </summary>
-        /// <param name="shape"></param>
         public void RemoveShape(Shape shape)
         {
             NativeMethods.cpSpaceRemoveShape(space, shape.Handle);
@@ -339,7 +333,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Remove a rigid body from the simulation.
         /// </summary>
-        /// <param name="body"></param>
         public void RemoveBody(Body body)
         {
             NativeMethods.cpSpaceRemoveBody(space, body.Handle);
@@ -348,7 +341,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Remove a constraint from the simulation.
         /// </summary>
-        /// <param name="constraint"></param>
         public void RemoveConstraint(Constraint constraint)
         {
             NativeMethods.cpSpaceRemoveConstraint(space, constraint.Handle);
@@ -357,8 +349,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Test if a collision shape has been added to the space.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <returns></returns>
         public bool Contains(Shape shape)
         {
             return NativeMethods.cpSpaceContainsShape(space, shape.Handle) != 0;
@@ -367,8 +357,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Test if a rigid body has been added to the space.
         /// </summary>
-        /// <param name="body"></param>
-        /// <returns></returns>
         public bool Contains(Body body)
         {
             return NativeMethods.cpSpaceContainsBody(space, body.Handle) != 0;
@@ -377,8 +365,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Test if a constraint has been added to the space.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
         public bool Contains(Constraint constraint)
         {
             return NativeMethods.cpSpaceContainsConstraint(space, constraint.Handle) != 0;
@@ -404,15 +390,12 @@ namespace ChipmunkBinding
         private static PostStepFunction postStepCallBack = PostStepCallBack;
 
         /// <summary>
-        /// Schedule a post-step callback to be called when Step() finishes.
-        /// You can only register one callback per unique value for @c key.
-        /// Returns true only if @c key has never been scheduled before.
-        /// It's possible to pass @c NULL for @c func if you only want to mark @c key as being used.
+        /// Schedule a post-step callback to be called when <see cref="Step"/> finishes. You can
+        /// only register one callback per unique value for <paramref name="key"/>. Returns true
+        /// only if <paramref name="key"/> has never been scheduled before. It's possible to pass
+        /// null for <paramref name="callback"/> if you only want to mark <paramref name="key"/> as
+        /// being used.
         /// </summary>
-        /// <param name="callback"></param>
-        /// <param name="key"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
         public bool AddPostStepCallback(Action<Space, object, object> callback, object key, object data)
         {
             var info = new PostStepCallbackInfo(callback, data);
@@ -439,13 +422,15 @@ namespace ChipmunkBinding
         private static SpacePointQueryFunction eachPointQuery = EachPointQuery;
 
         /// <summary>
-        /// Query space at point for shapes within the given distance range.
-        /// The filter is applied to the query and follows the same rules as the collision detection. If a maxDistance of 0.0 is used, the point must lie inside a shape. Negative max_distance is also allowed meaning that the point must be a under a certain depth within a shape to be considered a match.
+        /// Get the shapes within a radius of the point location that are part of this space. The
+        /// filter is applied to the query and follows the same rules as the collision detection.
+        /// If a maxDistance of 0.0 is used, the point must lie inside a shape. Negative
+        /// <paramref name="maxDistance"/> is also allowed meaning that the point must be a under a
+        /// certain depth within a shape to be considered a match.
         /// </summary>
-        /// <param name="point">Where to check for collision in the Space</param>
-        /// <param name="maxDistance">Match only within this distance</param>
-        /// <param name="filter">Only pick shapes matching the filter</param>
-        /// <returns></returns>
+        /// <param name="point">Where to check for shapes in the space.</param>
+        /// <param name="maxDistance">Match only within this distance.</param>
+        /// <param name="filter">Only pick shapes matching the filter.</param>
         public IReadOnlyList<PointQueryInfo> PointQuery(Vect point, double maxDistance, ShapeFilter filter)
         {
             var list = new List<PointQueryInfo>();
@@ -459,13 +444,15 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Query space at point the nearest shape within the given distance range.
-        /// The filter is applied to the query and follows the same rules as the collision detection. If a maxDistance of 0.0 is used, the point must lie inside a shape. Negative max_distance is also allowed meaning that the point must be a under a certain depth within a shape to be considered a match.
+        /// Get the nearest shape within a radius of a point that is part of this space. The filter
+        /// is applied to the query and follows the same rules as the collision detection. If a
+        /// <paramref name="maxDistance"/> of 0.0 is used, the point must lie inside a shape.
+        /// Negative <paramref name="maxDistance"/> is also allowed, meaning that the point must be
+        /// under a certain depth within a shape to be considered a match.
         /// </summary>
-        /// <param name="point">Where to check for collision in the Space</param>
-        /// <param name="maxDistance">Match only within this distance</param>
-        /// <param name="filter">Only pick shapes matching the filter</param>
-        /// <returns></returns>
+        /// <param name="point">Where to check for collision in the space.</param>
+        /// <param name="maxDistance">Match only within this distance.</param>
+        /// <param name="filter">Only pick shapes matching the filter.</param>
         public PointQueryInfo PointQueryNearest(Vect point, double maxDistance, ShapeFilter filter)
         {
             var queryInfo = new cpPointQueryInfo();
@@ -494,14 +481,10 @@ namespace ChipmunkBinding
         private static SpaceSegmentQueryFunction eachSegmentQuery = EachSegmentQuery;
 
         /// <summary>
-        /// Query space along the line segment from start to end with the given radius.
-        ///  The filter is applied to the query and follows the same rules as the collision detection.
+        /// Get the shapes within a capsule-shaped radius of a line segment that is part of this
+        /// space. The filter is applied to the query and follows the same rules as the collision
+        /// detection.
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="radius"></param>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         public IReadOnlyList<SegmentQueryInfo> SegmentQuery(Vect start, Vect end, double radius, ShapeFilter filter)
         {
             var list = new List<SegmentQueryInfo>();
@@ -515,14 +498,10 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Query space along the line segment from start to end with the given radius.
-        /// The filter is applied to the query and follows the same rules as the collision detection.
+        /// Get the first shape within a capsule-shaped radius of a line segment that is part of
+        /// this space. The filter is applied to the query and follows the same rules as the
+        /// collision detection.
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="radius"></param>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         public SegmentQueryInfo SegmentQueryFirst(Vect start, Vect end, double radius, ShapeFilter filter)
         {
             var queryInfo = new cpSegmentQueryInfo();
@@ -552,11 +531,9 @@ namespace ChipmunkBinding
 
 
         /// <summary>
-        /// Query space to find all shapes near bb.
+        /// Get all shapes within the axis-aligned bounding box that are part of this shape. The
+        /// filter is applied to the query and follows the same rules as the collision detection.
         /// </summary>
-        /// <param name="bb"></param>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         public IReadOnlyList<Shape> BoundBoxQuery(BoundingBox bb, ShapeFilter filter)
         {
             var list = new List<Shape>();
@@ -585,7 +562,7 @@ namespace ChipmunkBinding
         private static SpaceObjectIteratorFunction eachBody = EachBody;
 
         /// <summary>
-        /// Return all bodies from Space.
+        /// Get all bodies in the space.
         /// </summary>
         public IReadOnlyList<Body> Bodies
         {
@@ -618,7 +595,7 @@ namespace ChipmunkBinding
         private static SpaceObjectIteratorFunction eachShape = EachShape;
 
         /// <summary>
-        /// Return all shapes from Space.
+        /// Get all shapes in the space.
         /// </summary>
         public IReadOnlyList<Shape> Shapes
         {
@@ -651,10 +628,8 @@ namespace ChipmunkBinding
         private static SpaceShapeQueryFunction shapeQueryCallback = ShapeQueryCallback;
 
         /// <summary>
-        /// Query a space for any shapes overlapping the given shape
+        /// Get all shapes in the space that are overlapping the given shape.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <returns></returns>
         public IReadOnlyList<ContactPointSet> ShapeQuery(Shape shape)
         {
             var list = new List<ContactPointSet>();
@@ -682,7 +657,7 @@ namespace ChipmunkBinding
 
 
         /// <summary>
-        /// Return all constraints from Space.
+        /// Get all constraints in the space.
         /// </summary>
         public IReadOnlyList<Constraint> Constraints
         {
@@ -703,7 +678,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Update the collision detection info for the static shapes in the space.
         /// </summary>
-        /// <param name="shape"></param>
         public void ReindexStatic(Shape shape)
         {
             NativeMethods.cpSpaceReindexStatic(space);
@@ -712,7 +686,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Update the collision detection data for a specific shape in the space.
         /// </summary>
-        /// <param name="shape"></param>
         public void ReindexShape(Shape shape)
         {
             NativeMethods.cpSpaceReindexShape(space, shape.Handle);
@@ -721,62 +694,55 @@ namespace ChipmunkBinding
         /// <summary>
         /// Update the collision detection data for all shapes attached to a body.
         /// </summary>
-        /// <param name="body"></param>
         public void ReindexShapesForBody(Body body)
         {
             NativeMethods.cpSpaceReindexShapesForBody(space, body.Handle);
         }
 
         /// <summary>
-        /// Switch the space to use a spatial has as it's spatial index.
+        /// Switch the space to use a spatial hash as its spatial index.
         /// </summary>
-        /// <param name="dim"></param>
-        /// <param name="count"></param>
         public void UseSpatialHash(double dim, int count)
         {
             NativeMethods.cpSpaceUseSpatialHash(space, dim, count);
         }
 
         /// <summary>
-        /// Update the space for the given time step.
-        /// Using a fixed time step is highly recommended. Doing so will increase the efficiency of the contact persistence, requiring an order of magnitude fewer iterations to resolve the collisions in the usual case.
-        /// It is not the same to call step 10 times with a dt of 0.1 and calling it 100 times with a dt of 0.01 even if the end result is that the simulation moved forward 100 units. Performing multiple calls with a smaller dt creates a more stable and accurate simulation. Therefor it sometimes make sense to have a little for loop around the step call, like in this example:
+        /// Update the space for the given time step. Using a fixed time step is highly recommended.
+        /// Doing so will increase the efficiency of the contact persistence, requiring an order of
+        /// magnitude fewer iterations to resolve the collisions in the usual case. It is not the
+        /// same to call step 10 times with a dt of 0.1, or 100 times with a dt of 0.01 even if the
+        /// end result is that the simulation moved forward 100 units. Performing multiple calls
+        /// with a smaller dt creates a more stable and accurate simulation. Therefore, it sometimes
+        /// makes sense to have a little for loop around the step call.
         /// </summary>
-        /// <param name="dt">Time step length</param>
         public virtual void Step(double dt)
         {
             NativeMethods.cpSpaceStep(space, dt);
         }
 
         /// <summary>
-        /// Debug Draw all objects in space
+        /// Draw all objects in the space for debugging purposes.
         /// </summary>
-        /// <param name="debugDraw"></param>
         public void DebugDraw(IDebugDraw debugDraw)
         {
             DebugDraw(debugDraw, DebugDrawFlags.All, DebugDrawColors.Default);
         }
 
         /// <summary>
-        /// Debug draw objects based on flags
+        /// Draw all objects in the space for debugging purposes using flags.
         /// </summary>
-        /// <param name="debugDraw"></param>
-        /// <param name="flags"></param>
         public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags)
         {
             DebugDraw(debugDraw, flags, DebugDrawColors.Default);
         }
 
         /// <summary>
-        /// Debug draw object with flags, and given colors
+        /// Draw all objects in the space for debugging purposes using flags and colors.
         /// </summary>
-        /// <param name="debugDraw"></param>
-        /// <param name="flags"></param>
-        /// <param name="colors"></param>
         public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags, DebugDrawColors colors)
         {
             var debugDrawOptions = new cpSpaceDebugDrawOptions();
-
             IntPtr debugDrawOptionsPointer = debugDrawOptions.AcquireDebugDrawOptions(debugDraw, flags, colors);
 
             NativeMethods.cpSpaceDebugDraw(space, debugDrawOptionsPointer);

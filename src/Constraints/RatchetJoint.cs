@@ -1,26 +1,28 @@
 ﻿namespace ChipmunkBinding
 {
     /// <summary>
-    /// RatchetJoint is a rotary ratchet, it works like a socket wrench.
+    /// <see cref="RatchetJoint"/> is a rotary ratchet, which works like a socket wrench.
     /// </summary>
     public class RatchetJoint : Constraint
     {
         /// <summary>
-        /// Check if Constraint  is a RatchetJoint
+        /// Check if a constraint is a <see cref="RatchetJoint"/>.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
         public static bool IsRatchetJoint(Constraint constraint) => NativeMethods.cpConstraintIsRatchetJoint(constraint.Handle) != 0;
+
         /// <summary>
-        ///     Works like a socket wrench.
-        /// ratchet is the distance between “clicks”, phase is the initial offset to use when deciding where the ratchet angles are.
+        /// Works like a socket wrench.
         /// </summary>
-        /// <param name="bodyA"></param>
-        /// <param name="bodyB"></param>
-        /// <param name="phase"></param>
-        /// <param name="ratchet"></param>
-        public RatchetJoint(Body bodyA, Body bodyB, double phase, double ratchet):
-            base(NativeMethods.cpRatchetJointNew(bodyA.Handle, bodyB.Handle, phase, ratchet))
+        /// <param name="bodyA">One of the two bodies to connect.</param>
+        /// <param name="bodyB">One of the two bodies to connect.</param>
+        /// <param name="phase">
+        /// The initial offset to use when deciding where the ratchet angles are.
+        /// </param>
+        /// <param name="ratchet">
+        /// The distance between "clicks" (following the socket wrench analogy).
+        /// </param>
+        public RatchetJoint(Body bodyA, Body bodyB, double phase, double ratchet)
+            : base(NativeMethods.cpRatchetJointNew(bodyA.Handle, bodyB.Handle, phase, ratchet))
         {
         }
 

@@ -5,9 +5,8 @@ using System.Linq;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Contact point sets make getting contact information simpler.
-    /// normal is the normal of the collision
-    /// points is the array of contact points.Can be at most 2 points.
+    /// Contact point sets make getting contact information simpler. There can be at most 2 contact
+    /// points.
     /// </summary>
     public sealed class ContactPointSet : IEquatable<ContactPointSet>
     {
@@ -25,12 +24,12 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Number of contact points in the contact set
+        /// Get the number of contact points in the contact set (maximum of two).
         /// </summary>
         public int Count => count;
 
         /// <summary>
-        /// Returns the normal of the collision.
+        /// Get the normal of the collision.
         /// </summary>
         public Vect Normal => normal;
 
@@ -40,58 +39,53 @@ namespace ChipmunkBinding
         public IReadOnlyList<ContactPoint> Points => points;
 
         /// <summary>
-        /// Check if a contact point set is equal to another.
+        /// Return true if the contact point set is sequence-equal to another.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool Equals(ContactPointSet other)
         {
-            if (ReferenceEquals(other, null))
+            if (ReferenceEquals(other, null)
+                || count != other.count
+                || normal != other.normal
+                || points.Length != other.points.Length)
+            {
                 return false;
-
-            if (count != other.count)
-                return false;
-            if (normal != other.normal)
-                return false;
-            if (points.Length != other.points.Length)
-                return false;
+            }
 
             return points.SequenceEqual(other.points);
         }
 
         /// <summary>
-        /// GetHashCode of ContactPointSet
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -475635172;
+
             hashCode = hashCode * -1521134295 + count.GetHashCode();
             hashCode = hashCode * -1521134295 + normal.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<ContactPoint[]>.Default.GetHashCode(points);
+
             return hashCode;
         }
 
         /// <summary>
-        /// Check if the ContactPointSet is equal to an object
+        /// Return true if the <see cref="ContactPointSet"/> is sequence-equal to another.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as ContactPointSet;
+
             if (other == null)
+            {
                 return false;
+            }
 
             return Equals(other);
         }
 
         /// <summary>
-        /// operator ==
+        /// Return true if the contact point sets are sequence-equal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator ==(ContactPointSet left, ContactPointSet right)
         {
             if (ReferenceEquals(left, null))
@@ -103,11 +97,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// operator !=
+        /// Return true if the contact point sets are sequence-inequal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator !=(ContactPointSet left, ContactPointSet right)
         {
             return !(left == right);
@@ -115,31 +106,41 @@ namespace ChipmunkBinding
 
         internal static ContactPointSet FromContactPointSet(cpContactPointSet contactPointSet)
         {
-            ContactPoint[] points;
+            var points = new ContactPoint[2];
 
-            points = new ContactPoint[2];
             if (contactPointSet.count > 0)
+            {
                 points[0] = ContactPoint.FromCollidePoint(contactPointSet.points0);
+            }
             else
+            {
                 points[0] = ContactPoint.Empty;
+            }
 
             if (contactPointSet.count > 1)
+            {
                 points[1] = ContactPoint.FromCollidePoint(contactPointSet.points1);
+            }
             else
+            {
                 points[1] = ContactPoint.Empty;
+            }
 
-            return new ContactPointSet(contactPointSet.count,
-                                       contactPointSet.normal, points);
+            return new ContactPointSet(
+                contactPointSet.count,
+                contactPointSet.normal,
+                points);
         }
 
         internal cpContactPointSet ToContactPointSet()
         {
-            var pointSet = new cpContactPointSet();
-            pointSet.normal = normal;
-            pointSet.points0 = points[0].ToContactPoint();
-            pointSet.points1 = points[1].ToContactPoint();
-            pointSet.count = count;
-            return pointSet;
+            return new cpContactPointSet
+            {
+                normal = normal,
+                points0 = points[0].ToContactPoint(),
+                points1 = points[1].ToContactPoint(),
+                count = count
+            };
         }
     }
 }

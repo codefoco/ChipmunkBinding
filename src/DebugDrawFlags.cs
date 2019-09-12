@@ -3,29 +3,33 @@
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Flag to enable/disable DebugDrawing
+    /// Flags to enable or disable DebugDrawing.
     /// </summary>
     [Flags]
     public enum DebugDrawFlags
     {
         /// <summary>
-        /// Draw nothing
+        /// Draw nothing.
         /// </summary>
         None = 0,
+
         /// <summary>
-        /// Draw Shapes
+        /// Draw Shapes.
         /// </summary>
         Shapes = 1 << 0,
+
         /// <summary>
-        /// Draw Constraints
+        /// Draw Constraints.
         /// </summary>
         Constraints = 1 << 1,
+
         /// <summary>
-        ///  Draw Collision Points
+        ///  Draw Collision Points.
         /// </summary>
         CollisionPoints = 1 << 2,
+
         /// <summary>
-        /// Draw All
+        /// Draw All.
         /// </summary>
         All = Shapes | Constraints | CollisionPoints
     }

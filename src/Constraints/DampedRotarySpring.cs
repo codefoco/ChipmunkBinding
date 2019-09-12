@@ -10,35 +10,31 @@ using ObjCRuntime;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// DampedRotarySpring works like the DammpedSpring but in a angular fashion.
+    /// DampedRotarySpring works like <see cref="DampedSpring"/>, but in an angular fashion.
     /// </summary>
     public class DampedRotarySpring : Constraint
     {
         /// <summary>
-        /// Check if a constraint is a damped rotary string
+        /// Check if a constraint is a <see cref="DampedRotarySpring"/>.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
         public static bool IsDampedRotarySpring(Constraint constraint) => NativeMethods.cpConstraintIsDampedRotarySpring(constraint.Handle) != 0;
 
         /// <summary>
-        /// 
+        /// Create a damped rotary spring.
         /// </summary>
-        /// <param name="bodyA"></param>
-        /// <param name="bodyB"></param>
-        /// <param name="restAngle"></param>
-        /// <param name="stiffness"></param>
-        /// <param name="damping"></param>
-        public DampedRotarySpring(Body bodyA,
-                                  Body bodyB,
-                                  double restAngle,
-                                  double stiffness,
-                                  double damping) :
-            base(NativeMethods.cpDampedRotarySpringNew(bodyA.Handle,
-                                                 bodyB.Handle,
-                                                 restAngle,
-                                                 stiffness,
-                                                 damping))
+        public DampedRotarySpring(
+            Body bodyA,
+            Body bodyB,
+            double restAngle,
+            double stiffness,
+            double damping)
+            : base(
+                NativeMethods.cpDampedRotarySpringNew(
+                    bodyA.Handle,
+                    bodyB.Handle,
+                    restAngle,
+                    stiffness,
+                    damping))
         {
             originalTorqueCallbackPointer = NativeMethods.cpDampedRotarySpringGetSpringTorqueFunc(Handle);
         }
@@ -48,7 +44,7 @@ namespace ChipmunkBinding
 #endif
         private static double DampedRotarySpringTorqueCallback(cpConstraint springHandle, double relativeAngle)
         {
-            var constraint = (DampedRotarySpring)Constraint.FromHandle(springHandle);
+            var constraint = (DampedRotarySpring)FromHandle(springHandle);
 
             Func<DampedRotarySpring, double, double> dampedRotarySpringTorqueFunction = constraint.TorqueFunction;
 
@@ -100,9 +96,13 @@ namespace ChipmunkBinding
                 IntPtr callbackPointer;
 
                 if (value == null)
+                {
                     callbackPointer = originalTorqueCallbackPointer;
+                }
                 else
+                {
                     callbackPointer = DampedRotarySpringForceCallback.ToFunctionPointer();
+                }
 
                 NativeMethods.cpDampedRotarySpringSetSpringTorqueFunc(Handle, callbackPointer);
             }

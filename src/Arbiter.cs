@@ -5,8 +5,8 @@ using cpArbiter = System.IntPtr;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// The Arbiter object encapsulates a pair of colliding shapes and all of
-    /// the data about their collision.
+    /// The <see cref="Arbiter"/> object encapsulates a pair of colliding shapes and all of the data
+    /// about their collision.
     /// </summary>
     public struct Arbiter : IEquatable<Arbiter>
     {
@@ -15,7 +15,7 @@ namespace ChipmunkBinding
 #pragma warning restore IDE0032
 
         /// <summary>
-        /// Native handle of Arbiter
+        /// Native handle of <see cref="Arbiter"/>.
         /// </summary>
         public cpArbiter Handle => arbiter;
 
@@ -43,7 +43,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get/Override the relative surface velocity of the two shapes in contact.
+        /// The relative surface velocity of the two shapes in contact.
         /// </summary>
         public Vect SurfaceVelocity
         {
@@ -53,7 +53,8 @@ namespace ChipmunkBinding
 
         /// <summary>
         /// Calculate the total impulse including the friction that was applied by this arbiter.
-        /// This function should only be called from a post-solve, post-step or cpBodyEachArbiter callback.
+        /// This function should only be called from a post-solve, post-step or cpBodyEachArbiter
+        /// callback.
         /// </summary>
         public Vect TotalImpulse => NativeMethods.cpArbiterTotalImpulse(arbiter);
 
@@ -64,18 +65,16 @@ namespace ChipmunkBinding
         public double TotalKE => NativeMethods.cpArbiterTotalKE(arbiter);
 
         /// <summary>
-        /// Mark a collision pair to be ignored until the two objects separate.
-        /// Pre-solve and post-solve callbacks will not be called, but the separate callback will be called.
+        /// Mark a collision pair to be ignored until the two objects separate. Pre-solve and
+        /// post-solve callbacks will not be called, but the separate callback will be called.
         /// </summary>
         public bool Ignore() => NativeMethods.cpArbiterIgnore(arbiter) != 0;
 
         /// <summary>
-        /// Return the colliding shapes involved for this arbiter.
-        /// The order of their cpSpace.collision_type values will match
-        /// the order set when the collision handler was registered
+        /// Return the colliding shapes involved for this arbiter. The order of their
+        /// <see cref="Shape.CollisionType"/> values will match the order set when the collision
+        /// handler was registered.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
         public void GetShapes(out Shape a, out Shape b)
         {
             IntPtr ptrA;
@@ -88,12 +87,10 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Return the colliding bodies involved for this arbiter.
-        /// The order of the cpSpace.collision_type the bodies are associated with values will match
-        /// the order set when the collision handler was registered.
+        /// Return the colliding bodies involved for this arbiter. The order of the
+        /// <see cref="Shape.CollisionType"/> values the bodies are associated with will match the
+        /// order set when the collision handler was registered.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
         public void GetBodies(out Body a, out Body b)
         {
             IntPtr ptrA;
@@ -106,8 +103,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get/Replace the contact point set for an arbiter.
-        /// This can be a very powerful feature, but use it with caution!
+        /// The contact point set for an arbiter. This can be a very powerful feature, but use it
+        /// with caution!
         /// </summary>
         public ContactPointSet ContactPointSet
         {
@@ -124,7 +121,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Arbiter user data
+        /// Arbitrary user data.
         /// </summary>
         public object Data
         {
@@ -133,7 +130,9 @@ namespace ChipmunkBinding
                 IntPtr handle = NativeMethods.cpArbiterGetUserData(arbiter);
 
                 if (handle == IntPtr.Zero)
+                {
                     return null;
+                }
 
                 return NativeInterop.FromIntPtrAndFree<object>(handle);
             }
@@ -142,7 +141,9 @@ namespace ChipmunkBinding
                 var gcHandle = IntPtr.Zero;
 
                 if (value != null)
+                {
                     gcHandle = NativeInterop.RegisterHandle(value);
+                }
 
                 NativeMethods.cpArbiterSetUserData(arbiter, gcHandle);
             }
@@ -169,174 +170,160 @@ namespace ChipmunkBinding
         public Vect Normal => NativeMethods.cpArbiterGetNormal(arbiter);
 
         /// <summary>
-        /// Get the position of the @c ith contact point on the surface of the first shape.
+        /// Get the position of the <paramref name="i"/>th contact point on the surface of the first
+        /// shape.
         /// </summary>
-        /// <param name="i"></param>
-        /// <returns></returns>
         public Vect GetPointA(int i)
         {
             return NativeMethods.cpArbiterGetPointA(arbiter, i);
         }
 
         /// <summary>
-        /// Get the position of the @c ith contact point on the surface of the second shape.
+        /// Get the position of the <paramref name="i"/>th contact point on the surface of the
+        /// second shape.
         /// </summary>
-        /// <param name="i"></param>
-        /// <returns></returns>
         public Vect GetPointB(int i)
         {
             return NativeMethods.cpArbiterGetPointB(arbiter, i);
         }
 
         /// <summary>
-        /// Get the depth of the @c ith contact point.
+        /// Get the depth (amount of overlap) of the <paramref name="i"/>th contact point.
         /// </summary>
-        /// <param name="i"></param>
-        /// <returns></returns>
         public double GetDepth(int i)
         {
             return NativeMethods.cpArbiterGetDepth(arbiter, i);
         }
 
         /// <summary>
-        /// If you want a custom callback to invoke the wildcard callback for the first collision type, you must call this function explicitly.
-        /// You must decide how to handle the wildcard's return value since it may disagree with the other wildcard handler's return value or your own.
+        /// If you want a custom callback to invoke the wildcard callback for the first collision
+        /// type, you must call this function explicitly. You must decide how to handle the
+        /// wildcard's return value since it may disagree with the other wildcard handler's return
+        /// value or your own.
         /// </summary>
-        /// <param name="space"></param>
-        /// <returns></returns>
         public bool CallWildcardBeginA(Space space)
         {
             return NativeMethods.cpArbiterCallWildcardBeginA(arbiter, space.Handle) != 0;
         }
 
         /// <summary>
-        /// If you want a custom callback to invoke the wildcard callback for the second collision type, you must call this function explicitly.
-        /// You must decide how to handle the wildcard's return value since it may disagree with the other wildcard handler's return value or your own.
+        /// If you want a custom callback to invoke the wildcard callback for the second collision
+        /// type, you must call this function explicitly. You must decide how to handle the
+        /// wildcard's return value since it may disagree with the other wildcard handler's return
+        /// value or your own.
         /// </summary>
-        /// <param name="space"></param>
-        /// <returns></returns>
         public bool CallWildcardBeginB(Space space)
         {
             return NativeMethods.cpArbiterCallWildcardBeginB(arbiter, space.Handle) != 0;
         }
 
         /// <summary>
-        /// If you want a custom callback to invoke the wildcard callback for the first collision type, you must call this function explicitly.
-        /// You must decide how to handle the wildcard's return value since it may disagree with the other wildcard handler's return value or your own.
+        /// If you want a custom callback to invoke the wildcard callback for the first collision
+        /// type, you must call this function explicitly. You must decide how to handle the
+        /// wildcard's return value since it may disagree with the other wildcard handler's return
+        /// value or your own.
         /// </summary>
-        /// <param name="space"></param>
-        /// <returns></returns>
         public bool CallWildcardPreSolveA(Space space)
         {
             return NativeMethods.cpArbiterCallWildcardPreSolveA(arbiter, space.Handle) != 0;
         }
 
         /// <summary>
-        /// If you want a custom callback to invoke the wildcard callback for the second collision type, you must call this function explicitly.
-        /// You must decide how to handle the wildcard's return value since it may disagree with the other wildcard handler's return value or your own.
+        /// If you want a custom callback to invoke the wildcard callback for the second collision
+        /// type, you must call this function explicitly. You must decide how to handle the
+        /// wildcard's return value since it may disagree with the other wildcard handler's return
+        /// value or your own.
         /// </summary>
-        /// <param name="space"></param>
-        /// <returns></returns>
         public bool CallWildcardPreSolveB(Space space)
         {
             return NativeMethods.cpArbiterCallWildcardPreSolveB(arbiter, space.Handle) != 0;
         }
 
         /// <summary>
-        /// If you want a custom callback to invoke the wildcard callback for the first collision type, you must call this function explicitly.
+        /// If you want a custom callback to invoke the wildcard callback for the first collision
+        /// type, you must call this function explicitly.
         /// </summary>
-        /// <param name="space"></param>
         public void CallWildcardPostSolveA(Space space)
         {
             NativeMethods.cpArbiterCallWildcardPostSolveA(arbiter, space.Handle);
         }
 
         /// <summary>
-        /// If you want a custom callback to invoke the wildcard callback for the second collision type, you must call this function explicitly.
+        /// If you want a custom callback to invoke the wildcard callback for the second collision
+        /// type, you must call this function explicitly.
         /// </summary>
-        /// <param name="space"></param>
         public void CallWildcardPostSolveB(Space space)
         {
             NativeMethods.cpArbiterCallWildcardPostSolveB(arbiter, space.Handle);
         }
 
         /// <summary>
-        /// If you want a custom callback to invoke the wildcard callback for the first collision type, you must call this function explicitly.
+        /// If you want a custom callback to invoke the wildcard callback for the first collision
+        /// type, you must call this function explicitly.
         /// </summary>
-        /// <param name="space"></param>
         public void CallWildcardSeparateA(Space space)
         {
             NativeMethods.cpArbiterCallWildcardSeparateA(arbiter, space.Handle);
         }
 
         /// <summary>
-        /// If you want a custom callback to invoke the wildcard callback for the second collision type, you must call this function explicitly.
+        /// If you want a custom callback to invoke the wildcard callback for the second collision
+        /// type, you must call this function explicitly.
         /// </summary>
-        /// <param name="space"></param>
         public void CallWildcardSeparateB(Space space)
         {
             NativeMethods.cpArbiterCallWildcardSeparateB(arbiter, space.Handle);
         }
 
         /// <summary>
-        /// Check if an arbiter is equals to another
+        /// Return true if an arbiter is equal to another.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool Equals(Arbiter other)
         {
             return arbiter == other.arbiter;
         }
 
         /// <summary>
-        /// Check if an arbiter is equals to a object
+        /// Check if an arbiter is equal to the given object.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as Arbiter?;
             if (!other.HasValue)
+            {
                 return false;
+            }
 
             return Equals(other.Value);
         }
 
         /// <summary>
-        /// return arbiter handle string
+        /// Return the arbiter's handle prefixed by 'Handle: '.
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return $"Handle: {arbiter}";
         }
 
         /// <summary>
-        /// Get hash code
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             return 932982278 + EqualityComparer<cpArbiter>.Default.GetHashCode(arbiter);
         }
 
         /// <summary>
-        /// Check if an arbiter is equals to another
+        /// Check if one arbiter is equal to another.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator ==(Arbiter left, Arbiter right)
         {
             return left.Equals(right);
         }
 
         /// <summary>
-        /// Check if an arbiter is different to another
+        /// Check if one arbiter is inequal to another.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator !=(Arbiter left, Arbiter right)
         {
             return !(left == right);

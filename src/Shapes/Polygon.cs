@@ -6,22 +6,16 @@ using System.Diagnostics;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// A Polygonal shape
+    /// A polygon shape composed of connected vertices.
     /// </summary>
     public class Polygon : Shape
     {
         /// <summary>
-        /// A convex polygon shape
-        /// Slowest, but most flexible collision shape.
+        /// A convex polygon shape. It's the slowest, but most flexible collision shape.
         /// </summary>
-        /// <param name="body"></param>
-        /// <param name="verts"></param>
-        /// <param name="transform"></param>
-        /// <param name="radius"></param>
-        public Polygon(Body body, IReadOnlyList<Vect> verts, Transform transform, double radius) :
-            base(CreatePolygonShape(body, verts, transform, radius))
+        public Polygon(Body body, IReadOnlyList<Vect> verts, Transform transform, double radius)
+            : base(CreatePolygonShape(body, verts, transform, radius))
         {
-
         }
 
         /// <summary>
@@ -31,13 +25,13 @@ namespace ChipmunkBinding
         /// <param name="body"></param>
         /// <param name="verts"></param>
         /// <param name="radius"></param>
-        public Polygon(Body body, Vect[] verts, double radius) :
-            base(CreatePolygonShape(body, verts, radius))
+        public Polygon(Body body, Vect[] verts, double radius)
+            : base(CreatePolygonShape(body, verts, radius))
         {
 
         }
 
-        static private IntPtr CreatePolygonShape (Body body, IReadOnlyList<Vect> verts, Transform transform, double radius)
+        private static IntPtr CreatePolygonShape (Body body, IReadOnlyList<Vect> verts, Transform transform, double radius)
         {
             Debug.Assert(verts.Count > 2);
 
@@ -50,7 +44,7 @@ namespace ChipmunkBinding
             return handle;
         }
 
-        static private IntPtr CreatePolygonShape(Body body, Vect[] verts, double radius)
+        private static IntPtr CreatePolygonShape(Body body, Vect[] verts, double radius)
         {
             Debug.Assert(verts.Length > 2);
 
@@ -64,22 +58,20 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get the number of verts in a polygon shape.
+        /// Get the number of vertices in a polygon shape.
         /// </summary>
         public int Count => NativeMethods.cpPolyShapeGetCount(Handle);
 
         /// <summary>
-        /// Get the  ith vertex of a polygon shape.
+        /// Get the <paramref name="i"/>th vertex of a polygon shape.
         /// </summary>
-        /// <param name="i"></param>
-        /// <returns></returns>
         public Vect GetVertex(int i)
         {
             return NativeMethods.cpPolyShapeGetVert(Handle, i);
         }
 
         /// <summary>
-        /// Vertices of polygon
+        /// Get the vertices of the polygon.
         /// </summary>
         public IReadOnlyList<Vect> Vertices
         {
@@ -96,34 +88,30 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get the radius of a polygon shape.
+        /// Get the radius of the polygon.
         /// </summary>
         public double Radius => NativeMethods.cpPolyShapeGetRadius(Handle);
 
         /// <summary>
-        ///  Area of this polygon
-        ///  This is probably backwards from what you expect, but matches Chipmunk's the winding for poly shapes
+        ///  Get and calculate the signed area of this polygon. Vertices specified such that they connect in
+        ///  a clockwise fashion (called winding) give a positive area measurement. This is probably
+        ///  backwards to what you might expect.
         /// </summary>
 
         public new double Area => AreaForPoly(Vertices, Radius);
 
         /// <summary>
-        /// Centroid of this polygon
+        /// Get and calculate the centroid of the polygon.
         /// </summary>
         public Vect Centroid => CentroidForPoly(Vertices);
 
         /// <summary>
-        /// Calculate the moment of inertia for a solid polygon shape assuming it's center of gravity is at it's centroid. The offset is added to each vertex.
+        /// Calculate the moment of inertia for a solid polygon shape assuming its center of gravity
+        /// is at its centroid. The offset is added to each vertex.
         /// </summary>
-        /// <param name="mass"></param>
-        /// <param name="vertices"></param>
-        /// <param name="offset"></param>
-        /// <param name="radius"></param>
-        /// <returns></returns>
         public static double MomentForPolygon(double mass, IReadOnlyList<Vect> vertices, Vect offset, double radius)
         {
             IntPtr verticesPtr = NativeInterop.StructureArrayToPtr(vertices);
-
             double moment = NativeMethods.cpMomentForPoly(mass, vertices.Count, verticesPtr, offset, radius);
 
             NativeInterop.FreeStructure(verticesPtr);
@@ -132,12 +120,10 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Calculate the signed area of a polygon. A Clockwise winding gives positive area.
-        /// This is probably backwards from what you expect, but matches Chipmunk's the winding for poly shapes.
+        /// Calculate the signed area of this polygon. Vertices specified such that they connect in
+        ///  a clockwise fashion (called winding) give a positive area measurement. This is probably
+        ///  backwards to what you might expect.
         /// </summary>
-        /// <param name="vertices"></param>
-        /// <param name="radius"></param>
-        /// <returns></returns>
         public static double AreaForPoly(IReadOnlyList<Vect> vertices, double radius)
         {
             IntPtr verticesPtr = NativeInterop.StructureArrayToPtr(vertices);
@@ -152,8 +138,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Calculate the natural centroid of a polygon.
         /// </summary>
-        /// <param name="vertices"></param>
-        /// <returns></returns>
         public static Vect CentroidForPoly(IReadOnlyList<Vect> vertices)
         {
             IntPtr verticesPtr = NativeInterop.StructureArrayToPtr(vertices);

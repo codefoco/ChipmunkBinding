@@ -7,12 +7,10 @@ using System.Runtime.InteropServices;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Type used for 2x3 affine transforms.
-    /// See wikipedia for details: http://en.wikipedia.org/wiki/Affine_transformation
-    /// The properties map to the matrix in this way:
-    /// a  c   tx
-    /// b  d   ty
-    ///  We can't use System.Numerics.Matrix32 since it does't use doubles
+    /// Type used for 2x3 affine transforms. See wikipedia for details:
+    /// http://en.wikipedia.org/wiki/Affine_transformation. The properties map to the matrix in this
+    /// way: [[a  c   tx], [b  d   ty]]. We can't use System.Numerics.Matrix32 since it does't use
+    /// doubles.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Transform : IEquatable<Transform>
@@ -27,14 +25,8 @@ namespace ChipmunkBinding
         private double ty;
 
         /// <summary>
-        /// Create a matrix transformation
+        /// Create a matrix transformation.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="tx"></param>
-        /// <param name="ty"></param>
         public Transform(double a, double b, double c, double d, double tx, double ty) : this()
         {
             this.a = a;
@@ -46,32 +38,23 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Create a Transpose matrix
+        /// Create a transpose matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="c"></param>
-        /// <param name="tx"></param>
-        /// <param name="b"></param>
-        /// <param name="d"></param>
-        /// <param name="ty"></param>
-        /// <returns></returns>
         public static Transform CreateTranspose(double a, double c, double tx, double b, double d, double ty)
         {
             return new Transform(a, b, c, d, tx, ty);
         }
 
         /// <summary>
-        /// Create a transation matrix.
+        /// Create a translation matrix.
         /// </summary>
-        /// <param name="translate"></param>
         public static Transform CreateTranslation(Vect translate)
         {
-            return CreateTranspose(1.0, 0.0, translate.X,
-                                   0.0, 1.0, translate.Y);
+            return CreateTranspose(1.0, 0.0, translate.X, 0.0, 1.0, translate.Y);
         }
 
         /// <summary>
-        /// Identidy Matrix
+        /// Create an identity matrix.
         /// </summary>
         public static Transform Identity => identity;
 
@@ -103,23 +86,22 @@ namespace ChipmunkBinding
         public double Ty { get => ty; set => ty = value; }
 
         /// <summary>
-        /// object Equals
+        /// Return true if all matrix values are within <see cref="Single.Epsilon"/> of each other.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             Transform? transform = obj as Transform?;
             if (!transform.HasValue)
+            {
                 return false;
+            }
+
             return Equals(transform.Value);
         }
 
         /// <summary>
-        /// IEquatable Equals
+        /// Return true if all matrix values are within <see cref="Single.Epsilon"/> of each other.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool Equals(Transform other)
         {
             return Math.Abs(a - other.a) < double.Epsilon &&
@@ -131,9 +113,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// object GetHashCode
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -884009331;
@@ -147,31 +128,25 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// object ToString
+        /// Return a string formatted like "(a,b|c,d|tx,ty)".
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return $"({a},{b}|{c},{d}|{tx},{ty})";
         }
 
         /// <summary>
-        /// operator ==
+        /// Return true if all matrix values are within <see cref="Single.Epsilon"/> of each other.
         /// </summary>
-        /// <param name="transform1"></param>
-        /// <param name="transform2"></param>
-        /// <returns></returns>
         public static bool operator ==(Transform transform1, Transform transform2)
         {
             return transform1.Equals(transform2);
         }
 
         /// <summary>
-        /// operator !=
+        /// Return true if all matrix values are not within <see cref="Single.Epsilon"/> of each
+        /// other.
         /// </summary>
-        /// <param name="transform1"></param>
-        /// <param name="transform2"></param>
-        /// <returns></returns>
         public static bool operator !=(Transform transform1, Transform transform2)
         {
             return !(transform1 == transform2);

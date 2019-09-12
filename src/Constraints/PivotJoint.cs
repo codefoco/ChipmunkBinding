@@ -1,38 +1,41 @@
 ﻿namespace ChipmunkBinding
 {
     /// <summary>
-    /// PivotJoint allow two objects to pivot about a single point.
-    /// Its like a swivel.
+    /// <see cref="PivotJoint"/> acts like a swivel, allowing two objects to pivot about a single
+    /// point.
     /// </summary>
     public class PivotJoint : Constraint
     {
         /// <summary>
-        /// Check if a constraint is a pin joint.
+        /// Check if a constraint is a <see cref="PinJoint"/>.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
         public static bool IsPivotJoint(Constraint constraint) => NativeMethods.cpConstraintIsPivotJoint(constraint.Handle) != 0;
 
         /// <summary>
-        /// a and b are the two bodies to connect, and pivot is the point in world coordinates of the pivot.
-        /// Because the pivot location is given in world coordinates, you must have the bodies moved into the correct positions already.Alternatively you can specify the joint based on a pair of anchor points, but make sure you have the bodies in the right place as the joint will fix itself as soon as you start simulating the space.
-        /// That is, either create the joint with PivotJoint(a, b, pivot) or PivotJoint(a, b, anchor_a, anchor_b).
+        /// Initialize a pivot joint with two anchors. Since the anchors are provided in world
+        /// coordinates, the bodies must already be correctly positioned. The joint is fixed as soon
+        /// as the containing space is simulated.
         /// </summary>
-        /// <param name="bodyA"></param>
-        /// <param name="bodyB"></param>
-        /// <param name="anchorA"></param>
-        /// <param name="anchorB"></param>
-        public PivotJoint(Body bodyA, Body bodyB, Vect anchorA, Vect anchorB) :
-            base(NativeMethods.cpPivotJointNew2(bodyA.Handle, bodyB.Handle, anchorA, anchorB))
+        /// <param name="bodyA">One of the two bodies to connect.</param>
+        /// <param name="bodyB">One of the two bodies to connect.</param>
+        /// <param name="anchorA">
+        /// The location of one of the anchors, specified in world coordinates.
+        /// </param>
+        /// <param name="anchorB">
+        /// The location of one of the anchors, specified in world coordinates.
+        /// </param>
+        public PivotJoint(Body bodyA, Body bodyB, Vect anchorA, Vect anchorB)
+            : base(NativeMethods.cpPivotJointNew2(bodyA.Handle, bodyB.Handle, anchorA, anchorB))
         {
-
         }
+
         /// <summary>
-        /// Initialize a pivot joint with one ancor
+        /// Initialize a pivot joint with one anchor. Since the pivot is provided in world
+        /// coordinates, the bodies must already be correctly positioned.
         /// </summary>
-        /// <param name="bodyA"></param>
-        /// <param name="bodyB"></param>
-        /// <param name="anchor"></param>
+        /// <param name="bodyA">One of the two bodies to connect.</param>
+        /// <param name="bodyB">One of the two bodies to connect.</param>
+        /// <param name="anchor">The location of the pivot, specified in world coordinates.</param>
         public PivotJoint(Body bodyA, Body bodyB, Vect anchor) :
         base(NativeMethods.cpPivotJointNew(bodyA.Handle, bodyB.Handle, anchor))
         {

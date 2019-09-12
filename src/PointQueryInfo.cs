@@ -3,7 +3,8 @@
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// PointQueryInfo holds the result of a point query made on a Shape or Space.
+    /// <see cref="PointQueryInfo"/> holds the result of a point query made on a <see cref="Shape"/>
+    /// or <see cref="Space"/>.
     /// </summary>
     public sealed class PointQueryInfo : IEquatable<PointQueryInfo>
     {
@@ -15,11 +16,12 @@ namespace ChipmunkBinding
 #pragma warning restore IDE0032
 
         /// <summary>
-        /// The nearest shape, None if no shape was within range
+        /// The nearest shape, None if no shape was within range.
         /// </summary>
         public Shape Shape => shape;
+
         /// <summary>
-        /// The closest point on the shape’s surface. (in world space coordinates)
+        /// The closest point on the shape’s surface (in world space coordinates).
         /// </summary>
         public Vect Point => point;
 
@@ -34,12 +36,8 @@ namespace ChipmunkBinding
         public Vect Gradient => gradient;
 
         /// <summary>
-        /// Create a PointQueryInfo
+        /// Create a <see cref="PointQueryInfo"/>.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="p"></param>
-        /// <param name="d"></param>
-        /// <param name="g"></param>
         public PointQueryInfo(Shape s, Vect p, double d, Vect g)
         {
             shape = s;
@@ -49,21 +47,23 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// object Equals
+        /// Return true if this <see cref="PointQueryInfo"/> object is reference-equal to the given
+        /// object.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as PointQueryInfo;
+
             if (other == null)
+            {
                 return false;
+            }
 
             return this == other;
         }
 
         /// <summary>
-        /// object GetHashCode
+        /// Get the hash code.
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
@@ -75,12 +75,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// operator ==
+        /// Return true if this <see cref="PointQueryInfo"/> object is reference-equal to the given
+        /// object.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-
         public static bool operator == (PointQueryInfo left, PointQueryInfo right)
         {
             if (ReferenceEquals(left, null))
@@ -92,11 +89,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// operator !=
+        /// Return true if this <see cref="PointQueryInfo"/> object is not reference-equal to the
+        /// given object.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         public static bool operator != (PointQueryInfo a, PointQueryInfo b)
         {
             return !(a == b);
@@ -105,28 +100,27 @@ namespace ChipmunkBinding
         internal static PointQueryInfo FromQueryInfo(cpPointQueryInfo queryInfo)
         {
             var shape = Shape.FromHandle(queryInfo.shape);
-            return new PointQueryInfo(shape,
-                                      queryInfo.point,
-                                      queryInfo.distance,
-                                      queryInfo.gradient);
+
+            return new PointQueryInfo(
+                shape,
+                queryInfo.point,
+                queryInfo.distance,
+                queryInfo.gradient);
         }
 
         /// <summary>
-        /// IEquatable Equals
+        /// Return true if this <see cref="PointQueryInfo"/> object's distance is within
+        /// <see cref="Single.Epsilon"/> of the other and all other fields are equivalent.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool Equals(PointQueryInfo other)
         {
-            if (ReferenceEquals(other, null))
+            if (ReferenceEquals(other, null) ||
+                shape.Handle != other.shape.Handle ||
+                point != other.point ||
+                gradient != other.gradient)
+            {
                 return false;
-
-            if (shape.Handle != other.shape.Handle)
-                return false;
-            if (point != other.point)
-                return false;
-            if (gradient != other.gradient)
-                return false;
+            }
 
             return Math.Abs(distance - other.distance) < float.Epsilon;
         }

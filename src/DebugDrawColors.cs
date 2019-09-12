@@ -15,22 +15,22 @@
         #pragma warning restore IDE0032
 
         /// <summary>
-        /// Shape outline color
+        /// Shape outline color.
         /// </summary>
         public DebugColor ShapeOutline { get; set; }
 
         /// <summary>
-        /// Constraint color
+        /// Constraint color.
         /// </summary>
         public DebugColor Constraint { get; set; }
 
         /// <summary>
-        /// Collision point color
+        /// Collision point color.
         /// </summary>
         public DebugColor CollisionPoint { get; set; }
 
         /// <summary>
-        /// The Default DebugDrawColors
+        /// The Default DebugDrawColors.
         /// </summary>
         public static DebugDrawColors Default => defaultColors;
       
