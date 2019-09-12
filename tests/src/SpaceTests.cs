@@ -399,7 +399,7 @@ namespace ChipmunkBindingTest.Tests
 
             handler.PostSolve = (a, s, builder) => builder.Append("PostSolve-");
 
-            handler.Separete = (a, s, builder) => builder.Append("Separete-");
+            handler.Separate = (a, s, builder) => builder.Append("Separete-");
 
             space.Step(0.1);
 

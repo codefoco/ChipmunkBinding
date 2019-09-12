@@ -236,10 +236,10 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Vect cpBodyGetCenterOfGravity(cpBody body);
 
-        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBodyPositionFunc cpBodyGetDefaultPositionUpdateFunc();
 
-        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBodyVelocityFunc cpBodyGetDefaultVelocityUpdateFunc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
@@ -310,7 +310,7 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetCenterOfGravity(cpBody body, Vect cog);
 
-        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetForce(cpBody body, Vect force);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
@@ -1023,10 +1023,10 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBool cpSpaceContainsShape(cpSpace space, cpShape shape);
 
-        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBool cpSpaceContainsBody(cpSpace space, cpBody body);
 
-        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBool cpSpaceContainsConstraint(cpSpace space, cpConstraint constraint);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]

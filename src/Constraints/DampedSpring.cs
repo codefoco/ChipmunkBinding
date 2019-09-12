@@ -10,42 +10,42 @@ using ObjCRuntime;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// DampedSpring is a damped spring.
+    /// <see cref="DampedSpring"/> is a damped spring.
     /// The spring allows you to define the rest length, stiffness and damping.
     /// </summary>
     public class DampedSpring : Constraint
     {
         /// <summary>
-        /// Check if a constraint is a damped string
+        /// Check if a constraint is a <see cref="DampedSpring"/>.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
         public static bool IsDampedSpring(Constraint constraint) => NativeMethods.cpConstraintIsDampedSpring(constraint.Handle) != 0;
 
         /// <summary>
         /// Defined much like a slide joint.
         /// </summary>
-        /// <param name="bodyA">Body b</param>
-        /// <param name="bodyB">Body a</param>
-        /// <param name="anchorA">Anchor point a, relative to body a</param>
-        /// <param name="anchorB"> Anchor point b, relative to body b</param>
+        /// <param name="bodyA">The first connected body.</param>
+        /// <param name="bodyB">The second connected body.</param>
+        /// <param name="anchorA">Anchor point a, relative to body a.</param>
+        /// <param name="anchorB"> Anchor point b, relative to body b.</param>
         /// <param name="restLength">The distance the spring wants to be.</param>
         /// <param name="stiffness">The spring constant (Young’s modulus).</param>
         /// <param name="damping">How soft to make the damping of the spring.</param>
-        public DampedSpring(Body bodyA,
-                            Body bodyB,
-                            Vect anchorA,
-                            Vect anchorB,
-                            double restLength,
-                            double stiffness,
-                            double damping):
-            base(NativeMethods.cpDampedSpringNew(bodyA.Handle,
-                                                 bodyB.Handle,
-                                                 anchorA,
-                                                 anchorB,
-                                                 restLength,
-                                                 stiffness,
-                                                 damping))
+        public DampedSpring(
+            Body bodyA,
+            Body bodyB,
+            Vect anchorA,
+            Vect anchorB,
+            double restLength,
+            double stiffness,
+            double damping)
+            : base(NativeMethods.cpDampedSpringNew(
+                bodyA.Handle,
+                bodyB.Handle,
+                anchorA,
+                anchorB,
+                restLength,
+                stiffness,
+                damping))
         {
             originalForceCallbackPointer = NativeMethods.cpDampedSpringGetSpringForceFunc(Handle);
         }
@@ -126,9 +126,13 @@ namespace ChipmunkBinding
                 IntPtr callbackPointer;
 
                 if (value == null)
+                {
                     callbackPointer = originalForceCallbackPointer;
+                }
                 else
+                {
                     callbackPointer = dampedSpringForceCallback.ToFunctionPointer();
+                }
 
                 NativeMethods.cpDampedSpringSetSpringForceFunc(Handle, callbackPointer);
             }

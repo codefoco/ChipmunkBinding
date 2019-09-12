@@ -15,7 +15,8 @@ namespace ChipmunkBinding
 {
     /// <summary>
     /// Base class of all constraints.
-    /// You usually don’t want to create instances of this class directly, but instead use one of the specific constraints such as the PinJoint.
+    /// You usually don’t want to create instances of this class directly, but instead use one of
+    /// the specific constraints such as the <see cref="PinJoint"/>.
     /// </summary>
     public abstract class Constraint : IDisposable
     {
@@ -24,7 +25,7 @@ namespace ChipmunkBinding
 #pragma warning restore IDE0032
 
         /// <summary>
-        /// Construct a constraint with the given native handle
+        /// Construct a constraint with the given native handle.
         /// </summary>
         /// <param name="handle"></param>
         internal protected Constraint(cpConstraint handle)
@@ -34,12 +35,12 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Native handle to constraint
+        /// Native handle to constraint.
         /// </summary>
         public cpConstraint Handle => constraint;
 
         /// <summary>
-        /// Register managed object to native user data
+        /// Register managed object to native user data.
         /// </summary>
         internal protected void RegisterUserData()
         {
@@ -54,10 +55,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get a Constraint object from native handle
+        /// Get a Constraint object from a native handle.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
         public static Constraint FromHandle(cpConstraint constraint)
         {
             cpDataPointer handle = NativeMethods.cpConstraintGetUserData(constraint);
@@ -65,20 +64,20 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Dispose the constraint
+        /// Dispose the constraint.
         /// </summary>
-        /// <param name="dispose"></param>
         protected virtual void Dispose(bool dispose)
         {
             if (!dispose)
             {
                 Debug.WriteLine("Disposing constraint {0} on finalizer... (consider Dispose explicitly)", constraint);
             }
+
             Free();
         }
 
         /// <summary>
-        /// Destroy and free the constraint
+        /// Destroy and free the constraint.
         /// </summary>
         public void Free()
         {
@@ -162,9 +161,11 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// If the two bodies connected by the constraint are allowed to collide or not.
+        /// Whether the two bodies connected by the constraint are allowed to collide or not.
         /// 
-        /// When two bodies collide, Chipmunk ignores the collisions if this property is set to False on any constraint that connects the two bodies. Defaults to True. This can be used to create a chain that self collides, but adjacent links in the chain do not collide.
+        /// When two bodies collide, Chipmunk ignores the collisions if this property is set to
+        /// False on any constraint that connects the two bodies. Defaults to True. This can be
+        /// used to create a chain that self-collides, but adjacent links in the chain do not collide.
         /// </summary>
         public bool CollideBodies
         {
@@ -247,7 +248,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// the user definable data pointer for this constraint
+        /// The user-definable data pointer for this constraint.
         /// </summary>
         public object Data { get; set; }
 

@@ -17,10 +17,10 @@ using System.Diagnostics;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Mass and moment are ignored when body_type is Kinematic or Static.
-    /// Guessing the mass for a body is usually fine, but guessing a moment of inertia
-    /// can lead to a very poor simulation so it’s recommended to use Chipmunk’s moment
-    /// calculations to estimate the moment for you.
+    /// Mass and moment are ignored when <see cref="BodyType"/> is <see cref="BodyType.Kinematic"/>
+    /// or <see cref="BodyType.Static"/>. Guessing the mass for a body is usually fine, but guessing
+    /// a moment of inertia can lead to a very poor simulation. It’s recommended to use Chipmunk’s
+    /// moment-calculating functions to estimate the moment for you.
     /// </summary>
     public class Body : IDisposable
     {
@@ -29,16 +29,16 @@ namespace ChipmunkBinding
 #pragma warning restore IDE0032
 
         /// <summary>
-        /// Native handle of cpBody
+        /// The native handle.
         /// </summary>
         public cpBody Handle => body;
 
         /// <summary>
-        /// Create a Dynamic Body with no mass and no moment
+        /// Create a Dynamic Body with no mass and no moment.
         /// </summary>
-        public Body() : this(BodyType.Dinamic)
+        public Body()
+            : this(BodyType.Dynamic)
         {
-
         }
 
         internal Body(cpBody handle)
@@ -48,9 +48,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        ///  Create a Body of the type (Dinamic, Kinematic, Static)
+        ///  Create a <see cref="Body"/> of the given <see cref="BodyType"/>.
         /// </summary>
-        /// <param name="type"></param>
         public Body(BodyType type)
         {
             body = InitializeBody(type);
@@ -58,21 +57,15 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Creates a body with given mass and moment
+        /// Creates a body with the given mass and moment.
         /// </summary>
-        /// <param name="mass"></param>
-        /// <param name="moment"></param>
-        public Body(double mass, double moment) : this(mass, moment, BodyType.Dinamic)
+        public Body(double mass, double moment) : this(mass, moment, BodyType.Dynamic)
         {
-
         }
 
         /// <summary>
-        /// 
+        /// Creates a body with the given mass and moment, of the give <see cref="BodyType"/>.
         /// </summary>
-        /// <param name="mass">Mass of the body</param>
-        /// <param name="moment">Moment of body</param>
-        /// <param name="type">Type (Dinamic, Kinematic, Static)</param>
         public Body(double mass, double moment, BodyType type)
         {
             body = InitializeBody(type);
@@ -94,10 +87,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get a Body object from a native cpBody handle
+        /// Get a <see cref="Body"/> object from a native cpBody handle.
         /// </summary>
-        /// <param name="body"></param>
-        /// <returns></returns>
         public static Body FromHandle(cpBody body)
         {
             cpDataPointer handle = NativeMethods.cpBodyGetUserData(body);
@@ -105,29 +96,35 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get the managed Body object from the native handle
+        /// Get the managed <see cref="Body"/> object from the native handle.
         /// </summary>
-        /// <param name="nativeBodyHandle"></param>
-        /// <returns></returns>
         public static Body FromHandleSafe(cpBody nativeBodyHandle)
         {
             if (nativeBodyHandle == IntPtr.Zero)
+            {
                 return null;
+            }
+
             return FromHandle(nativeBodyHandle);
         }
 
         private static cpBody InitializeBody(BodyType type)
         {
             if (type == BodyType.Kinematic)
+            {
                 return NativeMethods.cpBodyNewKinematic();
+            }
+
             if (type == BodyType.Static)
+            {
                 return NativeMethods.cpBodyNewStatic();
+            }
 
             return NativeMethods.cpBodyNew(0.0, 0.0);
         }
 
         /// <summary>
-        /// Destroy and free the Body
+        /// Destroy and free the body.
         /// </summary>
         public void Free()
         {
@@ -141,20 +138,20 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Dispose body
+        /// Dispose the body.
         /// </summary>
-        /// <param name="dispose"></param>
         protected virtual void Dispose(bool dispose)
         {
             if (!dispose)
             {
                 Debug.WriteLine("Disposing body {0} on finalizer... (consider Dispose explicitly)", body);
             }
+
             Free();
         }
 
         /// <summary>
-        /// Dispose the body
+        /// Dispose the body.
         /// </summary>
         public void Dispose()
         {
@@ -165,7 +162,10 @@ namespace ChipmunkBinding
         // Properties
 
         /// <summary>
-        /// Rotation of the body in radians. When changing the rotation you may also want to call cpSpaceReindexShapesForBody() to update the collision detection information for the attached shapes if plan to make any queries against the space. A body rotates around its center of gravity, not its position.
+        /// Rotation of the body in radians. When changing the rotation, you may also want to call
+        /// <see cref="Space.ReindexShapesForBody"/> to update the collision detection information
+        /// for the attached shapes if you plan to make any queries against the space. A body
+        /// rotates around its center of gravity, not its position.
         /// </summary>
         public double Angle
         {
@@ -174,7 +174,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Type of the body (Dynamic, Kinematic, Static). 
+        /// The way the body behaves in physics simulations.
         /// </summary>
         public BodyType Type
         {
@@ -183,7 +183,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Mass of the rigid body. Mass does not have to be expressed in any particular units, but relative masses should be consistent. 
+        /// Mass of the rigid body. Mass does not have to be expressed in any particular units, but
+        /// relative masses should be consistent. 
         /// </summary>
         public double Mass
         {
@@ -192,8 +193,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Moment of inertia of the body. The mass tells you how hard it is to push an object, the MoI tells you how hard it is to spin the object.
-        /// Don't try to guess the MoI, use the MomentFor*() functions to try and estimate it. 
+        /// Moment of inertia of the body. The mass tells you how hard it is to push an object,
+        /// the MoI tells you how hard it is to spin the object. Don't try to guess the MoI, use the
+        /// MomentFor*() functions to estimate it, or the physics may behave strangely. 
         /// </summary>
         public double Moment
         {
@@ -202,7 +204,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// The Space this body is currently added to, or null if it is not currently added to a space.
+        /// Get the space this body is associated with, or null if it is not currently associated.
         /// </summary>
         public Space Space
         {
@@ -214,7 +216,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Position of the body. When changing the position you may also want to call Space.ReindexShapesForBody() to update the collision detection information for the attached shapes if plan to make any queries against the space.
+        /// Position of the body. When changing the position, you may also want to call
+        /// <see cref="Space.ReindexShapesForBody"/> to update the collision detection information
+        /// for the attached shapes if you plan to make any queries against the space.
         /// </summary>
         public Vect Position
         {
@@ -223,7 +227,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Location of the center of gravity in body local coordinates. The default value is (0, 0), meaning the center of gravity is the same as the position of the body.
+        /// Location of the center of gravity in body-local coordinates. The default value is
+        /// (0, 0), meaning the center of gravity is the same as the position of the body.
         /// </summary>
         public Vect CenterOfGravity
         {
@@ -241,7 +246,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Force applied to the center of gravity of the body. This value is reset for every time step.
+        /// Force applied to the center of gravity of the body. This value is reset for every time
+        /// step.
         /// </summary>
         public Vect Force
         {
@@ -259,7 +265,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// The torque applied to the body.This value is reset for every time step.
+        /// The torque applied to the body. This value is reset for every time step.
         /// </summary>
         public double Torque
         {

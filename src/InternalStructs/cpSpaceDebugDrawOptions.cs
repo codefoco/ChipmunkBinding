@@ -26,31 +26,61 @@ namespace ChipmunkBinding
 
     internal struct cpSpaceDebugDrawOptions
     {
+        /// <summary>
         /// Function that will be invoked to draw circles.
+        /// </summary>
         cpSpaceDebugDrawCircleImpl drawCircle;
-        /// Function that will be invoked to draw line segments.
-        cpSpaceDebugDrawSegmentImpl drawSegment;
-        /// Function that will be invoked to draw thick line segments.
-        cpSpaceDebugDrawFatSegmentImpl drawFatSegment;
-        /// Function that will be invoked to draw convex polygons.
-        cpSpaceDebugDrawPolygonImpl drawPolygon;
-        /// Function that will be invoked to draw dots.
-        cpSpaceDebugDrawDotImpl drawDot;
-    
-        /// Flags that request which things to draw (collision shapes, constraints, contact points).
-        cpSpaceDebugDrawFlags flags;
-        /// Outline color passed to the drawing function.
-        DebugColor shapeOutlineColor;
-        /// Function that decides what fill color to draw shapes using.
-        cpSpaceDebugDrawColorForShapeImpl colorForShape;
-        /// Color passed to drawing functions for constraints.
-        DebugColor constraintColor;
-        /// Color passed to drawing functions for collision points.
-        DebugColor collisionPointColor;
-    
-        /// User defined context pointer passed to all of the callback functions as the 'data' argument.
-        cpDataPointer data;
 
+        /// <summary>
+        /// Function that will be invoked to draw line segments.
+        /// </summary>
+        cpSpaceDebugDrawSegmentImpl drawSegment;
+
+        /// <summary>
+        /// Function that will be invoked to draw thick line segments.
+        /// </summary>
+        cpSpaceDebugDrawFatSegmentImpl drawFatSegment;
+
+        /// <summary>
+        /// Function that will be invoked to draw convex polygons.
+        /// </summary>
+        cpSpaceDebugDrawPolygonImpl drawPolygon;
+
+        /// <summary>
+        /// Function that will be invoked to draw dots.
+        /// </summary>
+        cpSpaceDebugDrawDotImpl drawDot;
+
+        /// <summary>
+        /// Flags that request which things to draw (collision shapes, constraints, contact points).
+        /// </summary>
+        cpSpaceDebugDrawFlags flags;
+
+        /// <summary>
+        /// Outline color passed to the drawing function.
+        /// </summary>
+        DebugColor shapeOutlineColor;
+
+        /// <summary>
+        /// Function that decides what fill color to draw shapes using.
+        /// </summary>
+        cpSpaceDebugDrawColorForShapeImpl colorForShape;
+
+        /// <summary>
+        /// Color passed to drawing functions for constraints.
+        /// </summary>
+
+        DebugColor constraintColor;
+
+        /// <summary>
+        /// Color passed to drawing functions for collision points.
+        /// </summary>
+        DebugColor collisionPointColor;
+
+        /// <summary>
+        /// User defined context pointer passed to all of the callback functions as the 'data' argument.
+        /// </summary>
+        cpDataPointer data;
 
         private IntPtr ToPointer()
         {

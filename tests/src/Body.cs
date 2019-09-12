@@ -39,11 +39,11 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.IsNotNull(body.Handle, "#1");
 
-            var body2 = new Body(10.0, 0.0, BodyType.Dinamic);
+            var body2 = new Body(10.0, 0.0, BodyType.Dynamic);
 
             Assert.AreEqual(10.0, body2.Mass, "#2");
             Assert.AreEqual(0.0, body2.Moment, "#3");
-            Assert.AreEqual(BodyType.Dinamic, body2.Type, "#4");
+            Assert.AreEqual(BodyType.Dynamic, body2.Type, "#4");
 
             body.Dispose();
             body2.Dispose();

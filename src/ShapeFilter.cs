@@ -5,37 +5,44 @@ using System.Text;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Chipmunk has two primary means of ignoring collisions: groups and category masks.
-    /// Groups are used to ignore collisions between parts on a complex object. A ragdoll is a good example. When jointing an arm onto the torso, you’ll want them to allow them to overlap. Groups allow you to do exactly that. Shapes that have the same group don’t generate collisions. So by placing all of the shapes in a ragdoll in the same group, you’ll prevent it from colliding against other parts of itself. Category masks allow you to mark which categories an object belongs to and which categories it collides with.
-    /// For example, a game has four collision categories: player (0), enemy (1), player bullet (2), and enemy bullet (3). Neither players nor enemies should not collide with their own bullets, and bullets should not collide with other bullets. However, players collide with enemy bullets, and enemies collide with player bullets.
+    /// Chipmunk has two primary means of ignoring collisions: groups and category masks. Groups are
+    /// used to ignore collisions between parts on a complex object. A ragdoll is a good example.
+    /// When jointing an arm onto the torso, you’ll want to allow them to overlap, which groups are
+    /// good for. Shapes that have the same group don’t generate collisions, so by placing all of
+    /// the shapes in a ragdoll in the same group, you’ll prevent it from colliding against other
+    /// parts of itself. Category masks allow you to mark which categories an object belongs to and
+    /// which categories it collides with. For example, a game has four collision categories: player
+    /// (0), enemy (1), player bullet (2), and enemy bullet (3). Players and enemies shouldn't
+    /// collide with their own bullets, and bullets shouldn't collide with other bullets. However,
+    /// players collide with enemy bullets, and enemies collide with player bullets.
     /// </summary>
-    /// 
     public sealed class ShapeFilter : IEquatable<ShapeFilter>
     {
         /// <summary>
-        /// Shape filter Group
+        /// Get the shape filter group.
         /// </summary>
         public int Group { get; }
 
         /// <summary>
-        /// Shape filter Categorie
+        /// Get the shape filter category.
         /// </summary>
         public int Categories { get; }
 
         /// <summary>
-        /// Shape filter Mask
+        /// Get the shape filter mask.
         /// </summary>
         public int Mask { get; }
 
         /// <summary>
-        /// Categorie enum
+        /// Category enum
         /// </summary>
-        public enum Categorie
+        public enum Category
         {
             /// <summary>
             /// None
             /// </summary>
             None = 0,
+
             /// <summary>
             /// All
             /// </summary>
@@ -43,26 +50,24 @@ namespace ChipmunkBinding
         }
 
 #pragma warning disable IDE0032
-        private static readonly ShapeFilter filterAll = new ShapeFilter(0, Categorie.All, Categorie.All);
-        private static readonly ShapeFilter filterNone = new ShapeFilter(0, Categorie.None, Categorie.None);
+        private static readonly ShapeFilter filterAll = new ShapeFilter(0, Category.All, Category.All);
+        private static readonly ShapeFilter filterNone = new ShapeFilter(0, Category.None, Category.None);
 #pragma warning restore IDE0032
 
         /// <summary>
         /// Shape filter All
         /// </summary>
         public static ShapeFilter All => filterAll;
+
         /// <summary>
         /// Shape filter None
         /// </summary>
         public static ShapeFilter None => filterNone;
 
         /// <summary>
-        /// Create a ShapeFilter
+        /// Create a ShapeFilter.
         /// </summary>
-        /// <param name="group"></param>
-        /// <param name="categories"></param>
-        /// <param name="mask"></param>
-        public ShapeFilter(int group, Categorie categories, Categorie mask)
+        public ShapeFilter(int group, Category categories, Category mask)
         {
             Group = group;
             Categories = (int)categories;
@@ -70,11 +75,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Create a ShapeFilter with group, categorie and mask
+        /// Create a ShapeFilter with a group, category and mask.
         /// </summary>
-        /// <param name="group"></param>
-        /// <param name="categories"></param>
-        /// <param name="mask"></param>
         public ShapeFilter(int group, int categories, int mask)
         {
             Group = group;
@@ -83,14 +85,14 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Check if a ShapeFilter is equal to another
+        /// Return true if the fields in both objects are equivalent.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool Equals(ShapeFilter other)
         {
             if (ReferenceEquals(other, null))
+            {
                 return false;
+            }
 
             return Group == other.Group &&
                    Categories == other.Categories &&
@@ -98,9 +100,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// object GetHashCode
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = 470831370;
@@ -111,25 +112,24 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// object equals
+        /// Return true if the fields in both objects are equivalent.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as ShapeFilter;
+
             if (other == null)
+            {
                 return false;
+            }
 
             return Equals(other);
         }
 
         /// <summary>
-        /// operator ==
+        /// Return true if both objects are reference-equal or the fields in both objects are
+        /// equivalent.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator == (ShapeFilter left, ShapeFilter right)
         {
             if (ReferenceEquals(left, null))
@@ -141,11 +141,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// operator !=
+        /// Return true if both objects are not reference-equal or the fields in both objects are
+        /// equivalent.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         public static bool operator !=(ShapeFilter a, ShapeFilter b)
         {
             return !(a == b);

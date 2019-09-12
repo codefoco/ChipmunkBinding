@@ -91,6 +91,7 @@ namespace ChipmunkBinding
                 var newPtr = new IntPtr(intPtr.ToInt64() + (i * size));
                 items[i] = PtrToStructure<T>(newPtr);
             }
+
             return items;
         }
 

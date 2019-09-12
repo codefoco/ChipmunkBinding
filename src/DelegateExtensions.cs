@@ -4,16 +4,18 @@ using System.Runtime.InteropServices;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Create a ToFunctionPointer extension method for each delegate type
-    /// Unfortunately C# 7.0 can't do something like that (you will need C# 7.3), thus we create one extension method for each delegate
-    ///  public static IntPtr ToFunctionPointer T (this T d) where T : Delegate
+    /// Create a ToFunctionPointer extension method for each delegate type. Unfortunately C# 7.0
+    /// can't do something like that (you will need C# 7.3), thus we create one extension method for
+    /// each delegate public static IntPtr ToFunctionPointer T (this T d) where T : Delegate
     /// </summary>
     static class DelegateExtensions
     {
         public static IntPtr ToFunctionPointer(this BodyArbiterIteratorFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -25,7 +27,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this BodyConstraintIteratorFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -37,7 +41,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this BodyShapeIteratorFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -49,7 +55,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this BodyVelocityFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -61,7 +69,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this BodyPositionFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -73,7 +83,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this CollisionBeginFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -86,7 +98,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this CollisionPreSolveFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -99,7 +113,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this CollisionPostSolveFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -112,7 +128,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this CollisionSeparateFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -125,7 +143,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this PostStepFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -138,7 +158,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceSegmentQueryFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -150,7 +172,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpacePointQueryFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -162,7 +186,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceBBQueryFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -175,7 +201,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceObjectIteratorFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -188,7 +216,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawCircleImpl d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -201,7 +231,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawSegmentImpl d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -213,7 +245,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawFatSegmentImpl d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -225,7 +259,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawPolygonImpl d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -237,7 +273,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawDotImpl d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -249,7 +287,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawColorForShapeImpl d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -262,7 +302,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this ConstraintSolveFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -274,7 +316,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this DampedSpringForceFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -286,7 +330,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this DampedRotarySpringTorqueFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -298,7 +344,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this SpaceShapeQueryFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -310,7 +358,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this MarchSegmentFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);
@@ -322,7 +372,9 @@ namespace ChipmunkBinding
         public static IntPtr ToFunctionPointer(this MarchSampleFunction d)
         {
             if (d == null)
+            {
                 return IntPtr.Zero;
+            }
 
 #if NETFRAMEWORK
             return Marshal.GetFunctionPointerForDelegate(d);

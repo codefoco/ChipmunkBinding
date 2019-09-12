@@ -7,7 +7,7 @@ using System;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Chipmunk's axis-aligned 2D bounding box type. (left, bottom, right, top)
+    /// Chipmunk's axis-aligned 2D bounding box type.
     /// </summary>
     [StructLayout (LayoutKind.Sequential)]
     public struct BoundingBox : IEquatable<BoundingBox>
@@ -18,12 +18,8 @@ namespace ChipmunkBinding
         private double top;
 
         /// <summary>
-        /// Create a bounding box with given left, bottom, right and top
+        /// Create a bounding box with the given coordinates.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="bottom"></param>
-        /// <param name="right"></param>
-        /// <param name="top"></param>
         public BoundingBox(double left, double bottom, double right, double top)
         {
             this.left = left;
@@ -33,27 +29,29 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Left value of bounding box
+        /// Left value of bounding box.
         /// </summary>
         public double Left { get => left; set => left = value; }
+
         /// <summary>
-        /// Bottom value of bouding box
+        /// Bottom value of bouding box.
         /// </summary>
         public double Bottom { get => bottom; set => bottom = value; }
+
         /// <summary>
-        /// Right value of bouding box
+        /// Right value of bouding box.
         /// </summary>
         public double Right { get => right; set => right = value; }
+
         /// <summary>
-        /// Top value of bouding box
+        /// Top value of bouding box.
         /// </summary>
         public double Top { get => top; set => top = value; }
 
         /// <summary>
-        /// Check if a bounding box is equal to another
+        /// Return true if the dimensions of both bounding boxes are equal to another (within
+        /// <see cref="float.Epsilon"/> distance of each other.)
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool Equals(BoundingBox other)
         {
             return Math.Abs(left - other.left) < float.Epsilon &&
@@ -63,54 +61,54 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Check if a bounding box is equal to a object
+        /// Return true if the given object is reference-equal.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
-            BoundingBox? vect = obj as BoundingBox?;
+            var vect = obj as BoundingBox?;
             if (!vect.HasValue)
+            {
                 return false;
+            }
+
             return this == vect.Value;
         }
 
         /// <summary>
-        /// Bounding box hash code
+        /// Get the bounding box hash code.
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -1064806749;
+
             hashCode = hashCode * -1521134295 + left.GetHashCode();
             hashCode = hashCode * -1521134295 + bottom.GetHashCode();
             hashCode = hashCode * -1521134295 + right.GetHashCode();
             hashCode = hashCode * -1521134295 + top.GetHashCode();
+
             return hashCode;
         }
 
         /// <summary>
-        /// Bounding box ToString
+        /// Return a string displaying coordinates formatted like (left, bottom, right, top).
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
              return $"({left},{bottom},{right},{top})";
         }
 
         /// <summary>
-        /// operator == for bounding box
+        /// Return true if the dimensions of both bounding boxes are within
+        /// <see cref="float.Epsilon"/> of each other.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator ==(BoundingBox left, BoundingBox right)
         {
             return left.Equals(right);
         }
 
         /// <summary>
-        ///  operator != for bounding box
+        ///  Return true if the dimensions of both bounding boxes are not within
+        ///  <see cref="float.Epsilon"/> of each other.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>

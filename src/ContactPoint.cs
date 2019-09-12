@@ -3,9 +3,11 @@
 namespace ChipmunkBinding
 {
     /// <summary>
-    ///  Contains information about a contact point.
-    ///  point_a and point_b are the contact position on the surface of each shape.
-    ///  distance is the penetration distance of the two shapes.Overlapping means it will be negative.This value is calculated as dot(point2 - point1), normal) and is ignored when you set the Arbiter.contact_point_set.
+    ///  Contains information about a contact point. <see cref="PointA"/> and <see cref="PointB"/>
+    ///  are the contact positions on the surface of each shape. <see cref="Distance"/> is the
+    ///  penetration distance of the two, which is a negative value. This value is calculated as
+    ///  dot(point2 - point1), normal) and is ignored when you set the
+    ///  <see cref="Arbiter.ContactPointSet"/>.
     /// </summary>
     public sealed class ContactPoint : IEquatable<ContactPoint>
     {
@@ -16,16 +18,19 @@ namespace ChipmunkBinding
 #pragma warning restore IDE0032
 
         /// <summary>
-        /// Point A in contact point
+        /// Point A in the contact point.
         /// </summary>
         public Vect PointA => pointA;
+
         /// <summary>
-        ///  Point B in the contact point
+        ///  Point B in the contact point.
         /// </summary>
         public Vect PointB => pointB;
 
         /// <summary>
-        /// Distance is the penetration distance of the two shapes. Overlapping means it will be negative. This value is calculated as dot(point2 - point1), normal) and is ignored when you set the Arbiter.contact_point_set.
+        /// The penetration distance of the two shapes (as a negative value). This value is
+        /// calculated as  dot(point2 - point1), normal) and is ignored when you set the
+        /// <see cref="Arbiter.ContactPointSet"/>.
         /// </summary>
         public double Distance => distance;
 
@@ -37,63 +42,63 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Check if the this ContactPoint is equal to another
+        /// Returns true if neither <see cref="ContactPoint"/> is null and the points are within
+        /// <see cref="float.Epsilon"/> distance of each other.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool Equals(ContactPoint other)
         {
             if (ReferenceEquals(other, null))
+            {
                 return false;
+            }
 
-            return other.pointA.Equals(pointA) &&
-                   other.pointB.Equals(pointB) &&
-                   Math.Abs(other.distance - distance) < float.Epsilon;
+            return other.pointA.Equals(pointA)
+                && other.pointB.Equals(pointB)
+                && Math.Abs(other.distance - distance) < float.Epsilon;
         }
 
 
         /// <summary>
-        /// Check if this ContactPoint is equal to an object.
+        /// Check if this <see cref="ContactPoint"/> is equal to an object.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var other = obj as ContactPoint;
+
             if (other == null)
+            {
                 return false;
+            }
 
             return Equals(other);
         }
 
         /// <summary>
-        /// Get ContactPoint hash set
+        /// Get the <see cref="ContactPoint"/> hash set.
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             var hashCode = -1285340573;
+
             hashCode = hashCode * -1521134295 + pointA.GetHashCode();
             hashCode = hashCode * -1521134295 + pointB.GetHashCode();
             hashCode = hashCode * -1521134295 + distance.GetHashCode();
+
             return hashCode;
         }
 
         /// <summary>
-        ///  ToString
+        /// Returns a string in the format of "a: {pointA}, b: {pointB}, distance: {distance}".
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return $"a: {pointA}, b: {pointB}, distance: {distance}";
         }
 
         /// <summary>
-        /// operator ==
+        /// Returns true if both <see cref="ContactPoint"/>s are the same object or the dimensions
+        /// are within <see cref="float.Epsilon"/> distance of each other.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator ==(ContactPoint left, ContactPoint right)
         {
             if (ReferenceEquals(left, null))
@@ -105,11 +110,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// operator !=
+        /// Returns false if both <see cref="ContactPoint"/>s are the same object or the dimensions
+        /// are within <see cref="float.Epsilon"/> distance of each other.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
         public static bool operator !=(ContactPoint left, ContactPoint right)
         {
             return !(left == right);
@@ -119,18 +122,20 @@ namespace ChipmunkBinding
 
         internal static ContactPoint FromCollidePoint(cpContactPoint contactPoint)
         {
-            return new ContactPoint(contactPoint.pointA,
-                                    contactPoint.pointB,
-                                    contactPoint.distance);
+            return new ContactPoint(
+                contactPoint.pointA,
+                contactPoint.pointB,
+                contactPoint.distance);
         }
 
         internal cpContactPoint ToContactPoint()
         {
-            var contactPoint = new cpContactPoint();
-            contactPoint.pointA = pointA;
-            contactPoint.pointB = pointB;
-            contactPoint.distance = distance;
-            return contactPoint;
+            return new cpContactPoint
+            {
+                pointA = pointA,
+                pointB = pointB,
+                distance = distance
+            };
         }
     }
 }

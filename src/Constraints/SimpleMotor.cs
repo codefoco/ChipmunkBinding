@@ -1,26 +1,24 @@
 ﻿namespace ChipmunkBinding
 {
     /// <summary>
-    /// SimpleMotor keeps the relative angular velocity constant.
+    /// <see cref="SimpleMotor"/> keeps the relative angular velocity constant.
     /// </summary>
     public class SimpleMotor : Constraint
     {
         /// <summary>
-        /// Check if constraint is simple motor constraint
+        /// Check if constraint is a <see cref="SimpleMotor"/>.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
         public static bool IsSimpleMotor(Constraint constraint) => NativeMethods.cpConstraintIsSimpleMotor(constraint.Handle) != 0;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bodyA"></param>
-        /// <param name="bodyB"></param>
-        /// <param name="rate"></param>
-        public SimpleMotor(Body bodyA, Body bodyB, double rate):
-            base(NativeMethods.cpSimpleMotorNew(bodyA.Handle, bodyB.Handle, rate))
-        {
 
+        /// <summary>
+        /// Rotate with a constant relative angular velocity constant between two bodies.
+        /// </summary>
+        /// <param name="bodyA">One of the two bodies.</param>
+        /// <param name="bodyB">One of the two bodies.</param>
+        /// <param name="rate">The rate of rotation.</param>
+        public SimpleMotor(Body bodyA, Body bodyB, double rate)
+            : base(NativeMethods.cpSimpleMotorNew(bodyA.Handle, bodyB.Handle, rate))
+        {
         }
 
         /// <summary>

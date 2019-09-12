@@ -19,9 +19,9 @@ namespace ChipmunkBinding
 #pragma warning restore IDE0032
 
         /// <summary>
-        /// Creates a Shape with the given shapeHandle
+        /// Create a Shape with the given <paramref name="shapeHandle"/>.
         /// </summary>
-        /// <param name="shapeHandle">Native shape handle</param>
+        /// <param name="shapeHandle">The native shape handle.</param>
         internal protected Shape(cpShape shapeHandle)
         {
             shape = shapeHandle;
@@ -29,12 +29,12 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Native handle cpShape
+        /// The native handle.
         /// </summary>
         public cpShape Handle => shape;
 
         /// <summary>
-        /// Register managed object in the native user data
+        /// Register managed object in the native user data.
         /// </summary>
         protected void RegisterUserData()
         {
@@ -49,31 +49,30 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get a managed Shape from a native handle
+        /// Get a managed Shape from a native handle.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <returns></returns>
         public static Shape FromHandle(cpShape shape)
         {
             cpDataPointer handle = NativeMethods.cpShapeGetUserData(shape);
+
             return NativeInterop.FromIntPtr<Shape>(handle);
         }
 
         /// <summary>
-        /// Dispose the shape
+        /// Dispose the shape.
         /// </summary>
-        /// <param name="dispose"></param>
         protected virtual void Dispose(bool dispose)
         {
             if (!dispose)
             {
                 Debug.WriteLine("Disposing shape {0} on finalizer... (consider Dispose explicitly)", shape);
             }
+
             Free();
         }
 
         /// <summary>
-        /// Destroy and Free the Shape
+        /// Destroy and free the shape.
         /// </summary>
         public void Free()
         {
@@ -82,7 +81,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Destroy and Free the Shape
+        /// Destroy and free the shape.
         /// </summary>
         public void Dispose()
         {
@@ -93,7 +92,7 @@ namespace ChipmunkBinding
         // Shape properties
 
         /// <summary>
-        /// The Space this shape (of body) is added to.
+        /// Gets the space that this shape is registered within.
         /// </summary>
         public Space Space
         {
@@ -105,7 +104,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// The Body this body is added to.
+        /// The body that this shape is associated with.
         /// </summary>
         public Body Body
         {
@@ -116,13 +115,15 @@ namespace ChipmunkBinding
             }
             set
             {
-                Debug.Assert(value != null && Space == null, "Body can't be null and you can only change body if the shape wasn't added to space");
+                Debug.Assert(value != null && Space == null,
+                    "Body can't be null and you can only change body if the shape wasn't added to space");
+
                 NativeMethods.cpShapeSetBody(shape, value.Handle);
             }
         }
 
         /// <summary>
-        /// Mass of this shape to have Chipmunk calculate mass properties for you.
+        /// Mass of the shape to have Chipmunk calculate mass properties for you.
         /// </summary>
         public double Mass
         {
@@ -140,27 +141,27 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get the calculated moment of inertia for this shape.
+        /// Get the calculated moment of inertia for the shape.
         /// </summary>
         public double Moment => NativeMethods.cpShapeGetMoment(shape);
 
         /// <summary>
-        /// Get the calculated area of this shape.
+        /// Get the calculated area of the shape.
         /// </summary>
         public double Area => NativeMethods.cpShapeGetArea(shape);
 
         /// <summary>
-        /// Get the centroid of this shape.
+        /// Get the center of gravity of the shape.
         /// </summary>
         public Vect CenterOfGravity => NativeMethods.cpShapeGetCenterOfGravity(shape);
 
         /// <summary>
-        /// Get the bounding box that contains the shape given it's current position and angle.
+        /// Get the bounding box that contains the shape, given it's current position and angle.
         /// </summary>
         public BoundingBox BoundingBox => NativeMethods.cpShapeGetBB(shape);
 
         /// <summary>
-        /// Enable/Disable shape is set to be a sensor or not.
+        /// Whether the shape is a sensor.
         /// </summary>
         public bool Sensor
         {
@@ -169,9 +170,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Elasticity of this shape.
-        /// 
-        /// A value of 0.0 gives no bounce, while a value of 1.0 will give a ‘perfect’ bounce. However due to inaccuracies in the simulation using 1.0 or greater is not recommended.
+        /// The elasticity of the shape. A value of 0.0 is perfectly inelastic (no bounce). A
+        /// value of 1.0 is perfectly elastic. Due to simulation inaccuracy, values of 1.0 or
+        /// greater are not recommended.
         /// </summary>
         public double Elasticity
         {
@@ -180,9 +181,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Friction coefficient.
-        /// ChipmunkBinding uses the Coulomb friction model, a value of 0.0 is frictionless.
-        /// https://en.wikipedia.org/wiki/Friction#Coefficient_of_friction
+        /// The friction coefficient, following the Coulomb friction model. A value of 0.0 is
+        /// frictionless. https://en.wikipedia.org/wiki/Friction#Coefficient_of_friction
         /// </summary>
         public double Friction
         {
@@ -191,8 +191,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        ///  The surface velocity of the object.
-        ///  Useful for creating conveyor belts or players that move around.This value is only used when calculating friction, not resolving the collision.
+        ///  The surface velocity of the object. Useful for creating conveyor belts or players that
+        ///  move around. This value is only used when calculating friction, not resolving the
+        ///  collision.
         /// </summary>
         public Vect SurfaceVelocity
         {
@@ -201,7 +202,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Collision type of this shape.
+        /// An arbitrary value representing the collision type of this shape. Only shapes with like
+        /// collision types will collide.
         /// </summary>
         public int CollisionType
         {
@@ -210,7 +212,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Set the collision ShapeFilter for this shape.
+        /// The collision <see cref="ShapeFilter"/> for the shape.
         /// </summary>
         public ShapeFilter Filter
         {
@@ -230,7 +232,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Update, cache and return the bounding box of a shape based on the body it's attached to.
         /// </summary>
-        /// <returns></returns>
         public BoundingBox CacheBB()
         {
             return NativeMethods.cpShapeCacheBB(shape);
@@ -239,36 +240,25 @@ namespace ChipmunkBinding
         /// <summary>
         /// Update, cache and return the bounding box of a shape with an explicit transformation.
         /// </summary>
-        /// <param name="transform"></param>
-        /// <returns></returns>
         public BoundingBox Update(Transform transform)
         {
             return NativeMethods.cpShapeUpdate(shape, transform);
         }
 
-
-
         /// <summary>
-        /// Perform a nearest point query. It finds the closest point on the surface of shape to a specific point.
+        /// Finds the point on the surface of the shape which is closest to the given point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns>the point query info</returns>
         public PointQueryInfo PointQuery(Vect point)
         {
             var output = new cpPointQueryInfo();
-
             NativeMethods.cpShapePointQuery(shape, point, ref output);
 
             return PointQueryInfo.FromQueryInfo(output);
         }
 
         /// <summary>
-        /// Perform a segment query against a shape. 
+        /// Perform a segment query against a shape.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="radius"></param>
-        /// <returns></returns>
         public SegmentQueryInfo SegmentQuery(Vect a, Vect b, double radius)
         {
             var queryInfo = new cpSegmentQueryInfo();
@@ -278,13 +268,12 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Get contact information about this shape and other shape.
+        /// Get the contact information between two shapes.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public ContactPointSet Collide(Shape other)
         {
-            Debug.Assert(System.Runtime.InteropServices.Marshal.SizeOf(typeof(cpContactPointSet)) == 104, "check Chipmunk sizeof(cpContactPointSet)");
+            Debug.Assert(System.Runtime.InteropServices.Marshal.SizeOf(typeof(cpContactPointSet)) == 104,
+                "check Chipmunk sizeof(cpContactPointSet)");
 
             cpContactPointSet contactPointSet = NativeMethods.cpShapesCollide(shape, other.Handle);
 

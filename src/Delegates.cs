@@ -20,11 +20,8 @@ using ObjCRuntime;
 namespace ChipmunkBinding
 {
     /// <summary>
-    /// Delegate method to iterate over arbiters
+    /// Delegate method to iterate over arbiters.
     /// </summary>
-    /// <param name="body"></param>
-    /// <param name="arbiter"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -32,13 +29,6 @@ namespace ChipmunkBinding
 #endif
     internal delegate void BodyArbiterIteratorFunction(cpBody body, cpArbiter arbiter, voidptr_t data);
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="body"></param>
-    /// <param name="gravity"></param>
-    /// <param name="damping"></param>
-    /// <param name="dt"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -49,8 +39,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Rigid body position update function type.
     /// </summary>
-    /// <param name="body"></param>
-    /// <param name="dt"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -59,11 +47,8 @@ namespace ChipmunkBinding
     internal delegate void BodyPositionFunction(cpBody body, double dt);
 
     /// <summary>
-    /// Delegate method to iterate over constraints
+    /// Delegate method to iterate over constraints.
     /// </summary>
-    /// <param name="body"></param>
-    /// <param name="constraint"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -72,11 +57,8 @@ namespace ChipmunkBinding
     internal delegate void BodyConstraintIteratorFunction(cpBody body, cpConstraint constraint, voidptr_t data);
 
     /// <summary>
-    /// Delegate method to iterate over shapes
+    /// Delegate method to iterate over shapes.
     /// </summary>
-    /// <param name="body"></param>
-    /// <param name="shape"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -85,13 +67,10 @@ namespace ChipmunkBinding
     internal delegate void BodyShapeIteratorFunction(cpBody body, cpShape shape, voidptr_t data);
 
     /// <summary>
-    /// Collision begin event function callback type.
-    /// Returning false from a begin callback causes the collision to be ignored until
-    /// the the separate callback is called when the objects stop colliding.
+    /// Collision begin event function callback type. Returning false from a begin callback causes
+    /// the collision to be ignored until the the separate callback is called when the objects stop
+    /// colliding.
     /// </summary>
-    /// <param name="arbiter"></param>
-    /// <param name="space"></param>
-    /// <param name="userData"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -100,12 +79,9 @@ namespace ChipmunkBinding
     internal delegate cpBool CollisionBeginFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
 
     /// <summary>
-    /// Collision pre-solve event function callback type.
-    /// Returning false from a pre-step callback causes the collision to be ignored until the next step.
+    /// Collision pre-solve event function callback type. Returning false from a pre-step callback
+    /// causes the collision to be ignored until the next step.
     /// </summary>
-    /// <param name="arbiter"></param>
-    /// <param name="space"></param>
-    /// <param name="userData"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -114,11 +90,8 @@ namespace ChipmunkBinding
     internal delegate cpBool CollisionPreSolveFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
 
     /// <summary>
-    /// Collision Post-Solve 
+    /// Collision Post-Solve .
     /// </summary>
-    /// <param name="arbiter"></param>
-    /// <param name="space"></param>
-    /// <param name="userData"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -127,11 +100,8 @@ namespace ChipmunkBinding
     internal delegate void CollisionPostSolveFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
 
     /// <summary>
-    /// Collision separate event function callback type
+    /// Collision separate event function callback type.
     /// </summary>
-    /// <param name="arbiter"></param>
-    /// <param name="space"></param>
-    /// <param name="userData"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -142,9 +112,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Post Step callback function type.
     /// </summary>
-    /// <param name="space"></param>
-    /// <param name="key"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -155,11 +122,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Nearest point query callback function type.
     /// </summary>
-    /// <param name="shape"></param>
-    /// <param name="point"></param>
-    /// <param name="distance"></param>
-    /// <param name="gradient"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -170,11 +132,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Segment query callback function type.
     /// </summary>
-    /// <param name="shape"></param>
-    /// <param name="point"></param>
-    /// <param name="normal"></param>
-    /// <param name="alpha"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -187,9 +144,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Rectangle Query callback function type.
     /// </summary>
-    /// <param name="shape"></param>
-    /// <param name="data"></param>
-    /// <returns></returns>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -200,8 +154,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Space/object iterator callback function type.
     /// </summary>
-    /// <param name="handle"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -212,12 +164,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Callback type for a function that draws a filled, stroked circle.
     /// </summary>
-    /// <param name="pos"></param>
-    /// <param name="angle"></param>
-    /// <param name="radius"></param>
-    /// <param name="outlineColor"></param>
-    /// <param name="fillColor"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -228,10 +174,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Callback type for a function that draws a line segment.
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <param name="color"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -242,12 +184,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Callback type for a function that draws a thick line segment.
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <param name="radius"></param>
-    /// <param name="outlineColor"></param>
-    /// <param name="fillColor"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -258,12 +194,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Callback type for a function that draws a convex polygon.
     /// </summary>
-    /// <param name="count"></param>
-    /// <param name="verts"></param>
-    /// <param name="radius"></param>
-    /// <param name="outlineColor"></param>
-    /// <param name="fillColor"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -274,10 +204,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Callback type for a function that draws a dot.
     /// </summary>
-    /// <param name="size"></param>
-    /// <param name="pos"></param>
-    /// <param name="color"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -286,11 +212,9 @@ namespace ChipmunkBinding
     internal delegate void SpaceDebugDrawDotImpl(double size, Vect pos, DebugColor color, voidptr_t data);
 
     /// <summary>
-    /// Callback type for a function that returns a color for a given shape. This gives you an opportunity to color shapes based on how they are used in your engine.
+    /// Callback type for a function that returns a color for a given shape. This gives you an
+    /// opportunity to color shapes based on how they are used in your engine.
     /// </summary>
-    /// <param name="shape"></param>
-    /// <param name="data"></param>
-    /// <returns></returns>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -302,9 +226,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Callback function type that gets called after/before solving a joint.
     /// </summary>
-    /// <param name="constraint"></param>
-    /// <param name="space"></param>
-    /// 
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -315,9 +236,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Function type used for damped spring force callbacks.
     /// </summary>
-    /// <param name="spring"></param>
-    /// <param name="dist"></param>
-    /// <returns></returns>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -328,9 +246,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Function type used for damped rotary spring force callbacks
     /// </summary>
-    /// <param name="spring"></param>
-    /// <param name="relativeAngle"></param>
-    /// <returns></returns>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -341,9 +256,6 @@ namespace ChipmunkBinding
     /// <summary>
     /// Shape query callback function type.
     /// </summary>
-    /// <param name="shape"></param>
-    /// <param name="points"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -352,12 +264,9 @@ namespace ChipmunkBinding
     internal delegate void SpaceShapeQueryFunction(cpShape shape, cpContactPointSetPointer points, voidptr_t data);
 
     /// <summary>
-    /// Function type used as a callback from the marching squares algorithm to output a line segment.
-    /// It passes you the two endpoints and your context pointer.
+    /// Function type used as a callback from the marching squares algorithm to output a line
+    /// segment. It passes you the two endpoints and your context pointer.
     /// </summary>
-    /// <param name="v0"></param>
-    /// <param name="v1"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
@@ -369,8 +278,6 @@ namespace ChipmunkBinding
     /// Function type used as a callback from the marching squares algorithm to sample an image function.
     /// It passes you the point to sample and your context pointer, and you return the density.
     /// </summary>
-    /// <param name="point"></param>
-    /// <param name="data"></param>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__

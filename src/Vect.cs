@@ -40,7 +40,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Create Vect
+        /// Create a vector.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -52,52 +52,47 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// object Equals
+        /// Return true if both objects are within <see cref="Single.Epsilon"/> of each other.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             Vect? vect = obj as Vect?;
+
             if (!vect.HasValue)
+            {
                 return false;
+            }
+
             return this == vect.Value;
         }
 
         /// <summary>
-        /// object GetHashCode
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             return (x.GetHashCode() << 16) ^ y.GetHashCode();
         }
 
         /// <summary>
-        /// IEquatable Equals
+        /// Return true if both objects are within <see cref="Single.Epsilon"/> of each other.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
         public bool Equals(Vect other)
         {
             return this == other;
         }
 
         /// <summary>
-        /// object ToString()
+        /// Return a string formatted like "(x,y)".
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return $"({x},{y})";
         }
 
         /// <summary>
-        /// operator ==
+        /// Return true if both objects are within <see cref="Single.Epsilon"/> of each other.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         public static bool operator ==(Vect a, Vect b)
         {
             return Math.Abs(a.x - b.x) < double.Epsilon &&
@@ -105,22 +100,16 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// operator !=
+        /// Return true if both objects are not within <see cref="Single.Epsilon"/> of each other.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         public static bool operator !=(Vect a, Vect b)
         {
             return !(a == b);
         }
 
         /// <summary>
-        /// Add two vectors
+        /// Add two vectors.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect operator +(Vect a, Vect b)
         {
@@ -130,9 +119,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Subtract two vectors.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect operator -(Vect a, Vect b)
         {
@@ -142,8 +128,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Negate a vector.
         /// </summary>
-        /// <param name="a"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect operator -(Vect a)
         {
@@ -153,9 +137,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Scalar multiplication.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect operator *(Vect a, double s)
         {
@@ -163,11 +144,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Scalar division
+        /// Scalar division.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect operator /(Vect a, double s)
         {
@@ -177,9 +155,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Scalar multiplication.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="a"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect operator *(double s, Vect a)
         {
@@ -187,11 +162,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Scalar division
+        /// Scalar division.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="a"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect operator /(double s, Vect a)
         {
@@ -201,8 +173,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Vector dot product.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 
         public double Dot(Vect v2)
@@ -211,29 +181,23 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// 2D vector cross product analog.
-        /// The cross product of 2D vectors results in a 3D vector with only a z component.
-        /// This function returns the magnitude of the z value.
+        /// 2D vector cross product analog. The cross product of 2D vectors results in a 3D vector
+        /// with only a z component. This function returns the magnitude of the z value.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-
         public double Cross(Vect v2)
         {
             return x * v2.y - y * v2.x;
         }
 
         /// <summary>
-        /// Returns a perpendicular vector. (-90 degree rotation)
+        /// Returns a perpendicular vector (-90 degree rotation).
         /// </summary>
         public Vect Perpendicurlar => new Vect(- y, x);
 
         /// <summary>
         /// Returns the vector projection of v1 onto v2.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Project(Vect v2)
         {
@@ -243,8 +207,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Returns the unit length vector for the given angle (in radians).
         /// </summary>
-        /// <param name="angle"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vect ForAngle(double angle)
         {
@@ -254,7 +216,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Returns the angular direction v is pointing in (in radians).
         /// </summary>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double ToAngle()
         {
@@ -262,10 +223,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Uses complex number multiplication to rotate v1 by v2. Scaling will occur if v1 is not a unit vector.
+        /// Uses complex number multiplication to rotate v1 by v2. Scaling will occur if v1 is not a
+        /// unit vector.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Rotate(Vect v2)
         {
@@ -275,8 +235,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Inverse of Rotate().
         /// </summary>
-        /// <param name="v2"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Unrotate(Vect v2)
         {
@@ -284,16 +242,15 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Returns the squared length of v. Faster than Length() when you only need to compare lengths.
+        /// Returns the squared length of v. Faster than <see cref="Length"/> when you only need to
+        /// compare lengths.
         /// </summary>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double LengthSquared() => Dot(this);
 
         /// <summary>
         /// Returns the length of v.
         /// </summary>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Length()
         {
@@ -301,11 +258,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Linearly interpolate between this and v2.
+        /// Linearly interpolate between this and <paramref name="v2"/>.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Lerp(Vect v2, double t)
         {
@@ -315,7 +269,6 @@ namespace ChipmunkBinding
         /// <summary>
         /// Returns a normalized copy.
         /// </summary>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Normalize()
         {
@@ -338,11 +291,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Spherical linearly interpolate between v1 and v2.
+        /// Spherical linear interpolation between current position and <paramref name="v2"/> based
+        /// on <paramref name="t"/>.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
         public Vect SLerp(Vect v2, double t)
         {
             double dot = Normalize().Dot(v2.Normalize());
@@ -359,11 +310,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Spherical linearly interpolate between v1 towards v2 by no more than angle a radians
+        /// Spherical linear interpolation between current position towards <paramref name="v2"/> by
+        /// no more than angle <paramref name="a"/> radians.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <param name="a"></param>
-        /// <returns></returns>
         public Vect SLerpConst(Vect v2, double a)
         {
             double dot = Normalize().Dot(v2.Normalize());
@@ -373,10 +322,8 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Clamp v to length len.
+        /// Clamp the magnitude to the given length.
         /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Clamp(double length)
         {
@@ -384,21 +331,17 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Linearly interpolate between v1 towards v2 by distance d.
+        /// Linearly interpolate between the current position towards <paramref name="v2"/> by
+        /// distance <paramref name="d"/>.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
         public Vect LerpConst(Vect v2, double d)
         {
             return this + (v2 - this).Clamp(d);
         }
 
         /// <summary>
-        /// Returns the distance between this and v2.
+        /// Return the distance between this and <paramref name="v2"/>.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Distance(Vect v2)
         {
@@ -406,10 +349,9 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Returns the squared distance between v1 and v2. Faster than cpvdist() when you only need to compare distances.
+        /// Return the squared distance between current position and <paramref name="v2"/>. Faster
+        /// than <see cref="Distance"/> when you only need to compare distances.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double DistanceSquare(Vect v2)
         {
@@ -417,18 +359,16 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Returns true if the distance between v1 and v2 is less than dist.
+        /// Return true if the distance between current position and <paramref name="v2"/> is less
+        /// than <paramref name="distance"/>.
         /// </summary>
-        /// <param name="v2"></param>
-        /// <param name="distance"></param>
-        /// <returns></returns>
         public bool Near(Vect v2, double distance)
         {
             return DistanceSquare(v2) < distance * distance;
         }
 
         /// <summary>
-        /// (0, 0) Vector
+        /// (0, 0) Vector.
         /// </summary>
         public static Vect Zero => zero;
     }
