@@ -106,11 +106,11 @@
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.1" />
-    <PackageReference Include="MonoGame.Framework.Android">
-      <Version>3.7.1.189</Version>
-    </PackageReference>
     <PackageReference Include="ChipmunkBinding">
       <Version>1.0.5</Version>
+    </PackageReference>
+    <PackageReference Include="Codefoco.MonoGame.Framework.Android">
+      <Version>3.8.0.819-develop5</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems" Label="Shared" Condition="Exists('..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems')" />
