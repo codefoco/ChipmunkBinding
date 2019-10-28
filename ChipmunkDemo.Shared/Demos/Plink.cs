@@ -106,7 +106,7 @@ namespace ChipmunkDemo
             Body body = info.Shape.Body;
             if (body.Type == BodyType.Static)
             {
-                body.Type = BodyType.Dinamic;
+                body.Type = BodyType.Dynamic;
                 body.Mass = pentagonMass;
                 body.Moment = pentagonMoment;
             }
