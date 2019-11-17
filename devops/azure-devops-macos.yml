@@ -6,7 +6,7 @@ steps:
 - checkout: self
   submodules: 'true'
 
-# Print the current version of Xamarin.iOS
+# Print the current version of Xcode
 - task: CmdLine@2
   displayName: 'Show Xcode version'
   inputs:
@@ -19,8 +19,8 @@ steps:
   displayName: 'Provisioning Xamarin.iOS'
   inputs:
     script: 'cd ~;
-            curl -O https://download.visualstudio.microsoft.com/download/pr/ae8e9044-57e0-4500-bc58-6fe41d5f711d/71a1316dcca8c4cbcfb070aff9f738d2/xamarin.ios-13.6.0.12.pkg;
-            sudo installer -pkg ~/xamarin.ios-13.6.0.12.pkg -target /'
+            curl -O https://download.visualstudio.microsoft.com/download/pr/d11a42ff-dd11-4005-b5a8-799856a96aad/2893a2da0df8a2e2d45ea17e2be2ccce/xamarin.ios-13.4.0.2.pkg;
+            sudo installer -pkg ~/xamarin.ios-13.4.0.2 -target /'
 
 # Print the current version of Xamarin.iOS
 - task: CmdLine@2
