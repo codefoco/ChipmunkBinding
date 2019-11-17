@@ -6,6 +6,13 @@ steps:
 - checkout: self
   submodules: 'true'
 
+# Print the current version of Xamarin.iOS
+- task: CmdLine@2
+  displayName: 'Show Xcode version'
+  inputs:
+    script: '/usr/bin/xcodebuild -version'
+
+
 # Azure DevOps hosted pool is still using an old version of Xamarin.iOS, 
 # so we will use the previous major version of Xcode
 - task: CmdLine@2
