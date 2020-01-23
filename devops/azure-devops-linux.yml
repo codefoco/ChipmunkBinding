@@ -59,7 +59,6 @@ steps:
   inputs:
     buildDefinition: 'ChipmunkBinding.Windows'
     ignoreSslCertificateErrors: true
-    useSameSourceVersion: true
     password: '$(myToken)'
 
 - template: send-telegram.yml@templates
