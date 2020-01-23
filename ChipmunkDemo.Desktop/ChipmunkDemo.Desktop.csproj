@@ -49,7 +49,7 @@
       <HintPath>..\packages\ChipmunkBinding.1.0.6\lib\net45\ChipmunkBinding.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\packages\Codefoco.MonoGame.Framework.DesktopGL.3.8.0.819-develop5\lib\net45\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build536\lib\net45\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -55,7 +55,7 @@ steps:
   inputs:
     command: custom
     custom: vstest
-    arguments: './tests/build/netcore/bin/Release/netcoreapp2.0/ChipmunkBindingTest.dll'
+    arguments: './tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll'
 
 - task: MSBuild@1
   displayName: 'Build Android'

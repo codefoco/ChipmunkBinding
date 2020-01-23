@@ -32,7 +32,7 @@ using Foundation;
 [assembly: AssemblyDescription ("Binding library for native Chipmunk2D")]
 [assembly: AssemblyCompany ("Codefoco")]
 [assembly: AssemblyProduct ("ChipmunkBinding")]
-[assembly: AssemblyCopyright ("Copyright © Vinicius Jarina 2019")]
+[assembly: AssemblyCopyright ("Copyright © Vinicius Jarina 2020")]
 [assembly: AssemblyCulture ("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
