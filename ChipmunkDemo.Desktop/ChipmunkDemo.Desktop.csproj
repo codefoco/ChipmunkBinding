@@ -49,7 +49,7 @@
       <HintPath>..\packages\ChipmunkBinding.1.0.6\lib\net45\ChipmunkBinding.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build536\lib\net45\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build537\lib\net45\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -80,5 +80,4 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets" Condition="Exists('..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets')" />
-  <Import Project="..\packages\Codefoco.MonoGame.Framework.DesktopGL.3.8.0.819-develop5\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets')" />
 </Project>
