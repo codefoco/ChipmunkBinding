@@ -191,7 +191,7 @@ steps:
   inputs:
     buildDefinition: 'ChipmunkBinding.Linux'
     ignoreSslCertificateErrors: true
-    useSameSourceVersion: true
+    useSameSourceVersion: false
     password: '$(myToken)'
 
 - template: send-telegram.yml@templates
