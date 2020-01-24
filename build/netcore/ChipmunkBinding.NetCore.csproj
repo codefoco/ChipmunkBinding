@@ -10,7 +10,7 @@
     <DocumentationFile>..\..\lib\Release\netcore\ChipmunkBinding.xml</DocumentationFile>
     <DebugType></DebugType>
     <OutputPath>..\..\lib\Release\netcore\</OutputPath>
-    <DefineConstants>TRACE;RELEASE;NETCOREAPP;NETCOREAPP2_0</DefineConstants>
+    <DefineConstants>TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>

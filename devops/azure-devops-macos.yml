@@ -32,12 +32,6 @@ steps:
   inputs:
     restoreSolution: ChipmunkBinding.Mac.sln
 
-- script: 'brew update'
-  displayName: 'Brew Update'
-
-- script: 'brew install gitversion --ignore-dependencies'
-  displayName: 'Install GitVersion'
-
 - task: PowerShell@2
   displayName: 'PowerShell Script'
   inputs:
@@ -136,6 +130,12 @@ steps:
     testResultsFormat: NUnit
     testResultsFiles: 'tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml'
 
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: TEST-Result-Xamarin.iOS.xml'
+  inputs:
+    PathtoPublish: tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml
+    ArtifactName: Test.Xamarin.iOS.xml
+
 - task: MSBuild@1
   displayName: 'Run tvOS tests'
   inputs:
@@ -149,6 +149,12 @@ steps:
   inputs:
     testResultsFormat: NUnit
     testResultsFiles: 'tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: TEST-Result-Xamarin.TVOS.xml'
+  inputs:
+    PathtoPublish: tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml
+    ArtifactName: Test.Xamarin.TVOS.xml
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Xamarin.iOS.ChipmunkBinding.dll'
@@ -185,6 +191,7 @@ steps:
   inputs:
     buildDefinition: 'ChipmunkBinding.Linux'
     ignoreSslCertificateErrors: true
+    useSameSourceVersion: true
     password: '$(myToken)'
 
 - template: send-telegram.yml@templates
