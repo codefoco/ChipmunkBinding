@@ -13,7 +13,7 @@ steps:
 - template: common-dotnet.yml@templates
 
 - checkout: self 
-  submodules: true
+  submodules: 'true'
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore'

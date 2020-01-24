@@ -37,6 +37,8 @@ steps:
     targetType: filePath
     filePath: ./devops/PreBuild.ps1
     arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
+    errorActionPreference: 'silentlyContinue'
+    pwsh: true
 
 - task: MSBuild@1
   displayName: 'Build solution ChipmunkBinding.sln'
