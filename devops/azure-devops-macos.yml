@@ -186,12 +186,4 @@ steps:
     PathtoPublish: runtimes/osx/native/libchipmunk.dylib
     ArtifactName: libchipmunk.dylib
 
-- task: TriggerBuild@3
-  displayName: 'Trigger a new build of ChipmunkBinding.Linux'
-  inputs:
-    buildDefinition: 'ChipmunkBinding.Linux'
-    ignoreSslCertificateErrors: true
-    useSameSourceVersion: true
-    password: '$(myToken)'
-
 - template: send-telegram.yml@templates
