@@ -47,11 +47,18 @@ steps:
     custom: vstest
     arguments: './tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll'
 
-
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: libchipmunk.so'
   inputs:
     PathtoPublish: 'runtimes/linux-x64/native/libchipmunk.so'
     ArtifactName: libchipmunk.so
+
+- task: TriggerBuild@3
+  displayName: 'Trigger a new build of ChipmunkBinding.Mac'
+  inputs:
+    buildDefinition: 'ChipmunkBinding.Mac'
+    ignoreSslCertificateErrors: true
+    useSameSourceVersion: true
+    password: '$(myToken)'
 
 - template: send-telegram.yml@templates

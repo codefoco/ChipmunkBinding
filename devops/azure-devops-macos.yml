@@ -186,4 +186,12 @@ steps:
     PathtoPublish: runtimes/osx/native/libchipmunk.dylib
     ArtifactName: libchipmunk.dylib
 
+- task: TriggerBuild@3
+  displayName: 'Trigger a new build of ChipmunkBinding.Windows'
+  inputs:
+    buildDefinition: 'ChipmunkBinding.Windows'
+    ignoreSslCertificateErrors: true
+    useSameSourceVersion: true
+    password: '$(myToken)'
+
 - template: send-telegram.yml@templates
