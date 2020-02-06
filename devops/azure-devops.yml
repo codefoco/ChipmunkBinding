@@ -347,7 +347,7 @@ jobs:
     inputs:
       buildType: 'current'
       artifactName: 'Xamarin.watchOS.ChipmunkBinding'
-      targetPath: 'lib/Release/xamarinmac/'
+      targetPath: 'lib/Release/xamarinwatchos/'
 
   - task: DownloadPipelineArtifact@2
     displayName: 'Download Build Xamarin.tvOS'
