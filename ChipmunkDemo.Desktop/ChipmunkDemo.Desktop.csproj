@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems" Label="Shared" Condition="Exists('..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -34,6 +34,12 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ChipmunkBinding, Version=1.0.6.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217, processorArchitecture=MSIL">
+      <HintPath>..\packages\ChipmunkBinding.1.0.6\lib\net45\ChipmunkBinding.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework, Version=3.8.0.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217, processorArchitecture=MSIL">
+      <HintPath>..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\lib\net45\MonoGame.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,12 +51,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="ChipmunkBinding">
-      <HintPath>..\packages\ChipmunkBinding.1.0.6\lib\net45\ChipmunkBinding.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build537\lib\net45\MonoGame.Framework.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -79,5 +79,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\build\net45\Codefoco.MonoGame.Framework.targets" Condition="Exists('..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\build\net45\Codefoco.MonoGame.Framework.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\build\net45\Codefoco.MonoGame.Framework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\build\net45\Codefoco.MonoGame.Framework.targets'))" />
+    <Error Condition="!Exists('..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets'))" />
+  </Target>
   <Import Project="..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets" Condition="Exists('..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets')" />
 </Project>

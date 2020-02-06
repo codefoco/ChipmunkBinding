@@ -1,25 +1,36 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkDemo.iOS", "ChipmunkDemo.iOS\ChipmunkDemo.iOS.csproj", "{7030CD19-1063-4DA0-A221-34F2A0E41A0F}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChipmunkDemo.Shared", "ChipmunkDemo.Shared\ChipmunkDemo.Shared.shproj", "{81D5C31E-3677-4B48-935A-D105AA41C431}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems*{7030cd19-1063-4da0-a221-34f2a0e41a0f}*SharedItemsImports = 4
+		ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems*{81d5c31e-3677-4b48-935a-d105aa41c431}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|iPhoneSimulator = Debug|iPhoneSimulator
-		Release|iPhoneSimulator = Release|iPhoneSimulator
 		Debug|iPhone = Debug|iPhone
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
 		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Debug|iPhone.Build.0 = Debug|iPhone
+		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Release|iPhone.ActiveCfg = Release|iPhone
 		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Release|iPhone.Build.0 = Release|iPhone
+		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{7030CD19-1063-4DA0-A221-34F2A0E41A0F}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C389ADC-7D24-4F57-B263-8885BF7592DF}
 	EndGlobalSection
 EndGlobal
