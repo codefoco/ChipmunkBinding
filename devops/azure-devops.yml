@@ -314,7 +314,7 @@ jobs:
       configuration: Release
       msbuildArguments: /restore
 
-- task: MSBuild@1
+  - task: MSBuild@1
     displayName: 'Build .NET Windows Universal'
     inputs:
       solution: ChipmunkBinding.UWP.sln
