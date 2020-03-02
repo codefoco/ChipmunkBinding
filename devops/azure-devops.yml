@@ -278,14 +278,19 @@ jobs:
   - template: common-win.yml@templates
 
   - task: NuGetCommand@2
-    displayName: 'NuGet restore'
+    displayName: 'NuGet restore ChipmunkBinding.sln'
     inputs:
       restoreSolution: ChipmunkBinding.sln
 
   - task: NuGetCommand@2
-    displayName: 'NuGet restore'
+    displayName: 'NuGet restore ChipmunkBinding.Core.sln'
     inputs:
       restoreSolution: ChipmunkBinding.Core.sln
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore ChipmunkBinding.UWP.sln'
+    inputs:
+      restoreSolution: ChipmunkBinding.UWP.sln
 
   - task: PowerShell@2
     displayName: 'PreBuild Script'
@@ -306,6 +311,13 @@ jobs:
     displayName: 'Build .NET Core'
     inputs:
       solution: ChipmunkBinding.Core.sln
+      configuration: Release
+      msbuildArguments: /restore
+
+- task: MSBuild@1
+    displayName: 'Build .NET Windows Universal'
+    inputs:
+      solution: ChipmunkBinding.UWP.sln
       configuration: Release
       msbuildArguments: /restore
 

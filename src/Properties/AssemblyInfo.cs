@@ -11,6 +11,8 @@ using Foundation;
 
 #if NETFRAMEWORK
 [assembly: AssemblyTitle ("ChipmunkBinding (.NET Framework 4.5)")]
+#elif WINDOWS_UWP
+[assembly: AssemblyTitle ("ChipmunkBinding (Windows Universal)")]
 #elif __ANDROID__
 [assembly: AssemblyTitle ("ChipmunkBinding (Xamarin.Android)")]
 #elif NETCOREAPP
