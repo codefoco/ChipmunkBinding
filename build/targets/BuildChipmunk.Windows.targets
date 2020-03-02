@@ -3,25 +3,42 @@
   <PropertyGroup>
     <Win32BuildDir>win-x86</Win32BuildDir>
     <Win64BuildDir>win-x64</Win64BuildDir>
+    <WinArm64BuildDir>win-arm64</WinArm64BuildDir>
+    <WinArmBuildDir>win-arm</WinArmBuildDir>
     <BinaryLibraryPath32>bin\chipmunk.dll</BinaryLibraryPath32>
     <BinaryLibraryPath64>bin64\chipmunk.dll</BinaryLibraryPath64>
   </PropertyGroup>
   <Target Name="BuildChipmunkWindows" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Windows_NT'">
     <Message Text="Building Windows Chipmunk library (x86)" />
     <Exec Command="mkdir $(ExternalChipmunkPath)\$(Win32BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)')" />
-    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_GENERATOR_PLATFORM=Win32" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_GENERATOR_PLATFORM=Win32 -A Win32" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt')" />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" />
+
     <Message Text="Building Windows Chipmunk library (x64)" />
     <Exec Command="mkdir $(ExternalChipmunkPath)\$(Win64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win64BuildDir)')" />
-    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_GENERATOR_PLATFORM=x64" WorkingDirectory="$(ExternalChipmunkPath)\$(Win64BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win64BuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_GENERATOR_PLATFORM=x64 -A x64" WorkingDirectory="$(ExternalChipmunkPath)\$(Win64BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win64BuildDir)\CMakeCache.txt')" />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(Win64BuildDir)" />
+
+    <Message Text="Building Windows Chipmunk library (ARM64)" />
+    <Exec Command="mkdir $(ExternalChipmunkPath)\$(WinArm64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArm64BuildDir)')" />
+    <Exec Command="cmake $(ExternalChipmunkPath) -A ARM64" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArm64BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArm64BuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArm64BuildDir)" />
+
+    <Message Text="Building Windows Chipmunk library (ARM)" />
+    <Exec Command="mkdir $(ExternalChipmunkPath)\$(WinArmBuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArmBuildDir)')" />
+    <Exec Command="cmake $(ExternalChipmunkPath) -A ARM" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArmBuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArmBuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArmBuildDir)" />
+
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(Win32BuildDir)\$(BinaryLibraryPath32)" DestinationFolder="$(OutputRuntimeDir)\$(Win32BuildDir)\native" SkipUnchangedFiles="true" />
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(Win64BuildDir)\$(BinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(Win64BuildDir)\native" SkipUnchangedFiles="true" />
+
   </Target>
   <Target Name="CleanChipmunkWindows" AfterTargets="Clean" Condition="'$(OS)'=='Windows_NT'">
-      <Message Text="Cleaning Chipmunk library (x86/x64)" />
+      <Message Text="Cleaning Chipmunk library (x86/x64/ARM64/ARM)" />
       <RemoveDir Directories="$(ExternalChipmunkPath)\$(Win64BuildDir); $(OutputRuntimeDir)\$(Win64BuildDir) " />
       <RemoveDir Directories="$(ExternalChipmunkPath)\$(Win32BuildDir); $(OutputRuntimeDir)\$(Win32BuildDir) " />
+      <RemoveDir Directories="$(ExternalChipmunkPath)\$(WinArm64BuildDir); $(OutputRuntimeDir)\$(WinArm64BuildDir) " />
+      <RemoveDir Directories="$(ExternalChipmunkPath)\$(WinArmBuildDir); $(OutputRuntimeDir)\$(WinArmBuildDir) " />
   </Target>
 </Project>
 
