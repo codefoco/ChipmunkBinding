@@ -23,6 +23,9 @@
     <file src="lib\Release\netcore\netcoreapp3.1\ChipmunkBinding.xml" target="lib\netcoreapp3.1" />
     <file src="lib\Release\net45\ChipmunkBinding.dll" target="lib\net45" />
     <file src="lib\Release\net45\ChipmunkBinding.xml" target="lib\net45" />
+    <file src="lib\Release\uap10.0\ChipmunkBinding.dll" target="lib\uap10.0" />
+    <file src="lib\Release\uap10.0\ChipmunkBinding.xml" target="lib\uap10.0" />
+    <file src="lib\Release\uap10.0\ChipmunkBinding.pri" target="lib\uap10.0" />
     <file src="lib\Release\netstandard2.0\netstandard2.0\ChipmunkBinding.dll" target="lib\netstandard2.0" />
     <file src="lib\Release\netstandard2.0\netstandard2.0\ChipmunkBinding.xml" target="lib\netstandard2.0" />
     <file src="lib\Release\xamarinios\ChipmunkBinding.dll" target="lib\xamarinios" />
@@ -35,6 +38,8 @@
     <file src="lib\Release\net45\ChipmunkBinding.xml" target="lib\xamarinwatchos" />
     <file src="runtimes\win-x64\native\chipmunk.dll" target="runtimes\win-x64\native\chipmunk.dll" />
     <file src="runtimes\win-x86\native\chipmunk.dll" target="runtimes\win-x86\native\chipmunk.dll" />
+    <file src="runtimes\win-arm\nativeassets\chipmunk.dll" target="runtimes\win10-arm\nativeassets\chipmunk.dll" />
+    <file src="runtimes\win-arm64\nativeassets\chipmunk.dll" target="runtimes\win10-arm64\nativeassets\chipmunk.dll" />
     <file src="runtimes\osx\native\libchipmunk.dylib" target="runtimes\osx\native\libchipmunk.dylib" />
     <file src="runtimes\linux-x64\native\libchipmunk.so" target="runtimes\linux-x64\native\libchipmunk.so" />
     <file src="build\targets\ChipmunkBinding.targets" target="build\net45\ChipmunkBinding.targets" />
