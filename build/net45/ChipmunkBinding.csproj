@@ -33,6 +33,7 @@
     <DocumentationFile>..\..\lib\Debug\net45\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\lib\Release\net45\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -49,6 +50,12 @@
   <ItemGroup>
     <None Include="ChipmunkBinding.ruleset" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
