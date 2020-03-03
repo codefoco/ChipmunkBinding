@@ -392,14 +392,17 @@ jobs:
       filePath: ./devops/Package.ps1
       arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
 
-  - script: 'rename *.nupkg ChipmunkBinding.nupkg'
-    displayName: 'Rename Nuget Package'
-
   - task: PublishBuildArtifacts@1
     displayName: 'Save ChipmunkBinding.nupkg Artifact'
     inputs:
       PathtoPublish: ChipmunkBinding.nupkg
       ArtifactName: ChipmunkBinding.nupkg
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Save ChipmunkBinding.snupkg Artifact'
+    inputs:
+      PathtoPublish: ChipmunkBinding.snupkg
+      ArtifactName: ChipmunkBinding.snupkg
 
   - task: PowerShell@2
     displayName: 'Publish NuGet'

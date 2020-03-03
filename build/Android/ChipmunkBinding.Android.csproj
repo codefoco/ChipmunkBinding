@@ -27,6 +27,7 @@
     <DocumentationFile>..\..\lib\Debug\MonoAndroid\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\lib\Release\MonoAndroid</OutputPath>
     <DefineConstants>__MOBILE__;__ANDROID__</DefineConstants>
@@ -58,6 +59,12 @@
     <EmbeddedNativeLibrary Include="..\..\runtimes\android\libs\x86_64\libchipmunk.so">
       <Link>libs\x86_64\libchipmunk.so</Link>
     </EmbeddedNativeLibrary>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <Import Project="..\targets\BuildChipmunk.XamarinAndroid.targets" />
   <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
