@@ -32,12 +32,12 @@
     <file src="lib\Release\netstandard2.0\netstandard2.0\ChipmunkBinding.dll" target="lib\netstandard2.0" />
     <file src="lib\Release\netstandard2.0\netstandard2.0\ChipmunkBinding.pdb" target="lib\netstandard2.0" />
     <file src="lib\Release\xamarinios\ChipmunkBinding.dll" target="lib\xamarinios" />
-    <file src="lib\Release\net45\ChipmunkBinding.pdb" target="lib\xamarinios" />
+    <file src="lib\Release\xamarinios\ChipmunkBinding.pdb" target="lib\xamarinios" />
     <file src="lib\Release\xamarinmac\ChipmunkBinding.dll" target="lib\xamarinmac" />
-    <file src="lib\Release\net45\ChipmunkBinding.pdb" target="lib\xamarinmac" />
+    <file src="lib\Release\xamarinmac\ChipmunkBinding.pdb" target="lib\xamarinmac" />
     <file src="lib\Release\xamarintvos\ChipmunkBinding.dll" target="lib\xamarintvos" />
-    <file src="lib\Release\net45\ChipmunkBinding.pdb" target="lib\xamarintvos" />
+    <file src="lib\Release\xamarintvos\ChipmunkBinding.pdb" target="lib\xamarintvos" />
     <file src="lib\Release\xamarinwatchos\ChipmunkBinding.dll" target="lib\xamarinwatchos" />
-    <file src="lib\Release\net45\ChipmunkBinding.pdb" target="lib\xamarinwatchos" />
+    <file src="lib\Release\xamarinwatchos\ChipmunkBinding.pdb" target="lib\xamarinwatchos" />
   </files>
 </package>
