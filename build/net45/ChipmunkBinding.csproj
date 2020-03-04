@@ -33,7 +33,7 @@
     <DocumentationFile>..\..\lib\Debug\net45\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\lib\Release\net45\</OutputPath>
     <ErrorReport>prompt</ErrorReport>

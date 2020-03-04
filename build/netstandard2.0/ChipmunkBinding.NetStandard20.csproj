@@ -8,7 +8,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>..\..\lib\Release\netstandard2.0\ChipmunkBinding.xml</DocumentationFile>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>..\..\lib\Release\netstandard2.0\</OutputPath>
     <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

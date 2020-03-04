@@ -8,7 +8,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>..\..\lib\Release\netcore\ChipmunkBinding.xml</DocumentationFile>
-    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DebugType>portable</DebugType>
     <OutputPath>..\..\lib\Release\netcore\</OutputPath>
     <DefineConstants>TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

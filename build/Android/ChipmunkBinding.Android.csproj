@@ -27,7 +27,7 @@
     <DocumentationFile>..\..\lib\Debug\MonoAndroid\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\lib\Release\MonoAndroid</OutputPath>
     <DefineConstants>__MOBILE__;__ANDROID__</DefineConstants>

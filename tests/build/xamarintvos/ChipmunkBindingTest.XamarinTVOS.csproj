@@ -32,7 +32,6 @@
     <MtouchExtraArgs>--setenv=NUNIT_ENABLE_XML_OUTPUT=true --setenv=NUNIT_SKIP_LOG_HEADER=true</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Release</OutputPath>
     <DefineConstants>
