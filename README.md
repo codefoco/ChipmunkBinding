@@ -33,7 +33,6 @@ Demo (MonoGame)
 |![linux](https://badgen.net/badge/icon/Ubuntu%20Linux%20x64?icon=terminal&label&color=orange)  |[![Build Status](https://dev.azure.com/codefoco/NuGets/_apis/build/status/ChipmunkBinding?branchName=master&jobName=Linux)](https://dev.azure.com/codefoco/NuGets/_build/latest?definitionId=52&branchName=master) |
 |![win](https://badgen.net/badge/icon/Windows,.NET%20Core,UWP?icon=windows&label&list=1) | [![Build Status](https://dev.azure.com/codefoco/NuGets/_apis/build/status/ChipmunkBinding?branchName=master&jobName=Windows)](https://dev.azure.com/codefoco/NuGets/_build/latest?definitionId=52&branchName=master) |
 
-
 C# bindings for Chipmunk2D 7.0.3 (compatible with Xamarin.iOS/Mac/Android/.NET/.NET Core) 
 
 Before build fetch the submodules:
