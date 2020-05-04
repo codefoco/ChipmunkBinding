@@ -64,7 +64,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -78,14 +77,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ChipmunkBinding">
+      <Version>1.0.11</Version>
+    </PackageReference>
+    <PackageReference Include="Codefoco.MonoGame.Framework">
+      <Version>3.8.11</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\build\net45\Codefoco.MonoGame.Framework.targets" Condition="Exists('..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\build\net45\Codefoco.MonoGame.Framework.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\build\net45\Codefoco.MonoGame.Framework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Codefoco.MonoGame.Framework.3.8.0-codefocobuild-build564\build\net45\Codefoco.MonoGame.Framework.targets'))" />
-    <Error Condition="!Exists('..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets'))" />
-  </Target>
-  <Import Project="..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets" Condition="Exists('..\packages\ChipmunkBinding.1.0.6\build\net45\ChipmunkBinding.targets')" />
 </Project>
