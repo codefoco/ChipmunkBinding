@@ -342,8 +342,9 @@ jobs:
     displayName: 'VsTest - testAssemblies'
     inputs:
       testAssemblyVer2: '.\tests\build\net45\bin\Release\ChipmunkBindingTest.dll'
+      resultsFolder: '.\TestResults'
 
-  - script: 'rename ./TestResults/*.trx ./Chipmunk.Windows.xml'
+  - script: 'rename .\TestResults\*.trx .\Chipmunk.Windows.xml'
     displayName: 'Rename Test result'
 
   - task: PublishTestResults@2
