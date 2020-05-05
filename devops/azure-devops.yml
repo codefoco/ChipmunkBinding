@@ -113,13 +113,16 @@ jobs:
       custom: vstest
       arguments: './tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll'
 
-  - script: 'mono packages/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe ./tests/build/net45/bin/Release/ChipmunkBindingTest.dll --result=TEST-Result-Mac.xml'
+  - script: 'dotnet test ./tests/build/net45/bin/Release/ChipmunkBindingTest.dll -l:trx;'
     displayName: 'Run OSX tests'
+
+  - script: 'mv TestResults/*.trx ./TEST-Result-Mac.xml'
+    displayName: 'Rename Test result'
 
   - task: PublishTestResults@2
     displayName: 'Publish Mac Test Results TEST-Result-Mac.xml'
     inputs:
-      testResultsFormat: NUnit
+      testResultsFormat: VSTest
       testResultsFiles: 'TEST-Result-Mac.xml'
 
   - task: MSBuild@1
@@ -339,6 +342,21 @@ jobs:
     displayName: 'VsTest - testAssemblies'
     inputs:
       testAssemblyVer2: '.\tests\build\net45\bin\Release\ChipmunkBindingTest.dll'
+
+  - script: 'rename ./TestResults/*.trx ./Chipmunk.Windows.xml'
+    displayName: 'Rename Test result'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'VSTest'
+      testResultsFiles: 'Chipmunk.Windows.xml'
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Chipmunk.Windows.xml'
+    inputs:
+      targetPath: Chipmunk.Windows.xml
+      artifact: 'Chipmunk.Windows.xml'
+      publishLocation: 'pipeline'
 
   - task: DownloadPipelineArtifact@2
     displayName: 'Download Build Xamarin.iOS'
