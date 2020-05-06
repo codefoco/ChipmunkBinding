@@ -13,7 +13,7 @@ jobs:
     - group: 'Keys'
 
   pool:
-    vmImage: 'macOS-10.14'
+    vmImage: 'macOS-10.15'
     demands: msbuild
 
   steps:
@@ -338,25 +338,25 @@ jobs:
       configuration: Release
       msbuildArguments: '/p:AndroidNdkDirectory=%ANDROID_NDK_HOME%'
 
-  - task: VSTest@2
-    displayName: 'VsTest - testAssemblies'
-    inputs:
-      testAssemblyVer2: '.\tests\build\net45\bin\Release\ChipmunkBindingTest.dll'
-      resultsFolder: '.\TestResults'
+  - script: 'dotnet test .\tests\build\net45\bin\Release\ChipmunkBindingTest.dll -l:trx --Platform:x86'
+    displayName: 'Run Windows Tests'
 
-  - script: 'rename .\TestResults\*.trx .\Chipmunk.Windows.xml'
+  - script: 'RENAME TestResults\*.trx ChipmunkBindingTest.Windows.xml'
     displayName: 'Rename Test result'
+
+  - script: 'MOVE TestResults\ChipmunkBindingTest.Windows.xml .'
+    displayName: 'Move Test result'
 
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'VSTest'
-      testResultsFiles: 'Chipmunk.Windows.xml'
+      testResultsFiles: 'ChipmunkBindingTest.Windows.xml'
 
   - task: PublishPipelineArtifact@1
-    displayName: 'Publish Chipmunk.Windows.xml'
+    displayName: 'Publish ChipmunkBindingTest.Windows.xml'
     inputs:
-      targetPath: Chipmunk.Windows.xml
-      artifact: 'Chipmunk.Windows.xml'
+      targetPath: ChipmunkBindingTest.Windows.xml
+      artifact: 'ChipmunkBindingTest.Windows.xml'
       publishLocation: 'pipeline'
 
   - task: DownloadPipelineArtifact@2
