@@ -107,7 +107,7 @@
       <Version>1.0.11</Version>
     </PackageReference>
     <PackageReference Include="Codefoco.MonoGame.Framework">
-      <Version>3.8.26</Version>
+      <Version>3.8.30</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
