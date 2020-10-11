@@ -124,6 +124,7 @@ jobs:
     inputs:
       testResultsFormat: VSTest
       testResultsFiles: 'TEST-Result-Mac.xml'
+      failTaskOnFailedTests: true
 
   - task: MSBuild@1
     displayName: 'Run iOS tests'
@@ -138,6 +139,7 @@ jobs:
     inputs:
       testResultsFormat: NUnit
       testResultsFiles: 'tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml'
+      failTaskOnFailedTests: true
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: TEST-Result-Xamarin.iOS.xml'
@@ -158,6 +160,7 @@ jobs:
     inputs:
       testResultsFormat: NUnit
       testResultsFiles: 'tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml'
+      failTaskOnFailedTests: true
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: TEST-Result-Xamarin.TVOS.xml'
@@ -351,6 +354,7 @@ jobs:
     inputs:
       testResultsFormat: 'VSTest'
       testResultsFiles: 'ChipmunkBindingTest.Windows.xml'
+      failTaskOnFailedTests: true
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish ChipmunkBindingTest.Windows.xml'
