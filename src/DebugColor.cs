@@ -63,10 +63,8 @@ namespace ChipmunkBinding
         {
             var other = obj as DebugColor?;
 
-            if (!other.HasValue)
-            {
+            if (other == null)
                 return false;
-            }
 
             return Equals(other.Value);
         }

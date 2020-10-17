@@ -295,7 +295,7 @@ namespace ChipmunkBinding
         /// </summary>
         public CollisionHandler<object> GetOrCreateWildcardHandler(int type)
         {
-            return GetOrCreateWildcardHandler(type);
+            return GetOrCreateWildcardHandler<object>(type);
         }
 
         /// <summary>

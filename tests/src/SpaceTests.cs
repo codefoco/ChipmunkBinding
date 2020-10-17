@@ -291,7 +291,7 @@ namespace ChipmunkBindingTest.Tests
 
 
             body.Position = new Vect(10, 10);
-            body.Position = new Vect(20, 20);
+            body2.Position = new Vect(20, 20);
 
             Assert.AreEqual(0, space.Bodies.Count, "#1");
 
@@ -326,7 +326,7 @@ namespace ChipmunkBindingTest.Tests
 
 
             body.Position = new Vect(10, 10);
-            body.Position = new Vect(20, 20);
+            body2.Position = new Vect(20, 20);
 
             Assert.AreEqual(0, space.Shapes.Count, "#1");
 

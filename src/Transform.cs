@@ -91,10 +91,9 @@ namespace ChipmunkBinding
         public override bool Equals(object obj)
         {
             Transform? transform = obj as Transform?;
-            if (!transform.HasValue)
-            {
+
+            if (transform == null)
                 return false;
-            }
 
             return Equals(transform.Value);
         }

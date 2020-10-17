@@ -58,10 +58,8 @@ namespace ChipmunkBinding
         {
             Vect? vect = obj as Vect?;
 
-            if (!vect.HasValue)
-            {
+            if (vect == null)
                 return false;
-            }
 
             return this == vect.Value;
         }

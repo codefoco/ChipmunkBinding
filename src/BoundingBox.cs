@@ -65,13 +65,13 @@ namespace ChipmunkBinding
         /// </summary>
         public override bool Equals(object obj)
         {
-            var vect = obj as BoundingBox?;
-            if (!vect.HasValue)
+            var bb = obj as BoundingBox?;
+            if (bb == null)
             {
                 return false;
             }
 
-            return this == vect.Value;
+            return this == bb.Value;
         }
 
         /// <summary>

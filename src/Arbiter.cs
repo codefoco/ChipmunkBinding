@@ -289,10 +289,9 @@ namespace ChipmunkBinding
         public override bool Equals(object obj)
         {
             var other = obj as Arbiter?;
-            if (!other.HasValue)
-            {
+
+            if (other == null)
                 return false;
-            }
 
             return Equals(other.Value);
         }
