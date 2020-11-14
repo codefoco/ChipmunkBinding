@@ -3,33 +3,43 @@
     <PropertyGroup>
         <OSX32BuildDir>osx-32</OSX32BuildDir>
         <OSX64BuildDir>osx-64</OSX64BuildDir>
+        <OSXARM64BuildDir>osx-arm64</OSXARM64BuildDir>
         <OSXBuildDir>osx</OSXBuildDir>
         <OSXBinaryLibraryPath64>lib64\libchipmunk.dylib</OSXBinaryLibraryPath64>
         <OSXBinaryLibraryPath32>lib\libchipmunk.dylib</OSXBinaryLibraryPath32>
         <OSXBinaryLibraryPath>libchipmunk.dylib</OSXBinaryLibraryPath>
         <XcodeWithout32BitSupport>10</XcodeWithout32BitSupport>
+        <XcodeWithARM64Support>12.2</XcodeWithARM64Support>
     </PropertyGroup>
     <Target Name="BuildChipmunkOSX" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/lib/libc.dylib')" >
          <Exec Command="xcodebuild -version | head -1" ConsoleToMSBuild="true">
             <Output TaskParameter="ConsoleOutput" PropertyName="OutputOfExec" />
          </Exec>
         <PropertyGroup>
-            <CurrentXcodeVersion>$(OutputOfExec.Split(' ')[1].Split('.')[0])</CurrentXcodeVersion>
-            <XcodeSupport32Bits Condition="$(CurrentXcodeVersion) &lt; $(XcodeWithout32BitSupport)">true</XcodeSupport32Bits>
-            <XcodeSupport32Bits Condition="$(CurrentXcodeVersion) &gt; $(XcodeWithout32BitSupport) or $(CurrentXcodeVersion) == $(XcodeWithout32BitSupport)">false</XcodeSupport32Bits>
+            <CurrentXcodeVersion>$(OutputOfExec.Split(' ')[1])</CurrentXcodeVersion>
+            <CurrentXcodeMajorVersion>$(OutputOfExec.Split(' ')[1].Split('.')[0])</CurrentXcodeMajorVersion>
+            <XcodeSupportARM64 Condition="$(CurrentXcodeVersion) &lt; $(XcodeWithARM64Support)">false</XcodeSupportARM64>
+            <XcodeSupportARM64 Condition="$(CurrentXcodeVersion) &gt; $(XcodeWithARM64Support) or $(CurrentXcodeVersion) == $(XcodeWithARM64Support)">true</XcodeSupportARM64>
+            <XcodeSupport32Bits Condition="$(CurrentXcodeMajorVersion) &lt; $(XcodeWithout32BitSupport)">true</XcodeSupport32Bits>
+            <XcodeSupport32Bits Condition="$(CurrentXcodeMajorVersion) &gt; $(XcodeWithout32BitSupport) or $(CurrentXcodeMajorVersion) == $(XcodeWithout32BitSupport)">false</XcodeSupport32Bits>
         </PropertyGroup>
         <Message Text="******* Xcode 10 doesn't support 32bits skipping 32 bit build ***" Condition="!$(XcodeSupport32Bits)" />
+        <Message Text="******* Xcode $(CurrentXcodeVersion) doesn't support Apple Silicon skipping ARM64 build ***" Condition="!$(XcodeSupportARM64)" />
         <Message Text="Building macOS Chipmunk library" />
         <Exec Command="mkdir $(ExternalChipmunkPath)\$(OSXBuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(OSXBuildDir)')" />
         <Exec Command="mkdir $(ExternalChipmunkPath)\$(OSX32BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(OSX32BuildDir)') and $(XcodeSupport32Bits) " />
         <Exec Command="mkdir $(ExternalChipmunkPath)\$(OSX64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(OSX64BuildDir)')" />
+        <Exec Command="mkdir $(ExternalChipmunkPath)\$(OSXARM64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(OSXARM64BuildDir)') and $(XcodeSupportARM64) " />
         <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_OSX_ARCHITECTURES=i386" WorkingDirectory="$(ExternalChipmunkPath)\$(OSX32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(OSX32BuildDir)\CMakeCache.txt') and $(XcodeSupport32Bits)" />
         <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_OSX_ARCHITECTURES=x86_64" WorkingDirectory="$(ExternalChipmunkPath)\$(OSX64BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(OSX64BuildDir)\CMakeCache.txt')" />
+        <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_OSX_ARCHITECTURES=arm64" WorkingDirectory="$(ExternalChipmunkPath)\$(OSXARM64BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(OSXARM64BuildDir)\CMakeCache.txt') and $(XcodeSupportARM64) " />
         <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(OSX32BuildDir)" Condition="$(XcodeSupport32Bits)" />
         <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(OSX64BuildDir)" />
+        <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(OSXARM64BuildDir)" Condition="$(XcodeSupportARM64)" />
         <Exec Command="lipo -create $(OSX64BuildDir)\$(OSXBinaryLibraryPath64) $(OSX32BuildDir)\$(OSXBinaryLibraryPath32) -output $(OSXBuildDir)\$(OSXBinaryLibraryPath)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="$(XcodeSupport32Bits)"/>
-        <Copy SourceFiles="$(ExternalChipmunkPath)\$(OSXBuildDir)\$(OSXBinaryLibraryPath)" DestinationFolder="$(OutputRuntimeDir)\$(OSXBuildDir)\native" SkipUnchangedFiles="true" Condition="$(XcodeSupport32Bits)"/>
-        <Copy SourceFiles="$(ExternalChipmunkPath)\$(OSX64BuildDir)\$(OSXBinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(OSXBuildDir)\native" SkipUnchangedFiles="true" Condition="!$(XcodeSupport32Bits)"/>
+        <Exec Command="lipo -create $(OSX64BuildDir)\$(OSXBinaryLibraryPath64) $(OSXARM64BuildDir)\$(OSXBinaryLibraryPath64) -output $(OSXBuildDir)\$(OSXBinaryLibraryPath)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="$(XcodeSupportARM64)"/>
+        <Copy SourceFiles="$(ExternalChipmunkPath)\$(OSXBuildDir)\$(OSXBinaryLibraryPath)" DestinationFolder="$(OutputRuntimeDir)\$(OSXBuildDir)\native" SkipUnchangedFiles="true" Condition="$(XcodeSupport32Bits) or $(XcodeSupportARM64)"/>
+        <Copy SourceFiles="$(ExternalChipmunkPath)\$(OSX64BuildDir)\$(OSXBinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(OSXBuildDir)\native" SkipUnchangedFiles="true" Condition="!$(XcodeSupport32Bits) and !$(XcodeSupportARM64)"/>
     </Target>
     <Target Name="CleanChipmunkOSX" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and Exists('/usr/lib/libc.dylib')" >
         <Message Text="Cleaning Chipmunk library (osx)" />
@@ -37,6 +47,7 @@
         $(ExternalChipmunkPath)\$(OSXBuildDir); 
         $(ExternalChipmunkPath)\$(OSX32BuildDir); 
         $(ExternalChipmunkPath)\$(OSX64BuildDir); 
+        $(ExternalChipmunkPath)\$(OSXARM64BuildDir); 
         $(OutputRuntimeDir)\$(OSXBuildDir) " />
     </Target>
 </Project>
