@@ -314,7 +314,7 @@ namespace ChipmunkDemo
 
         private void MouseLeftButtonUp()
         {
-            if (cursorJoint == null)
+            if (cursorJoint == null || cursorJoint.Space == null)
                 return;
 
             space.RemoveConstraint(cursorJoint);
@@ -404,6 +404,9 @@ namespace ChipmunkDemo
 
             foreach (Constraint c in space.Constraints)
             {
+                if (c == cursorJoint)
+                    continue;
+
                 space.RemoveConstraint(c);
                 c.Dispose();
             }

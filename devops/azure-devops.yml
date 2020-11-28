@@ -106,12 +106,11 @@ jobs:
 
   # Run tests
 
-  - task: DotNetCoreCLI@2
-    displayName: 'dotnet vstest'
-    inputs:
-      command: custom
-      custom: vstest
-      arguments: './tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll'
+  - script: 'dotnet test ./tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
+    displayName: 'Run .NET Core Tests'
+
+  - script: 'mv TestResults/*.trx ./TEST-Result-Mac.Core.xml'
+    displayName: 'Rename .NET Core Test result'
 
   - script: 'dotnet test ./tests/build/net45/bin/Release/ChipmunkBindingTest.dll -l:trx;'
     displayName: 'Run OSX tests'
@@ -213,7 +212,7 @@ jobs:
     - group: 'Keys'
 
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
     demands: msbuild
 
   steps:
@@ -247,12 +246,8 @@ jobs:
       projects: 'ChipmunkBinding.Core.sln'
       arguments: '/p:Configuration=Release'
 
-  - task: DotNetCoreCLI@2
-    displayName: 'dotnet vstest'
-    inputs:
-      command: custom
-      custom: vstest
-      arguments: './tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll'
+  - script: 'dotnet test ./tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
+    displayName: 'Run .NET Core Tests'
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish Pipeline Artifact: libchipmunk.so'
@@ -274,7 +269,6 @@ jobs:
     demands:
     - msbuild
     - visualstudio
-    - vstest
 
   steps:
   - checkout: self
@@ -327,12 +321,11 @@ jobs:
       configuration: Release
       msbuildArguments: /restore
 
-  - task: DotNetCoreCLI@2
-    displayName: 'dotnet vstest'
-    inputs:
-      command: custom
-      custom: vstest
-      arguments: './tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll'
+  - script: 'dotnet test ./tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
+    displayName: 'Run .NET Core Tests'
+
+  - script: 'mv TestResults/*.trx ./TEST-Result-Windows.Core.xml'
+    displayName: 'Rename .NET Core Test result'
 
   - task: MSBuild@1
     displayName: 'Build Android'
