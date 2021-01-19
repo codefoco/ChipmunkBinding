@@ -10,7 +10,7 @@
 >
 > 💕 We also appreaciate any **Sponsor**  [ [Patreon](https://www.patreon.com/codefoco) | [PayPal](https://paypal.me/viniciusjarina) ] 
 
-[![Logo](https://raw.githubusercontent.com/codefoco/ChipmunkBinding/master/ChipmunkBinding.png)]()
+[![Logo](https://raw.githubusercontent.com/codefoco/ChipmunkBinding/main/ChipmunkBinding.png)]()
 
 ChipmunkBinding
 ===========
@@ -23,15 +23,15 @@ ChipmunkBinding
 Demo (MonoGame)
 --------------
 
-![demogif](https://raw.githubusercontent.com/codefoco/ChipmunkBinding/master/demos.gif)
+![demogif](https://raw.githubusercontent.com/codefoco/ChipmunkBinding/main/demos.gif)
 
 |  | Status | 
 | :------ | :------: | 
-|![linux](https://badgen.net/badge/icon/Ubuntu%20Linux%20x64?icon=travis&label&color=orange)   | [![Linux](https://travis-ci.org/codefoco/ChipmunkBinding.svg?branch=master)](https://travis-ci.org/codefoco/ChipmunkBinding) |
+|![linux](https://badgen.net/badge/icon/Ubuntu%20Linux%20x64?icon=travis&label&color=orange)   | [![Linux](https://travis-ci.org/codefoco/ChipmunkBinding.svg?branch=main)](https://travis-ci.org/codefoco/ChipmunkBinding) |
 | ![win](https://badgen.net/badge/icon/Windows?icon=windows&label&color=blue) | [![Build status](https://ci.appveyor.com/api/projects/status/6audv5wislblhkve?svg=true)](https://ci.appveyor.com/project/viniciusjarina/chipmunkbinding)|
-| ![mac](https://badgen.net/badge/icon/macOS,iOS,tvOS,watchOS?icon=apple&label&color=purple&list=1) | [![Build Status](https://dev.azure.com/codefoco/NuGets/_apis/build/status/ChipmunkBinding?branchName=master&jobName=Mac)](https://dev.azure.com/codefoco/NuGets/_build/latest?definitionId=52&branchName=master) |
-|![linux](https://badgen.net/badge/icon/Ubuntu%20Linux%20x64?icon=terminal&label&color=orange)  |[![Build Status](https://dev.azure.com/codefoco/NuGets/_apis/build/status/ChipmunkBinding?branchName=master&jobName=Linux)](https://dev.azure.com/codefoco/NuGets/_build/latest?definitionId=52&branchName=master) |
-|![win](https://badgen.net/badge/icon/Windows,.NET%20Core,UWP?icon=windows&label&list=1) | [![Build Status](https://dev.azure.com/codefoco/NuGets/_apis/build/status/ChipmunkBinding?branchName=master&jobName=Windows)](https://dev.azure.com/codefoco/NuGets/_build/latest?definitionId=52&branchName=master) |
+| ![mac](https://badgen.net/badge/icon/macOS,iOS,tvOS,watchOS?icon=apple&label&color=purple&list=1) | [![Build Status](https://dev.azure.com/codefoco/NuGets/_apis/build/status/ChipmunkBinding?branchName=main&jobName=Mac)](https://dev.azure.com/codefoco/NuGets/_build/latest?definitionId=52&branchName=main) |
+|![linux](https://badgen.net/badge/icon/Ubuntu%20Linux%20x64?icon=terminal&label&color=orange)  |[![Build Status](https://dev.azure.com/codefoco/NuGets/_apis/build/status/ChipmunkBinding?branchName=main&jobName=Linux)](https://dev.azure.com/codefoco/NuGets/_build/latest?definitionId=52&branchName=main) |
+|![win](https://badgen.net/badge/icon/Windows,.NET%20Core,UWP?icon=windows&label&list=1) | [![Build Status](https://dev.azure.com/codefoco/NuGets/_apis/build/status/ChipmunkBinding?branchName=main&jobName=Windows)](https://dev.azure.com/codefoco/NuGets/_build/latest?definitionId=52&branchName=main) |
 
 C# bindings for Chipmunk2D 7.0.3 (compatible with Xamarin.iOS/Mac/Android/.NET/.NET Core/UWP) 
 

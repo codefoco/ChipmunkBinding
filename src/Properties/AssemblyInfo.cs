@@ -34,7 +34,7 @@ using Foundation;
 [assembly: AssemblyDescription ("Binding library for native Chipmunk2D")]
 [assembly: AssemblyCompany ("Codefoco")]
 [assembly: AssemblyProduct ("ChipmunkBinding")]
-[assembly: AssemblyCopyright ("Copyright © Vinicius Jarina 2020")]
+[assembly: AssemblyCopyright ("Copyright © Vinicius Jarina 2021")]
 [assembly: AssemblyCulture ("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
@@ -42,6 +42,6 @@ using Foundation;
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
 [assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyInformationalVersion("0.1.0+155.Branch.master.Sha.2bffe65059140b063c0ca22a830593629f64b2cb")]
+[assembly: AssemblyInformationalVersion("0.1.0+155.Branch.main.Sha.2bffe65059140b063c0ca22a830593629f64b2cb")]
 [assembly: AssemblyFileVersion("0.1.0.0")]
 

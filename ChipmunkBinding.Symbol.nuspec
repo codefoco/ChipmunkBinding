@@ -5,15 +5,15 @@
     <version>1.0.1</version>
     <authors>Codefoco</authors>
     <owners>Vinicius Jarina</owners>
-    <licenseUrl>https://github.com/codefoco/ChipmunkBinding/blob/master/LICENSE</licenseUrl>
+    <licenseUrl>https://github.com/codefoco/ChipmunkBinding/blob/main/LICENSE</licenseUrl>
     <projectUrl>https://github.com/codefoco/ChipmunkBinding</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/codefoco/ChipmunkBinding/master/ChipmunkBinding.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/codefoco/ChipmunkBinding/main/ChipmunkBinding.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       C# Native bindings of Chipmunk2D (compatible with Xamarin.iOS/Mac/Android/.NET/.NET Core) 
     </description>
     <releaseNotes>Release: 2bffe65</releaseNotes>
-    <copyright>Copyright © Vinicius Jarina 2020</copyright>
+    <copyright>Copyright © Vinicius Jarina 2021</copyright>
     <tags>chipmunk physics</tags>
     <packageTypes>
       <packageType name="SymbolsPackage" />
