@@ -86,11 +86,7 @@ namespace ChipmunkBinding
         {
             IntPtr drawOptionsPtr = NativeInterop.AllocStructure<cpSpaceDebugDrawOptions>();
 
-#if NETFRAMEWORK
-            Marshal.StructureToPtr(this, drawOptionsPtr, false);
-#else
             Marshal.StructureToPtr<cpSpaceDebugDrawOptions>(this, drawOptionsPtr, false);
-#endif
             return drawOptionsPtr;
         }
 

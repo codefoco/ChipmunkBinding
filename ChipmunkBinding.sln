@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChipmunkBinding", "ChipmunkBinding", "{4A43DAAC-F9FF-4EB1-BFBD-FB4655CCE1F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBinding", "build\net45\ChipmunkBinding.csproj", "{C45805A8-6436-4738-BD9F-4632EEA63BBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBinding", "build\net46\ChipmunkBinding.csproj", "{C45805A8-6436-4738-BD9F-4632EEA63BBC}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChipmunkBinding.Shared", "src\ChipmunkBinding.Shared.shproj", "{BD205AD6-760E-48F3-BAB2-21447396BD17}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B3EAA632-D2D7-4272-9DB9-11F46C99DAE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBindingTest", "tests\build\net45\ChipmunkBindingTest.csproj", "{20AE709C-FB97-48E3-89B0-A34A5C3DA1DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBindingTest", "tests\build\net46\ChipmunkBindingTest.csproj", "{20AE709C-FB97-48E3-89B0-A34A5C3DA1DB}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChipmunkBindingTest.Shared", "tests\src\ChipmunkBindingTest.Shared.shproj", "{7279D001-6F21-4FF3-A0EE-3A1D12004BA3}"
 EndProject

@@ -51,14 +51,9 @@ namespace ChipmunkBinding
             return obj;
         }
 
-
         public static int SizeOf<T>()
         {
-#if NETFRAMEWORK
-            return Marshal.SizeOf(typeof(T));
-#else
             return Marshal.SizeOf<T>();
-#endif
         }
 
         public static IntPtr AllocStructure<T>()
@@ -74,11 +69,7 @@ namespace ChipmunkBinding
 
         public static T PtrToStructure<T>(IntPtr intPtr)
         {
-#if NETFRAMEWORK
-            return (T)Marshal.PtrToStructure(intPtr, typeof(T));
-#else
             return Marshal.PtrToStructure<T>(intPtr);
-#endif
         }
 
         public static T[] PtrToStructureArray<T>(IntPtr intPtr, int count)
@@ -104,11 +95,7 @@ namespace ChipmunkBinding
             for (var i = 0; i < items.Count; i++)
             {
                 var ptr = new IntPtr(memory.ToInt64() + (i * size));
-#if NETFRAMEWORK
-                Marshal.StructureToPtr(items[i], ptr, true);
-#else
                 Marshal.StructureToPtr<T>(items[i], ptr, true);
-#endif
             }
 
             return memory;

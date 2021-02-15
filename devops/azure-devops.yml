@@ -31,7 +31,7 @@ jobs:
   - task: NuGetCommand@2
     displayName: 'NuGet restore'
     inputs:
-      restoreSolution: ChipmunkBinding.Core.sln
+      restoreSolution: ChipmunkBinding.netcoreapp3.1.sln
 
   - task: NuGetCommand@2
     displayName: 'NuGet restore'
@@ -45,7 +45,7 @@ jobs:
       filePath: ./devops/PreBuild.ps1
       arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
 
-  # Build .NET 4.5
+  # Build .NET 4.6
 
   - task: MSBuild@1
     displayName: 'Build solution ChipmunkBinding.sln'
@@ -58,9 +58,9 @@ jobs:
   - task: MSBuild@1
     displayName: 'Build .NET Core'
     inputs:
-      solution: ChipmunkBinding.Core.sln
+      solution: ChipmunkBinding.netcoreapp3.1.sln
       configuration: Release
-      msbuildArguments: /restore
+
 
   # Build Xamarin.Mac (macOS, watchOS, iOS, tvOS)
 
@@ -106,13 +106,13 @@ jobs:
 
   # Run tests
 
-  - script: 'dotnet test ./tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
+  - script: 'dotnet test ./tests/build/netcoreapp3.1/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
     displayName: 'Run .NET Core Tests'
 
   - script: 'mv TestResults/*.trx ./TEST-Result-Mac.Core.xml'
     displayName: 'Rename .NET Core Test result'
 
-  - script: 'dotnet test ./tests/build/net45/bin/Release/ChipmunkBindingTest.dll -l:trx;'
+  - script: 'dotnet test ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll -l:trx;'
     displayName: 'Run OSX tests'
 
   - script: 'mv TestResults/*.trx ./TEST-Result-Mac.xml'
@@ -229,9 +229,9 @@ jobs:
   - task: NuGetCommand@2
     displayName: 'NuGet restore'
     inputs:
-      restoreSolution: ChipmunkBinding.Core.sln
+      restoreSolution: ChipmunkBinding.netcoreapp3.1.sln
 
-  # Build .NET 4.5
+  # Build .NET 4.6
 
   - task: MSBuild@1
     displayName: 'Build solution ChipmunkBinding.sln'
@@ -243,10 +243,10 @@ jobs:
   - task: DotNetCoreCLI@2
     inputs:
       command: 'build'
-      projects: 'ChipmunkBinding.Core.sln'
+      projects: 'ChipmunkBinding.netcoreapp3.1.sln'
       arguments: '/p:Configuration=Release'
 
-  - script: 'dotnet test ./tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
+  - script: 'dotnet test ./tests/build/netcoreapp3.1/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
     displayName: 'Run .NET Core Tests'
 
   - task: PublishPipelineArtifact@1
@@ -283,9 +283,14 @@ jobs:
       restoreSolution: ChipmunkBinding.sln
 
   - task: NuGetCommand@2
-    displayName: 'NuGet restore ChipmunkBinding.Core.sln'
+    displayName: 'NuGet restore ChipmunkBinding.netcoreapp3.1.sln'
     inputs:
-      restoreSolution: ChipmunkBinding.Core.sln
+      restoreSolution: ChipmunkBinding.netcoreapp3.1.sln
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore ChipmunkBinding.net5.0.sln'
+    inputs:
+      restoreSolution: ChipmunkBinding.net5.0.sln
 
   - task: NuGetCommand@2
     displayName: 'NuGet restore ChipmunkBinding.UWP.sln'
@@ -310,9 +315,14 @@ jobs:
   - task: MSBuild@1
     displayName: 'Build .NET Core'
     inputs:
-      solution: ChipmunkBinding.Core.sln
+      solution: ChipmunkBinding.netcoreapp3.1.sln
       configuration: Release
-      msbuildArguments: /restore
+
+  - task: MSBuild@1
+    displayName: 'Build .NET 5'
+    inputs:
+      solution: ChipmunkBinding.net5.0.sln
+      configuration: Release
 
   - task: MSBuild@1
     displayName: 'Build .NET Windows Universal'
@@ -321,7 +331,7 @@ jobs:
       configuration: Release
       msbuildArguments: /restore
 
-  - script: 'dotnet test ./tests/build/netcore/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
+  - script: 'dotnet test ./tests/build/netcoreapp3.1/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
     displayName: 'Run .NET Core Tests'
 
   - script: 'mv TestResults/*.trx ./TEST-Result-Windows.Core.xml'
@@ -334,7 +344,7 @@ jobs:
       configuration: Release
       msbuildArguments: '/p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
       
-  - script: 'dotnet test .\tests\build\net45\bin\Release\ChipmunkBindingTest.dll -l:trx --Platform:x86'
+  - script: 'dotnet test .\tests\build\net46\bin\Release\ChipmunkBindingTest.dll -l:trx --Platform:x86'
     displayName: 'Run Windows Tests'
 
   - script: 'RENAME TestResults\*.trx ChipmunkBindingTest.Windows.xml'

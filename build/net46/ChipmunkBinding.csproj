@@ -8,13 +8,16 @@
   <Import Project="..\..\packages\Text.Analyzers.2.6.4\build\Text.Analyzers.props" Condition="Exists('..\..\packages\Text.Analyzers.2.6.4\build\Text.Analyzers.props')" />
   <Import Project="..\targets\BuildChipmunk.Common.props" />
   <PropertyGroup>
+   <LangVersion>7.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C45805A8-6436-4738-BD9F-4632EEA63BBC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -23,26 +26,26 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\lib\Debug\net45\</OutputPath>
+    <OutputPath>..\..\lib\Debug\net46\</OutputPath>
     <DefineConstants>DEBUG;NETFRAMEWORK</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>ChipmunkBinding.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\..\lib\Debug\net45\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Debug\net46\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\lib\Release\net45\</OutputPath>
+    <OutputPath>..\..\lib\Release\net46\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DefineConstants>NETFRAMEWORK</DefineConstants>
     <CodeAnalysisRuleSet>ChipmunkBinding.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\..\lib\Release\net45\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Release\net46\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

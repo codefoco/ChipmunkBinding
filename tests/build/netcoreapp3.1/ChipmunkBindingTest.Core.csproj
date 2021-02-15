@@ -25,7 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="nunit" Version="3.13.0" />
+    <PackageReference Include="nunit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\build\netcore\ChipmunkBinding.NetCore.csproj" />
+    <ProjectReference Include="..\..\..\build\netcoreapp3.1\ChipmunkBinding.netcoreapp3.1.csproj" />
   </ItemGroup>
 
   <Import Project="..\..\src\ChipmunkBindingTest.Shared.projitems" Label="Shared" />

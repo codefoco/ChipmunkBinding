@@ -23,20 +23,12 @@ namespace ChipmunkBinding
 
         public static cpCollisionHandler FromHandle(cpCollisionHandlerPointer handle)
         {
-#if NETFRAMEWORK
-            return (cpCollisionHandler)Marshal.PtrToStructure(handle, typeof(cpCollisionHandler));
-#else
             return Marshal.PtrToStructure<cpCollisionHandler>(handle);
-#endif
         }
 
         internal static void ToPointer(cpCollisionHandler handler, cpCollisionFunction handle)
         {
-#if NETFRAMEWORK
-            Marshal.StructureToPtr(handler, handle, false);
-#else
             Marshal.StructureToPtr<cpCollisionHandler>(handler, handle, false);
-#endif
         }
     }
 }

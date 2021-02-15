@@ -1,23 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\targets\BuildChipmunk.Common.props" />
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\lib\Release\netstandard2.0\ChipmunkBinding.xml</DocumentationFile>
-    <DebugType>portable</DebugType>
+    <DocumentationFile>..\..\lib\Release\netcoreapp3.1\ChipmunkBinding.xml</DocumentationFile>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\lib\Release\netstandard2.0\</OutputPath>
-    <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
+    <DebugType>portable</DebugType>
+    <OutputPath>..\..\lib\Release\netcoreapp3.1\</OutputPath>
+    <DefineConstants>TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\lib\Debug\netstandard2.0\</OutputPath>
-    <DocumentationFile>..\..\lib\Debug\netstandard2.0\ChipmunkBinding.xml</DocumentationFile>
+    <OutputPath>..\..\lib\Debug\netcoreapp3.1\</OutputPath>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>..\..\lib\Debug\netcoreapp3.1\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
@@ -26,5 +28,8 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
+  <Import Project="..\targets\BuildChipmunk.Windows.targets" />
+  <Import Project="..\targets\BuildChipmunk.OSX.targets" />
+  <Import Project="..\targets\BuildChipmunk.Linux.targets" />
   <Import Project="..\targets\ChipmunkBinding.Sign.targets" />
 </Project>

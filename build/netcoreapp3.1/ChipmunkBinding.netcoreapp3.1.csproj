@@ -7,19 +7,19 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\lib\Release\netcore\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Release\netcoreapp3.1\ChipmunkBinding.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>portable</DebugType>
-    <OutputPath>..\..\lib\Release\netcore\</OutputPath>
+    <OutputPath>..\..\lib\Release\netcoreapp3.1\</OutputPath>
     <DefineConstants>TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\lib\Debug\netcore\</OutputPath>
+    <OutputPath>..\..\lib\Debug\netcoreapp3.1\</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>..\..\lib\Debug\netcore\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Debug\netcoreapp3.1\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
