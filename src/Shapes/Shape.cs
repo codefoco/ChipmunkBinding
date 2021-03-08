@@ -92,6 +92,11 @@ namespace ChipmunkBinding
         // Shape properties
 
         /// <summary>
+        /// Arbitrary user data.
+        /// </summary>
+        public object Data { get; set; }
+
+        /// <summary>
         /// Gets the space that this shape is registered within.
         /// </summary>
         public Space Space

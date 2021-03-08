@@ -9,7 +9,6 @@ using System.Linq;
 using cpShape = System.IntPtr;
 
 
-
 namespace ChipmunkBindingTest.Tests
 {
     [TestFixture]
@@ -33,6 +32,11 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreSame(shape, shapeFromHandle, "#1");
 
+            shape.Data = "user data";
+
+            Assert.AreEqual("user data", shape.Data, "#user.data.1");
+            Assert.AreEqual("user data", shapeFromHandle.Data, "#user.data.2");
+
             shape.Dispose();
         }
 
@@ -45,7 +49,6 @@ namespace ChipmunkBindingTest.Tests
             body.Position = new Vect(5, 5);
 
             BoundingBox boundingBox = shape.CacheBB();
-
 
             Assert.AreEqual(new BoundingBox(0, 0, 10, 10), boundingBox, "#1");
         }
@@ -61,7 +64,6 @@ namespace ChipmunkBindingTest.Tests
             BoundingBox boundingBox = shape.Update(scale);
 
             Assert.AreEqual(new BoundingBox(-10, -10, 10, 10), boundingBox, "#1");
-
         }
 
         [Test]
@@ -149,6 +151,11 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreSame(space, shape.Space, "#2");
 
+            space.Data = "user data";
+
+            Assert.AreEqual("user data", space.Data, "#user.data.1");
+            Assert.AreEqual("user data", shape.Space.Data, "#user.data.2");
+
             space.Dispose();
         }
 
@@ -156,15 +163,21 @@ namespace ChipmunkBindingTest.Tests
         public void BodyTest()
         {
             var body = new Body(1, 1.66);
+            body.Data = "body";
+
             var shape = new Box(body, 2, 2, 0);
 
             Assert.AreSame(body, shape.Body, "#1");
 
+            Assert.AreEqual("body", shape.Body.Data, "#user.data.1");
+
             var body2 = new Body(BodyType.Static);
+            body2.Data = "body2";
 
             shape.Body = body2;
 
             Assert.AreSame(body2, shape.Body, "#2");
+            Assert.AreEqual("body2", shape.Body.Data, "#user.data.1");
         }
 
         [Test]

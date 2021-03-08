@@ -162,6 +162,11 @@ namespace ChipmunkBinding
         // Properties
 
         /// <summary>
+        /// Arbitrary user data.
+        /// </summary>
+        public object Data { get; set; }
+
+        /// <summary>
         /// Rotation of the body in radians. When changing the rotation, you may also want to call
         /// <see cref="Space.ReindexShapesForBody"/> to update the collision detection information
         /// for the attached shapes if you plan to make any queries against the space. A body

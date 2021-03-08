@@ -136,7 +136,7 @@
       <Version>1.0.14</Version>
     </PackageReference>
     <PackageReference Include="Codefoco.MonoGame.Framework">
-      <Version>3.8.39</Version>
+      <Version>3.8.42</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems" Label="Shared" Condition="Exists('..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems')" />

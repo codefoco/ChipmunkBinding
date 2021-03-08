@@ -125,6 +125,11 @@ namespace ChipmunkBinding
         // Properties
 
         /// <summary>
+        /// Arbitrary user data.
+        /// </summary>
+        public object Data { get; set; }
+
+        /// <summary>
         /// Number of iterations to use in the impulse solver to solve contacts and other
         /// constraints.
         /// </summary>
