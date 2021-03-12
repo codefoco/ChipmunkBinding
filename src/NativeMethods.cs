@@ -206,6 +206,12 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodyApplyForceAtWorldPoint(cpBody body, Vect force, Vect point);
 
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodyApplyTorque(cpBody body, cpFloat torque);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodyApplyAngularImpulse(cpBody body, cpFloat impulse);
+
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodyApplyImpulseAtLocalPoint(cpBody body, Vect impulse, Vect point);
 

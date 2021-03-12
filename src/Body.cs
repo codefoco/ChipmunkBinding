@@ -394,6 +394,24 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
+        /// Apply torque.
+        /// </summary>
+        /// <param name="torque"></param>
+        public void ApplyTorque(double torque)
+        {
+            NativeMethods.cpBodyApplyTorque(body, torque);
+        }
+
+        /// <summary>
+        /// Apply angular impulse.
+        /// </summary>
+        /// <param name="impulse"></param>
+        public void ApplyAngularImpulse(double impulse)
+        {
+            NativeMethods.cpBodyApplyAngularImpulse(body, impulse);
+        }
+
+        /// <summary>
         ///     Add the force force to body as if applied from the world point.
         ///     People are sometimes confused by the difference between a force and an impulse.
         ///     An impulse is a very large force applied over a very short period of time.
