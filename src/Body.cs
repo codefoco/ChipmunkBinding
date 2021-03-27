@@ -179,6 +179,26 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
+        /// Set body position and rotation angle (in radians)
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="angle"></param>
+        public void SetTransform(Vect position, double angle)
+        {
+            NativeMethods.cpBodySetTransform(body, position, angle);
+        }
+
+        /// <summary>
+        /// Get body position and rotation angle (in radians)
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="angle"></param>
+        public void GetTransform(out Vect position, out double angle)
+        {
+            NativeMethods.cpBodyGetTransform(body, out position, out angle);
+        }
+
+        /// <summary>
         /// The way the body behaves in physics simulations.
         /// </summary>
         public BodyType Type

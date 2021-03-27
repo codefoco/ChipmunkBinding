@@ -266,6 +266,9 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpSpace cpBodyGetSpace(cpBody body);
 
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodyGetTransform(cpBody body, out Vect pos, out cpFloat angle);
+
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpBodyGetTorque(cpBody body);
 
@@ -330,6 +333,9 @@ namespace ChipmunkBinding
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetPositionUpdateFunc(cpBody body, cpBodyPositionFunc positionFunc);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodySetTransform(cpBody body, Vect pos, cpFloat angle);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetTorque(cpBody body, cpFloat torque);
@@ -1046,6 +1052,9 @@ namespace ChipmunkBinding
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceEachConstraint(cpSpace space, cpSpaceConstraintIteratorFunc func, IntPtr data);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpSpaceEachDynamicBody(cpSpace space, cpSpaceBodyIteratorFunc func, IntPtr data);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceEachShape(cpSpace space, cpSpaceShapeIteratorFunc func, IntPtr data);

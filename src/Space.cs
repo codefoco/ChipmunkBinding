@@ -585,6 +585,25 @@ namespace ChipmunkBinding
             }
         }
 
+        /// <summary>
+        /// Get dynamic bodies in the space.
+        /// </summary>
+        public IReadOnlyList<Body> DynamicBodies
+        {
+            get
+            {
+                var list = new List<Body>();
+
+                var gcHandle = GCHandle.Alloc(list);
+
+                NativeMethods.cpSpaceEachDynamicBody(space, eachBody.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+
+                gcHandle.Free();
+
+                return list;
+            }
+        }
+
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
 #endif

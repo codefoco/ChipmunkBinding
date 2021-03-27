@@ -104,6 +104,28 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
+        public void TransformProperty()
+        {
+            var body = new Body(1, 1.66);
+            var pos = new Vect(10, 20);
+            double angle = System.Math.PI;
+
+            body.SetTransform(pos, angle);
+
+            double a2;
+            Vect p2;
+
+            body.GetTransform(out p2, out a2);
+
+            Assert.AreEqual(pos, body.Position, "#1");
+            Assert.AreEqual(System.Math.PI, body.Angle, "#2");
+
+            Assert.AreEqual(pos, p2, "#3");
+            Assert.AreEqual(System.Math.PI, a2, "#4");
+            body.Dispose();
+        }
+
+        [Test]
         public void CenterOfGravityProperty()
         {
             var body = new Body(1, 1.66);

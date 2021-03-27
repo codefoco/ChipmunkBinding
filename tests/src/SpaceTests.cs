@@ -288,10 +288,11 @@ namespace ChipmunkBindingTest.Tests
             var space = new Space();
             var body = new Body(1, 1.66);
             var body2 = new Body(1, 1.66);
-
+            var body3 = new Body(BodyType.Static);
 
             body.Position = new Vect(10, 10);
             body2.Position = new Vect(20, 20);
+
 
             Assert.AreEqual(0, space.Bodies.Count, "#1");
 
@@ -309,6 +310,22 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreSame(body, bodies[0], "#3.2");
             Assert.AreSame(body2, bodies[1], "#3.3");
 
+            space.AddBody(body3);
+
+            space.Step(0.1);
+
+            bodies = space.Bodies.ToArray();
+
+            Assert.AreEqual(3, bodies.Length, "#4.1");
+            Assert.AreSame(body, bodies[0], "#4.2");
+            Assert.AreSame(body2, bodies[1], "#4.3");
+            Assert.AreSame(body3, bodies[2], "#4.4");
+
+            Body[] dynamicBodies = space.DynamicBodies.ToArray();
+
+            Assert.AreEqual(2, dynamicBodies.Length, "#5.1");
+            Assert.AreSame(body, dynamicBodies[0], "#5.2");
+            Assert.AreSame(body2, dynamicBodies[1], "#5.3");
 
             body.Dispose();
             space.Dispose();

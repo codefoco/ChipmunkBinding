@@ -43,8 +43,8 @@ namespace ChipmunkBinding
 
             handler.userData = data;
 
-            TypeA = (int)handler.typeA;
-            TypeB = (int)handler.typeB;
+            TypeA = (int)handler.typeA.ToUInt32();
+            TypeB = (int)handler.typeB.ToUInt32();
 
             cpCollisionHandler.ToPointer(handler, handle);
         }

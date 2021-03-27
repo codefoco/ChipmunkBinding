@@ -36,7 +36,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Register managed object in the native user data.
         /// </summary>
-        protected void RegisterUserData()
+        private void RegisterUserData()
         {
             cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpShapeSetUserData(shape, pointer);

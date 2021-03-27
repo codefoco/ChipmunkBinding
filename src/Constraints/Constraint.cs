@@ -42,7 +42,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Register managed object to native user data.
         /// </summary>
-        internal protected void RegisterUserData()
+        private void RegisterUserData()
         {
             cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpConstraintSetUserData(constraint, pointer);
