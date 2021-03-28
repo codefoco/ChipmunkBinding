@@ -34,6 +34,10 @@ namespace ChipmunkBinding
         private static CollisionPostSolveFunction postSolveCallback = CollisionPostSolveFunctionCallback;
         private static CollisionSeparateFunction separeteCallback = CollisionSeparateFunctionCallback;
 
+        private static IntPtr DefaultBeginFunction;
+        private static IntPtr DefaultPreSolveFunction;
+        private static IntPtr DefaultPostSolveFunction;
+        private static IntPtr DefaultSeparateFunction;
 
         private CollisionHandler(cpCollisionHandlerPointer collisionHandle, ref cpCollisionHandler handler)
         {
@@ -60,7 +64,20 @@ namespace ChipmunkBinding
                 return NativeInterop.FromIntPtr<CollisionHandler<T>>(handler.userData);
             }
 
+            EnsureDefaultCallbackValues(handler);
+
             return new CollisionHandler<T>(collisionHandle, ref handler);
+        }
+
+        private static void EnsureDefaultCallbackValues(cpCollisionHandler handler)
+        {
+            if (DefaultBeginFunction != IntPtr.Zero)
+                return;
+
+            DefaultBeginFunction = handler.beginFunction;
+            DefaultPreSolveFunction = handler.preSolveFunction;
+            DefaultPostSolveFunction = handler.postSolveFunction;
+            DefaultSeparateFunction = handler.separateFunction;
         }
 
         private Func<Arbiter, Space, T, bool> begin;
@@ -79,7 +96,7 @@ namespace ChipmunkBinding
 
                 if (value == null)
                 {
-                    callbackPointer = IntPtr.Zero;
+                    callbackPointer = DefaultBeginFunction;
                 }
                 else
                 {
@@ -110,7 +127,7 @@ namespace ChipmunkBinding
 
                 if (value == null)
                 {
-                    callbackPointer = IntPtr.Zero;
+                    callbackPointer = DefaultPreSolveFunction;
                 }
                 else
                 {
@@ -140,7 +157,7 @@ namespace ChipmunkBinding
 
                 if (value == null)
                 {
-                    callbackPointer = IntPtr.Zero;
+                    callbackPointer = DefaultPostSolveFunction;
                 }
                 else
                 {
@@ -169,7 +186,7 @@ namespace ChipmunkBinding
 
                 if (value == null)
                 {
-                    callbackPointer = IntPtr.Zero;
+                    callbackPointer = DefaultSeparateFunction;
                 }
                 else
                 {

@@ -423,6 +423,10 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual("Begin-PreSolve-PostSolve-PreSolve-PostSolve-", handler.Data.ToString(), "#2");
 
+            handler.PostSolve = null;
+
+            space.Step(0.1);
+
             shape2.Dispose();
             body1.Dispose();
             body2.Dispose();
