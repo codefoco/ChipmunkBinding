@@ -53,6 +53,7 @@ namespace ChipmunkDemo
             space = ChipmunkDemoGame.CreateSpace();
             space.Iterations = 10;
             space.SleepTimeThreshold = 0.5;
+            space.CollisionSlop = 0.5;
 
             Body staticBody = space.StaticBody;
             Shape shape = new Segment(staticBody, new Vect(-320, -240), new Vect(-320, 240), 0.0);

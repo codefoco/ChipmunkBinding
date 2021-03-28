@@ -82,7 +82,7 @@ namespace ChipmunkDemo
         public override Space LoadContent()
         {
             space = ChipmunkDemoGame.CreateSpace();
-            space.Iterations = 20;
+            space.Iterations = 10;
 
             planetBody = new Body(BodyType.Kinematic);
 

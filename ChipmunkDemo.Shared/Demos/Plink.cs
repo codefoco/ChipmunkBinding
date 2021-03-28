@@ -24,7 +24,7 @@ namespace ChipmunkDemo
         public override Space LoadContent()
         {
             space = ChipmunkDemoGame.CreateSpace();
-            space.Iterations = 5;
+            space.Iterations = 10;
             space.Gravity = new Vect(0, -100);
 
             Body body;

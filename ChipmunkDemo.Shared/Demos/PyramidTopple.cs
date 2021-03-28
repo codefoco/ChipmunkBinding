@@ -10,7 +10,7 @@ namespace ChipmunkDemo
 
         void AddDomino(Vect pos, bool flipped)
         {
-            double mass = 1.0;
+            double mass = 10.0;
             double radius = 0.5;
             double moment = Box.MomentForBox(mass, Width, Height);
 
@@ -28,8 +28,8 @@ namespace ChipmunkDemo
         public override Space LoadContent()
         {
             space = ChipmunkDemoGame.CreateSpace();
-            space.Iterations = 30;
-            space.Gravity = new Vect(0, -300);
+            space.Iterations = 35;
+            space.Gravity = new Vect(0, -100);
             space.SleepTimeThreshold = 0.5f;
             space.CollisionSlop = 0.5;
 

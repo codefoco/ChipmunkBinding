@@ -143,10 +143,10 @@ namespace ChipmunkDemo
 
             UpdateMouseBody();
 
-            double dt = gameTime.ElapsedGameTime.TotalMilliseconds / 2000.0;
+            double dt = gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0;
 
             demo[currentDemo].Update(dt);
-            demo[currentDemo].Update(dt);
+            //demo[currentDemo].Update(dt);
 
             base.Update(gameTime);
 

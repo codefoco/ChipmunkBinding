@@ -221,7 +221,6 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
-        [Ignore("Fix BoundBoxQuery")]
         public void BoundBoxQueryTest()
         {
             var space = new Space();
@@ -234,9 +233,9 @@ namespace ChipmunkBindingTest.Tests
 
             var bb = new BoundingBox();
             bb.Left = -20;
-            bb.Top = -20;
+            bb.Top = 20;
             bb.Right = +20;
-            bb.Bottom = +20;
+            bb.Bottom = -20;
 
             Shape[] shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
 
@@ -244,13 +243,11 @@ namespace ChipmunkBindingTest.Tests
 
             space.AddBody(body);
             space.AddShape(shape);
-            space.ReindexShape(shape);
 
             shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
 
             Assert.AreEqual(1, shapes.Length, "#2");
             Assert.AreSame(shape, shapes[0], "#3");
-
 
             shape.Dispose();
             body.Dispose();
