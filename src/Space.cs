@@ -272,7 +272,13 @@ namespace ChipmunkBinding
         /// </summary>
         public CollisionHandler<T> GetOrCreateCollisionHandler<T>(int typeA, int typeB) where T : class
         {
-            cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddCollisionHandler(space, (cpCollisionType)typeA, (cpCollisionType)typeB);
+            uint utypeA = unchecked((uint)typeA);
+            uint utypeB = unchecked((uint)typeB);
+
+            cpCollisionType collisionTypeA = new cpCollisionType(utypeA);
+            cpCollisionType collisionTypeB = new cpCollisionType(utypeB);
+
+            cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddCollisionHandler(space, collisionTypeA, collisionTypeB);
             return CollisionHandler<T>.GetOrCreate(collisionHandle);
         }
 
