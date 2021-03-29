@@ -28,7 +28,7 @@ namespace ChipmunkBinding
 
         internal static void ToPointer(cpCollisionHandler handler, cpCollisionFunction handle)
         {
-            Marshal.StructureToPtr<cpCollisionHandler>(handler, handle, false);
+            Marshal.StructureToPtr(handler, handle, false);
         }
     }
 }

@@ -427,6 +427,11 @@ namespace ChipmunkBindingTest.Tests
 
             space.Step(0.1);
 
+            CollisionHandler<StringBuilder> handler3 = space.GetOrCreateCollisionHandler<StringBuilder>(-1, -2);
+
+            Assert.AreEqual(-1, handler3.TypeA, "#TypeA");
+            Assert.AreEqual(-2, handler3.TypeB, "#TypeB");
+
             shape2.Dispose();
             body1.Dispose();
             body2.Dispose();
