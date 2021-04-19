@@ -636,5 +636,44 @@ namespace ChipmunkBinding
         {
             return NativeMethods.cpMomentForBox(mass, width, height);
         }
+
+        /// <summary>
+        /// Get the list of all bodies in contact with this one
+        /// </summary>
+        public IReadOnlyList<Body> AllContactedBodies
+        {
+            get
+            {
+                int count;
+                IntPtr ptrBodies;
+
+                NativeMethods.cpBodyGetContactedBodies(body, out ptrBodies, out count);
+
+                if (count == 0)
+                    return Array.Empty<Body>();
+
+                var list = new List<Body>(count);
+                cpBody pBody;
+
+                for (int i = 0; i < count; i++)
+                {
+                    pBody = Marshal.ReadIntPtr(ptrBodies, i * IntPtr.Size);
+                    Body b = FromHandle(pBody);
+                    list.Add(b);
+                }
+
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// Check if a Body is in contact with another
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool ContactWith(Body other)
+        {
+            return NativeMethods.cpBodyContactWith(body, other.body) != 0;
+        }
     }
 }

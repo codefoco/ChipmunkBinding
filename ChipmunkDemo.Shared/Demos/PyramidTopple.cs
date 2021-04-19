@@ -1,5 +1,4 @@
-﻿using System;
-using ChipmunkBinding;
+﻿using ChipmunkBinding;
 
 namespace ChipmunkDemo
 {
@@ -8,7 +7,7 @@ namespace ChipmunkDemo
         const double Width = 4.0;
         const double Height = 30.0;
 
-        void AddDomino(Vect pos, bool flipped)
+        Body AddDomino(Vect pos, bool flipped)
         {
             double mass = 10.0;
             double radius = 0.5;
@@ -23,7 +22,13 @@ namespace ChipmunkDemo
 
             shape.Elasticity = 0.0;
             shape.Friction =  0.6;
+
+            return body;
         }
+
+
+        Body b1 = null;
+        Body b2 = null;
 
         public override Space LoadContent()
         {
@@ -49,10 +54,10 @@ namespace ChipmunkDemo
                 for (int j = 0; j < (n - i); j++)
                 {
                     var offset = new Vect((j - (n - 1 - i) * 0.5) * 1.5 * Height, (i + 0.5) * (Height + 2 * Width) - Width - 240);
-                    AddDomino(offset, false);
+                    b1 = AddDomino(offset, false);
                     Vect pos = offset + new Vect(0, (Height + Width) / 2.0);
 
-                    AddDomino(pos, true);
+                    b2 = AddDomino(pos, true);
 
                     if (j == 0)
                     {
@@ -71,7 +76,21 @@ namespace ChipmunkDemo
                 }
             }
 
+            b1.ContactWith(b2);
+
+            var bodies = b1.AllContactedBodies;
+
             return space;
+        }
+
+        public override void Update(double dt)
+        {
+            base.Update(dt);
+
+            b1.ContactWith(b2);
+
+            var bodies = b1.AllContactedBodies;
+
         }
     }
 }

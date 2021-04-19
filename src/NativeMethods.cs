@@ -222,6 +222,9 @@ namespace ChipmunkBinding
         //internal static extern void cpBodyDestroy(cpBody body);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpBool cpBodyContactWith(cpBody bodyA, cpBody bodyB);
+
+        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodyEachArbiter(cpBody body, cpBodyArbiterIteratorFunc func, VoidPointer data);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
@@ -241,6 +244,9 @@ namespace ChipmunkBinding
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Vect cpBodyGetCenterOfGravity(cpBody body);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodyGetContactedBodies(cpBody body, out IntPtr bodies, out int count);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBodyPositionFunc cpBodyGetDefaultPositionUpdateFunc();

@@ -22,6 +22,7 @@ charset = utf-8-bom
 # Organize usings
 dotnet_sort_system_directives_first = true
 dotnet_separate_import_directive_groups = false
+dotnet_diagnostic.IDE0005_gen.severity = error
 
 # this. preferences
 dotnet_style_qualification_for_field = false:none
@@ -40,8 +41,8 @@ dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:silent
 dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:none
-dotnet_style_readonly_field = true:suggestion
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:error
+dotnet_style_readonly_field = true:error
 
 # Expression-level preferences
 dotnet_style_object_initializer = true:suggestion
@@ -52,9 +53,11 @@ dotnet_style_coalesce_expression = true:suggestion
 dotnet_style_prefer_is_null_check_over_reference_equality_method = true:silent
 dotnet_style_prefer_inferred_tuple_names = true:suggestion
 dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
-dotnet_style_prefer_auto_properties = true:silent
-dotnet_style_prefer_conditional_expression_over_assignment = true:silent
-dotnet_style_prefer_conditional_expression_over_return = true:silent
+dotnet_style_prefer_auto_properties = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = false:suggestion
+dotnet_style_prefer_conditional_expression_over_return = false:suggestion
+
+dotnet_style_prefer_simplified_boolean_expressions = true
 
 ###############################
 # Naming Conventions          #
@@ -75,11 +78,14 @@ dotnet_naming_symbols.constant_fields.required_modifiers          = const
 # C# Code Style Rules         #
 ###############################
 
+# IDE0032: Use auto property
+dotnet_diagnostic.IDE0032.severity = suggestion
+
 [*.cs]
 # var preferences
-csharp_style_var_for_built_in_types = false:none
-csharp_style_var_when_type_is_apparent = true:suggestion
-csharp_style_var_elsewhere = false:none
+csharp_style_var_for_built_in_types = false:error
+csharp_style_var_when_type_is_apparent = true:none
+csharp_style_var_elsewhere = false:error
 
 # Expression-bodied members
 csharp_style_expression_bodied_methods = false:none
@@ -90,22 +96,22 @@ csharp_style_expression_bodied_indexers = true:none
 csharp_style_expression_bodied_accessors = true:none
 
 # Pattern-matching preferences
-csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
-csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+csharp_style_pattern_matching_over_is_with_cast_check = false:error
+csharp_style_pattern_matching_over_as_with_null_check = false:error
 
 # Null-checking preferences
-csharp_style_throw_expression = true:suggestion
+csharp_style_throw_expression = false:error
 csharp_style_conditional_delegate_call = true:suggestion
 
 # Modifier preferences
-csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:suggestion
+csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:error
 
 # Expression-level preferences
 csharp_prefer_braces = true:none
 csharp_style_deconstructed_variable_declaration = true:suggestion
 csharp_prefer_simple_default_expression = true:suggestion
-csharp_style_pattern_local_over_anonymous_function = true:suggestion
-csharp_style_inlined_variable_declaration = true:suggestion
+csharp_style_pattern_local_over_anonymous_function = false:error
+csharp_style_inlined_variable_declaration = false:suggestion
 
 ###############################
 # C# Formatting Rules         #
@@ -139,12 +145,32 @@ csharp_space_between_method_call_name_and_opening_parenthesis = false
 csharp_space_between_method_call_empty_parameter_list_parentheses = false
 
 # Wrapping preferences
-csharp_preserve_single_line_statements = true
+csharp_preserve_single_line_statements = false
 csharp_preserve_single_line_blocks = true
+
+# Using
+
+csharp_using_directive_placement = outside_namespace
 
 ##################################
 # Visual Basic Code Style Rules  #
 ##################################
+
+# Default severity for analyzer diagnostics with category 'Style'
+dotnet_analyzer_diagnostic.category-Style.severity = error
+dotnet_analyzer_diagnostic.category-performance.severity = error
+
+# IDE0005: Using directive is unnecessary.
+dotnet_diagnostic.IDE0005.severity = error
+
+# IDE0007: Use implicit type
+dotnet_diagnostic.IDE0007.severity = error
+
+# IDE0078: Use pattern matching
+csharp_style_prefer_pattern_matching = false
+
+# IDE0051: Remove unused private members
+dotnet_diagnostic.IDE0051.severity = error
 
 [*.vb]
 # Modifier preferences
