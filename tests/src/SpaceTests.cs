@@ -299,6 +299,10 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(1, bodies.Length, "#2.1");
             Assert.AreSame(body, bodies[0], "#2.2");
 
+            Body[] contactedBodies = body.AllContactedBodies.ToArray();
+
+            Assert.AreEqual(0, contactedBodies.Length);
+
             space.AddBody(body2);
 
             bodies = space.Bodies.ToArray();
@@ -375,7 +379,7 @@ namespace ChipmunkBindingTest.Tests
 
             var body1 = new Body(1, 1)
             {
-                Position = new Vect(0 * radius * 1.5, 0)
+                Position = new Vect(0, 0)
             };
 
             space.AddBody(body1);
@@ -383,7 +387,7 @@ namespace ChipmunkBindingTest.Tests
 
             var body2 = new Body(1, 1)
             {
-                Position = new Vect(0 * radius * 1.5, 0)
+                Position = new Vect(0, 0)
             };
 
             space.AddBody(body2);
@@ -416,6 +420,14 @@ namespace ChipmunkBindingTest.Tests
             handler.Separate = (a, s, builder) => builder.Append("Separete-");
 
             space.Step(0.1);
+
+            Body[] contactedBodies = body1.AllContactedBodies.ToArray();
+            Assert.AreEqual(1, contactedBodies.Length, "#contactedBodies.Length");
+            Assert.AreSame(contactedBodies[0], body2, "#contactedBodies.body2");
+
+            contactedBodies = body2.AllContactedBodies.ToArray();
+            Assert.AreEqual(1, contactedBodies.Length, "#contactedBodies.Length2");
+            Assert.AreSame(contactedBodies[0], body1, "#contactedBodies.body1");
 
             Assert.AreEqual("Begin-PreSolve-PostSolve-", handler.Data.ToString(), "#1");
 

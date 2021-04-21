@@ -644,21 +644,25 @@ namespace ChipmunkBinding
         {
             get
             {
-                int count;
-                IntPtr ptrBodies;
-
-                NativeMethods.cpBodyGetContactedBodies(body, out ptrBodies, out count);
+                int count = NativeMethods.cpBodyGetContactedBodiesCount(body);
 
                 if (count == 0)
                     return Array.Empty<Body>();
 
+                IntPtr ptrBodies = Marshal.AllocHGlobal(IntPtr.Size * count);
+                NativeMethods.cpBodyGetUserDataContactedBodies(body, ptrBodies);
+
+                IntPtr[] userDataArray = new IntPtr[count];
+
+                Marshal.Copy(ptrBodies, userDataArray, 0, count);
+
+                Marshal.FreeHGlobal(ptrBodies);
+
                 var list = new List<Body>(count);
-                cpBody pBody;
 
                 for (int i = 0; i < count; i++)
                 {
-                    pBody = Marshal.ReadIntPtr(ptrBodies, i * IntPtr.Size);
-                    Body b = FromHandle(pBody);
+                    Body b = NativeInterop.FromIntPtr<Body>(userDataArray[i]);
                     list.Add(b);
                 }
 

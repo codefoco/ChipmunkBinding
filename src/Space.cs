@@ -558,20 +558,6 @@ namespace ChipmunkBinding
             return list;
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
-        [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
-#endif
-        private static void EachBody(cpBody bodyHandle, voidptr_t data)
-        {
-            var list = (List<Body>)GCHandle.FromIntPtr(data).Target;
-
-            var body = Body.FromHandle(bodyHandle);
-
-            list.Add(body);
-        }
-
-        private static SpaceObjectIteratorFunction eachBody = EachBody;
-
         /// <summary>
         /// Get all bodies in the space.
         /// </summary>
@@ -579,13 +565,27 @@ namespace ChipmunkBinding
         {
             get
             {
-                var list = new List<Body>();
+                int count = NativeMethods.cpSpaceGetBodyCount(space);
 
-                var gcHandle = GCHandle.Alloc(list);
+                if (count == 0)
+                    return Array.Empty<Body>();
 
-                NativeMethods.cpSpaceEachBody(space, eachBody.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+                IntPtr ptrBodies = Marshal.AllocHGlobal(IntPtr.Size * count);
+                NativeMethods.cpSpaceGetBodiesUserDataArray(space, ptrBodies);
 
-                gcHandle.Free();
+                IntPtr[] userDataArray = new IntPtr[count];
+
+                Marshal.Copy(ptrBodies, userDataArray, 0, count);
+
+                Marshal.FreeHGlobal(ptrBodies);
+
+                var list = new List<Body>(count);
+
+                for (int i = 0; i < count; i++)
+                {
+                    Body b = NativeInterop.FromIntPtr<Body>(userDataArray[i]);
+                    list.Add(b);
+                }
 
                 return list;
             }
@@ -598,13 +598,27 @@ namespace ChipmunkBinding
         {
             get
             {
-                var list = new List<Body>();
+                int count = NativeMethods.cpSpaceGetDynamicBodyCount(space);
 
-                var gcHandle = GCHandle.Alloc(list);
+                if (count == 0)
+                    return Array.Empty<Body>();
 
-                NativeMethods.cpSpaceEachDynamicBody(space, eachBody.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+                IntPtr ptrBodies = Marshal.AllocHGlobal(IntPtr.Size * count);
+                NativeMethods.cpSpaceGetDynamicBodiesUserDataArray(space, ptrBodies);
 
-                gcHandle.Free();
+                IntPtr[] userDataArray = new IntPtr[count];
+
+                Marshal.Copy(ptrBodies, userDataArray, 0, count);
+
+                Marshal.FreeHGlobal(ptrBodies);
+
+                var list = new List<Body>(count);
+
+                for (int i = 0; i < count; i++)
+                {
+                    Body b = NativeInterop.FromIntPtr<Body>(userDataArray[i]);
+                    list.Add(b);
+                }
 
                 return list;
             }

@@ -43,7 +43,7 @@ namespace ChipmunkBindingTest.Tests
         [TearDown]
         public void TearDown()
         {
-            space.Dispose();
+            space?.Dispose();
         }
 
         [Test]
