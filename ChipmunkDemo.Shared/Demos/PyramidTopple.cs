@@ -27,9 +27,6 @@ namespace ChipmunkDemo
         }
 
 
-        Body b1 = null;
-        Body b2 = null;
-
         public override Space LoadContent()
         {
             space = ChipmunkDemoGame.CreateSpace();
@@ -54,10 +51,10 @@ namespace ChipmunkDemo
                 for (int j = 0; j < (n - i); j++)
                 {
                     var offset = new Vect((j - (n - 1 - i) * 0.5) * 1.5 * Height, (i + 0.5) * (Height + 2 * Width) - Width - 240);
-                    b1 = AddDomino(offset, false);
+                    AddDomino(offset, false);
                     Vect pos = offset + new Vect(0, (Height + Width) / 2.0);
 
-                    b2 = AddDomino(pos, true);
+                    AddDomino(pos, true);
 
                     if (j == 0)
                     {
@@ -76,9 +73,6 @@ namespace ChipmunkDemo
                 }
             }
 
-            b1.ContactWith(b2);
-
-            var bodies = b1.AllContactedBodies;
 
             return space;
         }
@@ -86,11 +80,6 @@ namespace ChipmunkDemo
         public override void Update(double dt)
         {
             base.Update(dt);
-
-            b1.ContactWith(b2);
-
-            var bodies = b1.AllContactedBodies;
-
         }
     }
 }

@@ -301,7 +301,7 @@ namespace ChipmunkBindingTest.Tests
 
             Body[] contactedBodies = body.AllContactedBodies.ToArray();
 
-            Assert.AreEqual(0, contactedBodies.Length);
+            Assert.AreEqual(0, contactedBodies.Length, "#contactedBodies.Length");
 
             space.AddBody(body2);
 
@@ -395,6 +395,15 @@ namespace ChipmunkBindingTest.Tests
             var shape2 = new Circle(body2, radius);
             space.AddShape(shape2);
 
+            Body[] contactedBodies1 = body1.AllContactedBodies.ToArray();
+            Body[] contactedBodies2 = body2.AllContactedBodies.ToArray();
+
+            Assert.AreEqual(0, contactedBodies1.Length, "#contactedBodies1.Length");
+            Assert.AreEqual(0, contactedBodies2.Length, "#contactedBodies2.Length");
+
+            Assert.IsFalse(body1.ContactWith(body2), "#body1.ContactWith(body2).1.false");
+            Assert.IsFalse(body2.ContactWith(body1), "#body2.ContactWith(body1).1.false");
+
             CollisionHandler<StringBuilder> handler = space.GetOrCreateCollisionHandler<StringBuilder>(0, 0);
 
             CollisionHandler<StringBuilder> handler2 = space.GetOrCreateCollisionHandler<StringBuilder>(0, 0);
@@ -428,6 +437,9 @@ namespace ChipmunkBindingTest.Tests
             contactedBodies = body2.AllContactedBodies.ToArray();
             Assert.AreEqual(1, contactedBodies.Length, "#contactedBodies.Length2");
             Assert.AreSame(contactedBodies[0], body1, "#contactedBodies.body1");
+
+            Assert.IsTrue(body1.ContactWith(body2), "#body1.ContactWith(body2).1.true");
+            Assert.IsTrue(body2.ContactWith(body1), "#body2.ContactWith(body1).1.true");
 
             Assert.AreEqual("Begin-PreSolve-PostSolve-", handler.Data.ToString(), "#1");
 
