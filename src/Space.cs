@@ -579,15 +579,15 @@ namespace ChipmunkBinding
 
                 Marshal.FreeHGlobal(ptrBodies);
 
-                var list = new List<Body>(count);
+                Body[] bodies = new Body[count];
 
                 for (int i = 0; i < count; i++)
                 {
                     Body b = NativeInterop.FromIntPtr<Body>(userDataArray[i]);
-                    list.Add(b);
+                    bodies[i] = b;
                 }
 
-                return list;
+                return bodies;
             }
         }
 
@@ -612,15 +612,15 @@ namespace ChipmunkBinding
 
                 Marshal.FreeHGlobal(ptrBodies);
 
-                var list = new List<Body>(count);
+                Body[] bodies = new Body[count];
 
                 for (int i = 0; i < count; i++)
                 {
                     Body b = NativeInterop.FromIntPtr<Body>(userDataArray[i]);
-                    list.Add(b);
+                    bodies[i] = b;
                 }
 
-                return list;
+                return bodies;
             }
         }
 

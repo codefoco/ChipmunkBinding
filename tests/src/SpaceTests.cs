@@ -463,6 +463,38 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
+        public void TestCrashLinux()
+        {
+            var space = new Space();
+
+
+            var body1 = new Body(1, 1)
+            {
+                Position = new Vect(0, 0)
+            };
+
+            space.AddBody(body1);
+            space.AddShape(new Circle(body1, 5));
+
+            var body2 = new Body(1, 1)
+            {
+                Position = new Vect(0, 0)
+            };
+
+            space.AddBody(body2);
+
+            space.AddShape(new Circle(body2, 5));
+
+            space.Step(0.1);
+            space.Step(0.1);
+
+            body1.Dispose();
+            body2.Dispose();
+            space.Dispose();
+            Assert.Pass("#1");
+        }
+
+        [Test]
         public void TestArbiterProperties()
         {
             Space space;
