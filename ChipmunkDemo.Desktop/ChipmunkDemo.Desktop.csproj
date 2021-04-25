@@ -76,12 +76,9 @@
     <PackageReference Include="Codefoco.MonoGame.Framework">
       <Version>3.8.42</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\build\net46\ChipmunkBinding.csproj">
-      <Project>{c45805a8-6436-4738-bd9f-4632eea63bbc}</Project>
-      <Name>ChipmunkBinding</Name>
-    </ProjectReference>
+    <PackageReference Include="ChipmunkBinding">
+      <Version>1.0.21</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
