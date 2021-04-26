@@ -145,14 +145,14 @@ namespace ChipmunkBindingTest.Tests
 
             body.Position = new Vect(0, 0);
 
-            PointQueryInfo[] infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All).ToArray();
+            PointQueryInfo[] infos = space.PointQuery(body.Position, 10.0, -1).ToArray();
 
             Assert.AreEqual(0, infos.Length, "#1");
 
             space.AddBody(body);
             space.AddShape(shape);
 
-            infos = space.PointQuery(body.Position, 10.0, ShapeFilter.All).ToArray();
+            infos = space.PointQuery(body.Position, 10.0, -1).ToArray();
 
             Assert.AreEqual(1, infos.Length, "#2");
             Assert.AreSame(shape, infos[0].Shape, "#3");
@@ -172,16 +172,16 @@ namespace ChipmunkBindingTest.Tests
             body.Position = new Vect(0, 0);
             var end = new Vect(0, 1);
 
-            SegmentQueryInfo[] infos = space.SegmentQuery(body.Position, end, 2.0, ShapeFilter.All).ToArray();
+            SegmentQueryInfo[] infos = space.SegmentQuery(body.Position, end, 2.0, -1).ToArray();
 
             Assert.AreEqual(0, infos.Length, "#1");
 
             space.AddBody(body);
             space.AddShape(shape);
 
-            infos = space.SegmentQuery(body.Position, end, 2.0, ShapeFilter.All).ToArray();
+            infos = space.SegmentQuery(body.Position, end, 2.0, -1).ToArray();
 
-            SegmentQueryInfo first = space.SegmentQueryFirst(body.Position, end, 2.0, ShapeFilter.All);
+            SegmentQueryInfo first = space.SegmentQueryFirst(body.Position, end, 2.0, -1);
 
 
             Assert.AreEqual(1, infos.Length, "#2");
@@ -237,14 +237,14 @@ namespace ChipmunkBindingTest.Tests
             bb.Right = +20;
             bb.Bottom = -20;
 
-            Shape[] shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
+            Shape[] shapes = space.BoundBoxQuery(bb, -1).ToArray();
 
             Assert.AreEqual(0, shapes.Length, "#1");
 
             space.AddBody(body);
             space.AddShape(shape);
 
-            shapes = space.BoundBoxQuery(bb, ShapeFilter.All).ToArray();
+            shapes = space.BoundBoxQuery(bb, -1).ToArray();
 
             Assert.AreEqual(1, shapes.Length, "#2");
             Assert.AreSame(shape, shapes[0], "#3");
@@ -372,14 +372,17 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void TestCollisionHandler()
         {
-            var space = new Space();
-            space.CollisionBias = 1.0;
+            var space = new Space
+            {
+                CollisionBias = 1.0,
+            };
 
             float radius = 5.0f;
 
             var body1 = new Body(1, 1)
             {
-                Position = new Vect(0, 0)
+                Position = new Vect(0, 0),
+                ContactMask = 1
             };
 
             space.AddBody(body1);
@@ -387,7 +390,8 @@ namespace ChipmunkBindingTest.Tests
 
             var body2 = new Body(1, 1)
             {
-                Position = new Vect(0, 0)
+                Position = new Vect(0, 0),
+                ContactMask = 1
             };
 
             space.AddBody(body2);
@@ -441,11 +445,13 @@ namespace ChipmunkBindingTest.Tests
             Assert.IsTrue(body1.ContactWith(body2), "#body1.ContactWith(body2).1.true");
             Assert.IsTrue(body2.ContactWith(body1), "#body2.ContactWith(body1).1.true");
 
-            Assert.AreEqual("Begin-PreSolve-PostSolve-", handler.Data.ToString(), "#1");
+            // We don't receive Begin, because we change to make PostSolve/Begin mutually exclusive
+            Assert.AreEqual("PreSolve-PostSolve-", handler.Data.ToString(), "#1");
 
             space.Step(0.1);
 
-            Assert.AreEqual("Begin-PreSolve-PostSolve-PreSolve-PostSolve-", handler.Data.ToString(), "#2");
+            // PreSolve is only triggered on the first contact to avoid native round trips
+            Assert.AreEqual("PreSolve-PostSolve-PreSolve-", handler.Data.ToString(), "#2");
 
             handler.PostSolve = null;
 
@@ -506,7 +512,8 @@ namespace ChipmunkBindingTest.Tests
 
                 var body1 = new Body(1, 1.666)
                 {
-                    Position = new Vect(0 * radius * 1.5, 0)
+                    Position = new Vect(0, 0),
+                    ContactMask = 1
                 };
 
                 space.AddBody(body1);
@@ -516,13 +523,15 @@ namespace ChipmunkBindingTest.Tests
 
                 var body2 = new Body(1, 1.666)
                 {
-                    Position = new Vect(0 * radius * 1.5, 0)
+                    Position = new Vect(0, 0),
+                    ContactMask = 1
                 };
 
                 space.AddBody(body2);
 
                 var shape2 = new Circle(body2, radius);
                 space.AddShape(shape2);
+
 
                 CollisionHandler<object> handler = space.GetOrCreateCollisionHandler(0, 0);
 
@@ -548,7 +557,7 @@ namespace ChipmunkBindingTest.Tests
 
                 var arb = default(Arbiter);
 
-                handler.Begin = (arbiter, s, obj) =>
+                handler.PostSolve = (arbiter, s, obj) =>
                 {
                     Assert.IsNull(arbiter.Data, "arbiter.Data");
 
@@ -570,8 +579,6 @@ namespace ChipmunkBindingTest.Tests
                     pointB = arbiter.GetPointB(0);
                     depth = arbiter.GetDepth(0);
                     arb = arbiter;
-
-                    return true;
                 };
 
                 space.Step(0.1);
@@ -592,7 +599,7 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreEqual(0, fricction, 0.00001, "#4");
                 Assert.AreEqual(Vect.Zero, surfaceVelocity, "#5");
                 Assert.AreEqual(Vect.Zero, totalImpulse, "#6");
-                Assert.AreEqual(double.NaN, ke, "#7");
+                Assert.AreEqual(0, ke, "#7");
 
                 Assert.AreEqual(1, pointSet.Count, "8.1");
                 Assert.AreEqual(new Vect(1, 0), pointSet.Normal, "8.2");
@@ -611,7 +618,6 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreEqual(new Vect(-5, 0), pointB, "#14");
                 Assert.AreEqual(-10, depth, 0.00001, "#15");
             }
-
 
         }
 

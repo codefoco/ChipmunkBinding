@@ -442,13 +442,12 @@ namespace ChipmunkBinding
         /// <param name="point">Where to check for shapes in the space.</param>
         /// <param name="maxDistance">Match only within this distance.</param>
         /// <param name="filter">Only pick shapes matching the filter.</param>
-        public IReadOnlyList<PointQueryInfo> PointQuery(Vect point, double maxDistance, ShapeFilter filter)
+        public IReadOnlyList<PointQueryInfo> PointQuery(Vect point, double maxDistance, int filter)
         {
             var list = new List<PointQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
-            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
 
-            NativeMethods.cpSpacePointQuery(space, point, maxDistance, cpFilter, eachPointQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+            NativeMethods.cpSpacePointQuery(space, point, maxDistance, (uint)filter, eachPointQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
             return list;
@@ -464,12 +463,11 @@ namespace ChipmunkBinding
         /// <param name="point">Where to check for collision in the space.</param>
         /// <param name="maxDistance">Match only within this distance.</param>
         /// <param name="filter">Only pick shapes matching the filter.</param>
-        public PointQueryInfo PointQueryNearest(Vect point, double maxDistance, ShapeFilter filter)
+        public PointQueryInfo PointQueryNearest(Vect point, double maxDistance, int filter)
         {
             var queryInfo = new cpPointQueryInfo();
-            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
 
-            cpShape shape = NativeMethods.cpSpacePointQueryNearest(space, point, maxDistance, cpFilter, ref queryInfo);
+            cpShape shape = NativeMethods.cpSpacePointQueryNearest(space, point, maxDistance, (uint)filter, ref queryInfo);
             if (shape == IntPtr.Zero)
                 return null;
 
@@ -496,13 +494,12 @@ namespace ChipmunkBinding
         /// space. The filter is applied to the query and follows the same rules as the collision
         /// detection.
         /// </summary>
-        public IReadOnlyList<SegmentQueryInfo> SegmentQuery(Vect start, Vect end, double radius, ShapeFilter filter)
+        public IReadOnlyList<SegmentQueryInfo> SegmentQuery(Vect start, Vect end, double radius, int filter)
         {
             var list = new List<SegmentQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
-            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
 
-            NativeMethods.cpSpaceSegmentQuery(space, start, end, radius, cpFilter, eachSegmentQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+            NativeMethods.cpSpaceSegmentQuery(space, start, end, radius, (uint)filter, eachSegmentQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
             return list;
@@ -513,12 +510,11 @@ namespace ChipmunkBinding
         /// this space. The filter is applied to the query and follows the same rules as the
         /// collision detection.
         /// </summary>
-        public SegmentQueryInfo SegmentQueryFirst(Vect start, Vect end, double radius, ShapeFilter filter)
+        public SegmentQueryInfo SegmentQueryFirst(Vect start, Vect end, double radius, int filter)
         {
             var queryInfo = new cpSegmentQueryInfo();
-            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
 
-            cpShape shape = NativeMethods.cpSpaceSegmentQueryFirst(space, start, end, radius, cpFilter, ref queryInfo);
+            cpShape shape = NativeMethods.cpSpaceSegmentQueryFirst(space, start, end, radius, (uint)filter, ref queryInfo);
             if (shape == IntPtr.Zero)
                 return null;
 
@@ -545,14 +541,13 @@ namespace ChipmunkBinding
         /// Get all shapes within the axis-aligned bounding box that are part of this shape. The
         /// filter is applied to the query and follows the same rules as the collision detection.
         /// </summary>
-        public IReadOnlyList<Shape> BoundBoxQuery(BoundingBox bb, ShapeFilter filter)
+        public IReadOnlyList<Shape> BoundBoxQuery(BoundingBox bb, int filter)
         {
             var list = new List<Shape>();
 
             var gcHandle = GCHandle.Alloc(list);
-            var cpFilter = cpShapeFilter.FromShapeFilter(filter);
 
-            NativeMethods.cpSpaceBBQuery(space, bb, cpFilter, eachBBQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+            NativeMethods.cpSpaceBBQuery(space, bb, (uint)filter, eachBBQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
             return list;

@@ -217,24 +217,6 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// The collision <see cref="ShapeFilter"/> for the shape.
-        /// </summary>
-        public ShapeFilter Filter
-        {
-            get
-            {
-                cpShapeFilter shapeFilter = NativeMethods.cpShapeGetFilter(shape);
-                return shapeFilter.ToShapeFilter();
-            }
-            set
-            {
-                var shapeFilter = cpShapeFilter.FromShapeFilter(value);
-                NativeMethods.cpShapeSetFilter(shape, shapeFilter);
-            }
-        }
-
-
-        /// <summary>
         /// Update, cache and return the bounding box of a shape based on the body it's attached to.
         /// </summary>
         public BoundingBox CacheBB()

@@ -27,6 +27,7 @@ using cpSweep1D = System.IntPtr;
 
 using cpBodyType = System.Int32;
 using cpCollisionType = System.UIntPtr;
+using cpBitmask = System.UInt32;
 
 using cpSpatialIndexBBFunc = System.IntPtr;
 using cpBodyArbiterIteratorFunc = System.IntPtr;
@@ -242,11 +243,20 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpBodyGetAngularVelocity(cpBody body);
 
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpBitmask cpBodyGetCategory(cpBody body);
+
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Vect cpBodyGetCenterOfGravity(cpBody body);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpBitmask cpBodyGetCollisionMask(cpBody body);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int cpBodyGetContactedBodiesCount(cpBody body);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern cpBitmask cpBodyGetContactMask(cpBody body);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodyGetUserDataContactedBodies(cpBody body, IntPtr userDataArray);
@@ -325,8 +335,17 @@ namespace ChipmunkBinding
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetAngularVelocity(cpBody body, cpFloat angularVelocity);
 
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodySetCategory(cpBody body, cpBitmask category);
+
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetCenterOfGravity(cpBody body, Vect cog);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodySetCollisionMask(cpBody body, cpBitmask collisionMask);
+
+        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void cpBodySetContactMask(cpBody body, cpBitmask contactMask);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpBodySetForce(cpBody body, Vect force);
@@ -901,9 +920,6 @@ namespace ChipmunkBinding
         internal static extern cpFloat cpShapeGetElasticity(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShapeFilter cpShapeGetFilter(cpShape shape);
-
-        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpFloat cpShapeGetFriction(cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
@@ -941,9 +957,6 @@ namespace ChipmunkBinding
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpShapeSetElasticity(cpShape shape, cpFloat elasticity);
-
-        [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpShapeSetFilter(cpShape shape, cpShapeFilter filter);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpShapeSetFriction(cpShape shape, cpFloat friction);
@@ -1039,7 +1052,7 @@ namespace ChipmunkBinding
         //internal static extern cpSpace cpSpaceAlloc();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceBBQuery(cpSpace space, BoundingBox bb, cpShapeFilter filter, cpSpaceBBQueryFunc func, IntPtr data);
+        internal static extern void cpSpaceBBQuery(cpSpace space, BoundingBox bb, cpBitmask filter, cpSpaceBBQueryFunc func, IntPtr data);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBool cpSpaceContainsShape(cpSpace space, cpShape shape);
@@ -1138,10 +1151,10 @@ namespace ChipmunkBinding
         internal static extern cpSpace cpSpaceNew();
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpacePointQuery(cpSpace space, Vect point, cpFloat maxDistance, cpShapeFilter filter, cpSpacePointQueryFunc func, IntPtr data);
+        internal static extern void cpSpacePointQuery(cpSpace space, Vect point, cpFloat maxDistance, cpBitmask filter, cpSpacePointQueryFunc func, IntPtr data);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShape cpSpacePointQueryNearest(cpSpace space, Vect point, cpFloat maxDistance, cpShapeFilter filter, ref cpPointQueryInfo output);
+        internal static extern cpShape cpSpacePointQueryNearest(cpSpace space, Vect point, cpFloat maxDistance, cpBitmask filter, ref cpPointQueryInfo output);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceReindexShape(cpSpace space, cpShape shape);
@@ -1162,10 +1175,10 @@ namespace ChipmunkBinding
         internal static extern void cpSpaceRemoveShape(cpSpace space, cpShape shape);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceSegmentQuery(cpSpace space, Vect start, Vect end, cpFloat radius, cpShapeFilter filter, cpSpaceSegmentQueryFunc func, IntPtr data);
+        internal static extern void cpSpaceSegmentQuery(cpSpace space, Vect start, Vect end, cpFloat radius, cpBitmask filter, cpSpaceSegmentQueryFunc func, IntPtr data);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpShape cpSpaceSegmentQueryFirst(cpSpace space, Vect start, Vect end, cpFloat radius, cpShapeFilter filter, ref cpSegmentQueryInfo output);
+        internal static extern cpShape cpSpaceSegmentQueryFirst(cpSpace space, Vect start, Vect end, cpFloat radius, cpBitmask filter, ref cpSegmentQueryInfo output);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceSetCollisionBias(cpSpace space, cpFloat collisionBias);

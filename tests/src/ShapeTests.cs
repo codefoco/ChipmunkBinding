@@ -237,10 +237,6 @@ namespace ChipmunkBindingTest.Tests
             shape.CollisionType = 13;
             Assert.AreEqual(13, shape.CollisionType, "#10");
 
-            ShapeFilter filter = shape.Filter;
-
-            shape.Filter = ShapeFilter.All;
-            Assert.AreEqual(ShapeFilter.All, shape.Filter, "#11");
 
             space.Dispose();
         }

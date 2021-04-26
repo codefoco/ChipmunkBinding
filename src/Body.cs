@@ -208,6 +208,33 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
+        /// Body contact category.
+        /// </summary>
+        public int Category
+        {
+            get => (int)NativeMethods.cpBodyGetCategory(body);
+            set => NativeMethods.cpBodySetCategory(body, (uint)value);
+        }
+
+        /// <summary>
+        /// Body contact mask of the body.
+        /// </summary>
+        public int ContactMask
+        {
+            get => (int)NativeMethods.cpBodyGetContactMask(body);
+            set => NativeMethods.cpBodySetContactMask(body, (uint)value);
+        }
+
+        /// <summary>
+        /// Body collision mask of the body.
+        /// </summary>
+        public int CollisionMask
+        {
+            get => (int)NativeMethods.cpBodyGetCollisionMask(body);
+            set => NativeMethods.cpBodySetCollisionMask(body, (uint)value);
+        }
+
+        /// <summary>
         /// Mass of the rigid body. Mass does not have to be expressed in any particular units, but
         /// relative masses should be consistent. 
         /// </summary>
