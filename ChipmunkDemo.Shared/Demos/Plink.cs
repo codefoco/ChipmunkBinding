@@ -31,6 +31,7 @@ namespace ChipmunkDemo
             Body staticBody = space.StaticBody;
             Shape shape;
 
+            staticBody.CollisionMask = ChipmunkDemoGame.NotGrabbableFilter;
             // Create the static triangles.
             for (int i = 0; i < 9; i++)
             {
@@ -42,7 +43,6 @@ namespace ChipmunkDemo
                     space.AddShape(shape);
                     shape.Elasticity =  1.0f;
                     shape.Friction = 1.0f;
-                    shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
                 }
             }
 

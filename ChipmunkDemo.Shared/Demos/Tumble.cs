@@ -70,25 +70,22 @@ namespace ChipmunkDemo
             space.AddShape(shape);
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
+            _kinematicBoxBody.CollisionMask = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(_kinematicBoxBody, b, c, 0.0);
             space.AddShape(shape);
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(_kinematicBoxBody, c, d, 0.0);
             space.AddShape(shape);
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(_kinematicBoxBody, d, a, 0.0);
             space.AddShape(shape);
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             double mass = 1;
             double width = 30;

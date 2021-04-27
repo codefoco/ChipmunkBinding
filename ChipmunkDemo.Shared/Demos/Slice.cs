@@ -127,7 +127,7 @@ namespace ChipmunkDemo
 
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
+            staticBody.CollisionMask = ChipmunkDemoGame.NotGrabbableFilter;
 
             double width = 200;
             double height = 300;

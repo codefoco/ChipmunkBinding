@@ -45,8 +45,8 @@ namespace ChipmunkDemo
             NotGrabbableMaskBit = ~(1 << 31)
         }
 
-        public static readonly ShapeFilter GrabbableFilter = new ShapeFilter(0, (int)ShapeCategorie.GrabbableMaskBit, (int)ShapeCategorie.GrabbableMaskBit);
-        public static readonly ShapeFilter NotGrabbableFilter = new ShapeFilter(0, (int)ShapeCategorie.NotGrabbableMaskBit, (int)ShapeCategorie.NotGrabbableMaskBit);
+        public static readonly int GrabbableFilter = (int)ShapeCategorie.GrabbableMaskBit;
+        public static readonly int NotGrabbableFilter = (int)ShapeCategorie.NotGrabbableMaskBit;
         public static Vect ChipmunkDemoMouse => chipmunkDemoMouse;
 
         public ChipmunkDemoGame()

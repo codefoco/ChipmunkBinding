@@ -41,7 +41,7 @@ namespace ChipmunkDemo
 
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
+            space.StaticBody.CollisionMask = ChipmunkDemoGame.NotGrabbableFilter;
 
 
             // Add the dominoes.

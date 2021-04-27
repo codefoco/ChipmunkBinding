@@ -63,26 +63,23 @@ namespace ChipmunkDemo
 
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
+            staticBody.CollisionMask = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(staticBody, new Vect(320, -240), new Vect(320, 240), 0.0);
             space.AddShape(shape);
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(staticBody, new Vect(-320, -240), new Vect(320, -240), 0.0);
             space.AddShape(shape);
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(staticBody, new Vect(-320, 240), new Vect(320, 240), 0.0);
             space.AddShape(shape);
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
 
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             for (int i = 0; i < 50; i++)
             {

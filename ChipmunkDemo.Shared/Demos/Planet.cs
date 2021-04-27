@@ -94,11 +94,12 @@ namespace ChipmunkDemo
                 AddBox(space);
             }
 
+            planetBody.CollisionMask = ChipmunkDemoGame.NotGrabbableFilter;
+
             Shape shape = new Circle(planetBody, 70.0, Vect.Zero);
             space.AddShape(shape);
             shape.Elasticity = 1.0;
             shape.Friction = 1.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             return space;
         }

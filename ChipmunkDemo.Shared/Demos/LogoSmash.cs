@@ -123,7 +123,7 @@ namespace ChipmunkDemo
 
             shape.Elasticity = 0.0;
             shape.Friction = 0.0;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
+            body.CollisionMask = ChipmunkDemoGame.NotGrabbableFilter;
 
             bodies = space.Bodies.ToArray();
 

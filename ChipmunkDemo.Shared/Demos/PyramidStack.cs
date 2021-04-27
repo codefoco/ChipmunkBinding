@@ -19,21 +19,19 @@ namespace ChipmunkDemo
 
             shape.Elasticity = 1.0f;
             shape.Friction = 1.0f;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
+            staticBody.CollisionMask = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(staticBody, new Vect(320, -240), new Vect(320, 240), 0.0f);
             space.AddShape(shape);
 
             shape.Elasticity = 1.0f;
             shape.Friction = 1.0f;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             shape = new Segment(staticBody, new Vect(-320, -240), new Vect(320, -240), 0.0f);
             space.AddShape(shape);
 
             shape.Elasticity = 1.0f;
             shape.Friction = 1.0f;
-            shape.Filter = ChipmunkDemoGame.NotGrabbableFilter;
 
             // Add lots of boxes.
             for (int i = 0; i < 14; i++)
