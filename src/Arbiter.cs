@@ -201,9 +201,9 @@ namespace ChipmunkBinding
         /// wildcard's return value since it may disagree with the other wildcard handler's return
         /// value or your own.
         /// </summary>
-        public bool CallWildcardBeginA(Space space)
+        public void CallWildcardBeginA(Space space)
         {
-            return NativeMethods.cpArbiterCallWildcardBeginA(arbiter, space.Handle) != 0;
+            NativeMethods.cpArbiterCallWildcardBeginA(arbiter, space.Handle);
         }
 
         /// <summary>
@@ -212,9 +212,9 @@ namespace ChipmunkBinding
         /// wildcard's return value since it may disagree with the other wildcard handler's return
         /// value or your own.
         /// </summary>
-        public bool CallWildcardBeginB(Space space)
+        public void CallWildcardBeginB(Space space)
         {
-            return NativeMethods.cpArbiterCallWildcardBeginB(arbiter, space.Handle) != 0;
+            NativeMethods.cpArbiterCallWildcardBeginB(arbiter, space.Handle);
         }
 
         /// <summary>
