@@ -419,7 +419,6 @@ namespace ChipmunkBindingTest.Tests
             handler.Begin = (a, s, builder) =>
             {
                 builder.Append("Begin-");
-                return true;
             };
 
             handler.PreSolve = (a, s, builder) =>

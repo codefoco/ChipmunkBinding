@@ -76,7 +76,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate cpBool CollisionBeginFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
+    internal delegate void CollisionBeginFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
 
     /// <summary>
     /// Collision pre-solve event function callback type. Returning false from a pre-step callback

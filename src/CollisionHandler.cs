@@ -83,11 +83,11 @@ namespace ChipmunkBinding
             DefaultSeparateFunction = handler.separateFunction;
         }
 
-        private Func<Arbiter, Space, T, bool> begin;
+        private Action<Arbiter, Space, T> begin;
         /// <summary>
         /// This function is called when two shapes with types that match this collision handler begin colliding
         /// </summary>
-        public Func<Arbiter, Space, T, bool> Begin
+        public Action<Arbiter, Space, T> Begin
         {
             set
             {
@@ -222,7 +222,7 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
         [MonoPInvokeCallback(typeof(CollisionBeginFunction))]
 #endif
-        private static cpBool CollisionBeginFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
+        private static void CollisionBeginFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
         {
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
@@ -232,15 +232,10 @@ namespace ChipmunkBinding
 
             if (begin == null)
             {
-                return 1;
+                return;
             }
 
-            if (begin(arbiter, space, handler.Data))
-            {
-                return 1;
-            }
-
-            return 0;
+            begin(arbiter, space, handler.Data);
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
