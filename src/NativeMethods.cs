@@ -79,10 +79,10 @@ namespace ChipmunkBinding
 #pragma warning disable IDE1006 // Naming Styles
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpBool cpArbiterCallWildcardBeginA(cpArbiter arb, cpSpace space);
+        internal static extern void cpArbiterCallWildcardBeginA(cpArbiter arb, cpSpace space);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpBool cpArbiterCallWildcardBeginB(cpArbiter arb, cpSpace space);
+        internal static extern void cpArbiterCallWildcardBeginB(cpArbiter arb, cpSpace space);
 
         [DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpArbiterCallWildcardPostSolveA(cpArbiter arb, cpSpace space);
