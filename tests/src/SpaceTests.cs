@@ -163,6 +163,78 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
+        public void PointQueryTestCategories()
+        {
+            var space = new Space();
+            var body1 = new Body(1, 1.66);
+            var shape1 = new Box(body1, 100, 100, 0);
+
+            body1.Category = 1;
+            body1.ContactMask = 0;
+            body1.CollisionMask = 0;
+
+            var body2 = new Body(1, 1.66);
+            var shape2 = new Box(body2, 100, 100, 0);
+
+            body2.Category = 2;
+            body2.ContactMask = 0;
+            body2.CollisionMask = 0;
+
+            var body3 = new Body(1, 1.66);
+            var shape3 = new Box(body3, 100, 100, 0);
+
+            body3.Category = 4;
+            body3.ContactMask = 0;
+            body3.CollisionMask = 0;
+
+            body1.Position = new Vect(0, 0);
+            body2.Position = new Vect(0, 0);
+
+            space.AddBody(body1);
+            space.AddShape(shape1);
+
+            space.AddBody(body2);
+            space.AddShape(shape2);
+
+            space.AddBody(body3);
+            space.AddShape(shape3);
+
+            PointQueryInfo[] infos = space.PointQuery(body1.Position, 0.0, 1).ToArray();
+
+            Assert.AreEqual(1, infos.Length, "#1");
+            Assert.AreSame(shape1, infos[0].Shape, "#2");
+
+            infos = space.PointQuery(body1.Position, 0.0, 2).ToArray();
+
+            Assert.AreEqual(1, infos.Length, "#3");
+            Assert.AreSame(shape2, infos[0].Shape, "#4");
+
+            infos = space.PointQuery(body1.Position, 0.0, 2 | 1).ToArray();
+
+            Assert.AreEqual(2, infos.Length, "#3");
+            Assert.AreSame(shape2, infos[0].Shape, "#4.2");
+            Assert.AreSame(shape1, infos[1].Shape, "#4.1");
+
+            infos = space.PointQuery(body1.Position, 0.0, -1).ToArray();
+
+            Assert.AreEqual(3, infos.Length, "#5");
+            Assert.AreSame(shape3, infos[0].Shape, "#6.1");
+            Assert.AreSame(shape2, infos[1].Shape, "#6.2");
+            Assert.AreSame(shape1, infos[2].Shape, "#6.3");
+
+            shape1.Dispose();
+            body1.Dispose();
+
+            shape2.Dispose();
+            body2.Dispose();
+
+            shape3.Dispose();
+            body3.Dispose();
+
+            space.Dispose();
+        }
+
+        [Test]
         public void SegmentQueryTest()
         {
             var space = new Space();
