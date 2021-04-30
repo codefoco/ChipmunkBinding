@@ -25,7 +25,7 @@ namespace ChipmunkBinding
     /// callbacks are called before the sleeping algorithm runs. If an object falls asleep, its
     /// post_solve() callback won’t be called until it’s re-awoken.
     /// </summary>
-    public sealed class CollisionHandler<T> where T : class
+    public sealed class CollisionHandler
     {
         private readonly cpCollisionHandlerPointer handle;
 
@@ -56,7 +56,7 @@ namespace ChipmunkBinding
             cpCollisionHandler.ToPointer(handler, handle);
         }
 
-        internal static CollisionHandler<T> GetOrCreate(cpCollisionHandlerPointer collisionHandle)
+        internal static CollisionHandler GetOrCreate(cpCollisionHandlerPointer collisionHandle)
         {
             Debug.Assert(collisionHandle != IntPtr.Zero, "CollisionHandle cannot be zero");
 
@@ -64,12 +64,12 @@ namespace ChipmunkBinding
 
             if (handler.userData != IntPtr.Zero)
             {
-                return NativeInterop.FromIntPtr<CollisionHandler<T>>(handler.userData);
+                return NativeInterop.FromIntPtr<CollisionHandler>(handler.userData);
             }
 
             EnsureDefaultCallbackValues(handler);
 
-            return new CollisionHandler<T>(collisionHandle, ref handler);
+            return new CollisionHandler(collisionHandle, ref handler);
         }
 
         private static void EnsureDefaultCallbackValues(cpCollisionHandler handler)
@@ -83,11 +83,11 @@ namespace ChipmunkBinding
             DefaultSeparateFunction = handler.separateFunction;
         }
 
-        private Action<Arbiter, Space, T> begin;
+        private Action<Arbiter, Space, object> begin;
         /// <summary>
         /// This function is called when two shapes with types that match this collision handler begin colliding
         /// </summary>
-        public Action<Arbiter, Space, T> Begin
+        public Action<Arbiter, Space, object> Begin
         {
             set
             {
@@ -113,14 +113,14 @@ namespace ChipmunkBinding
             get => begin;
         }
 
-        private Func<Arbiter, Space, T, bool> preSolve;
+        private Func<Arbiter, Space, object, bool> preSolve;
 
         /// <summary>
         /// This function is called each step when two shapes with types that match this collision
         /// handler are colliding. It's called before the collision solver runs so that you can
         /// affect a collision's outcome.
         /// </summary>
-        public Func<Arbiter, Space, T, bool> PreSolve
+        public Func<Arbiter, Space, object, bool> PreSolve
         {
             set
             {
@@ -143,14 +143,14 @@ namespace ChipmunkBinding
             get => preSolve;
         }
 
-        private Action<Arbiter, Space, T> postSolve;
+        private Action<Arbiter, Space, object> postSolve;
 
         /// <summary>
         /// This function is called each step when two shapes with types that match this collision
         /// handler are colliding. It's called after the collision solver runs so that you can read
         /// back information about the collision to trigger events in your game.
         /// </summary>
-        public Action<Arbiter, Space, T> PostSolve
+        public Action<Arbiter, Space, object> PostSolve
         {
             set
             {
@@ -173,13 +173,13 @@ namespace ChipmunkBinding
             get => postSolve;
         }
 
-        private Action<Arbiter, Space, T> separate;
+        private Action<Arbiter, Space, object> separate;
 
         /// <summary>
         /// This function is called when two shapes with types that match this collision handler
         /// stop colliding.
         /// </summary>
-        public Action<Arbiter, Space, T> Separate
+        public Action<Arbiter, Space, object> Separate
         {
             set
             {
@@ -205,7 +205,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// User definable context pointer that is passed to all of the collision handler functions.
         /// </summary>
-        public T Data { get; set; }
+        public object Data { get; set; }
 
         /// <summary>
         /// In the collision handler callback, the shape with this type will be the first argument.
@@ -227,7 +227,7 @@ namespace ChipmunkBinding
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
 
-            var handler = NativeInterop.FromIntPtr<CollisionHandler<T>>(userData);
+            var handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
             var begin = handler.Begin;
 
             if (begin == null)
@@ -246,7 +246,7 @@ namespace ChipmunkBinding
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
 
-            var handler = NativeInterop.FromIntPtr<CollisionHandler<T>>(userData);
+            var handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
             var preSolve = handler.PreSolve;
 
             if (preSolve == null)
@@ -270,7 +270,7 @@ namespace ChipmunkBinding
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
 
-            var handler = NativeInterop.FromIntPtr<CollisionHandler<T>>(userData);
+            var handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
             var postSolve = handler.PostSolve;
 
             if (postSolve == null)
@@ -289,7 +289,7 @@ namespace ChipmunkBinding
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
 
-            var handler = NativeInterop.FromIntPtr<CollisionHandler<T>>(userData);
+            var handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
             var separate = handler.Separate;
 
             if (separate == null)

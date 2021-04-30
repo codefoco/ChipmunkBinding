@@ -249,19 +249,10 @@ namespace ChipmunkBinding
         /// Create or return the existing collision handler that is called for all collisions that are
         /// not handled by a more specific collision handler.
         /// </summary>
-        public CollisionHandler<T> GetOrCreateDefaultCollisionHandler<T>() where T : class
+        public CollisionHandler GetOrCreateDefaultCollisionHandler()
         {
             cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddDefaultCollisionHandler(space);
-            return CollisionHandler<T>.GetOrCreate(collisionHandle);
-        }
-
-        /// <summary>
-        /// Create or return the existing collision handler that is called for all collisions that are
-        /// not handled by a more specific collision handler.
-        /// </summary>
-        public CollisionHandler<object> GetOrCreateDefaultCollisionHandler()
-        {
-            return GetOrCreateDefaultCollisionHandler<object>();
+            return CollisionHandler.GetOrCreate(collisionHandle);
         }
 
 
@@ -270,7 +261,7 @@ namespace ChipmunkBinding
         /// types. If wildcard handlers are used with either of the collision types, it's the
         /// responsibility of the custom handler to invoke the wildcard handlers.
         /// </summary>
-        public CollisionHandler<T> GetOrCreateCollisionHandler<T>(int typeA, int typeB) where T : class
+        public CollisionHandler GetOrCreateCollisionHandler(int typeA, int typeB)
         {
             uint utypeA = unchecked((uint)typeA);
             uint utypeB = unchecked((uint)typeB);
@@ -279,34 +270,17 @@ namespace ChipmunkBinding
             cpCollisionType collisionTypeB = new cpCollisionType(utypeB);
 
             cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddCollisionHandler(space, collisionTypeA, collisionTypeB);
-            return CollisionHandler<T>.GetOrCreate(collisionHandle);
+            return CollisionHandler.GetOrCreate(collisionHandle);
         }
 
-        /// <summary>
-        /// Create or return the existing collision handler for the specified pair of collision
-        /// types. If wildcard handlers are used with either of the collision types, it's the
-        /// responsibility of the custom handler to invoke the wildcard handlers.
-        /// </summary>
-        public CollisionHandler<object> GetOrCreateCollisionHandler(int typeA, int typeB)
-        {
-            return GetOrCreateCollisionHandler<object>(typeA, typeB);
-        }
 
         /// <summary>
         /// Create or return the existing wildcard collision handler for the specified type.
         /// </summary>
-        public CollisionHandler<T> GetOrCreateWildcardHandler<T>(int type) where T : class
+        public CollisionHandler GetOrCreateWildcardHandler(int type)
         {
             cpCollisionHandlerPointer collisionHandle = NativeMethods.cpSpaceAddWildcardHandler(space, (cpCollisionType)type);
-            return CollisionHandler<T>.GetOrCreate(collisionHandle);
-        }
-
-        /// <summary>
-        /// Create or return the existing wildcard collision handler for the specified type.
-        /// </summary>
-        public CollisionHandler<object> GetOrCreateWildcardHandler(int type)
-        {
-            return GetOrCreateWildcardHandler<object>(type);
+            return CollisionHandler.GetOrCreate(collisionHandle);
         }
 
         /// <summary>

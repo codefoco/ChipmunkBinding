@@ -480,28 +480,38 @@ namespace ChipmunkBindingTest.Tests
             Assert.IsFalse(body1.ContactWith(body2), "#body1.ContactWith(body2).1.false");
             Assert.IsFalse(body2.ContactWith(body1), "#body2.ContactWith(body1).1.false");
 
-            CollisionHandler<StringBuilder> handler = space.GetOrCreateCollisionHandler<StringBuilder>(0, 0);
+            CollisionHandler handler = space.GetOrCreateCollisionHandler(0, 0);
 
-            CollisionHandler<StringBuilder> handler2 = space.GetOrCreateCollisionHandler<StringBuilder>(0, 0);
+            CollisionHandler handler2 = space.GetOrCreateCollisionHandler(0, 0);
 
             Assert.AreSame(handler, handler2, "#0");
 
             handler.Data = new StringBuilder();
 
-            handler.Begin = (a, s, builder) =>
+            handler.Begin = (a, s, data) =>
             {
+                StringBuilder builder = (StringBuilder)data;
                 builder.Append("Begin-");
             };
 
-            handler.PreSolve = (a, s, builder) =>
+            handler.PreSolve = (a, s, data) =>
             {
+                StringBuilder builder = (StringBuilder)data;
                 builder.Append("PreSolve-");
                 return true;
             };
 
-            handler.PostSolve = (a, s, builder) => builder.Append("PostSolve-");
+            handler.PostSolve = (a, s, data) =>
+            {
+                StringBuilder builder = (StringBuilder)data;
+                builder.Append("PostSolve-");
+            };
 
-            handler.Separate = (a, s, builder) => builder.Append("Separete-");
+            handler.Separate = (a, s, data) =>
+            {
+                StringBuilder builder = (StringBuilder)data;
+                builder.Append("Separete-");
+            };
 
             space.Step(0.1);
 
@@ -528,7 +538,7 @@ namespace ChipmunkBindingTest.Tests
 
             space.Step(0.1);
 
-            CollisionHandler<StringBuilder> handler3 = space.GetOrCreateCollisionHandler<StringBuilder>(-1, -2);
+            CollisionHandler handler3 = space.GetOrCreateCollisionHandler(-1, -2);
 
             Assert.AreEqual(-1, handler3.TypeA, "#TypeA");
             Assert.AreEqual(-2, handler3.TypeB, "#TypeB");
@@ -604,7 +614,7 @@ namespace ChipmunkBindingTest.Tests
                 space.AddShape(shape2);
 
 
-                CollisionHandler<object> handler = space.GetOrCreateCollisionHandler(0, 0);
+                CollisionHandler handler = space.GetOrCreateCollisionHandler(0, 0);
 
                 handler.Data = "object data";
 
