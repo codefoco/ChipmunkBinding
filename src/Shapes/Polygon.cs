@@ -78,10 +78,15 @@ namespace ChipmunkBinding
             get
             {
                 int count = Count;
-                var vertices = new List<Vect>(Count);
+                if (count == 0)
+                    return Array.Empty<Vect>();
+
+                Vect[] vertices = new Vect[count];
 
                 for (int i = 0; i < count; i++)
-                    vertices.Add(GetVertex(i));
+                {
+                    vertices[i] = GetVertex(i);
+                }
 
                 return vertices;
             }

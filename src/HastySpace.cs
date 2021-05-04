@@ -4,7 +4,7 @@ namespace ChipmunkBinding
     /// <summary>
     /// Similar to <see cref="Space"/>, but with ARM NEON optimizations in the solver.
     /// </summary>
-    public class HastySpace : Space
+    public sealed class HastySpace : Space
     {
         /// <summary>
         /// On ARM platforms that support NEON, this will enable the vectorized solver.
@@ -31,7 +31,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Step in the hasty space.
         /// </summary>
-        public override void Step(double dt)
+        public sealed override void Step(double dt)
         {
             NativeMethods.cpHastySpaceStep(Handle, dt);
         }
