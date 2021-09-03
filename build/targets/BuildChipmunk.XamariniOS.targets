@@ -5,13 +5,13 @@
         <iOSOutputDir>ios</iOSOutputDir>
         <DylibFileFramework>libchipmunk.framework</DylibFileFramework>
     </PropertyGroup>
-    <Target Name="BuildChipmunkXamariniOS" BeforeTargets="PrepareForBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/lib/libc.dylib')" >
+    <Target Name="BuildChipmunkXamariniOS" BeforeTargets="PrepareForBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
         <Message Text="Building iOS Chipmunk library (arm64/x86_64)" />
         <Exec Command="make ios" WorkingDirectory="$(ExternalChipmunkPath)\$(iOSBuildDir)" />
         <Exec Command="ditto $(ExternalChipmunkPath)\$(iOSBuildDir)\$(iOSOutputDir)\$(DylibFileFramework) $(OutputRuntimeDir)\$(iOSOutputDir)\$(DylibFileFramework)"  />
         <RemoveDir Directories="$(OutputRuntimeDir)\$(iOSOutputDir)\$(DylibFileFramework)\Headers" />
     </Target>
-    <Target Name="CleanChipmunkXamariniOS" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and Exists('/usr/lib/libc.dylib')" >
+    <Target Name="CleanChipmunkXamariniOS" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
         <Message Text="Cleaning Chipmunk library (iOS)" />
         <RemoveDir Directories="
         $(ExternalChipmunkPath)\$(iOSBuildDir)\$(iOSOutputDir); 

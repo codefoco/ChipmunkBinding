@@ -5,13 +5,13 @@
         <watchOSOutputDir>watchos</watchOSOutputDir>
         <DylibFileFramework>libchipmunk.framework</DylibFileFramework>
     </PropertyGroup>
-    <Target Name="BuildChipmunkXamarinWatchOS" BeforeTargets="PrepareForBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/lib/libc.dylib')" >
+    <Target Name="BuildChipmunkXamarinWatchOS" BeforeTargets="PrepareForBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
         <Message Text="Building watchOS Chipmunk library (arm64/x86_64)" />
         <Exec Command="make watchos" WorkingDirectory="$(ExternalChipmunkPath)\$(watchOSBuildDir)" />
         <Exec Command="ditto $(ExternalChipmunkPath)\$(watchOSBuildDir)\$(watchOSOutputDir)\$(DylibFileFramework) $(OutputRuntimeDir)\$(watchOSOutputDir)\$(DylibFileFramework)"  />
         <RemoveDir Directories="$(OutputRuntimeDir)\$(watchOSOutputDir)\$(DylibFileFramework)\Headers" />    
     </Target>
-    <Target Name="CleanChipmunkXamarinWatchOS" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and Exists('/usr/lib/libc.dylib')" >
+    <Target Name="CleanChipmunkXamarinWatchOS" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
         <Message Text="Cleaning Chipmunk library (watchOS)" />
         <RemoveDir Directories="
         $(ExternalChipmunkPath)\$(watchOSBuildDir)\$(watchOSOutputDir); 
