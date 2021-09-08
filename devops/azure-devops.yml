@@ -131,7 +131,7 @@ jobs:
       solution: tests/build/xamarinios/ChipmunkBindingTest.XamariniOS.csproj
       platform: iPhoneSimulator
       configuration: Release
-      msbuildArguments: '/t:RunSimulatorTests'
+      msbuildArguments: '/t:RunSimulatorTests -verbosity:diag -detailedSummary'
 
   - task: PublishTestResults@2
     displayName: 'Publish iOS Test Results TEST-Result-iOS.xml'
