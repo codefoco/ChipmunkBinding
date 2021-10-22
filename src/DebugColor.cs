@@ -10,12 +10,12 @@ namespace ChipmunkBinding
     [StructLayout(LayoutKind.Sequential)]
     public struct DebugColor : IEquatable<DebugColor>
     {
-        #pragma warning disable IDE0032
-        private float red;
-        private float green;
-        private float blue;
-        private float alpha;
-        #pragma warning restore IDE0032
+#pragma warning disable IDE0032
+        private readonly float red;
+        private readonly float green;
+        private readonly float blue;
+        private readonly float alpha;
+#pragma warning restore IDE0032
 
         /// <summary>
         /// Red component in the RGBA color space.
@@ -36,11 +36,11 @@ namespace ChipmunkBinding
         /// Alpha component in the RGBA color space.
         /// </summary>
         public float Alpha => alpha;
-        
+
         /// <summary>
         /// Create a <see cref="DebugColor"/> with the given color channel values.
         /// </summary>
-        public DebugColor(float red, float green, float blue) 
+        public DebugColor(float red, float green, float blue)
             : this(red, green, blue, 1.0f)
         {
         }
@@ -103,12 +103,14 @@ namespace ChipmunkBinding
         /// <summary>
         /// Return true if two <see cref="DebugColor"/> are reference-equal.
         /// </summary>
-        public static bool operator == (DebugColor a, DebugColor b)
+        public static bool operator ==(DebugColor a, DebugColor b)
         {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
             return a.red == b.red &&
                 a.green == b.green &&
                 a.blue == b.blue &&
                 a.alpha == b.alpha;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
         }
 
 

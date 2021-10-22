@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkBindingTest", "test
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChipmunkBindingTest.Shared", "tests\src\ChipmunkBindingTest.Shared.shproj", "{7279D001-6F21-4FF3-A0EE-3A1D12004BA3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0E4C07DC-720B-40D7-B1EB-CBCB14FEF3AF}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		tests\src\ChipmunkBindingTest.Shared.projitems*{20ae709c-fb97-48e3-89b0-a34a5c3da1db}*SharedItemsImports = 4

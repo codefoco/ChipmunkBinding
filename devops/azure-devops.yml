@@ -292,6 +292,9 @@ jobs:
     inputs:
       restoreSolution: ChipmunkBinding.net5.0.sln
 
+  - script: 'dotnet format --verify-no-changes ChipmunkBinding.net5.0.sln -v:diag'
+    displayName: 'Check Format with dotnet format'
+
   - task: NuGetCommand@2
     displayName: 'NuGet restore ChipmunkBinding.UWP.sln'
     inputs:

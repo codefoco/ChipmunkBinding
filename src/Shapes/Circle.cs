@@ -26,7 +26,7 @@ namespace ChipmunkBinding
         /// The offset from the body's center of gravity in coordinates local to the body.
         /// </param>
         public Circle(Body body, double radius, Vect offset)
-            : base (NativeMethods.cpCircleShapeNew(body.Handle, radius, offset))
+            : base(NativeMethods.cpCircleShapeNew(body.Handle, radius, offset))
         {
         }
 

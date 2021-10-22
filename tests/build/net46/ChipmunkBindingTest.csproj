@@ -25,7 +25,6 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <CodeAnalysisRuleSet>ChipmunkBindingTest.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -34,11 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>ChipmunkBindingTest.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="ChipmunkBindingTest.ruleset" />
-  </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\..\runtimes\win-x86\native\chipmunk.dll" Condition="'$(Os)'=='Windows_NT'">
       <Link>chipmunk.dll</Link>

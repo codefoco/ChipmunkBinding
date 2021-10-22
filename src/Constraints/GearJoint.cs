@@ -20,7 +20,7 @@
         /// Measured in absolute terms. It is currently not possible to set
         /// the ratio in relation to a third body’s angular velocity.
         /// </param>
-        public GearJoint(Body bodyA, Body bodyB, double phase, double ratio):
+        public GearJoint(Body bodyA, Body bodyB, double phase, double ratio) :
             base(NativeMethods.cpGearJointNew(bodyA.Handle, bodyB.Handle, phase, ratio))
         {
         }

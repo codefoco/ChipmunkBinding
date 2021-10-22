@@ -68,17 +68,17 @@ namespace ChipmunkBinding
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return shape.Handle.ToInt32() ^ 
-                point.GetHashCode() ^ 
-                distance.GetHashCode() ^ 
-                (gradient.GetHashCode () << 4); 
+            return shape.Handle.ToInt32() ^
+                point.GetHashCode() ^
+                distance.GetHashCode() ^
+                (gradient.GetHashCode() << 4);
         }
 
         /// <summary>
         /// Return true if this <see cref="PointQueryInfo"/> object is reference-equal to the given
         /// object.
         /// </summary>
-        public static bool operator == (PointQueryInfo left, PointQueryInfo right)
+        public static bool operator ==(PointQueryInfo left, PointQueryInfo right)
         {
             if (ReferenceEquals(left, null))
             {
@@ -92,7 +92,7 @@ namespace ChipmunkBinding
         /// Return true if this <see cref="PointQueryInfo"/> object is not reference-equal to the
         /// given object.
         /// </summary>
-        public static bool operator != (PointQueryInfo a, PointQueryInfo b)
+        public static bool operator !=(PointQueryInfo a, PointQueryInfo b)
         {
             return !(a == b);
         }

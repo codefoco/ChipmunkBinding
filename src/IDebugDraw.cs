@@ -24,13 +24,13 @@ namespace ChipmunkBinding
         /// <summary>
         /// Draws a convex polygon.
         /// </summary>
-        void DrawPolygon(Vect [] vectors, double radius, DebugColor outlineColor, DebugColor fillColor);
+        void DrawPolygon(Vect[] vectors, double radius, DebugColor outlineColor, DebugColor fillColor);
 
         /// <summary>
         /// Draws a dot.
         /// </summary>
         void DrawDot(double size, Vect pos, DebugColor color);
-        
+
         /// <summary>
         /// Returns a color for a given shape. This gives you an opportunity to color shapes based
         /// on how they are used in your engine.

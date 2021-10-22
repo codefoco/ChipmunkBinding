@@ -1,18 +1,15 @@
 ﻿using System;
-
-using cpConstraint = System.IntPtr;
-using cpSpace = System.IntPtr;
-using cpShape = System.IntPtr;
-using cpDataPointer = System.IntPtr;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using cpBody = System.IntPtr;
 using cpCollisionHandlerPointer = System.IntPtr;
 using cpCollisionType = System.UIntPtr;
-
+using cpConstraint = System.IntPtr;
+using cpDataPointer = System.IntPtr;
+using cpShape = System.IntPtr;
+using cpSpace = System.IntPtr;
 using voidptr_t = System.IntPtr;
-using System.Collections.Generic;
-
-using System.Runtime.InteropServices;
-using System.Diagnostics;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
 using ObjCRuntime;
@@ -691,7 +688,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Update the collision detection info for the static shapes in the space.
         /// </summary>
-        public void ReindexStatic(Shape shape)
+        public void ReindexStatic()
         {
             NativeMethods.cpSpaceReindexStatic(space);
         }

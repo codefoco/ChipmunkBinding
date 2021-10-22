@@ -1,12 +1,10 @@
 ﻿
 
 using System.Runtime.InteropServices;
-
-using cpCollisionType = System.UIntPtr;
 using cpCollisionFunction = System.IntPtr;
-using cpDataPointer = System.IntPtr;
-
 using cpCollisionHandlerPointer = System.IntPtr;
+using cpCollisionType = System.UIntPtr;
+using cpDataPointer = System.IntPtr;
 
 namespace ChipmunkBinding
 {

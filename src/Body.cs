@@ -533,7 +533,7 @@ namespace ChipmunkBinding
         /// Set the callback used to update a body's velocity.
         /// Parameters: body, gravity, damping and deltaTime
         /// </summary>
-        public Action<Body, Vect, double, double>  VelocityUpdateFunction
+        public Action<Body, Vect, double, double> VelocityUpdateFunction
         {
             get => velocityUpdateFunction;
             set

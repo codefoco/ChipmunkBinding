@@ -1,5 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using System;
+﻿using System;
+using System.Runtime.InteropServices;
 
 #pragma warning disable IDE1006
 #pragma warning disable IDE0032
@@ -9,7 +9,7 @@ namespace ChipmunkBinding
     /// <summary>
     /// Chipmunk's axis-aligned 2D bounding box type.
     /// </summary>
-    [StructLayout (LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct BoundingBox : IEquatable<BoundingBox>
     {
         private double left;
@@ -81,10 +81,12 @@ namespace ChipmunkBinding
         {
             var hashCode = -1064806749;
 
+#pragma warning disable RECS0025 // Non-readonly field referenced in 'GetHashCode()'
             hashCode = hashCode * -1521134295 + left.GetHashCode();
             hashCode = hashCode * -1521134295 + bottom.GetHashCode();
             hashCode = hashCode * -1521134295 + right.GetHashCode();
             hashCode = hashCode * -1521134295 + top.GetHashCode();
+#pragma warning restore RECS0025 // Non-readonly field referenced in 'GetHashCode()'
 
             return hashCode;
         }
@@ -94,7 +96,7 @@ namespace ChipmunkBinding
         /// </summary>
         public override string ToString()
         {
-             return $"({left},{bottom},{right},{top})";
+            return $"({left},{bottom},{right},{top})";
         }
 
         /// <summary>

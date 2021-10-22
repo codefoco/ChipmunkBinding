@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-
+using cpBody = System.IntPtr;
 using cpConstraint = System.IntPtr;
 using cpDataPointer = System.IntPtr;
 using cpSpace = System.IntPtr;
-using cpBody = System.IntPtr;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
 using ObjCRuntime;

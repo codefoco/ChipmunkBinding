@@ -1,17 +1,15 @@
 ﻿using System.Runtime.InteropServices;
 using System.Security;
-
-using voidptr_t = System.IntPtr;
-using cpBody = System.IntPtr;
 using cpArbiter = System.IntPtr;
+using cpBody = System.IntPtr;
+using cpBool = System.Byte;
 using cpConstraint = System.IntPtr;
+using cpContactPointSetPointer = System.IntPtr;
 using cpHandle = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
-using cpBool = System.Byte;
-using cpContactPointSetPointer = System.IntPtr;
-
 using cpVertPointer = System.IntPtr;
+using voidptr_t = System.IntPtr;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
 using ObjCRuntime;
@@ -23,7 +21,7 @@ namespace ChipmunkBinding
     /// Delegate method to iterate over arbiters.
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
@@ -251,8 +249,8 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__
     [MonoNativeFunctionWrapper]
 #endif
-    internal delegate double DampedRotarySpringTorqueFunction(cpConstraint  spring, double relativeAngle);
-    
+    internal delegate double DampedRotarySpringTorqueFunction(cpConstraint spring, double relativeAngle);
+
     /// <summary>
     /// Shape query callback function type.
     /// </summary>

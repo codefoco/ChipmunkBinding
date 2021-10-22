@@ -5,18 +5,19 @@
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Release;Debug</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>..\..\lib\Release\net5.0\ChipmunkBinding.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>portable</DebugType>
-    <OutputPath>..\..\lib\Release\net5.0\</OutputPath>
+    <OutputPath>..\..\lib\Release\net5.0\net5.0</OutputPath>
     <DefineConstants>TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\lib\Debug\net5.0\</OutputPath>
+    <OutputPath>..\..\lib\Debug\net5.0\net5.0</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <DocumentationFile>..\..\lib\Debug\net5.0\ChipmunkBinding.xml</DocumentationFile>
@@ -26,6 +27,23 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="3.11.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Net.Compilers" Version="3.11.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="RefactoringEssentials" Version="5.6.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Microsoft.CodeAnalysis.CSharp.CodeStyle" />
+    <None Remove="Microsoft.Net.Compilers" />
+    <None Remove="RefactoringEssentials" />
   </ItemGroup>
   <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
   <Import Project="..\targets\BuildChipmunk.Windows.targets" />

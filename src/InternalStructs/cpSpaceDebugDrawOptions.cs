@@ -1,20 +1,16 @@
-﻿using System.Runtime.InteropServices;
-
-using cpSpaceDebugDrawCircleImpl = System.IntPtr;
-using cpSpaceDebugDrawSegmentImpl = System.IntPtr;
-using cpSpaceDebugDrawFatSegmentImpl = System.IntPtr;
-using cpSpaceDebugDrawPolygonImpl = System.IntPtr;
-using cpSpaceDebugDrawDotImpl = System.IntPtr;
-using cpSpaceDebugDrawColorForShapeImpl = System.IntPtr;
-using cpShape = System.IntPtr;
-
-using voidptr_t = System.IntPtr;
-using cpVertPointer = System.IntPtr;
-
+﻿using System;
+using System.Runtime.InteropServices;
 using cpDataPointer = System.IntPtr;
-
+using cpShape = System.IntPtr;
+using cpSpaceDebugDrawCircleImpl = System.IntPtr;
+using cpSpaceDebugDrawColorForShapeImpl = System.IntPtr;
+using cpSpaceDebugDrawDotImpl = System.IntPtr;
+using cpSpaceDebugDrawFatSegmentImpl = System.IntPtr;
 using cpSpaceDebugDrawFlags = System.Int32;
-using System;
+using cpSpaceDebugDrawPolygonImpl = System.IntPtr;
+using cpSpaceDebugDrawSegmentImpl = System.IntPtr;
+using cpVertPointer = System.IntPtr;
+using voidptr_t = System.IntPtr;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
 using ObjCRuntime;
@@ -22,7 +18,7 @@ using ObjCRuntime;
 
 namespace ChipmunkBinding
 {
-    [StructLayout (LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
 
     internal struct cpSpaceDebugDrawOptions
     {

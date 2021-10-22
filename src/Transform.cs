@@ -117,12 +117,14 @@ namespace ChipmunkBinding
         public override int GetHashCode()
         {
             var hashCode = -884009331;
+#pragma warning disable RECS0025 // Non-readonly field referenced in 'GetHashCode()'
             hashCode = hashCode * -1521134295 + a.GetHashCode();
             hashCode = hashCode * -1521134295 + b.GetHashCode();
             hashCode = hashCode * -1521134295 + c.GetHashCode();
             hashCode = hashCode * -1521134295 + d.GetHashCode();
             hashCode = hashCode * -1521134295 + tx.GetHashCode();
             hashCode = hashCode * -1521134295 + ty.GetHashCode();
+#pragma warning restore RECS0025 // Non-readonly field referenced in 'GetHashCode()'
             return hashCode;
         }
 

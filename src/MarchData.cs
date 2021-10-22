@@ -30,12 +30,12 @@ namespace ChipmunkBinding
         /// <summary>
         /// Callback for sampling/
         /// </summary>
-        public Func<Vect,object, double> SampleFunction { get; set; }
+        public Func<Vect, object, double> SampleFunction { get; set; }
 
         /// <summary>
         /// Callback for segmentation.
         /// </summary>
-        public Action<Vect,Vect, object> SegmentFunction { get; set; }
+        public Action<Vect, Vect, object> SegmentFunction { get; set; }
 
         /// <summary>
         /// User sample data.

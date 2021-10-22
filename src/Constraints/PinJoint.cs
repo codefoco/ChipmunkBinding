@@ -20,7 +20,7 @@
         /// <param name="anchorA">The anchor point for <paramref name="bodyA"/>.</param>
         /// <param name="anchorB">The anchor point for <paramref name="bodyB"/>.</param>
         public PinJoint(Body bodyA, Body bodyB, Vect anchorA, Vect anchorB)
-            : base (NativeMethods.cpPinJointNew(bodyA.Handle, bodyB.Handle, anchorA, anchorB))
+            : base(NativeMethods.cpPinJointNew(bodyA.Handle, bodyB.Handle, anchorA, anchorB))
         {
         }
 

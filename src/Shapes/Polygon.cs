@@ -31,7 +31,7 @@ namespace ChipmunkBinding
 
         }
 
-        private static IntPtr CreatePolygonShape (Body body, IReadOnlyList<Vect> verts, Transform transform, double radius)
+        private static IntPtr CreatePolygonShape(Body body, IReadOnlyList<Vect> verts, Transform transform, double radius)
         {
             Debug.Assert(verts.Count > 2);
 

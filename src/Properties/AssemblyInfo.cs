@@ -16,7 +16,7 @@ using Foundation;
 #elif __ANDROID__
 [assembly: AssemblyTitle ("ChipmunkBinding (Xamarin.Android)")]
 #elif NETCOREAPP
-[assembly: AssemblyTitle ("ChipmunkBinding (.NET Core)")]
+[assembly: AssemblyTitle("ChipmunkBinding (.NET Core)")]
 #elif NETSTANDARD
 [assembly: AssemblyTitle ("ChipmunkBinding (.NET Standard)")]
 #elif __TVOS__
@@ -31,11 +31,11 @@ using Foundation;
 [assembly: AssemblyTitle ("ChipmunkBinding (.NET Framework)")]
 #endif
 
-[assembly: AssemblyDescription ("Binding library for native Chipmunk2D")]
-[assembly: AssemblyCompany ("Codefoco")]
-[assembly: AssemblyProduct ("ChipmunkBinding")]
-[assembly: AssemblyCopyright ("Copyright © Vinicius Jarina 2021")]
-[assembly: AssemblyCulture ("")]
+[assembly: AssemblyDescription("Binding library for native Chipmunk2D")]
+[assembly: AssemblyCompany("Codefoco")]
+[assembly: AssemblyProduct("ChipmunkBinding")]
+[assembly: AssemblyCopyright("Copyright © Vinicius Jarina 2021")]
+[assembly: AssemblyCulture("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,

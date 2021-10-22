@@ -1,11 +1,9 @@
 ﻿using System;
-
+using System.Diagnostics;
+using cpBody = System.IntPtr;
+using cpDataPointer = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
-using cpBody = System.IntPtr;
-
-using cpDataPointer = System.IntPtr;
-using System.Diagnostics;
 
 namespace ChipmunkBinding
 {
@@ -213,7 +211,7 @@ namespace ChipmunkBinding
         public int CollisionType
         {
             get => (int)(uint)NativeMethods.cpShapeGetCollisionType(shape);
-            set => NativeMethods.cpShapeSetCollisionType(shape,  (UIntPtr)(uint)value);
+            set => NativeMethods.cpShapeSetCollisionType(shape, (UIntPtr)(uint)value);
         }
 
         /// <summary>

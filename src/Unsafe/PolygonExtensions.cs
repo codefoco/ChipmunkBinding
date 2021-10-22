@@ -10,7 +10,7 @@ namespace ChipmunkBinding.Unsafe
         /// <summary>
         /// Set the vertexes of the polygon.
         /// </summary>
-        public static void SetVertexes(this Polygon polygon, Vect [] vertexes, Transform transform)
+        public static void SetVertexes(this Polygon polygon, Vect[] vertexes, Transform transform)
         {
             IntPtr ptrVectors = NativeInterop.StructureArrayToPtr(vertexes);
             NativeMethods.cpPolyShapeSetVerts(polygon.Handle, vertexes.Length, ptrVectors, transform);

@@ -1,12 +1,10 @@
 ﻿using System;
-
-using cpCollisionHandlerPointer = System.IntPtr;
-
-using voidptr_t = System.IntPtr;
-using cpArbiter = System.IntPtr;
-using cpSpace = System.IntPtr;
-using cpBool = System.Byte;
 using System.Diagnostics;
+using cpArbiter = System.IntPtr;
+using cpBool = System.Byte;
+using cpCollisionHandlerPointer = System.IntPtr;
+using cpSpace = System.IntPtr;
+using voidptr_t = System.IntPtr;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__
 using ObjCRuntime;

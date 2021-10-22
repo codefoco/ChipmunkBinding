@@ -69,7 +69,9 @@ namespace ChipmunkBinding
         /// </summary>
         public override int GetHashCode()
         {
+#pragma warning disable RECS0025 // Non-readonly field referenced in 'GetHashCode()'
             return (x.GetHashCode() << 16) ^ y.GetHashCode();
+#pragma warning restore RECS0025 // Non-readonly field referenced in 'GetHashCode()'
         }
 
         /// <summary>
@@ -191,7 +193,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Returns a perpendicular vector (-90 degree rotation).
         /// </summary>
-        public Vect Perpendicurlar => new Vect(- y, x);
+        public Vect Perpendicurlar => new Vect(-y, x);
 
         /// <summary>
         /// Returns the vector projection of v1 onto v2.
