@@ -13,7 +13,6 @@ indent_style = space
 indent_size = 4
 insert_final_newline = true
 charset = utf-8-bom
-end_of_line = crlf
 
 ###############################
 # .NET Coding Conventions     #
