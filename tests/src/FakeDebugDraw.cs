@@ -1,13 +1,14 @@
 ﻿
 
 using System.Text;
+
 using ChipmunkBinding;
 
 namespace ChipmunkBindingTest
 {
-    class FakeDebugDraw : IDebugDraw
+    internal class FakeDebugDraw : IDebugDraw
     {
-        StringBuilder stringBuilder;
+        private readonly StringBuilder stringBuilder;
 
         public FakeDebugDraw()
         {

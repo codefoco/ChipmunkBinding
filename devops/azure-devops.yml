@@ -112,18 +112,18 @@ stages:
         arguments: './build/iOS/ChipmunkBinding.net6.0-ios.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-tvos.csproj'
+      displayName: 'dotnet build ./build/TVOS/ChipmunkBinding.net6.0-tvos.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/iOS/ChipmunkBinding.net6.0-tvos.csproj /p:Configuration=Release'
+        arguments: './build/TVOS/ChipmunkBinding.net6.0-tvos.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-macos.csproj'
+      displayName: 'dotnet build ./build/macOS/ChipmunkBinding.net6.0-macos.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/iOS/ChipmunkBinding.net6.0-macos.csproj /p:Configuration=Release'
+        arguments: './build/macOS/ChipmunkBinding.net6.0-macos.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-maccatalyst.csproj'

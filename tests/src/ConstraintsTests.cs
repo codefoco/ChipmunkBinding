@@ -1,6 +1,8 @@
 ﻿
 using System.Text;
+
 using ChipmunkBinding;
+
 using NUnit.Framework;
 
 using cpConstraint = System.IntPtr;
@@ -13,12 +15,11 @@ namespace ChipmunkBindingTest.Tests
     public class ConstraintsTests
 #pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
-        Space space;
-        Body bodyA;
-        Shape shapeA;
-
-        Body bodyB;
-        Shape shape2;
+        private Space space;
+        private Body bodyA;
+        private Shape shapeA;
+        private Body bodyB;
+        private Shape shape2;
 
         [SetUp]
         public void SetUp()
@@ -53,7 +54,7 @@ namespace ChipmunkBindingTest.Tests
         {
             var constraint = new PinJoint(bodyA, bodyB, Vect.Zero, Vect.Zero);
 
-            var objData = new object();
+            object objData = new object();
 
             constraint.Data = objData;
 
@@ -125,9 +126,10 @@ namespace ChipmunkBindingTest.Tests
             var anchorA = new Vect(1, 1);
             var anchorB = new Vect(0.5, 0.5);
 
-            var constraint = new PinJoint(bodyA, bodyB, anchorA, anchorB);
-
-            constraint.Distance = 13;
+            var constraint = new PinJoint(bodyA, bodyB, anchorA, anchorB)
+            {
+                Distance = 13
+            };
 
             Assert.IsTrue(PinJoint.IsPinJoint(constraint), "#0");
             Assert.AreEqual(13, constraint.Distance, "#1");
@@ -293,7 +295,7 @@ namespace ChipmunkBindingTest.Tests
         private static double ForceCallback(DampedSpring spring, double force)
         {
             var sb = (StringBuilder)spring.Data;
-            sb.Append("ForceCallback");
+            _ = sb.Append("ForceCallback");
             return force;
         }
 
@@ -350,7 +352,7 @@ namespace ChipmunkBindingTest.Tests
         private static double TorqueCallback(DampedRotarySpring spring, double force)
         {
             var sb = (StringBuilder)spring.Data;
-            sb.Append("TorqueCallback");
+            _ = sb.Append("TorqueCallback");
             return force;
         }
 
