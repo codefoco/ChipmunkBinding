@@ -4,5 +4,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ExternalChipmunkPath>$(MSBuildThisFileDirectory)..\..\external\Chipmunk2D</ExternalChipmunkPath>
     <OutputRuntimeDir>$(MSBuildThisFileDirectory)..\..\runtimes</OutputRuntimeDir>
+    <LangVersion>7.0</LangVersion>
   </PropertyGroup>
 </Project>

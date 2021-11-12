@@ -223,7 +223,7 @@ namespace ChipmunkBindingTest.Tests
 
         private bool calledMyVelocityUpdateFunction;
         private Body myUpdateFunctionBody;
-        private Vect myVelocityUpdateFunctionGravity = new(10, 0);
+        private Vect myVelocityUpdateFunctionGravity = new Vect(10, 0);
         private double myVelocityUpdateFunctionDamping = -1;
         private double myUpdateFunctionDt;
 
