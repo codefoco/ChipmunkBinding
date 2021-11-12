@@ -1,6 +1,8 @@
 ﻿
 using System.Collections.Generic;
+
 using ChipmunkBinding;
+
 using NUnit.Framework;
 
 using cpBody = System.IntPtr;
@@ -33,7 +35,7 @@ namespace ChipmunkBindingTest.Tests
         }
 
         [Test]
-        public void CreateBody ()
+        public void CreateBody()
         {
             var body = new Body(1, 1.66);
 
@@ -69,7 +71,7 @@ namespace ChipmunkBindingTest.Tests
             var space = new Space();
             var body = new Body(1, 1.66);
 
-            Assert.IsNull(body.Space,"#1");
+            Assert.IsNull(body.Space, "#1");
 
             space.AddBody(body);
 
@@ -82,9 +84,10 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void AngleProperty()
         {
-            var body = new Body(1, 1.66);
-
-            body.Angle = System.Math.PI;
+            var body = new Body(1, 1.66)
+            {
+                Angle = System.Math.PI
+            };
 
             Assert.AreEqual(System.Math.PI, body.Angle, "#1");
             body.Dispose();
@@ -129,7 +132,7 @@ namespace ChipmunkBindingTest.Tests
         public void CenterOfGravityProperty()
         {
             var body = new Body(1, 1.66);
-            var center = new Vect (10, 20);
+            var center = new Vect(10, 20);
 
             body.CenterOfGravity = center;
 
@@ -141,7 +144,7 @@ namespace ChipmunkBindingTest.Tests
         public void VelocityProperty()
         {
             var body = new Body();
-            var velocity = new Vect(10,-20);
+            var velocity = new Vect(10, -20);
 
             body.Velocity = velocity;
 
@@ -153,7 +156,7 @@ namespace ChipmunkBindingTest.Tests
         public void ForceProperty()
         {
             var body = new Body(1, 1.66);
-            var force = new Vect(10,-20);
+            var force = new Vect(10, -20);
 
             body.Force = force;
 
@@ -164,9 +167,10 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void AngularVelocityProperty()
         {
-            var body = new Body(1, 1.66);
-
-            body.AngularVelocity = System.Math.PI;
+            var body = new Body(1, 1.66)
+            {
+                AngularVelocity = System.Math.PI
+            };
 
             Assert.AreEqual(System.Math.PI, body.AngularVelocity, "#1");
             body.Dispose();
@@ -175,9 +179,10 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void TorqueProperty()
         {
-            var body = new Body(1, 1.66);
-
-            body.Torque = 10.0;
+            var body = new Body(1, 1.66)
+            {
+                Torque = 10.0
+            };
 
             Assert.AreEqual(10.0, body.Torque, "#1");
             body.Dispose();
@@ -216,11 +221,11 @@ namespace ChipmunkBindingTest.Tests
             body.Dispose();
         }
 
-        bool calledMyVelocityUpdateFunction;
-        Body myUpdateFunctionBody;
-        Vect myVelocityUpdateFunctionGravity = new Vect(10, 0);
-        double myVelocityUpdateFunctionDamping = -1;
-        double myUpdateFunctionDt;
+        private bool calledMyVelocityUpdateFunction;
+        private Body myUpdateFunctionBody;
+        private Vect myVelocityUpdateFunctionGravity = new(10, 0);
+        private double myVelocityUpdateFunctionDamping = -1;
+        private double myUpdateFunctionDt;
 
         [Test]
         public void VelocityUpdateFunctionCallback()
@@ -265,7 +270,7 @@ namespace ChipmunkBindingTest.Tests
             myVelocityUpdateFunctionDamping = damping;
         }
 
-        bool calledMyPositionUpdateFunction;
+        private bool calledMyPositionUpdateFunction;
 
         [Test]
         public void PositionUpdateFunctionCallback()

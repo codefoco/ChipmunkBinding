@@ -1,10 +1,11 @@
 ﻿
 using System;
+using System.Linq;
+
 using ChipmunkBinding;
 using ChipmunkBinding.Unsafe;
-using NUnit.Framework;
 
-using System.Linq;
+using NUnit.Framework;
 
 using cpShape = System.IntPtr;
 
@@ -162,8 +163,10 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void BodyTest()
         {
-            var body = new Body(1, 1.66);
-            body.Data = "body";
+            var body = new Body(1, 1.66)
+            {
+                Data = "body"
+            };
 
             var shape = new Box(body, 2, 2, 0);
 
@@ -171,8 +174,10 @@ namespace ChipmunkBindingTest.Tests
 
             Assert.AreEqual("body", shape.Body.Data, "#user.data.1");
 
-            var body2 = new Body(BodyType.Static);
-            body2.Data = "body2";
+            var body2 = new Body(BodyType.Static)
+            {
+                Data = "body2"
+            };
 
             shape.Body = body2;
 
@@ -184,9 +189,10 @@ namespace ChipmunkBindingTest.Tests
         public void MassTest()
         {
             var body = new Body(10, 16.666);
-            var shape = new Box(body, 2, 2, 0);
-
-            shape.Mass = 10;
+            var shape = new Box(body, 2, 2, 0)
+            {
+                Mass = 10
+            };
 
             Assert.AreEqual(10, shape.Mass, "#1");
         }

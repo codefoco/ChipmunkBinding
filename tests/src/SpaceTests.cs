@@ -1,7 +1,9 @@
 ﻿
 using System.Linq;
 using System.Text;
+
 using ChipmunkBinding;
+
 using NUnit.Framework;
 
 using cpBody = System.IntPtr;
@@ -45,9 +47,10 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void Iterarations()
         {
-            var space = new Space();
-
-            space.Iterations = 10;
+            var space = new Space
+            {
+                Iterations = 10
+            };
 
             Assert.AreEqual(10, space.Iterations, "#1");
 
@@ -73,8 +76,10 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void Damping()
         {
-            var space = new Space();
-            space.Damping = 0.10;
+            var space = new Space
+            {
+                Damping = 0.10
+            };
 
             Assert.AreEqual(0.10, space.Damping, "#1");
             space.Dispose();
@@ -83,8 +88,10 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void IdleSpeedThreshold()
         {
-            var space = new Space();
-            space.IdleSpeedThreshold = 0.10;
+            var space = new Space
+            {
+                IdleSpeedThreshold = 0.10
+            };
 
             Assert.AreEqual(0.10, space.IdleSpeedThreshold, "#1");
             space.Dispose();
@@ -128,7 +135,7 @@ namespace ChipmunkBindingTest.Tests
             var space = new Space();
             string foo = string.Empty;
 
-            space.AddPostStepCallback((s, k, d) => foo = k + " " + d, "key", "data");
+            _ = space.AddPostStepCallback((s, k, d) => foo = k + " " + d, "key", "data");
 
             space.Step(0.1);
 
@@ -303,11 +310,13 @@ namespace ChipmunkBindingTest.Tests
 
             body.Position = pos;
 
-            var bb = new BoundingBox();
-            bb.Left = -20;
-            bb.Top = 20;
-            bb.Right = +20;
-            bb.Bottom = -20;
+            var bb = new BoundingBox
+            {
+                Left = -20,
+                Top = 20,
+                Right = +20,
+                Bottom = -20
+            };
 
             Shape[] shapes = space.BoundBoxQuery(bb, -1).ToArray();
 
@@ -491,26 +500,26 @@ namespace ChipmunkBindingTest.Tests
             handler.Begin = (a, s, data) =>
             {
                 StringBuilder builder = (StringBuilder)data;
-                builder.Append("Begin-");
+                _ = builder.Append("Begin-");
             };
 
             handler.PreSolve = (a, s, data) =>
             {
                 StringBuilder builder = (StringBuilder)data;
-                builder.Append("PreSolve-");
+                _ = builder.Append("PreSolve-");
                 return true;
             };
 
             handler.PostSolve = (a, s, data) =>
             {
                 StringBuilder builder = (StringBuilder)data;
-                builder.Append("PostSolve-");
+                _ = builder.Append("PostSolve-");
             };
 
             handler.Separate = (a, s, data) =>
             {
                 StringBuilder builder = (StringBuilder)data;
-                builder.Append("Separete-");
+                _ = builder.Append("Separete-");
             };
 
             space.Step(0.1);
@@ -667,7 +676,7 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreSame(body2, bodyA, "#1");
                 Assert.AreSame(body1, bodyB, "#1.1");
 
-                var arbiters = bodyA.Arbiters;
+                System.Collections.Generic.IReadOnlyList<Arbiter> arbiters = bodyA.Arbiters;
 
                 Assert.AreEqual(1, arbiters.Count, "#0");
                 Assert.AreEqual(arb, arbiters[0], "#0.1");
@@ -687,7 +696,7 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreEqual(-10, pointSet.Points[0].Distance, 0.00001, "8.3");
                 Assert.AreEqual(new Vect(5, 0), pointSet.Points[0].PointA, "8.4");
                 Assert.AreEqual(new Vect(-5, 0), pointSet.Points[0].PointB, "8.5");
-                Assert.AreEqual(0, pointSet.Points[1].Distance, 0.00001,  "8.6");
+                Assert.AreEqual(0, pointSet.Points[1].Distance, 0.00001, "8.6");
                 Assert.AreEqual(new Vect(0, 0), pointSet.Points[1].PointA, "8.7");
                 Assert.AreEqual(new Vect(0, 0), pointSet.Points[1].PointB, "8.8");
 
@@ -710,7 +719,7 @@ namespace ChipmunkBindingTest.Tests
 
             space.Threads = 0;
 
-            space.AddPostStepCallback((s, k, d) => foo = k + " " + d, "key", "data");
+            _ = space.AddPostStepCallback((s, k, d) => foo = k + " " + d, "key", "data");
 
             space.Step(0.1);
 
