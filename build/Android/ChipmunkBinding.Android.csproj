@@ -47,16 +47,16 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedNativeLibrary Include="..\..\runtimes\android\libs\arm64-v8a\libchipmunk.so">
+    <EmbeddedNativeLibrary Include="$(OutputRuntimeDir)\android-arm64\native\libchipmunk.so">
       <Link>libs\arm64-v8a\libchipmunk.so</Link>
     </EmbeddedNativeLibrary>
-    <EmbeddedNativeLibrary Include="..\..\runtimes\android\libs\armeabi-v7a\libchipmunk.so">
+    <EmbeddedNativeLibrary Include="$(OutputRuntimeDir)\android-arm\native\libchipmunk.so">
       <Link>libs\armeabi-v7a\libchipmunk.so</Link>
     </EmbeddedNativeLibrary>
-    <EmbeddedNativeLibrary Include="..\..\runtimes\android\libs\x86\libchipmunk.so">
+    <EmbeddedNativeLibrary Include="$(OutputRuntimeDir)\android-x86\native\libchipmunk.so">
       <Link>libs\x86\libchipmunk.so</Link>
     </EmbeddedNativeLibrary>
-    <EmbeddedNativeLibrary Include="..\..\runtimes\android\libs\x86_64\libchipmunk.so">
+    <EmbeddedNativeLibrary Include="$(OutputRuntimeDir)\android-x64\native\libchipmunk.so">
       <Link>libs\x86_64\libchipmunk.so</Link>
     </EmbeddedNativeLibrary>
   </ItemGroup>
