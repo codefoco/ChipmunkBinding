@@ -11,13 +11,13 @@
     <DocumentationFile>..\..\lib\Release\net6.0\ChipmunkBinding.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>portable</DebugType>
-    <OutputPath>..\..\lib\Release\net6.0</OutputPath>
+    <OutputPath>..\..\lib\Release</OutputPath>
     <DefineConstants>TRACE;RELEASE;</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\lib\Debug\net6.0</OutputPath>
+    <OutputPath>..\..\lib\Debug</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <DocumentationFile>..\..\lib\Debug\net6.0\ChipmunkBinding.xml</DocumentationFile>
