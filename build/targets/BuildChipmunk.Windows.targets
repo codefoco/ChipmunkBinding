@@ -31,8 +31,8 @@
 
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(Win32BuildDir)\$(BinaryLibraryPath32)" DestinationFolder="$(OutputRuntimeDir)\$(Win32BuildDir)\native" SkipUnchangedFiles="true" />
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(Win64BuildDir)\$(BinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(Win64BuildDir)\native" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="$(ExternalChipmunkPath)\$(WinArm64BuildDir)\$(BinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(WinArm64BuildDir)\nativeassets" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="$(ExternalChipmunkPath)\$(WinArmBuildDir)\$(BinaryLibraryPath32)" DestinationFolder="$(OutputRuntimeDir)\$(WinArmBuildDir)\nativeassets" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(ExternalChipmunkPath)\$(WinArm64BuildDir)\$(BinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(WinArm64BuildDir)\native" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(ExternalChipmunkPath)\$(WinArmBuildDir)\$(BinaryLibraryPath32)" DestinationFolder="$(OutputRuntimeDir)\$(WinArmBuildDir)\native" SkipUnchangedFiles="true" />
 
   </Target>
   <Target Name="CleanChipmunkWindows" AfterTargets="Clean" Condition="'$(OS)'=='Windows_NT'">
