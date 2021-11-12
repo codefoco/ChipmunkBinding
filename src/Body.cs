@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
 #endif
 
@@ -325,7 +325,7 @@ namespace ChipmunkBinding
             set => NativeMethods.cpBodySetTorque(body, value);
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
 #endif
         private static void AddEachArbiterToArray(cpBody body, cpArbiter arbiter, IntPtr data)
@@ -357,7 +357,7 @@ namespace ChipmunkBinding
             }
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
 #endif
         private static void AddEachConstraintToArray(cpBody body, cpConstraint constraint, IntPtr data)
@@ -384,7 +384,7 @@ namespace ChipmunkBinding
             }
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(BodyShapeIteratorFunction))]
 #endif
         private static void AddEachShapeToArray(cpBody body, cpShape shape, IntPtr data)
@@ -516,7 +516,7 @@ namespace ChipmunkBinding
             NativeMethods.cpBodySleepWithGroup(body, group != null ? group.Handle : IntPtr.Zero);
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(BodyVelocityFunction))]
 #endif
         private static void BodyVelocityFunctionCallback(cpBody bodyHandle, Vect gravity, double damping, double dt)
@@ -551,7 +551,7 @@ namespace ChipmunkBinding
             }
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(BodyPositionFunction))]
 #endif
         private static void BodyPositionFunctionCallback(cpBody bodyHandle, double dt)

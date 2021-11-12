@@ -3,7 +3,7 @@
 using cpConstraint = System.IntPtr;
 
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
 #endif
 
@@ -50,7 +50,7 @@ namespace ChipmunkBinding
             originalForceCallbackPointer = NativeMethods.cpDampedSpringGetSpringForceFunc(Handle);
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(DampedSpringForceFunction))]
 #endif
         private static double DampedSpringForceCallback(cpConstraint springHandle, double distance)

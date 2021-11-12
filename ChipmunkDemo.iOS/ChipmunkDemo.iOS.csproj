@@ -132,12 +132,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ChipmunkBinding">
-      <Version>1.1.10</Version>
-    </PackageReference>
-    <PackageReference Include="Codefoco.MonoGame.Framework">
-      <Version>3.8.47</Version>
-    </PackageReference>
+    <PackageReference Include="ChipmunkBinding" Version="1.1.10" />
+    <PackageReference Include="Codefoco.MonoGame.Framework" Version="3.8.49" />
   </ItemGroup>
   <Import Project="..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems" Label="Shared" Condition="Exists('..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -179,8 +179,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Codefoco.Touch.Server">
-      <Version>1.0.29</Version>
+    <PackageReference Include="Codefoco.Touch.Server" Version="1.0.29">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

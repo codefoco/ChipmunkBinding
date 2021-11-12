@@ -52,11 +52,7 @@ namespace ChipmunkBinding
     {
 #pragma warning disable CA1823 // Unused field 'ChipmunkLibraryName'
 
-#if __TVOS__ && __UNIFIED__
-        private const string ChipmunkLibraryName = "@rpath/libchipmunk.framework/libchipmunk";
-#elif __WATCHOS__ && __UNIFIED__
-        private const string ChipmunkLibraryName = "@rpath/libchipmunk.framework/libchipmunk";
-#elif __IOS__ && __UNIFIED__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         private const string ChipmunkLibraryName = "@rpath/libchipmunk.framework/libchipmunk";
 #elif __ANDROID__
         private const string ChipmunkLibraryName = "libchipmunk.so";

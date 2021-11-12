@@ -3,7 +3,7 @@
 using cpConstraint = System.IntPtr;
 
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
 #endif
 
@@ -39,7 +39,7 @@ namespace ChipmunkBinding
             originalTorqueCallbackPointer = NativeMethods.cpDampedRotarySpringGetSpringTorqueFunc(Handle);
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(DampedRotarySpringTorqueFunction))]
 #endif
         private static double DampedRotarySpringTorqueCallback(cpConstraint springHandle, double relativeAngle)

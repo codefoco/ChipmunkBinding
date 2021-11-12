@@ -6,438 +6,421 @@ resources:
       name: codefoco/AzureDevopsTemplates
       endpoint: codefoco
 
-jobs:
-- job: 'ChipmunkBindingMac'
-  displayName: 'Mac'
-  variables:
-    - group: 'Keys'
-
-  pool:
-    vmImage: 'macOS-11'
-    demands: msbuild
-
-  steps:
-  - checkout: self
-    submodules: 'true'
-
-  - template: common-dotnet.yml@templates
-  - template: common-macos.yml@templates
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: ChipmunkBinding.sln
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: ChipmunkBinding.netcoreapp3.1.sln
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: ChipmunkBinding.Mac.sln
-
-  - task: PowerShell@2
-    displayName: 'PowerShell Script'
-    inputs:
-      targetType: filePath
-      filePath: ./devops/PreBuild.ps1
-      arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
-
-  # Build .NET 4.6
-
-  - task: MSBuild@1
-    displayName: 'Build solution ChipmunkBinding.sln'
-    inputs:
-      solution: ChipmunkBinding.sln
-      configuration: Release
-
-  # Build .NET Core (to be sure works on macOS)
-
-  - task: MSBuild@1
-    displayName: 'Build .NET Core'
-    inputs:
-      solution: ChipmunkBinding.netcoreapp3.1.sln
-      configuration: Release
-
-
-  # Build Xamarin.Mac (macOS, watchOS, iOS, tvOS)
-
-  - task: MSBuild@1
-    displayName: 'Build solution ChipmunkBinding.Mac.sln'
-    inputs:
-      solution: ChipmunkBinding.Mac.sln
-      configuration: Release
-
-  # Build Desktop Demo - we will not run on the CI, but we don't want the demo to break
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore ChipmunkDemo.Desktop.sln'
-    inputs:
-      restoreSolution: ChipmunkDemo.Desktop.sln
-
-  - task: MSBuild@1
-    displayName: 'Build Desktop Demo'
-    inputs:
-      solution: ChipmunkDemo.Desktop.sln
-      configuration: Release
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore ChipmunkDemo.iOS.sln'
-    inputs:
-      restoreSolution: ChipmunkDemo.iOS.sln
-
-  - task: MSBuild@1
-    displayName: 'Build iOS Demo'
-    inputs:
-      solution: ChipmunkDemo.iOS.sln
-      configuration: Release
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore ChipmunkDemo.Android.sln'
-    inputs:
-      restoreSolution: ChipmunkDemo.Android.sln
-
-  - task: MSBuild@1
-    displayName: 'Build Android Demo'
-    inputs:
-      solution: ChipmunkDemo.Android.sln
-      configuration: Release
-
-  # Run tests
-
-  - script: 'dotnet test ./tests/build/netcoreapp3.1/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
-    displayName: 'Run .NET Core Tests'
-
-  - script: 'mv TestResults/*.trx ./TEST-Result-Mac.Core.xml'
-    displayName: 'Rename .NET Core Test result'
-
-  - script: 'dotnet test ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll -l:trx;'
-    displayName: 'Run OSX tests'
-
-  - script: 'mv TestResults/*.trx ./TEST-Result-Mac.xml'
-    displayName: 'Rename Test result'
-
-  - task: PublishTestResults@2
-    displayName: 'Publish Mac Test Results TEST-Result-Mac.xml'
-    inputs:
-      testResultsFormat: VSTest
-      testResultsFiles: 'TEST-Result-Mac.xml'
-      failTaskOnFailedTests: true
-
-  - task: MSBuild@1
-    displayName: 'Run iOS tests'
-    inputs:
-      solution: tests/build/xamarinios/ChipmunkBindingTest.XamariniOS.csproj
-      platform: iPhoneSimulator
-      configuration: Release
-      msbuildArguments: '/t:RunSimulatorTests -verbosity:diag -detailedSummary'
-
-  - task: PublishTestResults@2
-    displayName: 'Publish iOS Test Results TEST-Result-iOS.xml'
-    inputs:
-      testResultsFormat: NUnit
-      testResultsFiles: 'tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml'
-      failTaskOnFailedTests: true
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: TEST-Result-Xamarin.iOS.xml'
-    inputs:
-      PathtoPublish: tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml
-      ArtifactName: Test.Xamarin.iOS.xml
-
-  - task: MSBuild@1
-    displayName: 'Run tvOS tests'
-    inputs:
-      solution: tests/build/xamarintvos/ChipmunkBindingTest.XamarinTVOS.csproj
-      platform: iPhoneSimulator
-      configuration: Release
-      msbuildArguments: '/t:RunSimulatorTests'
-
-  - task: PublishTestResults@2
-    displayName: 'Publish tvOS Test Results TEST-Result-tvOS.xml'
-    inputs:
-      testResultsFormat: NUnit
-      testResultsFiles: 'tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml'
-      failTaskOnFailedTests: true
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: TEST-Result-Xamarin.TVOS.xml'
-    inputs:
-      PathtoPublish: tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml
-      ArtifactName: Test.Xamarin.TVOS.xml
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Pipeline Artifact: Xamarin.iOS.ChipmunkBinding'
-    inputs:
-      targetPath: lib/Release/xamarinios
-      artifact: 'Xamarin.iOS.ChipmunkBinding'
-      publishLocation: 'pipeline'
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Pipeline Artifact: Xamarin.tvOS.ChipmunkBinding'
-    inputs:
-      targetPath: lib/Release/xamarintvos
-      artifact: 'Xamarin.tvOS.ChipmunkBinding'
-      publishLocation: 'pipeline'
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Pipeline Artifact: Xamarin.watchOS.ChipmunkBinding'
-    inputs:
-      targetPath: lib/Release/xamarinwatchos
-      artifact: 'Xamarin.watchOS.ChipmunkBinding'
-      publishLocation: 'pipeline'
-
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Pipeline Artifact: Xamarin.Mac.ChipmunkBinding'
-    inputs:
-      targetPath: lib/Release/xamarinmac
-      artifact: 'Xamarin.Mac.ChipmunkBinding'
-      publishLocation: 'pipeline'
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Pipeline Artifact: libchipmunk.dylib'
-    inputs:
-      targetPath: runtimes/osx/native/libchipmunk.dylib
-      artifact: 'libchipmunk.dylib'
-      publishLocation: 'pipeline'
-
-  - template: send-telegram.yml@templates
-
-- job: 'ChipmunkBindingLinux'
-  displayName: 'Linux'
-  dependsOn: 'ChipmunkBindingMac'
-  variables:
-    - group: 'Keys'
-
-  pool:
-    vmImage: 'ubuntu-latest'
-    demands: msbuild
-
-  steps:
-  - template: common-dotnet.yml@templates
-
-  - checkout: self 
-    submodules: 'true'
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: ChipmunkBinding.sln
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: ChipmunkBinding.netcoreapp3.1.sln
-
-  # Build .NET 4.6
-
-  - task: MSBuild@1
-    displayName: 'Build solution ChipmunkBinding.sln'
-    inputs:
-      solution: ChipmunkBinding.sln
-      configuration: Release
-
-  # Build .NET Core (to be sure works on Linux)
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: 'build'
-      projects: 'ChipmunkBinding.netcoreapp3.1.sln'
-      arguments: '/p:Configuration=Release'
-
-  - script: 'dotnet test ./tests/build/netcoreapp3.1/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
-    displayName: 'Run .NET Core Tests'
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Pipeline Artifact: libchipmunk.so'
-    inputs:
-      targetPath: 'runtimes/linux-x64/native/libchipmunk.so'
-      artifact: 'libchipmunk.so'
-      publishLocation: 'pipeline'
-
-  - template: send-telegram.yml@templates
-
-- job: 'ChipmunkBindingWindows'
-  displayName: 'Windows'
-  dependsOn: 'ChipmunkBindingLinux'
-  variables:
-    - group: 'Keys'
-
-  pool:
-    vmImage: 'windows-2019'
-    demands:
-    - msbuild
-    - visualstudio
-
-  steps:
-  - checkout: self
-    submodules: true
-
-  - template: common-dotnet.yml@templates
-  - template: common-win.yml@templates
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore ChipmunkBinding.sln'
-    inputs:
-      restoreSolution: ChipmunkBinding.sln
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore ChipmunkBinding.netcoreapp3.1.sln'
-    inputs:
-      restoreSolution: ChipmunkBinding.netcoreapp3.1.sln
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore ChipmunkBinding.net5.0.sln'
-    inputs:
-      restoreSolution: ChipmunkBinding.net5.0.sln
-
-  - script: 'dotnet format --verify-no-changes ChipmunkBinding.net5.0.sln -v:diag'
-    displayName: 'Check Format with dotnet format'
-
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore ChipmunkBinding.UWP.sln'
-    inputs:
-      restoreSolution: ChipmunkBinding.UWP.sln
-
-  - task: PowerShell@2
-    displayName: 'PreBuild Script'
-    inputs:
-      targetType: filePath
-      filePath: ./devops/PreBuild.ps1
-      arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
-      errorActionPreference: 'silentlyContinue'
-      pwsh: true
-
-  - task: MSBuild@1
-    displayName: 'Build solution ChipmunkBinding.sln'
-    inputs:
-      solution: ChipmunkBinding.sln
-      configuration: Release
-
-  - task: MSBuild@1
-    displayName: 'Build .NET Core'
-    inputs:
-      solution: ChipmunkBinding.netcoreapp3.1.sln
-      configuration: Release
-
-  - task: MSBuild@1
-    displayName: 'Build .NET 5'
-    inputs:
-      solution: ChipmunkBinding.net5.0.sln
-      configuration: Release
-
-  - task: MSBuild@1
-    displayName: 'Build .NET Windows Universal'
-    inputs:
-      solution: ChipmunkBinding.UWP.sln
-      configuration: Release
-      msbuildArguments: /restore
-
-  - script: 'dotnet test ./tests/build/netcoreapp3.1/bin/Release/netcoreapp3.1/ChipmunkBindingTest.dll -l:trx'
-    displayName: 'Run .NET Core Tests'
-
-  - script: 'mv TestResults/*.trx ./TEST-Result-Windows.Core.xml'
-    displayName: 'Rename .NET Core Test result'
-
-  - task: MSBuild@1
-    displayName: 'Build Android'
-    inputs:
-      solution: ChipmunkBinding.Android.sln
-      configuration: Release
-      msbuildArguments: '/p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
-      
-  - script: 'dotnet test .\tests\build\net46\bin\Release\ChipmunkBindingTest.dll -l:trx --Platform:x86'
-    displayName: 'Run Windows Tests'
-
-  - script: 'RENAME TestResults\*.trx ChipmunkBindingTest.Windows.xml'
-    displayName: 'Rename Test result'
-
-  - script: 'MOVE TestResults\ChipmunkBindingTest.Windows.xml .'
-    displayName: 'Move Test result'
-
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFormat: 'VSTest'
-      testResultsFiles: 'ChipmunkBindingTest.Windows.xml'
-      failTaskOnFailedTests: true
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish ChipmunkBindingTest.Windows.xml'
-    inputs:
-      targetPath: ChipmunkBindingTest.Windows.xml
-      artifact: 'ChipmunkBindingTest.Windows.xml'
-      publishLocation: 'pipeline'
-
-  - task: DownloadPipelineArtifact@2
-    displayName: 'Download Build Xamarin.iOS'
-    inputs:
-      buildType: 'current'
-      artifactName: 'Xamarin.iOS.ChipmunkBinding'
-      targetPath: 'lib/Release/xamarinios/'
-
-  - task: DownloadPipelineArtifact@2
-    displayName: 'Download Build Xamarin.Mac'
-    inputs:
-      buildType: 'current'
-      artifactName: 'Xamarin.Mac.ChipmunkBinding'
-      targetPath: 'lib/Release/xamarinmac/'
-
-  - task: DownloadPipelineArtifact@2
-    displayName: 'Download Build Xamarin.watchOS'
-    inputs:
-      buildType: 'current'
-      artifactName: 'Xamarin.watchOS.ChipmunkBinding'
-      targetPath: 'lib/Release/xamarinwatchos/'
-
-  - task: DownloadPipelineArtifact@2
-    displayName: 'Download Build Xamarin.tvOS'
-    inputs:
-      buildType: 'current'
-      artifactName: 'Xamarin.tvOS.ChipmunkBinding'
-      targetPath: 'lib/Release/xamarintvos/'
-
-  - task: DownloadPipelineArtifact@2
-    displayName: 'Download Build libchipmunk.dylib'
-    inputs:
-      buildType: 'current'
-      artifactName: 'libchipmunk.dylib'
-      targetPath: 'runtimes/osx/native/'
-
-  - task: DownloadPipelineArtifact@2
-    displayName: 'Download Build libchipmunk.so'
-    inputs:
-      buildType: 'current'
-      artifactName: 'libchipmunk.so'
-      targetPath: 'runtimes/linux-x64/native/'
-
-  - script: 'nuget setapikey $(apikey)'
-    displayName: 'Set NuGet API Key'
-
-  - task: PowerShell@2
-    displayName: 'Package NuGet'
-    inputs:
-      targetType: filePath
-      filePath: ./devops/Package.ps1
-      arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Save ChipmunkBinding.nupkg Artifact'
-    inputs:
-      PathtoPublish: ChipmunkBinding.nupkg
-      ArtifactName: ChipmunkBinding.nupkg
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Save ChipmunkBinding.snupkg Artifact'
-    inputs:
-      PathtoPublish: ChipmunkBinding.snupkg
-      ArtifactName: ChipmunkBinding.snupkg
-
-  - task: PowerShell@2
-    displayName: 'Publish NuGet'
-    inputs:
-      targetType: filePath
-      filePath: ./devops/Publish.ps1
-      arguments: ChipmunkBinding
-
-  - template: send-telegram.yml@templates
+stages:
+
+- stage: Build_Mac
+  displayName: 'Build Mac'
+    
+  jobs:
+  - job: 'ChipmunkBindingMac'
+    displayName: 'Mac'
+    variables:
+      - group: 'Keys'
+
+    pool:
+      vmImage: 'macOS-11'
+      demands: msbuild
+
+    steps:
+    - checkout: self
+      submodules: 'true'
+
+    - template: common-dotnet.yml@templates
+    - template: common-macos.yml@templates
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: ChipmunkBinding.sln
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: ChipmunkBinding.Mac.sln
+
+    - task: PowerShell@2
+      displayName: 'PowerShell Script'
+      inputs:
+        targetType: filePath
+        filePath: ./devops/PreBuild.ps1
+        arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
+
+    # Build .NET 4.6
+
+    - task: MSBuild@1
+      displayName: 'Build solution ChipmunkBinding.sln'
+      inputs:
+        solution: ChipmunkBinding.sln
+        configuration: Release
+
+    # Build Xamarin.Mac (macOS, iOS, tvOS)
+
+    - task: MSBuild@1
+      displayName: 'Build solution ChipmunkBinding.Mac.sln'
+      inputs:
+        solution: ChipmunkBinding.Mac.sln
+        configuration: Release
+
+    # Build Desktop Demo - we will not run on the CI, but we don't want the demo to break
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore ChipmunkDemo.Desktop.sln'
+      inputs:
+        restoreSolution: ChipmunkDemo.Desktop.sln
+
+    - task: MSBuild@1
+      displayName: 'Build Desktop Demo'
+      inputs:
+        solution: ChipmunkDemo.Desktop.sln
+        configuration: Release
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore ChipmunkDemo.iOS.sln'
+      inputs:
+        restoreSolution: ChipmunkDemo.iOS.sln
+
+    - task: MSBuild@1
+      displayName: 'Build iOS Demo'
+      inputs:
+        solution: ChipmunkDemo.iOS.sln
+        configuration: Release
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore ChipmunkDemo.Android.sln'
+      inputs:
+        restoreSolution: ChipmunkDemo.Android.sln
+
+    - task: MSBuild@1
+      displayName: 'Build Android Demo'
+      inputs:
+        solution: ChipmunkDemo.Android.sln
+        configuration: Release
+
+    # Build .NET 6 (to be sure works on macOS)
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build ./ChipmunkBinding.net6.0.sln'
+      inputs:
+        command: custom
+        custom: build
+        arguments: './ChipmunkBinding.net6.0.sln /p:Configuration=Release'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-ios.csproj'
+      inputs:
+        command: custom
+        custom: build
+        arguments: './build/iOS/ChipmunkBinding.net6.0-ios.csproj /p:Configuration=Release'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-tvos.csproj'
+      inputs:
+        command: custom
+        custom: build
+        arguments: './build/iOS/ChipmunkBinding.net6.0-tvos.csproj /p:Configuration=Release'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-macos.csproj'
+      inputs:
+        command: custom
+        custom: build
+        arguments: './build/iOS/ChipmunkBinding.net6.0-macos.csproj /p:Configuration=Release'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-maccatalyst.csproj'
+      inputs:
+        command: custom
+        custom: build
+        arguments: './build/iOS/ChipmunkBinding.net6.0-maccatalyst.csproj /p:Configuration=Release'
+
+    # Run tests
+
+    - script: 'dotnet test ./tests/build/net6.0/bin/Release/net6.0/ChipmunkBindingTest.dll -l:trx'
+      displayName: 'Run .NET Tests'
+
+    - script: 'mv TestResults/*.trx ./TEST-Result-Mac.Core.xml'
+      displayName: 'Rename .NET6 Test result'
+
+    - script: 'dotnet test ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll -l:trx;'
+      displayName: 'Run OSX tests'
+
+    - script: 'mv TestResults/*.trx ./TEST-Result-Mac.xml'
+      displayName: 'Rename Test result'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish Mac Test Results TEST-Result-Mac.xml'
+      inputs:
+        testResultsFormat: VSTest
+        testResultsFiles: 'TEST-Result-Mac.xml'
+        failTaskOnFailedTests: true
+
+    - task: MSBuild@1
+      displayName: 'Run iOS tests'
+      inputs:
+        solution: tests/build/xamarinios/ChipmunkBindingTest.XamariniOS.csproj
+        platform: iPhoneSimulator
+        configuration: Release
+        msbuildArguments: '/t:RunSimulatorTests -verbosity:diag -detailedSummary'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish iOS Test Results TEST-Result-iOS.xml'
+      inputs:
+        testResultsFormat: NUnit
+        testResultsFiles: 'tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml'
+        failTaskOnFailedTests: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: TEST-Result-Xamarin.iOS.xml'
+      inputs:
+        PathtoPublish: tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml
+        ArtifactName: Test.Xamarin.iOS.xml
+
+    - task: MSBuild@1
+      displayName: 'Run tvOS tests'
+      inputs:
+        solution: tests/build/xamarintvos/ChipmunkBindingTest.XamarinTVOS.csproj
+        platform: iPhoneSimulator
+        configuration: Release
+        msbuildArguments: '/t:RunSimulatorTests'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish tvOS Test Results TEST-Result-tvOS.xml'
+      inputs:
+        testResultsFormat: NUnit
+        testResultsFiles: 'tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml'
+        failTaskOnFailedTests: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: TEST-Result-Xamarin.TVOS.xml'
+      inputs:
+        PathtoPublish: tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml
+        ArtifactName: Test.Xamarin.TVOS.xml
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Pipeline Artifact: libs.mac'
+      inputs:
+        targetPath: lib/Release/
+        artifact: 'libs.mac'
+        publishLocation: 'pipeline'
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Pipeline Artifact: runtimes'
+      inputs:
+        targetPath: runtimes
+        artifact: 'runtimes.mac'
+        publishLocation: 'pipeline'
+
+    - template: send-telegram.yml@templates
+
+- stage: Build_Linux
+  displayName: 'Build Linux'
+  jobs:
+    
+  - job: 'ChipmunkBindingLinux'
+    displayName: 'Linux'
+    dependsOn: 'ChipmunkBindingMac'
+    variables:
+      - group: 'Keys'
+
+    pool:
+      vmImage: 'ubuntu-latest'
+      demands: msbuild
+
+    steps:
+    - template: common-dotnet.yml@templates
+
+    - checkout: self 
+      submodules: 'true'
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: ChipmunkBinding.sln
+    # Build .NET 6
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build ./ChipmunkBinding.net6.0.sln'
+      inputs:
+        command: custom
+        custom: build
+        arguments: './ChipmunkBinding.net6.0.sln /p:Configuration=Release'
+
+    # Build .NET 4.6
+
+    - task: MSBuild@1
+      displayName: 'Build solution ChipmunkBinding.sln'
+      inputs:
+        solution: ChipmunkBinding.sln
+        configuration: Release
+
+
+    - script: 'dotnet test ./tests/build/net6.0/bin/Release/net6.0/ChipmunkBindingTest.dll -l:trx'
+      displayName: 'Run .NET 6 Tests'
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Pipeline Artifact: libchipmunk.so'
+      inputs:
+        targetPath: 'runtimes/linux-x64/native/libchipmunk.so'
+        artifact: 'libchipmunk.so'
+        publishLocation: 'pipeline'
+
+    - template: send-telegram.yml@templates
+
+- stage: Build_Windows
+  displayName: Build Windows
+  dependsOn: ['Build_Mac', 'Build_Linux']
+  
+  - job: 'ChipmunkBindingWindows'
+    displayName: 'Windows'
+    dependsOn: 'ChipmunkBindingLinux'
+    variables:
+      - group: 'Keys'
+
+    pool:
+      vmImage: 'windows-2019'
+      demands:
+      - msbuild
+      - visualstudio
+
+    steps:
+    - checkout: self
+      submodules: true
+
+    - template: common-dotnet.yml@templates
+    - template: common-win.yml@templates
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore ChipmunkBinding.sln'
+      inputs:
+        restoreSolution: ChipmunkBinding.sln
+
+    - script: 'dotnet format --verify-no-changes ChipmunkBinding.net6.0.sln -v:diag'
+      displayName: 'Check Format with dotnet format'
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore ChipmunkBinding.UWP.sln'
+      inputs:
+        restoreSolution: ChipmunkBinding.UWP.sln
+
+    - task: PowerShell@2
+      displayName: 'PreBuild Script'
+      inputs:
+        targetType: filePath
+        filePath: ./devops/PreBuild.ps1
+        arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
+        errorActionPreference: 'silentlyContinue'
+        pwsh: true
+
+    - task: MSBuild@1
+      displayName: 'Build solution ChipmunkBinding.sln'
+      inputs:
+        solution: ChipmunkBinding.sln
+        configuration: Release
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build ./ChipmunkBinding.net6.0.sln'
+      inputs:
+        command: custom
+        custom: build
+        arguments: './ChipmunkBinding.net6.0.sln /p:Configuration=Release'
+
+    - task: MSBuild@1
+      displayName: 'Build .NET Windows Universal'
+      inputs:
+        solution: ChipmunkBinding.UWP.sln
+        configuration: Release
+        msbuildArguments: /restore
+
+    - script: 'dotnet test ./tests/build/net6.0/bin/Release/net6.0/ChipmunkBindingTest.dll -l:trx'
+      displayName: 'Run .NET 6 Tests'
+
+    - script: 'mv TestResults/*.trx ./TEST-Result-Windows.Core.xml'
+      displayName: 'Rename .NET Core Test result'
+
+    - task: MSBuild@1
+      displayName: 'Build Android'
+      inputs:
+        solution: ChipmunkBinding.Android.sln
+        configuration: Release
+        msbuildArguments: '/p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build KeraLua.net6.0-android.sln'
+      inputs:
+        command: custom
+        custom: build
+        arguments: '.\KeraLua.net6.0-android.sln /p:Configuration=Release /p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
+
+    - script: 'dotnet test .\tests\build\net46\bin\Release\ChipmunkBindingTest.dll -l:trx --Platform:x86'
+      displayName: 'Run Windows Tests'
+
+    - script: 'RENAME TestResults\*.trx ChipmunkBindingTest.Windows.xml'
+      displayName: 'Rename Test result'
+
+    - script: 'MOVE TestResults\ChipmunkBindingTest.Windows.xml .'
+      displayName: 'Move Test result'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: 'ChipmunkBindingTest.Windows.xml'
+        failTaskOnFailedTests: true
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish ChipmunkBindingTest.Windows.xml'
+      inputs:
+        targetPath: ChipmunkBindingTest.Windows.xml
+        artifact: 'ChipmunkBindingTest.Windows.xml'
+        publishLocation: 'pipeline'
+
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Build libs.mac'
+      inputs:
+        buildType: 'current'
+        artifactName: 'libs.mac'
+        targetPath: './lib/Release/'
+
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Build runtimes.mac'
+      inputs:
+        buildType: 'current'
+        artifactName: 'runtimes.mac'
+        targetPath: './runtimes/'
+
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Build libchipmunk.so'
+      inputs:
+        buildType: 'current'
+        artifactName: 'libchipmunk.so'
+        targetPath: 'runtimes/linux-x64/native/'
+
+    - script: 'nuget setapikey $(apikey)'
+      displayName: 'Set NuGet API Key'
+
+    - task: PowerShell@2
+      displayName: 'Package NuGet'
+      inputs:
+        targetType: filePath
+        filePath: ./devops/Package.ps1
+        arguments: 'ChipmunkBinding ChipmunkBinding.nuspec'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Save ChipmunkBinding.nupkg Artifact'
+      inputs:
+        PathtoPublish: ChipmunkBinding.nupkg
+        ArtifactName: ChipmunkBinding.nupkg
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Save ChipmunkBinding.snupkg Artifact'
+      inputs:
+        PathtoPublish: ChipmunkBinding.snupkg
+        ArtifactName: ChipmunkBinding.snupkg
+
+    - task: PowerShell@2
+      displayName: 'Publish NuGet'
+      inputs:
+        targetType: filePath
+        filePath: ./devops/Publish.ps1
+        arguments: ChipmunkBinding
+
+    - template: send-telegram.yml@templates
+    

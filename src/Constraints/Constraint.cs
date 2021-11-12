@@ -5,7 +5,7 @@ using cpConstraint = System.IntPtr;
 using cpDataPointer = System.IntPtr;
 using cpSpace = System.IntPtr;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
 #endif
 
@@ -220,7 +220,7 @@ namespace ChipmunkBinding
             }
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(ConstraintSolveFunction))]
 #endif
         private static void ConstraintPreSolveFunctionCallback(cpConstraint constraintHandle, cpSpace spaceHandle)
@@ -233,7 +233,7 @@ namespace ChipmunkBinding
             preSolve(constraint, space);
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(ConstraintSolveFunction))]
 #endif
         private static void ConstraintPostSolveFunctionCallback(cpConstraint constraintHandle, cpSpace spaceHandle)

@@ -21,6 +21,9 @@ namespace ChipmunkBindingTest
 
         public string TracedCalls => stringBuilder.ToString();
 
+#pragma warning disable CA1305 // Specify IFormatProvider
+#pragma warning disable IDE0058 // Expression value is never used
+
         public void DrawCircle(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
             stringBuilder.Append($"DrawCircle\n");
@@ -67,5 +70,7 @@ namespace ChipmunkBindingTest
             stringBuilder.Append($"b = {b}\n");
             stringBuilder.Append($"color = {color}\n");
         }
+#pragma warning restore IDE0058 // Expression value is never used
+#pragma warning restore CA1305 // Specify IFormatProvider
     }
 }

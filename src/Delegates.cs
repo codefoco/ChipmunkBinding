@@ -11,7 +11,7 @@ using cpSpace = System.IntPtr;
 using cpVertPointer = System.IntPtr;
 using voidptr_t = System.IntPtr;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
 #endif
 
@@ -22,14 +22,14 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void BodyArbiterIteratorFunction(cpBody body, cpArbiter arbiter, voidptr_t data);
 
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void BodyVelocityFunction(cpBody body, Vect gravity, double damping, double dt);
@@ -39,7 +39,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void BodyPositionFunction(cpBody body, double dt);
@@ -49,7 +49,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void BodyConstraintIteratorFunction(cpBody body, cpConstraint constraint, voidptr_t data);
@@ -59,7 +59,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void BodyShapeIteratorFunction(cpBody body, cpShape shape, voidptr_t data);
@@ -71,7 +71,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void CollisionBeginFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
@@ -82,7 +82,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate cpBool CollisionPreSolveFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
@@ -92,7 +92,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void CollisionPostSolveFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
@@ -102,7 +102,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void CollisionSeparateFunction(cpArbiter arbiter, cpSpace space, voidptr_t userData);
@@ -112,7 +112,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void PostStepFunction(cpSpace space, voidptr_t key, voidptr_t data);
@@ -122,7 +122,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpacePointQueryFunction(cpShape shape, Vect point, double distance, Vect gradient, voidptr_t data);
@@ -132,7 +132,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceSegmentQueryFunction(cpShape shape, Vect point, Vect normal, double alpha, voidptr_t data);
@@ -144,7 +144,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceBBQueryFunction(cpShape shape, voidptr_t data);
@@ -154,7 +154,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceObjectIteratorFunction(cpHandle handle, voidptr_t data);
@@ -164,7 +164,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceDebugDrawCircleImpl(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
@@ -174,7 +174,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceDebugDrawSegmentImpl(Vect a, Vect b, DebugColor color, voidptr_t data);
@@ -184,7 +184,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceDebugDrawFatSegmentImpl(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
@@ -194,7 +194,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceDebugDrawPolygonImpl(int count, cpVertPointer verts, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
@@ -204,7 +204,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceDebugDrawDotImpl(double size, Vect pos, DebugColor color, voidptr_t data);
@@ -215,7 +215,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate DebugColor SpaceDebugDrawColorForShapeImpl(cpShape shape, voidptr_t data);
@@ -226,7 +226,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void ConstraintSolveFunction(cpConstraint constraint, cpSpace space);
@@ -236,7 +236,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate double DampedSpringForceFunction(cpConstraint spring, double dist);
@@ -246,7 +246,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate double DampedRotarySpringTorqueFunction(cpConstraint spring, double relativeAngle);
@@ -256,7 +256,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void SpaceShapeQueryFunction(cpShape shape, cpContactPointSetPointer points, voidptr_t data);
@@ -267,7 +267,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate void MarchSegmentFunction(Vect v0, Vect v1, voidptr_t data);
@@ -278,7 +278,7 @@ namespace ChipmunkBinding
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
     internal delegate double MarchSampleFunction(Vect point, voidptr_t data);

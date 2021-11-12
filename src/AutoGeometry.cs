@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
 #endif
 
@@ -13,7 +13,7 @@ namespace ChipmunkBinding
     /// </summary>
     public static class AutoGeometry
     {
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(MarchSegmentFunction))]
 #endif
         private static void MarchSegmentFunctionCallback(Vect v0, Vect v1, IntPtr data)
@@ -24,7 +24,7 @@ namespace ChipmunkBinding
 
         private static MarchSegmentFunction segmentFunctionCallback = MarchSegmentFunctionCallback;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(MarchSampleFunction))]
 #endif
         private static double MarchSampleFunctionCallBack(Vect point, IntPtr data)

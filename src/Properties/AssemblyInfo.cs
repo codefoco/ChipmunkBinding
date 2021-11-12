@@ -1,9 +1,15 @@
 ﻿using System.Reflection;
 
-#if __MACOS__ || __TVOS__ || __WATCHOS__ || __IOS__
+#if __MACOS__ || __TVOS__ || __WATCHOS__ || __IOS__ || __MACCATALYST__
 
 using Foundation;
+
+#if NET
+[assembly: AssemblyMetadata ("IsTrimmable", "True")]
+#else
 [assembly: LinkerSafe]
+#endif
+
 #endif
 
 // Information about this assembly is defined by the following attributes. 
@@ -20,15 +26,17 @@ using Foundation;
 #elif NETSTANDARD
 [assembly: AssemblyTitle ("ChipmunkBinding (.NET Standard)")]
 #elif __TVOS__
-[assembly: AssemblyTitle ("ChipmunkBinding (Xamarin.tvOS)")]
+[assembly: AssemblyTitle ("ChipmunkBinding (tvOS)")]
 #elif __WATCHOS__
-[assembly: AssemblyTitle ("ChipmunkBinding (Xamarin.watchOS)")]
+[assembly: AssemblyTitle ("ChipmunkBinding (watchOS)")]
 #elif __IOS__
-[assembly: AssemblyTitle ("ChipmunkBinding (Xamarin.iOS)")]
+[assembly: AssemblyTitle ("ChipmunkBinding (iOS)")]
+#elif __MACCATALYST__
+[assembly: AssemblyTitle ("ChipmunkBinding (Mac Catalyst)")]
 #elif __MACOS__
-[assembly: AssemblyTitle ("ChipmunkBinding (Xamarin.Mac)")]
+[assembly: AssemblyTitle ("ChipmunkBinding (Mac)")]
 #else
-[assembly: AssemblyTitle ("ChipmunkBinding (.NET Framework)")]
+[assembly: AssemblyTitle ("ChipmunkBinding (.NET)")]
 #endif
 
 [assembly: AssemblyDescription("Binding library for native Chipmunk2D")]
