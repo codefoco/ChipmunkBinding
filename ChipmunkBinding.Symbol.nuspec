@@ -10,7 +10,7 @@
     <iconUrl>https://raw.githubusercontent.com/codefoco/ChipmunkBinding/main/ChipmunkBinding.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      C# Native bindings of Chipmunk2D (compatible with Xamarin.iOS/Mac/Android/.NET/.NET Core) 
+      C# Native bindings of Chipmunk2D (compatible with iOS/Mac/Android/.NET/UWP) 
     </description>
     <releaseNotes>Release: 2bffe65</releaseNotes>
     <copyright>Copyright © Vinicius Jarina 2021</copyright>
@@ -23,21 +23,38 @@
   <files>
     <file src="lib\Release\MonoAndroid\ChipmunkBinding.dll" target="lib\MonoAndroid" />
     <file src="lib\Release\MonoAndroid\ChipmunkBinding.pdb" target="lib\MonoAndroid" />
-    <file src="lib\Release\net5.0\net5.0\ChipmunkBinding.dll" target="lib\net5.0" />
-    <file src="lib\Release\net5.0\net5.0\ChipmunkBinding.pdb" target="lib\net5.0" />
-    <file src="lib\Release\netcoreapp3.1\netcoreapp3.1\ChipmunkBinding.dll" target="lib\netcoreapp3.1" />
-    <file src="lib\Release\netcoreapp3.1\netcoreapp3.1\ChipmunkBinding.pdb" target="lib\netcoreapp3.1" />
+
+    <file src="lib\Release\net6.0-android\ChipmunkBinding.dll" target="lib\net6.0-android28" />
+    <file src="lib\Release\net6.0-android\ChipmunkBinding.pdb" target="lib\net6.0-android28" />
+
+    <file src="lib\Release\net6.0\ChipmunkBinding.dll" target="lib\net6.0" />
+    <file src="lib\Release\net6.0\ChipmunkBinding.pdb" target="lib\net6.0" />
+
+    <file src="lib\Release\net6.0-ios\ChipmunkBinding.dll" target="lib\net6.0-ios11.0" />
+    <file src="lib\Release\net6.0-ios\ChipmunkBinding.pdb" target="lib\net6.0-ios11.0" />
+
+    <file src="lib\Release\net6.0-maccatalyst\ChipmunkBinding.dll" target="lib\net6.0-maccatalyst13.0" />
+    <file src="lib\Release\net6.0-maccatalyst\ChipmunkBinding.pdb" target="lib\net6.0-maccatalyst13.0" />
+
+    <file src="lib\Release\net6.0-tvos\ChipmunkBinding.dll" target="lib\net6.0-tvos11.0" />
+    <file src="lib\Release\net6.0-tvos\ChipmunkBinding.pdb" target="lib\net6.0-tvos11.0" />
+
+    <file src="lib\Release\net6.0-macos\ChipmunkBinding.dll" target="lib\net6.0-macos10.13" />
+    <file src="lib\Release\net6.0-macos\ChipmunkBinding.pdb" target="lib\net6.0-macos10.13" />
+
     <file src="lib\Release\net46\ChipmunkBinding.dll" target="lib\net46" />
     <file src="lib\Release\net46\ChipmunkBinding.pdb" target="lib\net46" />
+
     <file src="lib\Release\uap10.0\ChipmunkBinding.dll" target="lib\uap10.0" />
     <file src="lib\Release\uap10.0\ChipmunkBinding.pdb" target="lib\uap10.0" />
+
     <file src="lib\Release\xamarinios\ChipmunkBinding.dll" target="lib\xamarinios" />
     <file src="lib\Release\xamarinios\ChipmunkBinding.pdb" target="lib\xamarinios" />
+
     <file src="lib\Release\xamarinmac\ChipmunkBinding.dll" target="lib\xamarinmac" />
     <file src="lib\Release\xamarinmac\ChipmunkBinding.pdb" target="lib\xamarinmac" />
+
     <file src="lib\Release\xamarintvos\ChipmunkBinding.dll" target="lib\xamarintvos" />
     <file src="lib\Release\xamarintvos\ChipmunkBinding.pdb" target="lib\xamarintvos" />
-    <file src="lib\Release\xamarinwatchos\ChipmunkBinding.dll" target="lib\xamarinwatchos" />
-    <file src="lib\Release\xamarinwatchos\ChipmunkBinding.pdb" target="lib\xamarinwatchos" />
   </files>
 </package>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <iOSBuildDir>ios_build</iOSBuildDir>
+        <iOSOutputDir>maccatalyst</iOSOutputDir>
+        <DylibFileFramework>libchipmunk.framework</DylibFileFramework>
+    </PropertyGroup>
+    <Target Name="BuildChipmunkMacCatalyst" BeforeTargets="PrepareForBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
+        <Message Text="Building MacCatalyst Chipmunk library (arm64/x86_64)" />
+        <Exec Command="make maccatalyst" WorkingDirectory="$(ExternalChipmunkPath)/$(iOSBuildDir)" />
+        <Exec Command="ditto $(ExternalChipmunkPath)/$(iOSBuildDir)/$(iOSOutputDir)/$(DylibFileFramework) $(OutputRuntimeDir)/$(iOSOutputDir)/native/$(DylibFileFramework)"  />
+        <RemoveDir Directories="$(OutputRuntimeDir)/$(iOSOutputDir)/native/$(DylibFileFramework)/Resources/chipmunk" />
+    </Target>
+    <Target Name="CleanChipmunkMacCatalyst" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
+        <Message Text="Cleaning Chipmunk library (MacCatalyst)" />
+        <RemoveDir Directories="
+        $(ExternalChipmunkPath)/$(iOSBuildDir)/$(iOSOutputDir); 
+        $(OutputRuntimeDir)/$(iOSOutputDir) " />
+    </Target>
+</Project>
+

@@ -49,12 +49,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RefactoringEssentials">
-      <Version>5.6.0</Version>
+    <PackageReference Include="RefactoringEssentials" Version="5.6.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

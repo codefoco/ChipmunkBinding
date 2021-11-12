@@ -9,7 +9,9 @@ using cpConstraint = System.IntPtr;
 namespace ChipmunkBindingTest.Tests
 {
     [TestFixture]
+#pragma warning disable CA1001 // Types that own disposable fields should be disposable
     public class ConstraintsTests
+#pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
         Space space;
         Body bodyA;

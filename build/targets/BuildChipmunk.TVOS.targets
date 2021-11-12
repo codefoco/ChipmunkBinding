@@ -7,15 +7,15 @@
     </PropertyGroup>
     <Target Name="BuildChipmunkXamarinTVOS" BeforeTargets="PrepareForBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
         <Message Text="Building tvOS Chipmunk library (arm64/x86_64)" />
-        <Exec Command="make tvos" WorkingDirectory="$(ExternalChipmunkPath)\$(tvOSBuildDir)" />
-        <Exec Command="ditto $(ExternalChipmunkPath)\$(tvOSBuildDir)\$(tvOSOutputDir)\$(DylibFileFramework) $(OutputRuntimeDir)\$(tvOSOutputDir)\$(DylibFileFramework)"  />
-        <RemoveDir Directories="$(OutputRuntimeDir)\$(tvOSOutputDir)\$(DylibFileFramework)\Headers" />    
+        <Exec Command="make tvos" WorkingDirectory="$(ExternalChipmunkPath)/$(tvOSBuildDir)" />
+        <Exec Command="ditto $(ExternalChipmunkPath)/$(tvOSBuildDir)/$(tvOSOutputDir)/$(DylibFileFramework) $(OutputRuntimeDir)/$(tvOSOutputDir)/native/$(DylibFileFramework)" />
+        <RemoveDir Directories="$(OutputRuntimeDir)/$(tvOSOutputDir)/native/$(DylibFileFramework)/Headers" />    
     </Target>
     <Target Name="CleanChipmunkXamarinTVOS" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
         <Message Text="Cleaning Chipmunk library (tvOS)" />
         <RemoveDir Directories="
-        $(ExternalChipmunkPath)\$(tvOSBuildDir)\$(tvOSOutputDir); 
-        $(OutputRuntimeDir)\$(tvOSOutputDir) " />
+        $(ExternalChipmunkPath)/$(tvOSBuildDir)/$(tvOSOutputDir); 
+        $(OutputRuntimeDir)/$(tvOSOutputDir) " />
     </Target>
 </Project>
 

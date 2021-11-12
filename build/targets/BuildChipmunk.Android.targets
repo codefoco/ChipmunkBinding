@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <AndroidBuildDir>android_build</AndroidBuildDir>
+        <AndroidOutputDir>android</AndroidOutputDir>
+        <LibraryFileName>libchipmunk.so</LibraryFileName>
+        <Arch1>arm</Arch1>
+        <Arch2>arm64</Arch2>
+        <Arch3>x86</Arch3>
+        <Arch4>x64</Arch4>
+    </PropertyGroup>
+    <Target Name="BuildChipmunkAndroid" AfterTargets="_ResolveMonoAndroidSdks" >
+        <Message Text="Building Android Chipmunk library (armeabi-v7a arm64-v8a x86 x86_64) [NDK: $(_AndroidNdkDirectory)] " />
+        <Error Text="******* Could not locate Android NDK. $(_AndroidNdkDirectory)ndk-build ********** " Condition="!Exists ('$(_AndroidNdkDirectory)')" />
+        <Exec Command="$(_AndroidNdkDirectory)ndk-build" WorkingDirectory="$(ExternalChipmunkPath)\$(AndroidBuildDir)"/>
+        <MakeDir Directories="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch1)" />
+        <MakeDir Directories="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch1)\native" />
+        <MakeDir Directories="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch2)" />
+        <MakeDir Directories="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch2)\native" />
+        <MakeDir Directories="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch3)" />
+        <MakeDir Directories="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch3)\native" />
+        <MakeDir Directories="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch4)" />
+        <MakeDir Directories="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch4)\native" />
+        <Copy
+            SourceFiles="$(ExternalChipmunkPath)\$(AndroidBuildDir)\libs\armeabi-v7a\$(LibraryFileName)"
+            DestinationFolder="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch1)\native"
+            SkipUnchangedFiles="true"
+        />
+        <Copy
+            SourceFiles="$(ExternalChipmunkPath)\$(AndroidBuildDir)\libs\arm64-v8a\$(LibraryFileName)"
+            DestinationFolder="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch2)\native"
+            SkipUnchangedFiles="true"
+        />
+        <Copy
+            SourceFiles="$(ExternalChipmunkPath)\$(AndroidBuildDir)\libs\x86\$(LibraryFileName)"
+            DestinationFolder="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch3)\native"
+            SkipUnchangedFiles="true"
+        />
+        <Copy
+            SourceFiles="$(ExternalChipmunkPath)\$(AndroidBuildDir)\libs\x86_64\$(LibraryFileName)"
+            DestinationFolder="$(OutputRuntimeDir)\$(AndroidOutputDir)-$(Arch4)\native"
+            SkipUnchangedFiles="true"
+        />
+    </Target>
+    <Target Name="CleanChipmunkAndroid" AfterTargets="Clean" >
+        <Message Text="Cleaning Chipmunk library (Android)" />
+        <RemoveDir Directories="
+        $(ExternalChipmunkPath)\$(AndroidBuildDir)\libs; 
+        $(OutputRuntimeDir)\$(AndroidOutputDir) " />
+    </Target>
+</Project>
+

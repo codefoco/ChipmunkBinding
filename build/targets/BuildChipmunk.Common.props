@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <ExternalChipmunkPath>$(SolutionDir)external\Chipmunk2D</ExternalChipmunkPath>
-    <OutputRuntimeDir>$(SolutionDir)runtimes</OutputRuntimeDir>
+    <ExternalChipmunkPath>$(MSBuildThisFileDirectory)..\..\external\Chipmunk2D</ExternalChipmunkPath>
+    <OutputRuntimeDir>$(MSBuildThisFileDirectory)..\..\runtimes</OutputRuntimeDir>
   </PropertyGroup>
 </Project>

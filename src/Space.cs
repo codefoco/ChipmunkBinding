@@ -11,7 +11,7 @@ using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using voidptr_t = System.IntPtr;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
 #endif
 
@@ -352,7 +352,7 @@ namespace ChipmunkBinding
             return NativeMethods.cpSpaceContainsConstraint(space, constraint.Handle) != 0;
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(PostStepFunction))]
 #endif
         private static void PostStepCallBack(cpSpace handleSpace, voidptr_t handleKey, voidptr_t handleData)
@@ -388,7 +388,7 @@ namespace ChipmunkBinding
             return NativeMethods.cpSpaceAddPostStepCallback(space, postStepCallBack.ToFunctionPointer(), keyHandle, dataHandle) != 0;
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(SpacePointQueryFunction))]
 #endif
         private static void EachPointQuery(cpShape shapeHandle, Vect point, double distance, Vect gradient, voidptr_t data)
@@ -445,7 +445,7 @@ namespace ChipmunkBinding
             return PointQueryInfo.FromQueryInfo(queryInfo);
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(SpaceSegmentQueryFunction))]
 #endif
         private static void EachSegmentQuery(cpShape shapeHandle, Vect point, Vect normal, double alpha, voidptr_t data)
@@ -493,7 +493,7 @@ namespace ChipmunkBinding
         }
 
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(SpaceBBQueryFunction))]
 #endif
         private static void EachBBQuery(cpShape shapeHandle, voidptr_t data)
@@ -590,7 +590,7 @@ namespace ChipmunkBinding
             }
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
 #endif
         private static void EachShape(cpShape shapeHandle, voidptr_t data)
@@ -623,7 +623,7 @@ namespace ChipmunkBinding
             }
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(SpaceShapeQueryFunction))]
 #endif
         private static void ShapeQueryCallback(cpShape shape, IntPtr pointsPointer, voidptr_t data)
@@ -651,7 +651,7 @@ namespace ChipmunkBinding
             return list;
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
 #endif
         private static void EachConstraint(cpConstraint constraintHandle, voidptr_t data)

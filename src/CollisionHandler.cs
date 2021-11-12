@@ -6,7 +6,7 @@ using cpCollisionHandlerPointer = System.IntPtr;
 using cpSpace = System.IntPtr;
 using voidptr_t = System.IntPtr;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
 #endif
 
@@ -217,7 +217,7 @@ namespace ChipmunkBinding
         /// </summary>
         public int TypeB { get; }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(CollisionBeginFunction))]
 #endif
         private static void CollisionBeginFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
@@ -236,7 +236,7 @@ namespace ChipmunkBinding
             begin(arbiter, space, handler.Data);
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(CollisionPreSolveFunction))]
 #endif
         private static cpBool CollisionPreSolveFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
@@ -260,7 +260,7 @@ namespace ChipmunkBinding
             return 0;
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(CollisionPostSolveFunction))]
 #endif
         private static void CollisionPostSolveFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
@@ -279,7 +279,7 @@ namespace ChipmunkBinding
             postSolve(arbiter, space, handler.Data);
         }
 
-#if __IOS__ || __TVOS__ || __WATCHOS__
+#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
         [MonoPInvokeCallback(typeof(SpaceDebugDrawColorForShapeImpl))]
 #endif
         private static void CollisionSeparateFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
