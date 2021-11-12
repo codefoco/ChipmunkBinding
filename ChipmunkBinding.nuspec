@@ -67,8 +67,8 @@
     <file src="lib\Release\xamarintvos\ChipmunkBinding.pdb" target="lib\xamarintvos" />
     <file src="lib\Release\xamarintvos\ChipmunkBinding.xml" target="lib\xamarintvos" />
 
-    <file src="runtimes\win-arm\nativeassets\chipmunk.dll" target="runtimes\win10-arm\nativeassets\uap10.0\chipmunk.dll" />
-    <file src="runtimes\win-arm64\nativeassets\chipmunk.dll" target="runtimes\win10-arm64\nativeassets\uap10.0\chipmunk.dll" />
+    <file src="runtimes\win-arm\native\chipmunk.dll" target="runtimes\win10-arm\nativeassets\uap10.0\chipmunk.dll" />
+    <file src="runtimes\win-arm64\native\chipmunk.dll" target="runtimes\win10-arm64\nativeassets\uap10.0\chipmunk.dll" />
     <file src="runtimes\win-x64\native\chipmunk.dll" target="runtimes\win10-x64\nativeassets\uap10.0\chipmunk.dll" />
     <file src="runtimes\win-x86\native\chipmunk.dll" target="runtimes\win10-x86\nativeassets\uap10.0\chipmunk.dll" />
     
