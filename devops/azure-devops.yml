@@ -217,7 +217,6 @@ stages:
     
   - job: 'ChipmunkBindingLinux'
     displayName: 'Linux'
-    dependsOn: 'ChipmunkBindingMac'
     variables:
       - group: 'Keys'
 
@@ -272,7 +271,6 @@ stages:
   jobs:
   - job: 'ChipmunkBindingWindows'
     displayName: 'Windows'
-    dependsOn: 'ChipmunkBindingLinux'
     variables:
       - group: 'Keys'
 
