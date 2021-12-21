@@ -315,19 +315,18 @@ stages:
         solution: ChipmunkBinding.sln
         configuration: Release
 
+    - task: MSBuild@1
+      displayName: 'Build .NET Windows Universal'
+      inputs:
+        solution: ChipmunkBinding.UWP.sln
+        configuration: Release
+
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./ChipmunkBinding.net6.0.sln'
       inputs:
         command: custom
         custom: build
         arguments: './ChipmunkBinding.net6.0.sln /p:Configuration=Release'
-
-    - task: MSBuild@1
-      displayName: 'Build .NET Windows Universal'
-      inputs:
-        solution: ChipmunkBinding.UWP.sln
-        configuration: Release
-        msbuildArguments: /restore
 
     - script: 'dotnet test ./tests/build/net6.0/bin/Release/net6.0/ChipmunkBindingTest.dll -l:trx'
       displayName: 'Run .NET 6 Tests'
