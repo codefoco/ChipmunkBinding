@@ -113,10 +113,12 @@ namespace ChipmunkDemo
             float width  = GraphicsDevice.Viewport.Width;
             float height = GraphicsDevice.Viewport.Height;
 
+            float scale = Window.ScreenScale;
+
             world      = Matrix.Identity;
             view       = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Up);
             projection = Matrix.CreateOrthographic(width, height, 0, -1);
-            inverse    = Matrix.CreateScale(1, -1, 1) * Matrix.CreateTranslation(-width / 2, height / 2, 0);
+            inverse    = Matrix.CreateScale(scale, -scale, 1) * Matrix.CreateTranslation(-width / 2, height / 2, 0);
 
             primitiveBatch.LoadContent(ref world, ref view, ref projection);
 

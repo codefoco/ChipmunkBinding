@@ -104,8 +104,8 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ChipmunkBinding" Version="1.1.10" />
-    <PackageReference Include="Codefoco.MonoGame.Framework" Version="3.8.49" />
+    <PackageReference Include="ChipmunkBinding" Version="1.2.2" />
+    <PackageReference Include="Codefoco.MonoGame.Framework" Version="3.8.67" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
