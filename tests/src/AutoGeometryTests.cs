@@ -46,20 +46,19 @@ namespace ChipmunkBindingTest.Tests
                 new Tuple<Vect, Vect>(new Vect(1.5, 6), new Vect(1.5, 5))
             };
 
-            var marchData = new MarchData()
+            var marchData = new MarchData
             {
                 BoundingBox = new BoundingBox(0, 0, 6, 6),
                 XSamples = 7,
                 YSamples = 7,
-                Threshold = 0.5
-            };
-
-            marchData.SegmentFunction = (v0, v1, _) => segments.Add(new Tuple<Vect, Vect>(v0, v1));
-            marchData.SampleFunction = (point, _) =>
-            {
-                if (img[(int)point.Y][(int)point.X] == 'x')
-                    return 1;
-                return 0;
+                Threshold = 0.5,
+                SegmentFunction = (v0, v1, _) => segments.Add(new Tuple<Vect, Vect>(v0, v1)),
+                SampleFunction = (point, _) =>
+                {
+                    if (img[(int)point.Y][(int)point.X] == 'x')
+                        return 1;
+                    return 0;
+                }
             };
 
             AutoGeometry.MarchSoft(marchData);

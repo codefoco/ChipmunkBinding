@@ -13,6 +13,8 @@ indent_style = space
 indent_size = 4
 insert_final_newline = true
 charset = utf-8-bom
+keep_blank_lines_in_code = 2
+trim_trailing_whitespace = true
 
 ###############################
 # .NET Coding Conventions     #
@@ -67,8 +69,11 @@ dotnet_style_prefer_simplified_boolean_expressions = true
 dotnet_diagnostic.IDE0032.severity = suggestion
 dotnet_diagnostic.CA1823.severity=error
 
-# RECS0008: 'sealed' modifier is redundant in sealed classes
-dotnet_diagnostic.RECS0025.severity = none
+# IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+
+dotnet_diagnostic.IDE0180.severity = none
+
 [*.cs]
 
 
@@ -239,8 +244,9 @@ dotnet_diagnostic.IDE0051.severity = error
 dotnet_diagnostic.IDE0052.severity = error
 dotnet_diagnostic.IDE0058.severity = error
 dotnet_diagnostic.IDE0060.severity = error
-dotnet_diagnostic.IDE0079.severity = error
+dotnet_diagnostic.IDE0079.severity = none
 dotnet_diagnostic.IDE0080.severity = error
+dotnet_diagnostic.IDE0083.severity = none
 dotnet_diagnostic.IDE0100.severity = error
 dotnet_diagnostic.IDE0110.severity = error
 dotnet_diagnostic.IDE0140.severity = error
@@ -279,7 +285,7 @@ dotnet_diagnostic.CA2211.severity = error
 dotnet_analyzer_diagnostic.severity = error
 
 # Default severity for analyzer diagnostics with category 'Potential Code Quality Issues'
-#dotnet_analyzer_diagnostic.category-Potential Code Quality Issues.severity = error
+dotnet_analyzer_diagnostic.category-Potential Code Quality Issues.severity = error
 dotnet_analyzer_diagnostic.category-Design.severity = error
 dotnet_analyzer_diagnostic.category-Maintainability.severity = error
 dotnet_analyzer_diagnostic.category-Performance.severity = error
@@ -292,6 +298,7 @@ dotnet_code_quality.CA1002.api_surface = public
 
 dotnet_code_quality.severity = error
 dotnet_diagnostic.severity = error
+dotnet_code_quality
 # RECS0145: Removes 'private' modifiers that are not required
 dotnet_diagnostic.RECS0145.severity = none
 
@@ -321,6 +328,18 @@ dotnet_diagnostic.IDE0002.severity = error
 
 # IDE0055: Fix formatting
 dotnet_diagnostic.IDE0055.severity = error
+
+# IDE0063: Use simple 'using' statement
+dotnet_diagnostic.IDE0063.severity = none
+
+# IDE0039: Use local function
+csharp_style_prefer_local_over_anonymous_function = false:error
+
+# IDE0057: Use range operator
+csharp_style_prefer_range_operator = false:error
+
+# IDE0056: Use index operator
+csharp_style_prefer_index_operator = false:error
 
 # IDE0090: Use 'new(...)'
 csharp_style_implicit_object_creation_when_type_is_apparent = false:error
