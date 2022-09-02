@@ -280,7 +280,7 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
-        [MonoPInvokeCallback(typeof(SpaceDebugDrawColorForShapeImpl))]
+        [MonoPInvokeCallback(typeof(CollisionSeparateFunction))]
 #endif
         private static void CollisionSeparateFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
         {
