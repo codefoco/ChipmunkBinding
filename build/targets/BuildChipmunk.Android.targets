@@ -11,8 +11,9 @@
     </PropertyGroup>
     <Target Name="BuildChipmunkAndroid" AfterTargets="_ResolveMonoAndroidSdks" >
         <PropertyGroup>
-            <AndroidNdkHome Condition="$(AndroidNdkHome) == ''">$(ANDROID_NDK_HOME)</AndroidNdkHome>
+            <AndroidNdkHome Condition="$(AndroidNdkHome) == ''">$(ANDROID_NDK_HOME)\</AndroidNdkHome>
             <AndroidNdkHome Condition="$(AndroidNdkHome) == ''">$(_AndroidNdkDirectory)</AndroidNdkHome>
+            <AndroidNdkHome Condition="!HasTrailingSlash($(AndroidNdkHome))">$(AndroidNdkHome)\</AndroidNdkHome>
         </PropertyGroup>
         <Message Text="Building Android Chipmunk library (armeabi-v7a arm64-v8a x86 x86_64) [NDK: $(AndroidNdkHome)] " />
         <Error Text="******* Could not locate Android NDK. $(AndroidNdkHome)ndk-build ********** " Condition="!Exists ('$(AndroidNdkHome)')" />
