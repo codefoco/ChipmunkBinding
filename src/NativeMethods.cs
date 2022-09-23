@@ -1067,9 +1067,6 @@ namespace ChipmunkBinding
         internal static extern void cpSpaceEachConstraint(cpSpace space, cpSpaceConstraintIteratorFunc func, IntPtr data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceEachDynamicBody(cpSpace space, cpSpaceBodyIteratorFunc func, IntPtr data);
-
-        [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int cpSpaceGetBodyCount(cpSpace space);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
