@@ -9,7 +9,7 @@ namespace ChipmunkBindingTest
         {
             // if you want to use a different Application Delegate class from "UnitTestAppDelegate"
             // you can specify it here.
-            UIApplication.Main(args, null, "UnitTestAppDelegate");
+            UIApplication.Main(args, null, typeof(UnitTestAppDelegate));
         }
     }
 }
