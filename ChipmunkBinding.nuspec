@@ -80,6 +80,7 @@
     <file src="runtimes\osx\native\libchipmunk.dylib" target="runtimes\osx\native\libchipmunk.dylib" />
     
     <file src="runtimes\linux-x64\native\libchipmunk.so" target="runtimes\linux-x64\native\libchipmunk.so" />
+    <file src="runtimes\linux-arm64\native\libchipmunk.so" target="runtimes\linux-arm64\native\libchipmunk.so" />
     
     <file src="runtimes\android-arm\native\libchipmunk.so" target="runtimes\android-arm\native\libchipmunk.so" />
     <file src="runtimes\android-arm64\native\libchipmunk.so" target="runtimes\android-arm64\native\libchipmunk.so" />

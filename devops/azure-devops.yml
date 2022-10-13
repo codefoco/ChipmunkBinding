@@ -230,6 +230,9 @@ stages:
     - checkout: self 
       submodules: 'true'
 
+    - script: 'sudo apt install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu g++-aarch64-linux-gnu pkg-config-aarch64-linux-gnu'
+      displayName: 'Install ARM64 build tools'
+
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
       inputs:
@@ -256,10 +259,17 @@ stages:
       displayName: 'Run .NET 6 Tests'
 
     - task: PublishPipelineArtifact@1
-      displayName: 'Publish Pipeline Artifact: libchipmunk.so'
+      displayName: 'Publish Pipeline Artifact: libchipmunk.so x64'
       inputs:
         targetPath: 'runtimes/linux-x64/native/libchipmunk.so'
-        artifact: 'libchipmunk.so'
+        artifact: 'libchipmunk.so.x64'
+        publishLocation: 'pipeline'
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Pipeline Artifact: libchipmunk.so arm64'
+      inputs:
+        targetPath: 'runtimes/linux-arm64/native/libchipmunk.so'
+        artifact: 'libchipmunk.so.arm64'
         publishLocation: 'pipeline'
 
     - template: send-telegram.yml@templates
@@ -385,11 +395,18 @@ stages:
         targetPath: './runtimes/'
 
     - task: DownloadPipelineArtifact@2
-      displayName: 'Download Build libchipmunk.so'
+      displayName: 'Download Build libchipmunk.so x64'
       inputs:
         buildType: 'current'
-        artifactName: 'libchipmunk.so'
+        artifactName: 'libchipmunk.so.x64'
         targetPath: 'runtimes/linux-x64/native/'
+
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Build libchipmunk.so arm64'
+      inputs:
+        buildType: 'current'
+        artifactName: 'libchipmunk.so.arm64'
+        targetPath: 'runtimes/linux-arm64/native/'
 
     - script: 'nuget setapikey $(apikey)'
       displayName: 'Set NuGet API Key'
