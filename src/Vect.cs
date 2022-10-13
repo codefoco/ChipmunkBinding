@@ -95,8 +95,8 @@ namespace ChipmunkBinding
         /// </summary>
         public static bool operator ==(Vect a, Vect b)
         {
-            return Math.Abs(a.x - b.x) < double.Epsilon &&
-                   Math.Abs(a.y - b.y) < double.Epsilon;
+            return Math.Abs(b.x - a.x) <= double.Epsilon &&
+                   Math.Abs(b.y - a.y) <= double.Epsilon;
         }
 
         /// <summary>

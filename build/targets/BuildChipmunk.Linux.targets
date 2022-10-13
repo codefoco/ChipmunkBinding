@@ -3,7 +3,7 @@
   <PropertyGroup>
     <LinuxAMD64BuildDir>linux-x64</LinuxAMD64BuildDir>
     <LinuxARM64BuildDir>linux-arm64</LinuxARM64BuildDir>
-    <LinuxBinaryLibraryPath64>lib64\libchipmunk.so</LinuxBinaryLibraryPath64>
+    <LinuxBinaryLibraryPath64>lib64/libchipmunk.so</LinuxBinaryLibraryPath64>
   </PropertyGroup>
   <Target Name="BuildChipmunkLinux" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild')">
     <Message Text="Building Linux Chipmunk library (x64)" />
@@ -12,18 +12,23 @@
     <Exec Command="mkdir $(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)')" />
     <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_BUILD_TYPE=Release" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)\CMakeCache.txt')" />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)" />
+    <Exec Command="strip -s $(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)\$(LinuxBinaryLibraryPath64)" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)" />
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)\$(LinuxBinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(LinuxAMD64BuildDir)\native" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="BuildChipmunkLinuxARM64" AfterTargets="BuildChipmunkLinux" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild') and Exists('/usr/bin/aarch64-linux-gnu-gcc')">
     <Message Text="Building Linux Chipmunk library (arm64)" />
     <Exec Command="export CXXFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="export CFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="export LDFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
-    <Exec Command="export CXX=aarch64-linux-gnu-g++" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
-    <Exec Command="export CC=aarch64-linux-gnu-gcc" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="mkdir $(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
-    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_BUILD_TYPE=Release -DCMAKE_CROSSCOMPILING=TRUE -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_SYSTEM_PROCESSOR=aarch64" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" 
-          Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\CMakeCache.txt') and Exists('/usr/bin/aarch64-linux-gnu-gcc')" />
-    <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" Condition="Exists('/usr/bin/aarch64-linux-gnu-gcc')" />
+    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_BUILD_TYPE=Release -DCMAKE_CROSSCOMPILING=TRUE -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_SYSTEM_PROCESSOR=aarch64" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" 
+          Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" />
+    <Exec Command="/usr/aarch64-linux-gnu/bin/strip -s $(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)\$(LinuxBinaryLibraryPath64)" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)" />
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\$(LinuxBinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(LinuxARM64BuildDir)\native" SkipUnchangedFiles="true" Condition="Exists('/usr/bin/aarch64-linux-gnu-gcc')" />
+    <Exec Command="unset CXXFLAGS" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
+    <Exec Command="unset CFLAGS" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
+    <Exec Command="unset LDFLAGS" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
   </Target>
   <Target Name="CleanChipmunkLinux" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild')">
       <Message Text="Cleaning Chipmunk library (x64)" />
