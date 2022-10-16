@@ -11,9 +11,9 @@
     <PropertyGroup>
         <!-- handle x86/x64/ARM/ARM64 specifically -->
         <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and ( '$(PlatformTarget)' == 'x64' or '$(PlatformTarget)' == 'x86' or '$(PlatformTarget)' == 'ARM' or '$(PlatformTarget)' == 'ARM64') ">$(PlatformTarget)</PreferredNativeChipmunk> 
+
         <!-- handle ARM64 machines specifically -->
-        <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and ('$(HOSTTYPE)' == 'arm64' or '$(HOSTTYPE)' == 'aarch64' or '$(PROCESSOR_ARCHITECTURE)' == 'ARM64' ) ">ARM64</PreferredNativeChipmunk>  
-        
+        <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and ('$(HOSTTYPE)' == 'arm64' or '$(HOSTTYPE)' == 'aarch64' or '$(PROCESSOR_ARCHITECTURE)' == 'ARM64' ) ">arm64</PreferredNativeChipmunk>  
         <!-- handle Any CPU, considering Prefer32Bit -->
         <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and '$(Prefer32Bit)' == 'False' ">x64</PreferredNativeChipmunk>  
         <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and '$(Prefer32Bit)' == 'True' ">x86</PreferredNativeChipmunk> 
@@ -58,6 +58,11 @@
             <Link>x64\chipmunk.dll</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-arm64\native\chipmunk.dll"
+              Condition="Exists('$(MSBuildThisFileDirectory)..\..\runtimes\win-arm64\native\chipmunk.dll')">
+            <Link>ARM64\chipmunk.dll</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <!-- Linux -->
         <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\linux-x86\native\native\libchipmunk.so"
               Condition="Exists('$(MSBuildThisFileDirectory)..\..\runtimes\linux-x86\native\libchipmunk.so')">
@@ -67,6 +72,11 @@
         <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\linux-x64\native\libchipmunk.so"
               Condition="Exists('$(MSBuildThisFileDirectory)..\..\runtimes\linux-x64\native\libchipmunk.so')">
             <Link>x64\libchipmunk.so</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\linux-arm64\native\libchipmunk.so"
+              Condition="Exists('$(MSBuildThisFileDirectory)..\..\runtimes\linux-arm64\native\libchipmunk.so')">
+            <Link>ARM64\libchipmunk.so</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
