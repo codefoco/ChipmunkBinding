@@ -6,7 +6,7 @@ using ChipmunkBinding;
 
 namespace ChipmunkBindingTest
 {
-    internal class FakeDebugDraw : IDebugDraw
+    internal sealed class FakeDebugDraw : IDebugDraw
     {
         private readonly StringBuilder stringBuilder;
 

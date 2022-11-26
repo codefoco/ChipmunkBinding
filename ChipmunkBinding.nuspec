@@ -4,7 +4,7 @@
     <id>ChipmunkBinding</id>
     <version>1.0.1</version>
     <authors>Codefoco</authors>
-    <owners>Vinicius Jarina</owners>
+    <owners>Codefoco</owners>
     <licenseUrl>https://github.com/codefoco/ChipmunkBinding/blob/main/LICENSE</licenseUrl>
     <projectUrl>https://github.com/codefoco/ChipmunkBinding</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/codefoco/ChipmunkBinding/main/ChipmunkBinding.png</iconUrl>
@@ -13,7 +13,7 @@
       C# Native bindings of Chipmunk2D (compatible with iOS/Mac/Android/.NET/UWP) 
     </description>
     <releaseNotes>Release: 2bffe65</releaseNotes>
-    <copyright>Copyright © Vinicius Jarina 2021</copyright>
+    <copyright>Copyright © Codefoco 2022</copyright>
     <tags>chipmunk physics</tags>
     <repository type="git" url="https://github.com/codefoco/ChipmunkBinding" commit="4bc5cdb91979e1f4aaf50fadd8061e7a52a7c97c" />
   </metadata>
@@ -45,6 +45,30 @@
     <file src="lib\Release\net6.0-macos\ChipmunkBinding.dll" target="lib\net6.0-macos10.13" />
     <file src="lib\Release\net6.0-macos\ChipmunkBinding.pdb" target="lib\net6.0-macos10.13" />
     <file src="lib\Release\net6.0-macos\ChipmunkBinding.xml" target="lib\net6.0-macos10.13" />
+
+    <file src="lib\Release\net7.0-android\ChipmunkBinding.dll" target="lib\net7.0-android28" />
+    <file src="lib\Release\net7.0-android\ChipmunkBinding.pdb" target="lib\net7.0-android28" />
+    <file src="lib\Release\net7.0-android\ChipmunkBinding.xml" target="lib\net7.0-android28" />
+
+    <file src="lib\Release\net7.0\ChipmunkBinding.dll" target="lib\net7.0" />
+    <file src="lib\Release\net7.0\ChipmunkBinding.pdb" target="lib\net7.0" />
+    <file src="lib\Release\net7.0\ChipmunkBinding.xml" target="lib\net7.0" />
+
+    <file src="lib\Release\net7.0-ios\ChipmunkBinding.dll" target="lib\net7.0-ios11.0" />
+    <file src="lib\Release\net7.0-ios\ChipmunkBinding.pdb" target="lib\net7.0-ios11.0" />
+    <file src="lib\Release\net7.0-ios\ChipmunkBinding.xml" target="lib\net7.0-ios11.0" />
+
+    <file src="lib\Release\net7.0-maccatalyst\ChipmunkBinding.dll" target="lib\net7.0-maccatalyst13.0" />
+    <file src="lib\Release\net7.0-maccatalyst\ChipmunkBinding.pdb" target="lib\net7.0-maccatalyst13.0" />
+    <file src="lib\Release\net7.0-maccatalyst\ChipmunkBinding.xml" target="lib\net7.0-maccatalyst13.0" />
+
+    <file src="lib\Release\net7.0-tvos\ChipmunkBinding.dll" target="lib\net7.0-tvos11.0" />
+    <file src="lib\Release\net7.0-tvos\ChipmunkBinding.pdb" target="lib\net7.0-tvos11.0" />
+    <file src="lib\Release\net7.0-tvos\ChipmunkBinding.xml" target="lib\net7.0-tvos11.0" />
+
+    <file src="lib\Release\net7.0-macos\ChipmunkBinding.dll" target="lib\net7.0-macos10.13" />
+    <file src="lib\Release\net7.0-macos\ChipmunkBinding.pdb" target="lib\net7.0-macos10.13" />
+    <file src="lib\Release\net7.0-macos\ChipmunkBinding.xml" target="lib\net7.0-macos10.13" />
 
     <file src="lib\Release\net46\ChipmunkBinding.dll" target="lib\net46" />
     <file src="lib\Release\net46\ChipmunkBinding.pdb" target="lib\net46" />
