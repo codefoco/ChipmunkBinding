@@ -211,26 +211,26 @@ stages:
         PathtoPublish: tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml
         ArtifactName: Test.Xamarin.iOS.xml
 
-    - task: MSBuild@1
-      displayName: 'Run tvOS tests'
-      inputs:
-        solution: tests/build/xamarintvos/ChipmunkBindingTest.XamarinTVOS.csproj
-        platform: iPhoneSimulator
-        configuration: Release
-        msbuildArguments: '/t:RunSimulatorTests'
+    # - task: MSBuild@1
+    #   displayName: 'Run tvOS tests'
+    #   inputs:
+    #     solution: tests/build/xamarintvos/ChipmunkBindingTest.XamarinTVOS.csproj
+    #     platform: iPhoneSimulator
+    #     configuration: Release
+    #     msbuildArguments: '/t:RunSimulatorTests'
 
-    - task: PublishTestResults@2
-      displayName: 'Publish tvOS Test Results TEST-Result-tvOS.xml'
-      inputs:
-        testResultsFormat: NUnit
-        testResultsFiles: 'tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml'
-        failTaskOnFailedTests: true
+    # - task: PublishTestResults@2
+    #   displayName: 'Publish tvOS Test Results TEST-Result-tvOS.xml'
+    #   inputs:
+    #     testResultsFormat: NUnit
+    #     testResultsFiles: 'tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml'
+    #     failTaskOnFailedTests: true
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: TEST-Result-Xamarin.TVOS.xml'
-      inputs:
-        PathtoPublish: tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml
-        ArtifactName: Test.Xamarin.TVOS.xml
+    # - task: PublishBuildArtifacts@1
+    #   displayName: 'Publish Artifact: TEST-Result-Xamarin.TVOS.xml'
+    #   inputs:
+    #     PathtoPublish: tests/build/xamarintvos/TEST-Result-Xamarin.TVOS.xml
+    #     ArtifactName: Test.Xamarin.TVOS.xml
 
     - task: PublishPipelineArtifact@1
       displayName: 'Publish Pipeline Artifact: libs.mac'
