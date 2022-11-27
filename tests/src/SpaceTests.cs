@@ -561,9 +561,9 @@ namespace ChipmunkBindingTest.Tests
         [Test]
         public void TestCrashLinux()
         {
-            #if __IOS__
+#if __IOS__
                 Assert.Pass("#2");
-            #endif
+#endif
 
             var space = new Space();
 
