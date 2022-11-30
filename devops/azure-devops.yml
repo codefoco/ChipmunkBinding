@@ -258,8 +258,11 @@ stages:
       - group: 'Keys'
 
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
       demands: msbuild
+      variables:
+        CC: gcc-9.3
+        CXX: g++-9.3
 
     steps:
     - template: common-dotnet.yml@templates
