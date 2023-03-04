@@ -218,7 +218,9 @@ namespace ChipmunkBinding
         public int TypeB { get; }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(CollisionBeginFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void CollisionBeginFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
         {
@@ -237,7 +239,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(CollisionPreSolveFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static cpBool CollisionPreSolveFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
         {
@@ -261,7 +265,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(CollisionPostSolveFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void CollisionPostSolveFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
         {
@@ -280,7 +286,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(CollisionSeparateFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void CollisionSeparateFunctionCallback(cpArbiter arbiterHandle, cpSpace spaceHandle, voidptr_t userData)
         {

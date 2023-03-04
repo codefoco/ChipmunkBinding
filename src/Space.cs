@@ -353,7 +353,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(PostStepFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void PostStepCallBack(cpSpace handleSpace, voidptr_t handleKey, voidptr_t handleData)
         {
@@ -389,7 +391,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpacePointQueryFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void EachPointQuery(cpShape shapeHandle, Vect point, double distance, Vect gradient, voidptr_t data)
         {
@@ -446,7 +450,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceSegmentQueryFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void EachSegmentQuery(cpShape shapeHandle, Vect point, Vect normal, double alpha, voidptr_t data)
         {
@@ -494,7 +500,9 @@ namespace ChipmunkBinding
 
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceBBQueryFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void EachBBQuery(cpShape shapeHandle, voidptr_t data)
         {
@@ -591,7 +599,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void EachShape(cpShape shapeHandle, voidptr_t data)
         {
@@ -624,7 +634,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceShapeQueryFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void ShapeQueryCallback(cpShape shape, IntPtr pointsPointer, voidptr_t data)
         {
@@ -652,7 +664,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceObjectIteratorFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void EachConstraint(cpConstraint constraintHandle, voidptr_t data)
         {

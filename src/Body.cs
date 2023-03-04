@@ -326,7 +326,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void AddEachArbiterToArray(cpBody body, cpArbiter arbiter, IntPtr data)
         {
@@ -358,7 +360,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void AddEachConstraintToArray(cpBody body, cpConstraint constraint, IntPtr data)
         {
@@ -385,7 +389,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(BodyShapeIteratorFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void AddEachShapeToArray(cpBody body, cpShape shape, IntPtr data)
         {
@@ -517,7 +523,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(BodyVelocityFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void BodyVelocityFunctionCallback(cpBody bodyHandle, Vect gravity, double damping, double dt)
         {
@@ -552,7 +560,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(BodyPositionFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void BodyPositionFunctionCallback(cpBody bodyHandle, double dt)
         {

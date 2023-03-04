@@ -14,7 +14,9 @@ namespace ChipmunkBinding
     public static class AutoGeometry
     {
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(MarchSegmentFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void MarchSegmentFunctionCallback(Vect v0, Vect v1, IntPtr data)
         {
@@ -24,8 +26,10 @@ namespace ChipmunkBinding
 
         private static MarchSegmentFunction segmentFunctionCallback = MarchSegmentFunctionCallback;
 
-#if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#if (__IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__)
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(MarchSampleFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static double MarchSampleFunctionCallBack(Vect point, IntPtr data)
         {

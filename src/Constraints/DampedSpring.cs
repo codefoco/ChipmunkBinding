@@ -51,7 +51,9 @@ namespace ChipmunkBinding
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(DampedSpringForceFunction))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static double DampedSpringForceCallback(cpConstraint springHandle, double distance)
         {

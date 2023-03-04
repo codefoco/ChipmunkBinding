@@ -88,7 +88,9 @@ namespace ChipmunkBinding
 
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceDebugDrawCircleImpl))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void SpaceDebugDrawCircleCallback(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data)
         {
@@ -100,7 +102,9 @@ namespace ChipmunkBinding
         private static SpaceDebugDrawCircleImpl spaceDebugDrawCircleCallback = SpaceDebugDrawCircleCallback;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceDebugDrawSegmentImpl))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void SpaceDebugDrawSegmentCallback(Vect a, Vect b, DebugColor color, voidptr_t data)
         {
@@ -112,7 +116,9 @@ namespace ChipmunkBinding
         private static SpaceDebugDrawSegmentImpl spaceDebugDrawSegmentCallback = SpaceDebugDrawSegmentCallback;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceDebugDrawFatSegmentImpl))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void SpaceDebugDrawFatSegmentCallback(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data)
         {
@@ -124,7 +130,9 @@ namespace ChipmunkBinding
         private static SpaceDebugDrawFatSegmentImpl spaceDebugDrawFatSegmentCallback = SpaceDebugDrawFatSegmentCallback;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceDebugDrawPolygonImpl))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void SpaceDebugDrawPolygonCallback(int count, cpVertPointer verts, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data)
         {
@@ -138,7 +146,9 @@ namespace ChipmunkBinding
         private static SpaceDebugDrawPolygonImpl spaceDebugDrawPolygonCallback = SpaceDebugDrawPolygonCallback;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceDebugDrawDotImpl))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static void SpaceDebugDrawDotCallback(double size, Vect pos, DebugColor color, voidptr_t data)
         {
@@ -150,7 +160,9 @@ namespace ChipmunkBinding
         private static SpaceDebugDrawDotImpl spaceDebugDrawDotCallback = SpaceDebugDrawDotCallback;
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
+#pragma warning disable CA1416 // Validate platform compatibility
         [MonoPInvokeCallback(typeof(SpaceDebugDrawColorForShapeImpl))]
+#pragma warning restore CA1416 // Validate platform compatibility
 #endif
         private static DebugColor SpaceDebugDrawColorForShapeCallback(cpShape handleShape, voidptr_t data)
         {
