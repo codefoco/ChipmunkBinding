@@ -95,42 +95,42 @@ stages:
         solution: ChipmunkDemo.Android.sln
         configuration: Release
 
-    # Build .NET 6 (to be sure works on macOS)
+    # Build .NET (to be sure works on macOS)
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./ChipmunkBinding.net6.0.sln'
+      displayName: 'dotnet build ./ChipmunkBinding.net8.0.sln'
       inputs:
         command: custom
         custom: build
-        arguments: './ChipmunkBinding.net6.0.sln /p:Configuration=Release'
+        arguments: './ChipmunkBinding.net8.0.sln /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-ios.csproj'
+      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net8.0-ios.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/iOS/ChipmunkBinding.net6.0-ios.csproj /p:Configuration=Release'
+        arguments: './build/iOS/ChipmunkBinding.net8.0-ios.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/TVOS/ChipmunkBinding.net6.0-tvos.csproj'
+      displayName: 'dotnet build ./build/TVOS/ChipmunkBinding.net8.0-tvos.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/TVOS/ChipmunkBinding.net6.0-tvos.csproj /p:Configuration=Release'
+        arguments: './build/TVOS/ChipmunkBinding.net8.0-tvos.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/macOS/ChipmunkBinding.net6.0-macos.csproj'
+      displayName: 'dotnet build ./build/macOS/ChipmunkBinding.net8.0-macos.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/macOS/ChipmunkBinding.net6.0-macos.csproj /p:Configuration=Release'
+        arguments: './build/macOS/ChipmunkBinding.net8.0-macos.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net6.0-maccatalyst.csproj'
+      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net8.0-maccatalyst.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/iOS/ChipmunkBinding.net6.0-maccatalyst.csproj /p:Configuration=Release'
+        arguments: './build/iOS/ChipmunkBinding.net8.0-maccatalyst.csproj /p:Configuration=Release'
 
     # Build .NET 7 (to be sure works on macOS)
 
@@ -171,16 +171,24 @@ stages:
 
     # Run tests
 
-    - script: 'dotnet test ./tests/build/net6.0/bin/Release/net6.0/ChipmunkBindingTest.dll -l:trx'
+    - script: 'dotnet test ./tests/build/net8.0/bin/Release/net8.0/ChipmunkBindingTest.dll -l:trx'
       displayName: 'Run .NET Tests'
 
     - script: 'mv TestResults/*.trx ./TEST-Result-Mac.Core.xml'
-      displayName: 'Rename .NET6 Test result'
+      displayName: 'Rename .NET Test result'
+
+    - script: 'nuget install NUnit.ConsoleRunner -Version 3.16.3 -source "https://api.nuget.org/v3/index.json" -OutputDirectory .'
+      workingDirectory: ./
+      displayName: 'nuget install NUnit.ConsoleRunner'
+
+    # reverted back to use NUnit.ConsoleRunner because Microsoft keeps breaking .NET
+    - script: 'mono NUnit.ConsoleRunner.3.16.3/tools/nunit3-console.exe ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll'
+      displayName: 'Run OSX tests'
 
     - script: 'dotnet test ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll -l:trx;'
       displayName: 'Run OSX tests'
 
-    - script: 'mv TestResults/*.trx ./TEST-Result-Mac.xml'
+    - script: 'mv TestResult.xml ./TEST-Result-Mac.xml'
       displayName: 'Rename Test result'
 
     - task: PublishTestResults@2
@@ -278,14 +286,14 @@ stages:
       inputs:
         restoreSolution: ChipmunkBinding.sln
 
-    # Build .NET 6
+    # Build .NET
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./ChipmunkBinding.net6.0.sln'
+      displayName: 'dotnet build ./ChipmunkBinding.net8.0.sln'
       inputs:
         command: custom
         custom: build
-        arguments: './ChipmunkBinding.net6.0.sln /p:Configuration=Release'
+        arguments: './ChipmunkBinding.net8.0.sln /p:Configuration=Release'
 
     # Build .NET 7
 
@@ -304,8 +312,8 @@ stages:
         solution: ChipmunkBinding.sln
         configuration: Release
 
-    - script: 'dotnet test ./tests/build/net6.0/bin/Release/net6.0/ChipmunkBindingTest.dll -l:trx'
-      displayName: 'Run .NET 6 Tests'
+    - script: 'dotnet test ./tests/build/net8.0/bin/Release/net8.0/ChipmunkBindingTest.dll -l:trx'
+      displayName: 'Run .NET Tests'
 
     - task: PublishPipelineArtifact@1
       displayName: 'Publish Pipeline Artifact: libchipmunk.so x64'
@@ -338,6 +346,7 @@ stages:
       demands:
       - msbuild
       - visualstudio
+      - vstest
 
     steps:
     - checkout: self
@@ -351,7 +360,7 @@ stages:
       inputs:
         restoreSolution: ChipmunkBinding.sln
 
-    - script: 'dotnet format --verify-no-changes ChipmunkBinding.net6.0.sln -v:diag'
+    - script: 'dotnet format --verify-no-changes ChipmunkBinding.net8.0.sln -v:diag'
       displayName: 'Check Format with dotnet format'
 
     - task: NuGetCommand@2
@@ -381,11 +390,11 @@ stages:
         configuration: Release
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./ChipmunkBinding.net6.0.sln'
+      displayName: 'dotnet build ./ChipmunkBinding.net8.0.sln'
       inputs:
         command: custom
         custom: build
-        arguments: './ChipmunkBinding.net6.0.sln /p:Configuration=Release'
+        arguments: './ChipmunkBinding.net8.0.sln /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./ChipmunkBinding.net7.0.sln'
@@ -394,8 +403,8 @@ stages:
         custom: build
         arguments: './ChipmunkBinding.net7.0.sln /p:Configuration=Release'
 
-    - script: 'dotnet test ./tests/build/net6.0/bin/Release/net6.0/ChipmunkBindingTest.dll -l:trx'
-      displayName: 'Run .NET 6 Tests'
+    - script: 'dotnet test ./tests/build/net8.0/bin/Release/net8.0/ChipmunkBindingTest.dll -l:trx'
+      displayName: 'Run .NET Tests'
 
     - script: 'mv TestResults/*.trx ./TEST-Result-Windows.Core.xml'
       displayName: 'Rename .NET Core Test result'
@@ -408,11 +417,11 @@ stages:
         msbuildArguments: '/p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build build/Android/ChipmunkBinding.net6.0-android.csproj'
+      displayName: 'dotnet build build/Android/ChipmunkBinding.net8.0-android.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: '.\build\Android\ChipmunkBinding.net6.0-android.csproj /p:Configuration=Release /p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
+        arguments: '.\build\Android\ChipmunkBinding.net8.0-android.csproj /p:Configuration=Release /p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build build/Android/ChipmunkBinding.net7.0-android.csproj'

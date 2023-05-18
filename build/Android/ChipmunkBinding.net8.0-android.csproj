@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
-    <TargetFramework>net6.0-android</TargetFramework>
+    <TargetFramework>net8.0-android</TargetFramework>
     <RuntimeIdentifiers>android-x86;android-x64;android-arm;android-arm64</RuntimeIdentifiers>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
   </PropertyGroup>
@@ -22,7 +22,7 @@
     <JavaMaximumHeapSize>
     </JavaMaximumHeapSize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\lib\Debug\net6.0-android\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Debug\net8.0-android\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
@@ -36,7 +36,7 @@
     <JavaMaximumHeapSize>
     </JavaMaximumHeapSize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\lib\Release\net6.0-android\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Release\net8.0-android\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedNativeLibrary Include="$(OutputRuntimeDir)\android-arm64\native\libchipmunk.so">

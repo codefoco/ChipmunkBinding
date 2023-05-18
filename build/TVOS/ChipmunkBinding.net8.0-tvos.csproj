@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
-    <TargetFramework>net6.0-tvos</TargetFramework>
+    <TargetFramework>net8.0-tvos</TargetFramework>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <NoBindingEmbedding>false</NoBindingEmbedding>
     <IsBindingProject>true</IsBindingProject>
@@ -43,7 +43,7 @@
     <MtouchLink>SdkOnly</MtouchLink>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>..\..\lib\Release\net6.0-tvos\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Release\net8.0-tvos\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />

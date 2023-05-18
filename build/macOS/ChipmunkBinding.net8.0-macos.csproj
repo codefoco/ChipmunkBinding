@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
-    <TargetFramework>net6.0-macos</TargetFramework>
+    <TargetFramework>net8.0-macos</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MacResourcePrefix>Resources</MacResourcePrefix>
     <IsBindingProject>true</IsBindingProject>
@@ -28,7 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\lib\Release\net6.0-macos\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Release\net8.0-macos\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
