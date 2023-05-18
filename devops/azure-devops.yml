@@ -148,9 +148,6 @@ stages:
     - script: 'mono NUnit.ConsoleRunner.3.16.3/tools/nunit3-console.exe ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll'
       displayName: 'Run OSX tests'
 
-    - script: 'dotnet test ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll -l:trx;'
-      displayName: 'Run OSX tests'
-
     - script: 'mv TestResult.xml ./TEST-Result-Mac.xml'
       displayName: 'Rename Test result'
 
