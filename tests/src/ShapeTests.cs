@@ -7,9 +7,6 @@ using ChipmunkBinding.Unsafe;
 
 using NUnit.Framework;
 
-using cpShape = System.IntPtr;
-
-
 namespace ChipmunkBindingTest.Tests
 {
     [TestFixture]
@@ -27,9 +24,9 @@ namespace ChipmunkBindingTest.Tests
             var body = new Body(1, 1.66);
             var shape = new Box(body, 10, 10, 1);
 
-            cpShape handle = shape.Handle;
+            IntPtr handle = shape.Handle;
 
-            var shapeFromHandle = Shape.FromHandle(handle);
+            Shape shapeFromHandle = Shape.FromHandle(handle);
 
             Assert.AreSame(shape, shapeFromHandle, "#1");
 

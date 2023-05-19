@@ -1,14 +1,11 @@
 ﻿
+using System;
 using System.Linq;
 using System.Text;
 
 using ChipmunkBinding;
 
 using NUnit.Framework;
-
-using cpBody = System.IntPtr;
-
-
 
 namespace ChipmunkBindingTest.Tests
 {
@@ -26,9 +23,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var space = new Space();
 
-            cpBody handle = space.Handle;
+            IntPtr handle = space.Handle;
 
-            var spaceFromHandle = Space.FromHandle(handle);
+            Space spaceFromHandle = Space.FromHandle(handle);
 
             Assert.AreSame(space, spaceFromHandle, "#1");
 

@@ -1,13 +1,9 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 
 using ChipmunkBinding;
 
 using NUnit.Framework;
-
-using cpBody = System.IntPtr;
-
-
 
 namespace ChipmunkBindingTest.Tests
 {
@@ -25,9 +21,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body(1, 1.66);
 
-            cpBody handle = body.Handle;
+            IntPtr handle = body.Handle;
 
-            var bodyFromHandle = Body.FromHandle(handle);
+            Body bodyFromHandle = Body.FromHandle(handle);
 
             Assert.AreSame(body, bodyFromHandle, "#1");
 
@@ -86,10 +82,10 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body(1, 1.66)
             {
-                Angle = System.Math.PI
+                Angle = Math.PI
             };
 
-            Assert.AreEqual(System.Math.PI, body.Angle, "#1");
+            Assert.AreEqual(Math.PI, body.Angle, "#1");
             body.Dispose();
         }
 
@@ -111,7 +107,7 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body(1, 1.66);
             var pos = new Vect(10, 20);
-            double angle = System.Math.PI;
+            double angle = Math.PI;
 
             body.SetTransform(pos, angle);
 
@@ -121,10 +117,10 @@ namespace ChipmunkBindingTest.Tests
             body.GetTransform(out p2, out a2);
 
             Assert.AreEqual(pos, body.Position, "#1");
-            Assert.AreEqual(System.Math.PI, body.Angle, "#2");
+            Assert.AreEqual(Math.PI, body.Angle, "#2");
 
             Assert.AreEqual(pos, p2, "#3");
-            Assert.AreEqual(System.Math.PI, a2, "#4");
+            Assert.AreEqual(Math.PI, a2, "#4");
             body.Dispose();
         }
 
@@ -169,10 +165,10 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body(1, 1.66)
             {
-                AngularVelocity = System.Math.PI
+                AngularVelocity = Math.PI
             };
 
-            Assert.AreEqual(System.Math.PI, body.AngularVelocity, "#1");
+            Assert.AreEqual(Math.PI, body.AngularVelocity, "#1");
             body.Dispose();
         }
 

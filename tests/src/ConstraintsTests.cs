@@ -1,12 +1,10 @@
 ﻿
+using System;
 using System.Text;
 
 using ChipmunkBinding;
 
 using NUnit.Framework;
-
-using cpConstraint = System.IntPtr;
-
 
 namespace ChipmunkBindingTest.Tests
 {
@@ -31,7 +29,6 @@ namespace ChipmunkBindingTest.Tests
 
             bodyB = new Body(2, 3.222);
             shape2 = new Box(bodyB, 3, 3, 0);
-
 
             bodyA.Position = new Vect(2, 1);
             bodyB.Position = new Vect(3, 2);
@@ -58,9 +55,9 @@ namespace ChipmunkBindingTest.Tests
 
             constraint.Data = objData;
 
-            cpConstraint handle = constraint.Handle;
+            IntPtr handle = constraint.Handle;
 
-            var constraintFromHandle = Constraint.FromHandle(handle);
+            Constraint constraintFromHandle = Constraint.FromHandle(handle);
 
             Assert.AreSame(constraint, constraintFromHandle, "#1");
             Assert.AreSame(objData, constraintFromHandle.Data, "#2");
