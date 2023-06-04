@@ -374,10 +374,10 @@ stages:
         custom: build
         arguments: '.\build\Android\ChipmunkBinding.net7.0-android.csproj /p:Configuration=Release /p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
 
-    - script: 'dotnet test .\tests\build\net46\bin\Release\ChipmunkBindingTest.dll -l:trx --Platform:x86'
+    - script: 'nunit3-console.exe .\tests\build\net46\bin\Release\ChipmunkBindingTest.dll --x86'
       displayName: 'Run Windows Tests'
 
-    - script: 'RENAME TestResults\*.trx ChipmunkBindingTest.Windows.xml'
+    - script: 'RENAME TestResult.xml ChipmunkBindingTest.Windows.xml'
       displayName: 'Rename Test result'
 
     - script: 'MOVE TestResults\ChipmunkBindingTest.Windows.xml .'
