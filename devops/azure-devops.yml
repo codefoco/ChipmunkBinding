@@ -380,7 +380,7 @@ stages:
     - script: 'RENAME TestResult.xml ChipmunkBindingTest.Windows.xml'
       displayName: 'Rename Test result'
 
-    - script: 'MOVE TestResults\ChipmunkBindingTest.Windows.xml .'
+    - script: 'MOVE ChipmunkBindingTest.Windows.xml .'
       displayName: 'Move Test result'
 
     - task: PublishTestResults@2
