@@ -13,14 +13,12 @@
         <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and ( '$(PlatformTarget)' == 'x64' or '$(PlatformTarget)' == 'x86' or '$(PlatformTarget)' == 'ARM' or '$(PlatformTarget)' == 'ARM64') ">$(PlatformTarget)</PreferredNativeChipmunk> 
 
         <!-- handle ARM64 machines specifically -->
-        <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and ('$(HOSTTYPE)' == 'arm64' or '$(HOSTTYPE)' == 'aarch64' or '$(PROCESSOR_ARCHITECTURE)' == 'ARM64' ) ">arm64</PreferredNativeChipmunk>  
+        <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and ('$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64' or '$(CurrentProcessArchitecture)' == 'aarch64' or '$(CurrentProcessArchitecture)' == 'ARM64' or '$(HOSTTYPE)' == 'arm64' or '$(HOSTTYPE)' == 'aarch64' or '$(PROCESSOR_ARCHITECTURE)' == 'ARM64') ">arm64</PreferredNativeChipmunk>  
         <!-- handle Any CPU, considering Prefer32Bit -->
         <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and '$(Prefer32Bit)' == 'False' ">x64</PreferredNativeChipmunk>  
         <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and '$(Prefer32Bit)' == 'True' ">x86</PreferredNativeChipmunk> 
         <!-- fall back to x64 on 64-bit machines -->
-        <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' and $([System.Environment]::Is64BitOperatingSystem) ">x64</PreferredNativeChipmunk> 
-        <!-- fall back to x86 -->
-        <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == '' ">x86</PreferredNativeChipmunk>
+        <PreferredNativeChipmunk Condition=" '$(PreferredNativeChipmunk)' == ''  ">$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString().ToLower())</PreferredNativeChipmunk> 
     </PropertyGroup>
 
     <!-- get the preferred paths -->
