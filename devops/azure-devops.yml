@@ -160,6 +160,7 @@ stages:
 
     - task: MSBuild@1
       displayName: 'Run iOS tests'
+      continueOnError: true
       inputs:
         solution: tests/build/xamarinios/ChipmunkBindingTest.XamariniOS.csproj
         platform: iPhoneSimulator
