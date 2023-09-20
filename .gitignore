@@ -123,3 +123,5 @@ Makefile.in
 .vs/
 UpgradeLog*.htm
 runtimes/
+tests/build/.DS_Store
+.idea/*

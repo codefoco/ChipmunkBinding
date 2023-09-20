@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
-    <TargetFramework>net7.0-maccatalyst</TargetFramework>
+    <TargetFramework>net8.0-ios</TargetFramework>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <IsBindingProject>true</IsBindingProject>
     <NoBindingEmbedding>false</NoBindingEmbedding>
@@ -31,14 +31,14 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\lib\Release\net7.0-maccatalyst\ChipmunkBinding.xml</DocumentationFile>
+    <DocumentationFile>..\..\lib\Release\net8.0-ios\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
     <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="..\..\runtimes\maccatalyst\native\libchipmunk.framework">
+    <NativeReference Include="..\..\runtimes\ios\native\libchipmunk.framework">
       <Kind>Framework</Kind>
     </NativeReference>
   </ItemGroup>
@@ -48,7 +48,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <Import Project="..\targets\BuildChipmunk.MacCatalyst.targets" />
+  <Import Project="..\targets\BuildChipmunk.iOS.targets" />
   <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
   <Import Project="..\targets\ChipmunkBinding.Sign.targets" />
 </Project>
