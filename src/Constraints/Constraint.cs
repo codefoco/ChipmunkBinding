@@ -1,9 +1,32 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using System.Diagnostics;
+
 using cpBody = System.IntPtr;
 using cpConstraint = System.IntPtr;
 using cpDataPointer = System.IntPtr;
 using cpSpace = System.IntPtr;
+// ReSharper disable InconsistentNaming
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
@@ -20,14 +43,14 @@ namespace ChipmunkBinding
     public abstract class Constraint : IDisposable
     {
 #pragma warning disable IDE0032
-        cpConstraint constraint;
+        private readonly cpConstraint constraint;
 #pragma warning restore IDE0032
 
         /// <summary>
         /// Construct a constraint with the given native handle.
         /// </summary>
         /// <param name="handle"></param>
-        internal protected Constraint(cpConstraint handle)
+        protected internal Constraint(cpConstraint handle)
         {
             constraint = handle;
             RegisterUserData();
@@ -47,7 +70,7 @@ namespace ChipmunkBinding
             NativeMethods.cpConstraintSetUserData(constraint, pointer);
         }
 
-        void ReleaseUserData()
+        private void ReleaseUserData()
         {
             cpDataPointer pointer = NativeMethods.cpConstraintGetUserData(constraint);
             NativeInterop.ReleaseHandle(pointer);
@@ -161,7 +184,7 @@ namespace ChipmunkBinding
 
         /// <summary>
         /// Whether the two bodies connected by the constraint are allowed to collide or not.
-        /// 
+        ///
         /// When two bodies collide, Chipmunk ignores the collisions if this property is set to
         /// False on any constraint that connects the two bodies. Defaults to True. This can be
         /// used to create a chain that self-collides, but adjacent links in the chain do not collide.
@@ -172,8 +195,8 @@ namespace ChipmunkBinding
             set => NativeMethods.cpConstraintSetCollideBodies(constraint, value ? (byte)1 : (byte)0);
         }
 
-        private static ConstraintSolveFunction preSolveFunctionCallback = ConstraintPreSolveFunctionCallback;
-        private static ConstraintSolveFunction postSolveFunctionCallback = ConstraintPostSolveFunctionCallback;
+        private static readonly ConstraintSolveFunction preSolveFunctionCallback = ConstraintPreSolveFunctionCallback;
+        private static readonly ConstraintSolveFunction postSolveFunctionCallback = ConstraintPostSolveFunctionCallback;
 
         private Action<Constraint, Space> preSolve;
         private Action<Constraint, Space> postSolve;
@@ -188,10 +211,10 @@ namespace ChipmunkBinding
             {
                 preSolve = value;
 
-                IntPtr callbackPointer;
+                cpDataPointer callbackPointer;
 
                 if (value == null)
-                    callbackPointer = IntPtr.Zero;
+                    callbackPointer = cpDataPointer.Zero;
                 else
                     callbackPointer = preSolveFunctionCallback.ToFunctionPointer();
 
@@ -209,10 +232,10 @@ namespace ChipmunkBinding
             {
                 postSolve = value;
 
-                IntPtr callbackPointer;
+                cpDataPointer callbackPointer;
 
                 if (value == null)
-                    callbackPointer = IntPtr.Zero;
+                    callbackPointer = cpDataPointer.Zero;
                 else
                     callbackPointer = postSolveFunctionCallback.ToFunctionPointer();
 
@@ -227,7 +250,7 @@ namespace ChipmunkBinding
 #endif
         private static void ConstraintPreSolveFunctionCallback(cpConstraint constraintHandle, cpSpace spaceHandle)
         {
-            var constraint = Constraint.FromHandle(constraintHandle);
+            Constraint constraint = FromHandle(constraintHandle);
             var space = Space.FromHandle(spaceHandle);
 
             Action<Constraint, Space> preSolve = constraint.PreSolve;
@@ -242,7 +265,7 @@ namespace ChipmunkBinding
 #endif
         private static void ConstraintPostSolveFunctionCallback(cpConstraint constraintHandle, cpSpace spaceHandle)
         {
-            var constraint = Constraint.FromHandle(constraintHandle);
+            Constraint constraint = FromHandle(constraintHandle);
             var space = Space.FromHandle(spaceHandle);
 
             Action<Constraint, Space> postSolve = constraint.PostSolve;

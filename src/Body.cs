@@ -1,4 +1,25 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 
@@ -12,7 +33,9 @@ using cpConstraint = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpDataPointer = System.IntPtr;
+
 using System.Diagnostics;
+// ReSharper disable InconsistentNaming
 
 namespace ChipmunkBinding
 {
@@ -74,13 +97,13 @@ namespace ChipmunkBinding
             RegisterUserData();
         }
 
-        void RegisterUserData()
+        private void RegisterUserData()
         {
             cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpBodySetUserData(body, pointer);
         }
 
-        void ReleaseUserData()
+        private void ReleaseUserData()
         {
             cpDataPointer pointer = NativeMethods.cpBodyGetUserData(body);
             NativeInterop.ReleaseHandle(pointer);
@@ -100,7 +123,7 @@ namespace ChipmunkBinding
         /// </summary>
         public static Body FromHandleSafe(cpBody nativeBodyHandle)
         {
-            if (nativeBodyHandle == IntPtr.Zero)
+            if (nativeBodyHandle == cpDataPointer.Zero)
             {
                 return null;
             }
@@ -128,7 +151,7 @@ namespace ChipmunkBinding
         /// </summary>
         public void Free()
         {
-            var space = Space;
+            Space space = Space;
 
             if (space != null)
                 space.RemoveBody(this);
@@ -236,7 +259,7 @@ namespace ChipmunkBinding
 
         /// <summary>
         /// Mass of the rigid body. Mass does not have to be expressed in any particular units, but
-        /// relative masses should be consistent. 
+        /// relative masses should be consistent.
         /// </summary>
         public double Mass
         {
@@ -247,7 +270,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Moment of inertia of the body. The mass tells you how hard it is to push an object,
         /// the MoI tells you how hard it is to spin the object. Don't try to guess the MoI, use the
-        /// MomentFor*() functions to estimate it, or the physics may behave strangely. 
+        /// MomentFor*() functions to estimate it, or the physics may behave strangely.
         /// </summary>
         public double Moment
         {
@@ -330,14 +353,14 @@ namespace ChipmunkBinding
         [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
 #pragma warning restore CA1416 // Validate platform compatibility
 #endif
-        private static void AddEachArbiterToArray(cpBody body, cpArbiter arbiter, IntPtr data)
+        private static void AddEachArbiterToArray(cpBody body, cpArbiter arbiter, cpDataPointer data)
         {
             var list = (List<Arbiter>)GCHandle.FromIntPtr(data).Target;
             var a = new Arbiter(arbiter);
             list.Add(a);
         }
 
-        private static BodyArbiterIteratorFunction eachArbiterFunc = AddEachArbiterToArray;
+        private static readonly BodyArbiterIteratorFunction eachArbiterFunc = AddEachArbiterToArray;
 
         /// <summary>
         /// The rotation vector for the body. Can be used with cpvrotate() or cpvunrotate() to perform fast rotations.
@@ -364,14 +387,14 @@ namespace ChipmunkBinding
         [MonoPInvokeCallback(typeof(BodyArbiterIteratorFunction))]
 #pragma warning restore CA1416 // Validate platform compatibility
 #endif
-        private static void AddEachConstraintToArray(cpBody body, cpConstraint constraint, IntPtr data)
+        private static void AddEachConstraintToArray(cpBody body, cpConstraint constraint, cpDataPointer data)
         {
             var list = (List<Constraint>)GCHandle.FromIntPtr(data).Target;
             var c = Constraint.FromHandle(constraint);
             list.Add(c);
         }
 
-        private static BodyConstraintIteratorFunction eachConstraintFunc = AddEachConstraintToArray;
+        private static readonly BodyConstraintIteratorFunction eachConstraintFunc = AddEachConstraintToArray;
 
         /// <summary>
         /// All constraints attached to the body
@@ -393,14 +416,14 @@ namespace ChipmunkBinding
         [MonoPInvokeCallback(typeof(BodyShapeIteratorFunction))]
 #pragma warning restore CA1416 // Validate platform compatibility
 #endif
-        private static void AddEachShapeToArray(cpBody body, cpShape shape, IntPtr data)
+        private static void AddEachShapeToArray(cpBody body, cpShape shape, cpDataPointer data)
         {
             var list = (List<Shape>)GCHandle.FromIntPtr(data).Target;
             var s = Shape.FromHandle(shape);
             list.Add(s);
         }
 
-        private static BodyShapeIteratorFunction eachShapeFunc = AddEachShapeToArray;
+        private static readonly BodyShapeIteratorFunction eachShapeFunc = AddEachShapeToArray;
 
         /// <summary>
         /// All shapes attached to the body
@@ -519,7 +542,7 @@ namespace ChipmunkBinding
         /// <param name="group"></param>
         public void SleepWithGroup(Body group)
         {
-            NativeMethods.cpBodySleepWithGroup(body, group != null ? group.Handle : IntPtr.Zero);
+            NativeMethods.cpBodySleepWithGroup(body, group != null ? group.Handle : cpDataPointer.Zero);
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
@@ -529,12 +552,12 @@ namespace ChipmunkBinding
 #endif
         private static void BodyVelocityFunctionCallback(cpBody bodyHandle, Vect gravity, double damping, double dt)
         {
-            var body = FromHandle(bodyHandle);
+            Body body = FromHandle(bodyHandle);
 
             body.velocityUpdateFunction(body, gravity, damping, dt);
         }
 
-        private static BodyVelocityFunction BodyVelocityFunctionCallbackDelegate = BodyVelocityFunctionCallback;
+        private static readonly BodyVelocityFunction BodyVelocityFunctionCallbackDelegate = BodyVelocityFunctionCallback;
 
         private Action<Body, Vect, double, double> velocityUpdateFunction;
         /// <summary>
@@ -548,7 +571,7 @@ namespace ChipmunkBinding
             {
                 velocityUpdateFunction = value;
 
-                IntPtr callbackPointer;
+                cpDataPointer callbackPointer;
 
                 if (value == null)
                     callbackPointer = NativeMethods.cpBodyGetDefaultVelocityUpdateFunc();
@@ -566,12 +589,12 @@ namespace ChipmunkBinding
 #endif
         private static void BodyPositionFunctionCallback(cpBody bodyHandle, double dt)
         {
-            var body = FromHandle(bodyHandle);
+            Body body = FromHandle(bodyHandle);
 
             body.positionUpdateFunction(body, dt);
         }
 
-        private static BodyPositionFunction BodyUpdateFunctionCallbackDelegate = BodyPositionFunctionCallback;
+        private static readonly BodyPositionFunction BodyUpdateFunctionCallbackDelegate = BodyPositionFunctionCallback;
 
         private Action<Body, double> positionUpdateFunction;
 
@@ -586,7 +609,7 @@ namespace ChipmunkBinding
             {
                 positionUpdateFunction = value;
 
-                IntPtr callbackPointer;
+                cpDataPointer callbackPointer;
 
                 if (value == null)
                     callbackPointer = NativeMethods.cpBodyGetDefaultPositionUpdateFunc();
@@ -686,10 +709,10 @@ namespace ChipmunkBinding
                 if (count == 0)
                     return Array.Empty<Body>();
 
-                IntPtr ptrBodies = Marshal.AllocHGlobal(IntPtr.Size * count);
+                cpDataPointer ptrBodies = Marshal.AllocHGlobal(cpDataPointer.Size * count);
                 NativeMethods.cpBodyGetUserDataContactedBodies(body, ptrBodies);
 
-                IntPtr[] userDataArray = new IntPtr[count];
+                cpDataPointer[] userDataArray = new cpDataPointer[count];
 
                 Marshal.Copy(ptrBodies, userDataArray, 0, count);
 

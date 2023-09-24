@@ -1,11 +1,34 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
+// ReSharper disable ConvertToAutoProperty
 
 #pragma warning disable IDE1006
 #pragma warning disable IDE0032
 
-// Chipmunk has it own Vector class, 
+// Chipmunk has it own Vector class,
 // We can't use System.Numerics.Vector2 since is not blitable with the native Vect from Chipmunk
 
 namespace ChipmunkBinding
@@ -56,10 +79,12 @@ namespace ChipmunkBinding
         /// </summary>
         public override bool Equals(object obj)
         {
-            Vect? vect = obj as Vect?;
+            var vect = obj as Vect?;
 
             if (vect == null)
+            {
                 return false;
+            }
 
             return this == vect.Value;
         }
@@ -174,10 +199,9 @@ namespace ChipmunkBinding
         /// Vector dot product.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-
         public double Dot(Vect v2)
         {
-            return x * v2.x + y * v2.y;
+            return (x * v2.x) + (y * v2.y);
         }
 
         /// <summary>
@@ -187,7 +211,7 @@ namespace ChipmunkBinding
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Cross(Vect v2)
         {
-            return x * v2.y - y * v2.x;
+            return (x * v2.y) - (y * v2.x);
         }
 
         /// <summary>
@@ -229,7 +253,7 @@ namespace ChipmunkBinding
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Rotate(Vect v2)
         {
-            return new Vect(x * v2.x - y * v2.y, x * v2.y + y * v2.x);
+            return new Vect((x * v2.x) - (y * v2.y), (x * v2.y) + (y * v2.x));
         }
 
         /// <summary>
@@ -238,7 +262,7 @@ namespace ChipmunkBinding
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Unrotate(Vect v2)
         {
-            return new Vect(x * v2.x + y * v2.y, y * v2.x - x * v2.y);
+            return new Vect((x * v2.x) + (y * v2.y), (y * v2.x) - (x * v2.y));
         }
 
         /// <summary>
@@ -246,7 +270,10 @@ namespace ChipmunkBinding
         /// compare lengths.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double LengthSquared() => Dot(this);
+        public double LengthSquared()
+        {
+            return Dot(this);
+        }
 
         /// <summary>
         /// Returns the length of v.
@@ -263,7 +290,7 @@ namespace ChipmunkBinding
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vect Lerp(Vect v2, double t)
         {
-            return this * (1.0 - t) + v2 * t;
+            return (this * (1.0 - t)) + (v2 * t);
         }
 
         /// <summary>
@@ -276,12 +303,13 @@ namespace ChipmunkBinding
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static double Clamp(double value, double min, double max)
+        private static double Clamp(double value, double min, double max)
         {
             if (value < min)
             {
                 return min;
             }
+
             if (value > max)
             {
                 return max;
@@ -306,7 +334,7 @@ namespace ChipmunkBinding
             }
 
             double denom = 1.0 / Math.Sin(omega);
-            return (this * Math.Sin((1.0f - t) * omega) * denom) + v2 * Math.Sin(t * omega) * denom;
+            return (this * Math.Sin((1.0f - t) * omega) * denom) + (v2 * Math.Sin(t * omega) * denom);
         }
 
         /// <summary>

@@ -1,5 +1,27 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using System.Diagnostics;
+
 using cpBody = System.IntPtr;
 using cpDataPointer = System.IntPtr;
 using cpShape = System.IntPtr;
@@ -20,7 +42,7 @@ namespace ChipmunkBinding
         /// Create a Shape with the given <paramref name="shapeHandle"/>.
         /// </summary>
         /// <param name="shapeHandle">The native shape handle.</param>
-        internal protected Shape(cpShape shapeHandle)
+        protected internal Shape(cpShape shapeHandle)
         {
             shape = shapeHandle;
             RegisterUserData();
@@ -40,7 +62,7 @@ namespace ChipmunkBinding
             NativeMethods.cpShapeSetUserData(shape, pointer);
         }
 
-        void ReleaseUserData()
+        private void ReleaseUserData()
         {
             cpDataPointer pointer = NativeMethods.cpShapeGetUserData(shape);
             NativeInterop.ReleaseHandle(pointer);
@@ -211,12 +233,13 @@ namespace ChipmunkBinding
         public int CollisionType
         {
             get => (int)(uint)NativeMethods.cpShapeGetCollisionType(shape);
-            set => NativeMethods.cpShapeSetCollisionType(shape, (UIntPtr)(uint)value);
+            set => NativeMethods.cpShapeSetCollisionType(shape, (UIntPtr)value);
         }
 
         /// <summary>
         /// Update, cache and return the bounding box of a shape based on the body it's attached to.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         public BoundingBox CacheBB()
         {
             return NativeMethods.cpShapeCacheBB(shape);
@@ -236,7 +259,7 @@ namespace ChipmunkBinding
         public PointQueryInfo PointQuery(Vect point)
         {
             var output = new cpPointQueryInfo();
-            NativeMethods.cpShapePointQuery(shape, point, ref output);
+            _ = NativeMethods.cpShapePointQuery(shape, point, ref output);
 
             return PointQueryInfo.FromQueryInfo(output);
         }
@@ -247,7 +270,7 @@ namespace ChipmunkBinding
         public SegmentQueryInfo SegmentQuery(Vect a, Vect b, double radius)
         {
             var queryInfo = new cpSegmentQueryInfo();
-            NativeMethods.cpShapeSegmentQuery(shape, a, b, radius, ref queryInfo);
+            _ = NativeMethods.cpShapeSegmentQuery(shape, a, b, radius, ref queryInfo);
 
             return SegmentQueryInfo.FromQueryInfo(queryInfo);
         }
@@ -257,12 +280,14 @@ namespace ChipmunkBinding
         /// </summary>
         public ContactPointSet Collide(Shape other)
         {
-            Debug.Assert(System.Runtime.InteropServices.Marshal.SizeOf(typeof(cpContactPointSet)) == 104,
+            Debug.Assert(System.Runtime.InteropServices.Marshal.SizeOf<cpContactPointSet>() == 104,
                 "check Chipmunk sizeof(cpContactPointSet)");
 
             cpContactPointSet contactPointSet = NativeMethods.cpShapesCollide(shape, other.Handle);
 
             return ContactPointSet.FromContactPointSet(contactPointSet);
         }
+#pragma warning disable IDE0032
+#pragma warning restore IDE0032
     }
 }

@@ -1,10 +1,31 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 
 namespace ChipmunkBinding
 {
     /// <summary>
     /// Segment queries return where a shape was hit and its surface normal at the point of contact.
-    /// Use <see cref="SegmentQueryInfo.Shape"/> == null to test if a shape was hit. Segment queries
+    /// Use <see cref="Shape"/> == null to test if a shape was hit. Segment queries
     /// are like ray casting, but because not all spatial indexes allow processing infinitely long
     /// ray queries, it's limited to segments. In practice, this is still very fast and you don’t
     /// need to worry too much about the performance as long as you aren’t using extremely long
@@ -133,12 +154,7 @@ namespace ChipmunkBinding
         /// </summary>
         public override int GetHashCode()
         {
-            var hashCode = -1275187100;
-            hashCode = hashCode * -1521134295 + shape.GetHashCode();
-            hashCode = hashCode * -1521134295 + point.GetHashCode();
-            hashCode = hashCode * -1521134295 + normal.GetHashCode();
-            hashCode = hashCode * -1521134295 + alpha.GetHashCode();
-            return hashCode;
+            return HashCode.Combine(shape, point, normal, alpha);
         }
     }
 }

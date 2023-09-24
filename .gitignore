@@ -125,3 +125,5 @@ UpgradeLog*.htm
 runtimes/
 tests/build/.DS_Store
 .idea/*
+.DS_Store
+build/.DS_Store

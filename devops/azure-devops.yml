@@ -348,6 +348,13 @@ stages:
         custom: build
         arguments: './ChipmunkBinding.net8.0.sln /p:Configuration=Release'
 
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build ./ChipmunkBinding.net6.0.sln'
+      inputs:
+        command: custom
+        custom: build
+        arguments: './ChipmunkBinding.net6.0.sln /p:Configuration=Release'
+
     - script: 'dotnet test ./tests/build/net8.0/bin/Release/net8.0/ChipmunkBindingTest.dll -l:trx'
       displayName: 'Run .NET Tests'
 

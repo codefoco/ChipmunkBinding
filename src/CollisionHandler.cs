@@ -1,10 +1,33 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using System.Diagnostics;
+
 using cpArbiter = System.IntPtr;
 using cpBool = System.Byte;
 using cpCollisionHandlerPointer = System.IntPtr;
 using cpSpace = System.IntPtr;
 using voidptr_t = System.IntPtr;
+// ReSharper disable InconsistentNaming
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
@@ -27,21 +50,21 @@ namespace ChipmunkBinding
     {
         private readonly cpCollisionHandlerPointer handle;
 
-        private static CollisionBeginFunction beginCallback = CollisionBeginFunctionCallback;
-        private static CollisionPreSolveFunction preSolveCallback = CollisionPreSolveFunctionCallback;
-        private static CollisionPostSolveFunction postSolveCallback = CollisionPostSolveFunctionCallback;
-        private static CollisionSeparateFunction separeteCallback = CollisionSeparateFunctionCallback;
+        private static readonly CollisionBeginFunction beginCallback = CollisionBeginFunctionCallback;
+        private static readonly CollisionPreSolveFunction preSolveCallback = CollisionPreSolveFunctionCallback;
+        private static readonly CollisionPostSolveFunction postSolveCallback = CollisionPostSolveFunctionCallback;
+        private static readonly CollisionSeparateFunction separeteCallback = CollisionSeparateFunctionCallback;
 
-        private static IntPtr DefaultBeginFunction;
-        private static IntPtr DefaultPreSolveFunction;
-        private static IntPtr DefaultPostSolveFunction;
-        private static IntPtr DefaultSeparateFunction;
+        private static cpCollisionHandlerPointer DefaultBeginFunction;
+        private static cpCollisionHandlerPointer DefaultPreSolveFunction;
+        private static cpCollisionHandlerPointer DefaultPostSolveFunction;
+        private static cpCollisionHandlerPointer DefaultSeparateFunction;
 
         private CollisionHandler(cpCollisionHandlerPointer collisionHandle, ref cpCollisionHandler handler)
         {
             handle = collisionHandle;
 
-            IntPtr data = NativeInterop.RegisterHandle(this);
+            cpCollisionHandlerPointer data = NativeInterop.RegisterHandle(this);
 
             handler.userData = data;
 
@@ -56,11 +79,11 @@ namespace ChipmunkBinding
 
         internal static CollisionHandler GetOrCreate(cpCollisionHandlerPointer collisionHandle)
         {
-            Debug.Assert(collisionHandle != IntPtr.Zero, "CollisionHandle cannot be zero");
+            Debug.Assert(collisionHandle != cpCollisionHandlerPointer.Zero, "CollisionHandle cannot be zero");
 
             var handler = cpCollisionHandler.FromHandle(collisionHandle);
 
-            if (handler.userData != IntPtr.Zero)
+            if (handler.userData != cpCollisionHandlerPointer.Zero)
             {
                 return NativeInterop.FromIntPtr<CollisionHandler>(handler.userData);
             }
@@ -72,7 +95,7 @@ namespace ChipmunkBinding
 
         private static void EnsureDefaultCallbackValues(cpCollisionHandler handler)
         {
-            if (DefaultBeginFunction != IntPtr.Zero)
+            if (DefaultBeginFunction != cpCollisionHandlerPointer.Zero)
                 return;
 
             DefaultBeginFunction = handler.beginFunction;
@@ -93,7 +116,7 @@ namespace ChipmunkBinding
 
                 var handler = cpCollisionHandler.FromHandle(handle);
 
-                IntPtr callbackPointer;
+                cpCollisionHandlerPointer callbackPointer;
 
                 if (value == null)
                 {
@@ -124,7 +147,7 @@ namespace ChipmunkBinding
             {
                 preSolve = value;
                 var handler = cpCollisionHandler.FromHandle(handle);
-                IntPtr callbackPointer;
+                cpCollisionHandlerPointer callbackPointer;
 
                 if (value == null)
                 {
@@ -154,7 +177,7 @@ namespace ChipmunkBinding
             {
                 postSolve = value;
                 var handler = cpCollisionHandler.FromHandle(handle);
-                IntPtr callbackPointer;
+                cpCollisionHandlerPointer callbackPointer;
 
                 if (value == null)
                 {
@@ -183,7 +206,7 @@ namespace ChipmunkBinding
             {
                 separate = value;
                 var handler = cpCollisionHandler.FromHandle(handle);
-                IntPtr callbackPointer;
+                cpCollisionHandlerPointer callbackPointer;
 
                 if (value == null)
                 {
@@ -227,8 +250,8 @@ namespace ChipmunkBinding
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
 
-            var handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
-            var begin = handler.Begin;
+            CollisionHandler handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
+            Action<Arbiter, Space, object> begin = handler.Begin;
 
             if (begin == null)
             {
@@ -248,8 +271,8 @@ namespace ChipmunkBinding
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
 
-            var handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
-            var preSolve = handler.PreSolve;
+            CollisionHandler handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
+            Func<Arbiter, Space, object, bool> preSolve = handler.PreSolve;
 
             if (preSolve == null)
             {
@@ -274,8 +297,8 @@ namespace ChipmunkBinding
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
 
-            var handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
-            var postSolve = handler.PostSolve;
+            CollisionHandler handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
+            Action<Arbiter, Space, object> postSolve = handler.PostSolve;
 
             if (postSolve == null)
             {
@@ -295,8 +318,8 @@ namespace ChipmunkBinding
             var arbiter = new Arbiter(arbiterHandle);
             var space = Space.FromHandle(spaceHandle);
 
-            var handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
-            var separate = handler.Separate;
+            CollisionHandler handler = NativeInterop.FromIntPtr<CollisionHandler>(userData);
+            Action<Arbiter, Space, object> separate = handler.Separate;
 
             if (separate == null)
             {

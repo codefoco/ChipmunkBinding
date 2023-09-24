@@ -1,7 +1,28 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
+
 using cpBody = System.IntPtr;
 using cpCollisionHandlerPointer = System.IntPtr;
 using cpCollisionType = System.UIntPtr;
@@ -10,6 +31,7 @@ using cpDataPointer = System.IntPtr;
 using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using voidptr_t = System.IntPtr;
+// ReSharper disable InconsistentNaming
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
@@ -85,13 +107,13 @@ namespace ChipmunkBinding
             GC.SuppressFinalize(this);
         }
 
-        void RegisterUserData()
+        private void RegisterUserData()
         {
             cpDataPointer pointer = NativeInterop.RegisterHandle(this);
             NativeMethods.cpSpaceSetUserData(space, pointer);
         }
 
-        void ReleaseUserData()
+        private void ReleaseUserData()
         {
             cpDataPointer pointer = NativeMethods.cpSpaceGetUserData(space);
             NativeInterop.ReleaseHandle(pointer);
@@ -111,7 +133,7 @@ namespace ChipmunkBinding
         /// </summary>
         public static Space FromHandleSafe(cpSpace space)
         {
-            if (space == IntPtr.Zero)
+            if (space == cpCollisionHandlerPointer.Zero)
             {
                 return null;
             }
@@ -137,7 +159,7 @@ namespace ChipmunkBinding
         }
 
         /// <summary>
-        /// Gravity to pass to rigid bodies when integrating velocity. 
+        /// Gravity to pass to rigid bodies when integrating velocity.
         /// </summary>
         public Vect Gravity
         {
@@ -159,7 +181,7 @@ namespace ChipmunkBinding
 
         /// <summary>
         /// Speed threshold for a body to be considered idle. The default value of 0 means to let
-        /// the space guess a good threshold based on gravity. 
+        /// the space guess a good threshold based on gravity.
         /// </summary>
         public double IdleSpeedThreshold
         {
@@ -170,7 +192,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Time a group of bodies must remain idle in order to fall asleep. Enabling sleeping also
         /// implicitly enables the the contact graph. The default value of infinity disables the
-        /// sleeping algorithm. 
+        /// sleeping algorithm.
         /// </summary>
         public double SleepTimeThreshold
         {
@@ -182,7 +204,7 @@ namespace ChipmunkBinding
         /// Amount of encouraged penetration between colliding shapes. This is used to reduce
         /// oscillating contacts and keep the collision cache warm. Defaults to 0.1. If you have
         /// poor simulation quality, increase this number as much as possible without allowing
-        /// visible amounts of overlap. 
+        /// visible amounts of overlap.
         /// </summary>
         public double CollisionSlop
         {
@@ -219,7 +241,7 @@ namespace ChipmunkBinding
                 cpBody bodyHandle = NativeMethods.cpSpaceGetStaticBody(space);
                 cpDataPointer gcHandle = NativeMethods.cpBodyGetUserData(bodyHandle);
 
-                if (gcHandle != IntPtr.Zero)
+                if (gcHandle != cpCollisionHandlerPointer.Zero)
                 {
                     return NativeInterop.FromIntPtr<Body>(gcHandle);
                 }
@@ -285,15 +307,15 @@ namespace ChipmunkBinding
         /// </summary>
         public void AddShape(Shape shape)
         {
-            NativeMethods.cpSpaceAddShape(space, shape.Handle);
+            _ = NativeMethods.cpSpaceAddShape(space, shape.Handle);
         }
 
         /// <summary>
-        /// Add a rigid body to the simulation. 
+        /// Add a rigid body to the simulation.
         /// </summary>
         public void AddBody(Body body)
         {
-            NativeMethods.cpSpaceAddBody(space, body.Handle);
+            _ = NativeMethods.cpSpaceAddBody(space, body.Handle);
         }
 
         /// <summary>
@@ -301,7 +323,7 @@ namespace ChipmunkBinding
         /// </summary>
         public void AddConstraint(Constraint constraint)
         {
-            NativeMethods.cpSpaceAddConstraint(space, constraint.Handle);
+            _ = NativeMethods.cpSpaceAddConstraint(space, constraint.Handle);
         }
 
         /// <summary>
@@ -359,9 +381,9 @@ namespace ChipmunkBinding
 #endif
         private static void PostStepCallBack(cpSpace handleSpace, voidptr_t handleKey, voidptr_t handleData)
         {
-            var space = FromHandle(handleSpace);
-            var key = NativeInterop.FromIntPtr<object>(handleKey);
-            var data = NativeInterop.FromIntPtr<PostStepCallbackInfo>(handleData);
+            Space space = FromHandle(handleSpace);
+            object key = NativeInterop.FromIntPtr<object>(handleKey);
+            PostStepCallbackInfo data = NativeInterop.FromIntPtr<PostStepCallbackInfo>(handleData);
 
             Action<Space, object, object> callback = data.Callback;
 
@@ -371,7 +393,7 @@ namespace ChipmunkBinding
             NativeInterop.ReleaseHandle(handleData);
         }
 
-        private static PostStepFunction postStepCallBack = PostStepCallBack;
+        private static readonly PostStepFunction postStepCallBack = PostStepCallBack;
 
         /// <summary>
         /// Schedule a post-step callback to be called when <see cref="Step"/> finishes. You can
@@ -384,8 +406,8 @@ namespace ChipmunkBinding
         {
             var info = new PostStepCallbackInfo(callback, data);
 
-            IntPtr dataHandle = NativeInterop.RegisterHandle(info);
-            IntPtr keyHandle = NativeInterop.RegisterHandle(key);
+            cpCollisionHandlerPointer dataHandle = NativeInterop.RegisterHandle(info);
+            cpCollisionHandlerPointer keyHandle = NativeInterop.RegisterHandle(key);
 
             return NativeMethods.cpSpaceAddPostStepCallback(space, postStepCallBack.ToFunctionPointer(), keyHandle, dataHandle) != 0;
         }
@@ -405,7 +427,7 @@ namespace ChipmunkBinding
             list.Add(pointQuery);
         }
 
-        private static SpacePointQueryFunction eachPointQuery = EachPointQuery;
+        private static readonly SpacePointQueryFunction eachPointQuery = EachPointQuery;
 
         /// <summary>
         /// Get the shapes within a radius of the point location that are part of this space. The
@@ -417,7 +439,7 @@ namespace ChipmunkBinding
         /// <param name="point">Where to check for shapes in the space.</param>
         /// <param name="maxDistance">Match only within this distance.</param>
         /// <param name="filter">Only pick shapes matching the filter.</param>
-        public IReadOnlyList<PointQueryInfo> PointQuery(Vect point, double maxDistance, int filter)
+        public List<PointQueryInfo> PointQuery(Vect point, double maxDistance, int filter)
         {
             var list = new List<PointQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
@@ -443,7 +465,7 @@ namespace ChipmunkBinding
             var queryInfo = new cpPointQueryInfo();
 
             cpShape shape = NativeMethods.cpSpacePointQueryNearest(space, point, maxDistance, (uint)filter, ref queryInfo);
-            if (shape == IntPtr.Zero)
+            if (shape == cpCollisionHandlerPointer.Zero)
                 return null;
 
             return PointQueryInfo.FromQueryInfo(queryInfo);
@@ -464,14 +486,14 @@ namespace ChipmunkBinding
             list.Add(pointQuery);
         }
 
-        private static SpaceSegmentQueryFunction eachSegmentQuery = EachSegmentQuery;
+        private static readonly SpaceSegmentQueryFunction eachSegmentQuery = EachSegmentQuery;
 
         /// <summary>
         /// Get the shapes within a capsule-shaped radius of a line segment that is part of this
         /// space. The filter is applied to the query and follows the same rules as the collision
         /// detection.
         /// </summary>
-        public IReadOnlyList<SegmentQueryInfo> SegmentQuery(Vect start, Vect end, double radius, int filter)
+        public List<SegmentQueryInfo> SegmentQuery(Vect start, Vect end, double radius, int filter)
         {
             var list = new List<SegmentQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
@@ -492,7 +514,7 @@ namespace ChipmunkBinding
             var queryInfo = new cpSegmentQueryInfo();
 
             cpShape shape = NativeMethods.cpSpaceSegmentQueryFirst(space, start, end, radius, (uint)filter, ref queryInfo);
-            if (shape == IntPtr.Zero)
+            if (shape == cpCollisionHandlerPointer.Zero)
                 return null;
 
             return SegmentQueryInfo.FromQueryInfo(queryInfo);
@@ -513,14 +535,14 @@ namespace ChipmunkBinding
             list.Add(shape);
         }
 
-        private static SpaceBBQueryFunction eachBBQuery = EachBBQuery;
+        private static readonly SpaceBBQueryFunction eachBBQuery = EachBBQuery;
 
 
         /// <summary>
         /// Get all shapes within the axis-aligned bounding box that are part of this shape. The
         /// filter is applied to the query and follows the same rules as the collision detection.
         /// </summary>
-        public IReadOnlyList<Shape> BoundBoxQuery(BoundingBox bb, int filter)
+        public List<Shape> BoundBoxQuery(BoundingBox bb, int filter)
         {
             var list = new List<Shape>();
 
@@ -544,10 +566,10 @@ namespace ChipmunkBinding
                 if (count == 0)
                     return Array.Empty<Body>();
 
-                IntPtr ptrBodies = Marshal.AllocHGlobal(IntPtr.Size * count);
+                cpCollisionHandlerPointer ptrBodies = Marshal.AllocHGlobal(cpCollisionHandlerPointer.Size * count);
                 NativeMethods.cpSpaceGetBodiesUserDataArray(space, ptrBodies);
 
-                IntPtr[] userDataArray = new IntPtr[count];
+                cpCollisionHandlerPointer[] userDataArray = new cpCollisionHandlerPointer[count];
 
                 Marshal.Copy(ptrBodies, userDataArray, 0, count);
 
@@ -577,10 +599,10 @@ namespace ChipmunkBinding
                 if (count == 0)
                     return Array.Empty<Body>();
 
-                IntPtr ptrBodies = Marshal.AllocHGlobal(IntPtr.Size * count);
+                cpCollisionHandlerPointer ptrBodies = Marshal.AllocHGlobal(cpCollisionHandlerPointer.Size * count);
                 NativeMethods.cpSpaceGetDynamicBodiesUserDataArray(space, ptrBodies);
 
-                IntPtr[] userDataArray = new IntPtr[count];
+                cpCollisionHandlerPointer[] userDataArray = new cpCollisionHandlerPointer[count];
 
                 Marshal.Copy(ptrBodies, userDataArray, 0, count);
 
@@ -612,7 +634,7 @@ namespace ChipmunkBinding
             list.Add(shape);
         }
 
-        private static SpaceObjectIteratorFunction eachShape = EachShape;
+        private static readonly SpaceObjectIteratorFunction eachShape = EachShape;
 
         /// <summary>
         /// Get all shapes in the space.
@@ -638,26 +660,26 @@ namespace ChipmunkBinding
         [MonoPInvokeCallback(typeof(SpaceShapeQueryFunction))]
 #pragma warning restore CA1416 // Validate platform compatibility
 #endif
-        private static void ShapeQueryCallback(cpShape shape, IntPtr pointsPointer, voidptr_t data)
+        private static void ShapeQueryCallback(cpShape shape, cpCollisionHandlerPointer pointsPointer, voidptr_t data)
         {
             var list = (List<ContactPointSet>)GCHandle.FromIntPtr(data).Target;
 
-            var pointSet = NativeInterop.PtrToStructure<cpContactPointSet>(pointsPointer);
+            cpContactPointSet pointSet = NativeInterop.PtrToStructure<cpContactPointSet>(pointsPointer);
 
             list.Add(ContactPointSet.FromContactPointSet(pointSet));
         }
 
-        private static SpaceShapeQueryFunction shapeQueryCallback = ShapeQueryCallback;
+        private static readonly SpaceShapeQueryFunction shapeQueryCallback = ShapeQueryCallback;
 
         /// <summary>
         /// Get all shapes in the space that are overlapping the given shape.
         /// </summary>
-        public IReadOnlyList<ContactPointSet> ShapeQuery(Shape shape)
+        public List<ContactPointSet> ShapeQuery(Shape shape)
         {
             var list = new List<ContactPointSet>();
             var gcHandle = GCHandle.Alloc(list);
 
-            NativeMethods.cpSpaceShapeQuery(space, shape.Handle, shapeQueryCallback.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
+            _ = NativeMethods.cpSpaceShapeQuery(space, shape.Handle, shapeQueryCallback.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
             return list;
@@ -677,7 +699,7 @@ namespace ChipmunkBinding
             list.Add(constraint);
         }
 
-        private static SpaceObjectIteratorFunction eachConstraint = EachConstraint;
+        private static readonly SpaceObjectIteratorFunction eachConstraint = EachConstraint;
 
 
         /// <summary>
@@ -740,10 +762,12 @@ namespace ChipmunkBinding
         /// with a smaller dt creates a more stable and accurate simulation. Therefore, it sometimes
         /// makes sense to have a little for loop around the step call.
         /// </summary>
+#pragma warning disable CA1716
         public virtual void Step(double dt)
         {
             NativeMethods.cpSpaceStep(space, dt);
         }
+#pragma warning restore CA1716
 
         /// <summary>
         /// Draw all objects in the space for debugging purposes.
@@ -767,7 +791,7 @@ namespace ChipmunkBinding
         public void DebugDraw(IDebugDraw debugDraw, DebugDrawFlags flags, DebugDrawColors colors)
         {
             var debugDrawOptions = new cpSpaceDebugDrawOptions();
-            IntPtr debugDrawOptionsPointer = debugDrawOptions.AcquireDebugDrawOptions(debugDraw, flags, colors);
+            cpCollisionHandlerPointer debugDrawOptionsPointer = debugDrawOptions.AcquireDebugDrawOptions(debugDraw, flags, colors);
 
             NativeMethods.cpSpaceDebugDraw(space, debugDrawOptionsPointer);
 

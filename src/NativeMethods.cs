@@ -1,7 +1,27 @@
-﻿// ReSharper disable IdentifierTypo
-using System;
+﻿// .      ______          __     ____
+//       / ____/___  ____/ /__  / __/___  _________
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/
+//
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
 using System.Runtime.InteropServices;
 using System.Security;
+
 using cpArbiter = System.IntPtr;
 using cpBitmask = System.UInt32;
 using cpBody = System.IntPtr;
@@ -23,7 +43,6 @@ using cpDataPointer = System.IntPtr;
 using cpFloat = System.Double;
 using cpMarchSampleFunc = System.IntPtr;
 using cpMarchSegmentFunc = System.IntPtr;
-using cpPolyline = System.IntPtr;
 using cpPolylineSet = System.IntPtr;
 using cpPostStepFunc = System.IntPtr;
 using cpShape = System.IntPtr;
@@ -32,21 +51,18 @@ using cpSpaceBBQueryFunc = System.IntPtr;
 using cpSpaceBodyIteratorFunc = System.IntPtr;
 using cpSpaceConstraintIteratorFunc = System.IntPtr;
 using cpSpaceDebugDrawOptionsPointer = System.IntPtr;
-using cpSpaceHash = System.IntPtr;
 using cpSpacePointQueryFunc = System.IntPtr;
 using cpSpaceSegmentQueryFunc = System.IntPtr;
 using cpSpaceShapeIteratorFunc = System.IntPtr;
 using cpSpaceShapeQueryFunc = System.IntPtr;
-using cpSpatialIndex = System.IntPtr;
-using cpSpatialIndexBBFunc = System.IntPtr;
-using cpSpatialIndexQueryFunc = System.IntPtr;
-using cpSweep1D = System.IntPtr;
 using cpTimestamp = System.UInt32;
 using cpVectPointer = System.IntPtr;
 using VoidPointer = System.IntPtr;
 
 namespace ChipmunkBinding
 {
+#pragma warning disable SYSLIB1054
+
     [SuppressUnmanagedCodeSecurity]
     internal static class NativeMethods
     {
@@ -56,7 +72,7 @@ namespace ChipmunkBinding
         private const string ChipmunkLibraryName = "@rpath/libchipmunk.framework/libchipmunk";
 #elif __ANDROID__
         private const string ChipmunkLibraryName = "libchipmunk.so";
-#elif __MACOS__ 
+#elif __MACOS__
         private const string ChipmunkLibraryName = "libchipmunk.dylib";
 #elif WINDOWS_UWP
         private const string ChipmunkLibraryName = "chipmunk.dll";
@@ -250,7 +266,7 @@ namespace ChipmunkBinding
         internal static extern cpBitmask cpBodyGetContactMask(cpBody body);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpBodyGetUserDataContactedBodies(cpBody body, IntPtr userDataArray);
+        internal static extern void cpBodyGetUserDataContactedBodies(cpBody body, cpSpaceShapeQueryFunc userDataArray);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBodyPositionFunc cpBodyGetDefaultPositionUpdateFunc();
@@ -513,7 +529,7 @@ namespace ChipmunkBinding
         internal static extern void cpConstraintSetUserData(cpConstraint constraint, cpDataPointer userData);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern int cpConvexHull(int count, cpVectPointer verts, cpVectPointer result, IntPtr first, cpFloat tol);
+        internal static extern int cpConvexHull(int count, cpVectPointer verts, cpVectPointer result, cpSpaceShapeQueryFunc first, cpFloat tol);
 
         //[DllImport (ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         //internal static extern cpDampedRotarySpring cpDampedRotarySpringAlloc();
@@ -630,7 +646,7 @@ namespace ChipmunkBinding
         //internal static extern cpGrooveJoint cpGrooveJointInit(cpGrooveJoint joint, cpBody a, cpBody b, Vect groove_a, Vect groove_b, Vect anchorB);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpConstraint cpGrooveJointNew(cpBody a, cpBody b, Vect groove_a, Vect groove_b, Vect anchorB);
+        internal static extern cpConstraint cpGrooveJointNew(cpBody a, cpBody b, Vect grooveA, Vect grooveB, Vect anchorB);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpGrooveJointSetAnchorB(cpConstraint constraint, Vect anchorB);
@@ -658,16 +674,16 @@ namespace ChipmunkBinding
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpMarchHard(
-          BoundingBox bb, uint x_samples, uint y_samples, cpFloat threshold,
-          cpMarchSegmentFunc segment, IntPtr segment_data,
-          cpMarchSampleFunc sample, IntPtr sample_data
+          BoundingBox bb, uint xSamples, uint ySamples, cpFloat threshold,
+          cpMarchSegmentFunc segment, cpSpaceShapeQueryFunc segmentData,
+          cpMarchSampleFunc sample, cpSpaceShapeQueryFunc sampleData
         );
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpMarchSoft(
-          BoundingBox bb, uint x_samples, uint y_samples, cpFloat threshold,
-          cpMarchSegmentFunc segment, IntPtr segment_data,
-          cpMarchSampleFunc sample, IntPtr sample_data
+          BoundingBox bb, uint xSamples, uint ySamples, cpFloat threshold,
+          cpMarchSegmentFunc segment, cpSpaceShapeQueryFunc segmentData,
+          cpMarchSampleFunc sample, cpSpaceShapeQueryFunc sampleData
         );
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
@@ -1031,7 +1047,7 @@ namespace ChipmunkBinding
         internal static extern cpCollisionHandlerPointer cpSpaceAddDefaultCollisionHandler(cpSpace space);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpBool cpSpaceAddPostStepCallback(cpSpace space, cpPostStepFunc func, IntPtr key, IntPtr data);
+        internal static extern cpBool cpSpaceAddPostStepCallback(cpSpace space, cpPostStepFunc func, cpSpaceShapeQueryFunc key, cpSpaceShapeQueryFunc data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpShape cpSpaceAddShape(cpSpace space, cpShape shape);
@@ -1043,7 +1059,7 @@ namespace ChipmunkBinding
         //internal static extern cpSpace cpSpaceAlloc();
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceBBQuery(cpSpace space, BoundingBox bb, cpBitmask filter, cpSpaceBBQueryFunc func, IntPtr data);
+        internal static extern void cpSpaceBBQuery(cpSpace space, BoundingBox bb, cpBitmask filter, cpSpaceBBQueryFunc func, cpSpaceShapeQueryFunc data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpBool cpSpaceContainsShape(cpSpace space, cpShape shape);
@@ -1061,25 +1077,25 @@ namespace ChipmunkBinding
         //internal static extern void cpSpaceDestroy(cpSpace space);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceEachBody(cpSpace space, cpSpaceBodyIteratorFunc func, IntPtr data);
+        internal static extern void cpSpaceEachBody(cpSpace space, cpSpaceBodyIteratorFunc func, cpSpaceShapeQueryFunc data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceEachConstraint(cpSpace space, cpSpaceConstraintIteratorFunc func, IntPtr data);
+        internal static extern void cpSpaceEachConstraint(cpSpace space, cpSpaceConstraintIteratorFunc func, cpSpaceShapeQueryFunc data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int cpSpaceGetBodyCount(cpSpace space);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceGetBodiesUserDataArray(cpSpace space, IntPtr userDataArray);
+        internal static extern void cpSpaceGetBodiesUserDataArray(cpSpace space, cpSpaceShapeQueryFunc userDataArray);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int cpSpaceGetDynamicBodyCount(cpSpace space);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceGetDynamicBodiesUserDataArray(cpSpace space, IntPtr userDataArray);
+        internal static extern void cpSpaceGetDynamicBodiesUserDataArray(cpSpace space, cpSpaceShapeQueryFunc userDataArray);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceEachShape(cpSpace space, cpSpaceShapeIteratorFunc func, IntPtr data);
+        internal static extern void cpSpaceEachShape(cpSpace space, cpSpaceShapeIteratorFunc func, cpSpaceShapeQueryFunc data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceFree(cpSpace space);
@@ -1139,7 +1155,7 @@ namespace ChipmunkBinding
         internal static extern cpSpace cpSpaceNew();
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpacePointQuery(cpSpace space, Vect point, cpFloat maxDistance, cpBitmask filter, cpSpacePointQueryFunc func, IntPtr data);
+        internal static extern void cpSpacePointQuery(cpSpace space, Vect point, cpFloat maxDistance, cpBitmask filter, cpSpacePointQueryFunc func, cpSpaceShapeQueryFunc data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpShape cpSpacePointQueryNearest(cpSpace space, Vect point, cpFloat maxDistance, cpBitmask filter, ref cpPointQueryInfo output);
@@ -1163,7 +1179,7 @@ namespace ChipmunkBinding
         internal static extern void cpSpaceRemoveShape(cpSpace space, cpShape shape);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void cpSpaceSegmentQuery(cpSpace space, Vect start, Vect end, cpFloat radius, cpBitmask filter, cpSpaceSegmentQueryFunc func, IntPtr data);
+        internal static extern void cpSpaceSegmentQuery(cpSpace space, Vect start, Vect end, cpFloat radius, cpBitmask filter, cpSpaceSegmentQueryFunc func, cpSpaceShapeQueryFunc data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern cpShape cpSpaceSegmentQueryFirst(cpSpace space, Vect start, Vect end, cpFloat radius, cpBitmask filter, ref cpSegmentQueryInfo output);
@@ -1196,7 +1212,7 @@ namespace ChipmunkBinding
         internal static extern void cpSpaceSetUserData(cpSpace space, cpDataPointer userData);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern cpBool cpSpaceShapeQuery(cpSpace space, cpShape shape, cpSpaceShapeQueryFunc func, IntPtr data);
+        internal static extern cpBool cpSpaceShapeQuery(cpSpace space, cpShape shape, cpSpaceShapeQueryFunc func, cpSpaceShapeQueryFunc data);
 
         [DllImport(ChipmunkLibraryName, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void cpSpaceStep(cpSpace space, cpFloat dt);
@@ -1220,6 +1236,6 @@ namespace ChipmunkBinding
         //internal static extern cpSpatialIndex cpSweep1DNew(cpSpatialIndexBBFunc bbfunc, cpSpatialIndex staticIndex);
 
 #pragma warning restore IDE1006 // Naming Styles
-
     }
+#pragma warning restore SYSLIB1054
 }

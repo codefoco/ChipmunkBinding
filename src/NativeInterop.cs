@@ -1,4 +1,25 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -69,17 +90,19 @@ namespace ChipmunkBinding
 
         public static T PtrToStructure<T>(IntPtr intPtr)
         {
+#pragma warning disable IL2091
             return Marshal.PtrToStructure<T>(intPtr);
+#pragma warning restore IL2091
         }
 
         public static T[] PtrToStructureArray<T>(IntPtr intPtr, int count)
         {
             var items = new T[count];
-            var size = SizeOf<T>();
+            int size = SizeOf<T>();
 
-            for (var i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-                var newPtr = new IntPtr(intPtr.ToInt64() + (i * size));
+                IntPtr newPtr = new IntPtr(intPtr.ToInt64() + (i * size));
                 items[i] = PtrToStructure<T>(newPtr);
             }
 
@@ -89,13 +112,13 @@ namespace ChipmunkBinding
 
         internal static IntPtr StructureArrayToPtr<T>(IReadOnlyList<T> items)
         {
-            var size = SizeOf<T>();
-            var memory = Marshal.AllocHGlobal(size * items.Count);
+            int size = SizeOf<T>();
+            IntPtr memory = Marshal.AllocHGlobal(size * items.Count);
 
-            for (var i = 0; i < items.Count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
-                var ptr = new IntPtr(memory.ToInt64() + (i * size));
-                Marshal.StructureToPtr<T>(items[i], ptr, true);
+                IntPtr ptr = new IntPtr(memory.ToInt64() + (i * size));
+                Marshal.StructureToPtr(items[i], ptr, true);
             }
 
             return memory;

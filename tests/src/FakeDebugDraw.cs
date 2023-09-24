@@ -1,6 +1,4 @@
-﻿
-
-using System.Text;
+﻿using System.Text;
 
 using ChipmunkBinding;
 
@@ -27,7 +25,7 @@ namespace ChipmunkBindingTest
 
         public void DrawCircle(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
-            stringBuilder.Append($"DrawCircle\n");
+            stringBuilder.Append("DrawCircle\n");
             stringBuilder.Append($"pos = {pos.X}, {pos.Y}\n");
             stringBuilder.Append($"angle = {angle}\n");
             stringBuilder.Append($"radius = {radius}\n");
@@ -37,7 +35,7 @@ namespace ChipmunkBindingTest
 
         public void DrawDot(double size, Vect pos, DebugColor color)
         {
-            stringBuilder.Append($"DrawDot\n");
+            stringBuilder.Append("DrawDot\n");
             stringBuilder.Append($"size = {size}\n");
             stringBuilder.Append($"pos = {pos.X}, {pos.Y}\n");
             stringBuilder.Append($"color = {color}\n");
@@ -45,7 +43,7 @@ namespace ChipmunkBindingTest
 
         public void DrawFatSegment(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
-            stringBuilder.Append($"DrawFatSegment\n");
+            stringBuilder.Append("DrawFatSegment\n");
             stringBuilder.Append($"a = {a}\n");
             stringBuilder.Append($"b = {b}\n");
             stringBuilder.Append($"radius = {radius}\n");
@@ -55,7 +53,7 @@ namespace ChipmunkBindingTest
 
         public void DrawPolygon(Vect[] vectors, double radius, DebugColor outlineColor, DebugColor fillColor)
         {
-            stringBuilder.Append($"DrawPolygon\n");
+            stringBuilder.Append("DrawPolygon\n");
 
             for (int i = 0; i < vectors.Length; i++)
                 stringBuilder.Append($"vectors[{i}] = {vectors[i]}\n");
@@ -66,7 +64,7 @@ namespace ChipmunkBindingTest
 
         public void DrawSegment(Vect a, Vect b, DebugColor color)
         {
-            stringBuilder.Append($"DrawFatSegment\n");
+            stringBuilder.Append("DrawFatSegment\n");
             stringBuilder.Append($"a = {a}\n");
             stringBuilder.Append($"b = {b}\n");
             stringBuilder.Append($"color = {color}\n");

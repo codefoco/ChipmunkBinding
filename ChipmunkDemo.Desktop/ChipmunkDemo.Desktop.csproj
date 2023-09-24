@@ -73,8 +73,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Codefoco.MonoGame.Framework" Version="3.8.79" />
-    <PackageReference Include="ChipmunkBinding" Version="1.2.9" />
+    <PackageReference Include="Codefoco.MonoGame.Framework" Version="3.8.89" />
+    <PackageReference Include="ChipmunkBinding" Version="1.2.15" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

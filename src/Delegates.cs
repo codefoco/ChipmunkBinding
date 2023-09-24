@@ -1,5 +1,27 @@
-﻿using System.Runtime.InteropServices;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2023 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System.Runtime.InteropServices;
 using System.Security;
+
 using cpArbiter = System.IntPtr;
 using cpBody = System.IntPtr;
 using cpBool = System.Byte;
@@ -10,6 +32,7 @@ using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using cpVertPointer = System.IntPtr;
 using voidptr_t = System.IntPtr;
+// ReSharper disable InconsistentNaming
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
@@ -167,7 +190,9 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
+#pragma warning disable CA1711
     internal delegate void SpaceDebugDrawCircleImpl(Vect pos, double angle, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
+#pragma warning restore CA1711
 
     /// <summary>
     /// Callback type for a function that draws a line segment.
@@ -177,7 +202,9 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
+#pragma warning disable CA1711
     internal delegate void SpaceDebugDrawSegmentImpl(Vect a, Vect b, DebugColor color, voidptr_t data);
+#pragma warning restore CA1711
 
     /// <summary>
     /// Callback type for a function that draws a thick line segment.
@@ -187,7 +214,9 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
+#pragma warning disable CA1711
     internal delegate void SpaceDebugDrawFatSegmentImpl(Vect a, Vect b, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
+#pragma warning restore CA1711
 
     /// <summary>
     /// Callback type for a function that draws a convex polygon.
@@ -197,7 +226,9 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
+#pragma warning disable CA1711
     internal delegate void SpaceDebugDrawPolygonImpl(int count, cpVertPointer verts, double radius, DebugColor outlineColor, DebugColor fillColor, voidptr_t data);
+#pragma warning restore CA1711
 
     /// <summary>
     /// Callback type for a function that draws a dot.
@@ -207,7 +238,9 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
+#pragma warning disable CA1711
     internal delegate void SpaceDebugDrawDotImpl(double size, Vect pos, DebugColor color, voidptr_t data);
+#pragma warning restore CA1711
 
     /// <summary>
     /// Callback type for a function that returns a color for a given shape. This gives you an
@@ -218,7 +251,9 @@ namespace ChipmunkBinding
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
     [MonoNativeFunctionWrapper]
 #endif
+#pragma warning disable CA1711
     internal delegate DebugColor SpaceDebugDrawColorForShapeImpl(cpShape shape, voidptr_t data);
+#pragma warning restore CA1711
 
 
     /// <summary>

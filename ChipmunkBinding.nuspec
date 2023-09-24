@@ -30,6 +30,10 @@
     <file src="lib\Release\net8.0\ChipmunkBinding.pdb" target="lib\net8.0" />
     <file src="lib\Release\net8.0\ChipmunkBinding.xml" target="lib\net8.0" />
 
+    <file src="lib\Release\net6.0\ChipmunkBinding.dll" target="lib\net6.0" />
+    <file src="lib\Release\net6.0\ChipmunkBinding.pdb" target="lib\net6.0" />
+    <file src="lib\Release\net6.0\ChipmunkBinding.xml" target="lib\net6.0" />
+
     <file src="lib\Release\net8.0-ios\ChipmunkBinding.dll" target="lib\net8.0-ios11.0" />
     <file src="lib\Release\net8.0-ios\ChipmunkBinding.pdb" target="lib\net8.0-ios11.0" />
     <file src="lib\Release\net8.0-ios\ChipmunkBinding.xml" target="lib\net8.0-ios11.0" />
