@@ -233,7 +233,11 @@ namespace ChipmunkBinding
         public int CollisionType
         {
             get => (int)(uint)NativeMethods.cpShapeGetCollisionType(shape);
-            set => NativeMethods.cpShapeSetCollisionType(shape, (uint)value);
+            set
+            {
+                UIntPtr collisionType = new UIntPtr((uint)value);
+                NativeMethods.cpShapeSetCollisionType(shape, collisionType);
+            }
         }
 
         /// <summary>
