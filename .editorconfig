@@ -259,6 +259,7 @@ dotnet_diagnostic.IDE0100.severity = error
 dotnet_diagnostic.IDE0110.severity = error
 dotnet_diagnostic.IDE0140.severity = error
 dotnet_diagnostic.IDE1006.severity = none
+dotnet_diagnostic.IDE0070.severity = none
 
 # CA1012: Abstract types should not have public constructors
 dotnet_diagnostic.CA1012.severity = error

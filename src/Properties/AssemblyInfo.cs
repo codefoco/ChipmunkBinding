@@ -37,27 +37,27 @@ using Foundation;
 // Change them to the values specific to your project.
 
 #if NETFRAMEWORK
-[assembly: AssemblyTitle ("ChipmunkBinding (.NET Framework 4.6)")]
+[assembly: AssemblyTitle("ChipmunkBinding (.NET Framework 4.6)")]
 #elif WINDOWS_UWP
-[assembly: AssemblyTitle ("ChipmunkBinding (Windows Universal)")]
+[assembly: AssemblyTitle("ChipmunkBinding (Windows Universal)")]
 #elif __ANDROID__
-[assembly: AssemblyTitle ("ChipmunkBinding (Xamarin.Android)")]
+[assembly: AssemblyTitle("ChipmunkBinding (Xamarin.Android)")]
 #elif NETCOREAPP
 [assembly: AssemblyTitle("ChipmunkBinding (.NET)")]
 #elif NETSTANDARD
-[assembly: AssemblyTitle ("ChipmunkBinding (.NET Standard)")]
+[assembly: AssemblyTitle("ChipmunkBinding (.NET Standard)")]
 #elif __TVOS__
 [assembly: AssemblyTitle ("ChipmunkBinding (tvOS)")]
 #elif __WATCHOS__
-[assembly: AssemblyTitle ("ChipmunkBinding (watchOS)")]
+[assembly: AssemblyTitle("ChipmunkBinding (watchOS)")]
 #elif __IOS__
-[assembly: AssemblyTitle ("ChipmunkBinding (iOS)")]
+[assembly: AssemblyTitle("ChipmunkBinding (iOS)")]
 #elif __MACCATALYST__
-[assembly: AssemblyTitle ("ChipmunkBinding (Mac Catalyst)")]
+[assembly: AssemblyTitle("ChipmunkBinding (Mac Catalyst)")]
 #elif __MACOS__
-[assembly: AssemblyTitle ("ChipmunkBinding (Mac)")]
+[assembly: AssemblyTitle("ChipmunkBinding (Mac)")]
 #else
-[assembly: AssemblyTitle ("ChipmunkBinding (.NET)")]
+[assembly: AssemblyTitle("ChipmunkBinding (.NET)")]
 #endif
 
 [assembly: AssemblyDescription("Binding library for native Chipmunk2D")]

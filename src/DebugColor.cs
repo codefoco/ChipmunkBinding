@@ -102,7 +102,14 @@ namespace ChipmunkBinding
         /// </summary>
         public override int GetHashCode()
         {
-            return HashCode.Combine(red, green, blue, alpha);
+            int hashCode = -1813971818;
+
+            hashCode = (hashCode * -1521134295) + red.GetHashCode();
+            hashCode = (hashCode * -1521134295) + green.GetHashCode();
+            hashCode = (hashCode * -1521134295) + blue.GetHashCode();
+            hashCode = (hashCode * -1521134295) + alpha.GetHashCode();
+
+            return hashCode;
         }
 
         /// <summary>

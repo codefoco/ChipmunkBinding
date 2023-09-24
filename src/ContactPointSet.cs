@@ -80,7 +80,13 @@ namespace ChipmunkBinding
         /// </summary>
         public override int GetHashCode()
         {
-            return HashCode.Combine(count, normal, points);
+            int hashCode = -475635172;
+
+            hashCode = (hashCode * -1521134295) + count.GetHashCode();
+            hashCode = (hashCode * -1521134295) + normal.GetHashCode();
+            hashCode = (hashCode * -1521134295) + EqualityComparer<ContactPoint[]>.Default.GetHashCode(points);
+
+            return hashCode;
         }
 
         /// <summary>
