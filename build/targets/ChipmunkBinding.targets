@@ -7,7 +7,7 @@
         <ShouldIncludeNativeChipmunk Condition=" '$(ShouldIncludeNativeChipmunk)' == '' ">True</ShouldIncludeNativeChipmunk>
     </PropertyGroup>
     <Choose>
-        <When Condition="'$(MSBuildVersion)' &gt; '17.2.0'">
+        <When Condition="'$(MSBuildVersion)' &gt; '16.1.0'">
             <PropertyGroup>
                 <RuntimeArch>$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString().ToLower())</RuntimeArch>
             </PropertyGroup>
