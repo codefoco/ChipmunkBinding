@@ -180,7 +180,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Codefoco.Touch.Server" Version="1.0.29">
+    <PackageReference Include="Codefoco.Touch.Server" Version="1.0.30">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

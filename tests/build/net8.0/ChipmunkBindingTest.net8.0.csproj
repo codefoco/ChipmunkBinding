@@ -14,6 +14,7 @@
         <IsPackable>false</IsPackable>
         <AssemblyName>ChipmunkBindingTest</AssemblyName>
         <Configurations>Release;Debug</Configurations>
+        <LangVersion>7.0</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -26,12 +27,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="NUnit" Version="3.13.3"/>
+        <PackageReference Include="NUnit" Version="3.14.0"/>
         <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
     </ItemGroup>
     <ItemGroup>
         <Content Include="..\..\..\runtimes\win-x64\native\chipmunk.dll" Condition="'$(Os)'=='Windows_NT'">

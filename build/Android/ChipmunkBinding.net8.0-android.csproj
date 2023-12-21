@@ -6,10 +6,22 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
+    <SupportedOSPlatformVersion>28.0</SupportedOSPlatformVersion>
+    <TargetFrameworkVersion>v13.0</TargetFrameworkVersion>
     <TargetFramework>net8.0-android</TargetFramework>
     <RuntimeIdentifiers>android-x86;android-x64;android-arm;android-arm64</RuntimeIdentifiers>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <LangVersion>9.0</LangVersion>
+    <ImplicitUsings>false</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>7.0</LangVersion>
+    <IsAotCompatible>true</IsAotCompatible>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+    <OptimizeImplicitlyTriggeredBuild>true</OptimizeImplicitlyTriggeredBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,7 +66,7 @@
     </EmbeddedNativeLibrary>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
