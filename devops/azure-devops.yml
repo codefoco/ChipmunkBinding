@@ -312,6 +312,11 @@ stages:
       inputs:
         restoreSolution: ChipmunkBinding.sln
 
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore ChipmunkBinding.net40.sln'
+      inputs:
+        restoreSolution: ChipmunkBinding.net40.sln
+
     - script: 'dotnet format --verify-no-changes ChipmunkBinding.net8.0.sln -v:diag'
       displayName: 'Check Format with dotnet format'
 
@@ -333,6 +338,12 @@ stages:
       displayName: 'Build solution ChipmunkBinding.sln'
       inputs:
         solution: ChipmunkBinding.sln
+        configuration: Release
+
+    - task: MSBuild@1
+      displayName: 'Build solution ChipmunkBinding.net40.sln'
+      inputs:
+        solution: ChipmunkBinding.net40.sln
         configuration: Release
 
     - task: MSBuild@1

@@ -104,7 +104,11 @@ namespace ChipmunkBinding
         {
             cpVertPointer drawOptionsPtr = NativeInterop.AllocStructure<cpSpaceDebugDrawOptions>();
 
+#if NET_4_0
             Marshal.StructureToPtr(this, drawOptionsPtr, false);
+#else
+            Marshal.StructureToPtr<cpSpaceDebugDrawOptions>(this, drawOptionsPtr, false);
+#endif
             return drawOptionsPtr;
         }
 

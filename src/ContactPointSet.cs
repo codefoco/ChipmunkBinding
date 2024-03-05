@@ -54,10 +54,17 @@ namespace ChipmunkBinding
         /// </summary>
         public Vect Normal => normal;
 
+#if NET_4_0
+        /// <summary>
+        /// List of points in the contact point set
+        /// </summary>
+        public ContactPoint[] Points => points;
+#else
         /// <summary>
         /// List of points in the contact point set
         /// </summary>
         public IReadOnlyList<ContactPoint> Points => points;
+#endif
 
         /// <summary>
         /// Return true if the contact point set is sequence-equal to another.

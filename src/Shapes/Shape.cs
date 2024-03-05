@@ -284,7 +284,7 @@ namespace ChipmunkBinding
         /// </summary>
         public ContactPointSet Collide(Shape other)
         {
-            Debug.Assert(System.Runtime.InteropServices.Marshal.SizeOf<cpContactPointSet>() == 104,
+            Debug.Assert(NativeInterop.SizeOf<cpContactPointSet>() == 104,
                 "check Chipmunk sizeof(cpContactPointSet)");
 
             cpContactPointSet contactPointSet = NativeMethods.cpShapesCollide(shape, other.Handle);

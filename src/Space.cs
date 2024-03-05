@@ -439,7 +439,8 @@ namespace ChipmunkBinding
         /// <param name="point">Where to check for shapes in the space.</param>
         /// <param name="maxDistance">Match only within this distance.</param>
         /// <param name="filter">Only pick shapes matching the filter.</param>
-        public List<PointQueryInfo> PointQuery(Vect point, double maxDistance, int filter)
+        
+        public PointQueryInfo[] PointQuery(Vect point, double maxDistance, int filter)
         {
             var list = new List<PointQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
@@ -447,7 +448,7 @@ namespace ChipmunkBinding
             NativeMethods.cpSpacePointQuery(space, point, maxDistance, (uint)filter, eachPointQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
-            return list;
+            return list.ToArray();
         }
 
         /// <summary>
@@ -493,7 +494,7 @@ namespace ChipmunkBinding
         /// space. The filter is applied to the query and follows the same rules as the collision
         /// detection.
         /// </summary>
-        public List<SegmentQueryInfo> SegmentQuery(Vect start, Vect end, double radius, int filter)
+        public SegmentQueryInfo[] SegmentQuery(Vect start, Vect end, double radius, int filter)
         {
             var list = new List<SegmentQueryInfo>();
             var gcHandle = GCHandle.Alloc(list);
@@ -501,7 +502,7 @@ namespace ChipmunkBinding
             NativeMethods.cpSpaceSegmentQuery(space, start, end, radius, (uint)filter, eachSegmentQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
-            return list;
+            return list.ToArray();
         }
 
         /// <summary>
@@ -542,7 +543,7 @@ namespace ChipmunkBinding
         /// Get all shapes within the axis-aligned bounding box that are part of this shape. The
         /// filter is applied to the query and follows the same rules as the collision detection.
         /// </summary>
-        public List<Shape> BoundBoxQuery(BoundingBox bb, int filter)
+        public Shape[] BoundBoxQuery(BoundingBox bb, int filter)
         {
             var list = new List<Shape>();
 
@@ -551,22 +552,35 @@ namespace ChipmunkBinding
             NativeMethods.cpSpaceBBQuery(space, bb, (uint)filter, eachBBQuery.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
-            return list;
+            return list.ToArray();
         }
 
+#if NET_4_0
+        /// <summary>
+        /// Get all bodies in the space.
+        /// </summary>
+        public Body[] Bodies
+#else
         /// <summary>
         /// Get all bodies in the space.
         /// </summary>
         public IReadOnlyList<Body> Bodies
+#endif
         {
             get
             {
                 int count = NativeMethods.cpSpaceGetBodyCount(space);
 
+#if NET_4_0
+                if (count == 0)
+                    return Body.EmptyBodies;
+#else
                 if (count == 0)
                     return Array.Empty<Body>();
 
+#endif
                 cpCollisionHandlerPointer ptrBodies = Marshal.AllocHGlobal(cpCollisionHandlerPointer.Size * count);
+
                 NativeMethods.cpSpaceGetBodiesUserDataArray(space, ptrBodies);
 
                 cpCollisionHandlerPointer[] userDataArray = new cpCollisionHandlerPointer[count];
@@ -587,17 +601,29 @@ namespace ChipmunkBinding
             }
         }
 
+#if NET_4_0
+        /// <summary>
+        /// Get dynamic bodies in the space.
+        /// </summary>
+        public Body[] DynamicBodies
+#else
         /// <summary>
         /// Get dynamic bodies in the space.
         /// </summary>
         public IReadOnlyList<Body> DynamicBodies
+#endif
         {
             get
             {
                 int count = NativeMethods.cpSpaceGetDynamicBodyCount(space);
 
+#if NET_4_0
+                if (count == 0)
+                    return Body.EmptyBodies;
+#else
                 if (count == 0)
                     return Array.Empty<Body>();
+#endif
 
                 cpCollisionHandlerPointer ptrBodies = Marshal.AllocHGlobal(cpCollisionHandlerPointer.Size * count);
                 NativeMethods.cpSpaceGetDynamicBodiesUserDataArray(space, ptrBodies);
@@ -636,10 +662,17 @@ namespace ChipmunkBinding
 
         private static readonly SpaceObjectIteratorFunction eachShape = EachShape;
 
+#if NET_4_0
+        /// <summary>
+        /// Get all shapes in the space.
+        /// </summary>
+        public Shape[] Shapes
+#else
         /// <summary>
         /// Get all shapes in the space.
         /// </summary>
         public IReadOnlyList<Shape> Shapes
+#endif
         {
             get
             {
@@ -651,7 +684,7 @@ namespace ChipmunkBinding
 
                 gcHandle.Free();
 
-                return list;
+                return list.ToArray();
             }
         }
 
@@ -674,7 +707,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// Get all shapes in the space that are overlapping the given shape.
         /// </summary>
-        public List<ContactPointSet> ShapeQuery(Shape shape)
+        public ContactPointSet[] ShapeQuery(Shape shape)
         {
             var list = new List<ContactPointSet>();
             var gcHandle = GCHandle.Alloc(list);
@@ -682,7 +715,7 @@ namespace ChipmunkBinding
             _ = NativeMethods.cpSpaceShapeQuery(space, shape.Handle, shapeQueryCallback.ToFunctionPointer(), GCHandle.ToIntPtr(gcHandle));
 
             gcHandle.Free();
-            return list;
+            return list.ToArray();
         }
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
@@ -701,11 +734,10 @@ namespace ChipmunkBinding
 
         private static readonly SpaceObjectIteratorFunction eachConstraint = EachConstraint;
 
-
         /// <summary>
         /// Get all constraints in the space.
         /// </summary>
-        public IReadOnlyList<Constraint> Constraints
+        public Constraint[] Constraints
         {
             get
             {
@@ -717,7 +749,7 @@ namespace ChipmunkBinding
 
                 gcHandle.Free();
 
-                return list;
+                return list.ToArray();
             }
         }
 

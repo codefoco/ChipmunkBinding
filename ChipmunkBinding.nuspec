@@ -54,6 +54,10 @@
     <file src="lib\Release\net46\ChipmunkBinding.pdb" target="lib\net46" />
     <file src="lib\Release\net46\ChipmunkBinding.xml" target="lib\net46" />
 
+    <file src="lib\Release\net40\ChipmunkBinding.dll" target="lib\net40" />
+    <file src="lib\Release\net40\ChipmunkBinding.pdb" target="lib\net40" />
+    <file src="lib\Release\net40\ChipmunkBinding.xml" target="lib\net40" />
+
     <file src="lib\Release\uap10.0\ChipmunkBinding.dll" target="lib\uap10.0" />
     <file src="lib\Release\uap10.0\ChipmunkBinding.pdb" target="lib\uap10.0" />
     <file src="lib\Release\uap10.0\ChipmunkBinding.xml" target="lib\uap10.0" />
@@ -101,6 +105,7 @@
     <file src="runtimes\tvos\native\libchipmunk.framework\Info.plist" target="runtimes\tvos\native\libchipmunk.framework\Info.plist" />
 
     <file src="build\targets\ChipmunkBinding.targets" target="build\net46\ChipmunkBinding.targets" />
+    <file src="build\targets\ChipmunkBinding.targets" target="build\net40\ChipmunkBinding.targets" />
     
     <file src="LICENSE" target="LICENSE" />
   </files>

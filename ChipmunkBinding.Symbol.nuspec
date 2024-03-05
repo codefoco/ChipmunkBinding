@@ -45,6 +45,9 @@
     <file src="lib\Release\net46\ChipmunkBinding.dll" target="lib\net46" />
     <file src="lib\Release\net46\ChipmunkBinding.pdb" target="lib\net46" />
 
+    <file src="lib\Release\net40\ChipmunkBinding.dll" target="lib\net40" />
+    <file src="lib\Release\net40\ChipmunkBinding.pdb" target="lib\net40" />
+
     <file src="lib\Release\uap10.0\ChipmunkBinding.dll" target="lib\uap10.0" />
     <file src="lib\Release\uap10.0\ChipmunkBinding.pdb" target="lib\uap10.0" />
 

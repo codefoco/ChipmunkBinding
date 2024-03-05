@@ -74,7 +74,11 @@ namespace ChipmunkBinding
 
         public static int SizeOf<T>()
         {
+#if NET_4_0
+            return Marshal.SizeOf(typeof(T));
+#else
             return Marshal.SizeOf<T>();
+#endif
         }
 
         public static IntPtr AllocStructure<T>()
@@ -90,9 +94,13 @@ namespace ChipmunkBinding
 
         public static T PtrToStructure<T>(IntPtr intPtr)
         {
+#if NET_4_0
+            return (T)Marshal.PtrToStructure(intPtr, typeof(T));
+#else
 #pragma warning disable IL2091
             return Marshal.PtrToStructure<T>(intPtr);
 #pragma warning restore IL2091
+#endif
         }
 
         public static T[] PtrToStructureArray<T>(IntPtr intPtr, int count)
@@ -109,7 +117,22 @@ namespace ChipmunkBinding
             return items;
         }
 
+#if NET_4_0
+        internal static IntPtr StructureArrayToPtr<T>(T[] items)
+        {
+            var size = SizeOf<T>();
+            int count = items.Length;
+            var memory = Marshal.AllocHGlobal(size * count);
 
+            for (var i = 0; i < count; i++)
+            {
+                var ptr = new IntPtr(memory.ToInt64() + (i * size));
+                Marshal.StructureToPtr(items[i], ptr, true);
+            }
+
+            return memory;
+        }
+#else
         internal static IntPtr StructureArrayToPtr<T>(IReadOnlyList<T> items)
         {
             int size = SizeOf<T>();
@@ -123,5 +146,6 @@ namespace ChipmunkBinding
 
             return memory;
         }
+#endif
     }
 }
