@@ -26,7 +26,7 @@ using System.Reflection;
 using Foundation;
 
 #if NET
-[assembly: AssemblyMetadata ("IsTrimmable", "True")]
+[assembly: AssemblyMetadata("IsTrimmable", "True")]
 #else
 [assembly: LinkerSafe]
 #endif
@@ -38,9 +38,9 @@ using Foundation;
 
 #if NETFRAMEWORK
 #if NET_4_0
-[assembly: AssemblyTitle ("ChipmunkBinding (.NET Framework 4.0)")]
+[assembly: AssemblyTitle("ChipmunkBinding (.NET Framework 4.0)")]
 #else
-[assembly: AssemblyTitle ("ChipmunkBinding (.NET Framework 4.6)")]
+[assembly: AssemblyTitle("ChipmunkBinding (.NET Framework 4.6)")]
 #endif
 #elif WINDOWS_UWP
 [assembly: AssemblyTitle("ChipmunkBinding (Windows Universal)")]
