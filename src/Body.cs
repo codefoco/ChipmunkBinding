@@ -409,7 +409,7 @@ namespace ChipmunkBinding
         /// </summary>
         public Constraint[] Constraints
 #else
-                    /// <summary>
+        /// <summary>
         /// All constraints attached to the body
         /// </summary>
         public IReadOnlyList<Constraint> Constraints
@@ -448,7 +448,7 @@ namespace ChipmunkBinding
         /// <summary>
         /// All shapes attached to the body
         /// </summary>
-        public IReadOnly<Shape> Shapes
+        public IReadOnlyList<Shape> Shapes
 #endif
         {
             get

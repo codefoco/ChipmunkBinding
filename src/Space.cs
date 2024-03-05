@@ -439,7 +439,6 @@ namespace ChipmunkBinding
         /// <param name="point">Where to check for shapes in the space.</param>
         /// <param name="maxDistance">Match only within this distance.</param>
         /// <param name="filter">Only pick shapes matching the filter.</param>
-        
         public PointQueryInfo[] PointQuery(Vect point, double maxDistance, int filter)
         {
             var list = new List<PointQueryInfo>();
