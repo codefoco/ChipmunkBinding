@@ -10,9 +10,9 @@
   </PropertyGroup>
   <Target Name="BuildChipmunkWindows" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Windows_NT'">
     <Message Text="Building Windows Chipmunk library (x86)" />
-    <Exec Command="mkdir &quot;$(ExternalChipmunkPath)\$(Win32BuildDir)&quot; " WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)')  and '$(VisualStudioVersion)' > '16.2'" />
-    <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -DCMAKE_GENERATOR_PLATFORM=Win32 -A Win32" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt')  and '$(VisualStudioVersion)' > '16.2'" />
-    <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="'$(VisualStudioVersion)' > '16.2'" />
+    <Exec Command="mkdir &quot;$(ExternalChipmunkPath)\$(Win32BuildDir)&quot; " WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)') " />
+    <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -DCMAKE_GENERATOR_PLATFORM=Win32 -A Win32" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt') " />
+    <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" />
 
     <Message Text="Building Windows Chipmunk library (x64)" />
     <Exec Command="mkdir &quot;$(ExternalChipmunkPath)\$(Win64BuildDir)&quot; " WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win64BuildDir)')" />
