@@ -38,11 +38,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<BodyArbiterIteratorFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this BodyConstraintIteratorFunction d)
@@ -52,11 +48,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<BodyConstraintIteratorFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this BodyShapeIteratorFunction d)
@@ -66,11 +58,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<BodyShapeIteratorFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this BodyVelocityFunction d)
@@ -80,11 +68,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<BodyVelocityFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this BodyPositionFunction d)
@@ -94,11 +78,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<BodyPositionFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this CollisionBeginFunction d)
@@ -108,11 +88,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<CollisionBeginFunction>(d);
-#endif
         }
 
 
@@ -123,11 +99,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<CollisionPreSolveFunction>(d);
-#endif
         }
 
 
@@ -138,11 +110,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<CollisionPostSolveFunction>(d);
-#endif
         }
 
 
@@ -153,11 +121,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<CollisionSeparateFunction>(d);
-#endif
         }
 
 
@@ -168,11 +132,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<PostStepFunction>(d);
-#endif
         }
 
 
@@ -183,11 +143,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceSegmentQueryFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this SpacePointQueryFunction d)
@@ -197,11 +153,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpacePointQueryFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this SpaceBBQueryFunction d)
@@ -211,11 +163,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceBBQueryFunction>(d);
-#endif
         }
 
 
@@ -226,11 +174,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceObjectIteratorFunction>(d);
-#endif
         }
 
 
@@ -241,11 +185,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawCircleImpl>(d);
-#endif
         }
 
 
@@ -256,11 +196,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawSegmentImpl>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawFatSegmentImpl d)
@@ -270,11 +206,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawFatSegmentImpl>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawPolygonImpl d)
@@ -284,11 +216,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawPolygonImpl>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawDotImpl d)
@@ -298,11 +226,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawDotImpl>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this SpaceDebugDrawColorForShapeImpl d)
@@ -312,11 +236,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceDebugDrawColorForShapeImpl>(d);
-#endif
         }
 
 
@@ -327,11 +247,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<ConstraintSolveFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this DampedSpringForceFunction d)
@@ -341,11 +257,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<DampedSpringForceFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this DampedRotarySpringTorqueFunction d)
@@ -355,11 +267,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<DampedRotarySpringTorqueFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this SpaceShapeQueryFunction d)
@@ -369,11 +277,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<SpaceShapeQueryFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this MarchSegmentFunction d)
@@ -383,11 +287,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<MarchSegmentFunction>(d);
-#endif
         }
 
         public static IntPtr ToFunctionPointer(this MarchSampleFunction d)
@@ -397,11 +297,7 @@ namespace ChipmunkBinding
                 return IntPtr.Zero;
             }
 
-#if NET_4_0
             return Marshal.GetFunctionPointerForDelegate(d);
-#else
-            return Marshal.GetFunctionPointerForDelegate<MarchSampleFunction>(d);
-#endif
         }
     }
 }
