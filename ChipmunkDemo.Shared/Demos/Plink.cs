@@ -1,4 +1,5 @@
 ﻿using ChipmunkBinding;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace ChipmunkDemo
     {
         private const int NumVertices = 5;
 
-        double pentagonMass;
-        double pentagonMoment;
+        private double pentagonMass;
+        private double pentagonMoment;
 
-        private Random random = new Random();
+        private readonly Random random = new Random();
 
         // Vertexes for a triangle shape.
         private readonly Vect[] _tris = {
@@ -84,11 +85,11 @@ namespace ChipmunkDemo
             base.Update(dt);
         }
 
-        void MoveBodysBack()
+        private void MoveBodysBack()
         {
-            Body[] bodies = space.Bodies;
+            IReadOnlyList<Body> bodies = space.Bodies;
 
-            var outsideBodies = bodies.Where(b => b.Position.Y < -260);
+            IEnumerable<Body> outsideBodies = bodies.Where(b => b.Position.Y < -260);
 
             foreach (Body body in outsideBodies)
             {
