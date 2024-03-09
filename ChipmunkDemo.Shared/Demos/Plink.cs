@@ -41,13 +41,13 @@ namespace ChipmunkDemo
                     var offset = new Vect(i * 80 - 320 + stagger, j * 70 - 240);
                     shape = new Polygon(staticBody, _tris, Transform.CreateTranslation(offset), 0.0);
                     space.AddShape(shape);
-                    shape.Elasticity =  1.0f;
+                    shape.Elasticity = 1.0f;
                     shape.Friction = 1.0f;
                 }
             }
 
             // Create vertexes for a pentagon shape.
-            Vect [] verts = new Vect[NumVertices];
+            Vect[] verts = new Vect[NumVertices];
 
             for (int i = 0; i < NumVertices; i++)
             {
@@ -86,7 +86,7 @@ namespace ChipmunkDemo
 
         void MoveBodysBack()
         {
-            IReadOnlyList<Body> bodies = space.Bodies;
+            Body[] bodies = space.Bodies;
 
             var outsideBodies = bodies.Where(b => b.Position.Y < -260);
 

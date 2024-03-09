@@ -210,9 +210,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body(1, 1.66);
 
-            IReadOnlyList<Arbiter> arbiters = body.Arbiters;
+            Arbiter[] arbiters = body.Arbiters;
 
-            Assert.AreEqual(0, arbiters.Count, "#1");
+            Assert.AreEqual(0, arbiters.Length, "#1");
             body.Dispose();
         }
 
@@ -221,9 +221,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body(1, 1.66);
 
-            IReadOnlyList<Shape> shapes = body.Shapes;
+            Shape[] shapes = body.Shapes;
 
-            Assert.AreEqual(0, shapes.Count, "#1");
+            Assert.AreEqual(0, shapes.Length, "#1");
             body.Dispose();
         }
 
@@ -232,9 +232,9 @@ namespace ChipmunkBindingTest.Tests
         {
             var body = new Body(1, 1.66);
 
-            IReadOnlyList<Constraint> constraints = body.Constraints;
+            Constraint[] constraints = body.Constraints;
 
-            Assert.AreEqual(0, constraints.Count, "#1");
+            Assert.AreEqual(0, constraints.Length, "#1");
             body.Dispose();
         }
 

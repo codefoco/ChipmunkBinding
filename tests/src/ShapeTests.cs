@@ -141,7 +141,7 @@ namespace ChipmunkBindingTest.Tests
             Assert.AreEqual(2, pointSet.Count, "#1");
             Assert.AreEqual(new Vect(0, 1), pointSet.Normal, "#2");
 
-            Assert.AreEqual(2, pointSet.Points.Count, "#3.0");
+            Assert.AreEqual(2, pointSet.Points.Length, "#3.0");
 
             Assert.AreEqual(new Vect(3, 2), pointSet.Points[0].PointA, "#3.1");
             Assert.AreEqual(new Vect(3, 0.5), pointSet.Points[0].PointB, "#3.2");

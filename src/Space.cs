@@ -554,30 +554,17 @@ namespace ChipmunkBinding
             return list.ToArray();
         }
 
-#if NET_4_0
         /// <summary>
         /// Get all bodies in the space.
         /// </summary>
         public Body[] Bodies
-#else
-        /// <summary>
-        /// Get all bodies in the space.
-        /// </summary>
-        public IReadOnlyList<Body> Bodies
-#endif
         {
             get
             {
                 int count = NativeMethods.cpSpaceGetBodyCount(space);
-
-#if NET_4_0
-                if (count == 0)
-                    return Body.EmptyBodies;
-#else
                 if (count == 0)
                     return Array.Empty<Body>();
 
-#endif
                 cpCollisionHandlerPointer ptrBodies = Marshal.AllocHGlobal(cpCollisionHandlerPointer.Size * count);
 
                 NativeMethods.cpSpaceGetBodiesUserDataArray(space, ptrBodies);
@@ -600,29 +587,16 @@ namespace ChipmunkBinding
             }
         }
 
-#if NET_4_0
         /// <summary>
         /// Get dynamic bodies in the space.
         /// </summary>
         public Body[] DynamicBodies
-#else
-        /// <summary>
-        /// Get dynamic bodies in the space.
-        /// </summary>
-        public IReadOnlyList<Body> DynamicBodies
-#endif
         {
             get
             {
                 int count = NativeMethods.cpSpaceGetDynamicBodyCount(space);
-
-#if NET_4_0
-                if (count == 0)
-                    return Body.EmptyBodies;
-#else
                 if (count == 0)
                     return Array.Empty<Body>();
-#endif
 
                 cpCollisionHandlerPointer ptrBodies = Marshal.AllocHGlobal(cpCollisionHandlerPointer.Size * count);
                 NativeMethods.cpSpaceGetDynamicBodiesUserDataArray(space, ptrBodies);
@@ -661,17 +635,10 @@ namespace ChipmunkBinding
 
         private static readonly SpaceObjectIteratorFunction eachShape = EachShape;
 
-#if NET_4_0
         /// <summary>
         /// Get all shapes in the space.
         /// </summary>
         public Shape[] Shapes
-#else
-        /// <summary>
-        /// Get all shapes in the space.
-        /// </summary>
-        public IReadOnlyList<Shape> Shapes
-#endif
         {
             get
             {

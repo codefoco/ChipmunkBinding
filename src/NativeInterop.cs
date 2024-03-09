@@ -20,7 +20,6 @@
 //     OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -117,28 +116,13 @@ namespace ChipmunkBinding
             return items;
         }
 
-#if NET_4_0
         internal static IntPtr StructureArrayToPtr<T>(T[] items)
         {
-            var size = SizeOf<T>();
-            int count = items.Length;
-            var memory = Marshal.AllocHGlobal(size * count);
-
-            for (var i = 0; i < count; i++)
-            {
-                var ptr = new IntPtr(memory.ToInt64() + (i * size));
-                Marshal.StructureToPtr(items[i], ptr, true);
-            }
-
-            return memory;
-        }
-#else
-        internal static IntPtr StructureArrayToPtr<T>(IReadOnlyList<T> items)
-        {
             int size = SizeOf<T>();
-            IntPtr memory = Marshal.AllocHGlobal(size * items.Count);
+            int count = items.Length;
+            IntPtr memory = Marshal.AllocHGlobal(size * count);
 
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < count; i++)
             {
                 IntPtr ptr = new IntPtr(memory.ToInt64() + (i * size));
                 Marshal.StructureToPtr(items[i], ptr, true);
@@ -146,6 +130,5 @@ namespace ChipmunkBinding
 
             return memory;
         }
-#endif
     }
 }

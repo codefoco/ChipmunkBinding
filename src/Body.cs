@@ -367,17 +367,10 @@ namespace ChipmunkBinding
         /// </summary>
         public Vect Rotation => NativeMethods.cpBodyGetRotation(body);
 
-#if NET_4_0
         /// <summary>
         /// Get the list of body Arbiters
         /// </summary>
         public Arbiter[] Arbiters
-#else
-        /// <summary>
-        /// Get the list of body Arbiters
-        /// </summary>
-        public IReadOnlyList<Arbiter> Arbiters
-#endif
         {
             get
             {
@@ -403,17 +396,10 @@ namespace ChipmunkBinding
 
         private static readonly BodyConstraintIteratorFunction eachConstraintFunc = AddEachConstraintToArray;
 
-#if NET_4_0
         /// <summary>
         /// All constraints attached to the body
         /// </summary>
         public Constraint[] Constraints
-#else
-        /// <summary>
-        /// All constraints attached to the body
-        /// </summary>
-        public IReadOnlyList<Constraint> Constraints
-#endif
         {
             get
             {
@@ -439,17 +425,10 @@ namespace ChipmunkBinding
 
         private static readonly BodyShapeIteratorFunction eachShapeFunc = AddEachShapeToArray;
 
-#if NET_4_0
         /// <summary>
         /// All shapes attached to the body
         /// </summary>
         public Shape[] Shapes
-#else
-        /// <summary>
-        /// All shapes attached to the body
-        /// </summary>
-        public IReadOnlyList<Shape> Shapes
-#endif
         {
             get
             {
@@ -722,31 +701,17 @@ namespace ChipmunkBinding
             return NativeMethods.cpMomentForBox(mass, width, height);
         }
 
-#if NET_4_0
-#pragma warning disable IDE1006 // Naming Styles
-        internal static readonly Body[] EmptyBodies = new Body[0];
-#pragma warning restore IDE1006 // Naming Styles
-                               /// <summary>
-                               /// Get the list of all bodies in contact with this one
-                               /// </summary>
-        public Body[] AllContactedBodies
-#else
         /// <summary>
         /// Get the list of all bodies in contact with this one
         /// </summary>
-        public IReadOnlyList<Body> AllContactedBodies
-#endif
+        public Body[] AllContactedBodies
         {
             get
             {
                 int count = NativeMethods.cpBodyGetContactedBodiesCount(body);
-#if NET_4_0
-                if (count == 0)
-                    return EmptyBodies;
-#else
                 if (count == 0)
                     return Array.Empty<Body>();
-#endif
+
                 cpDataPointer ptrBodies = Marshal.AllocHGlobal(cpDataPointer.Size * count);
                 NativeMethods.cpBodyGetUserDataContactedBodies(body, ptrBodies);
 

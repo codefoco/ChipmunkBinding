@@ -389,7 +389,7 @@ namespace ChipmunkBindingTest.Tests
             body2.Position = new Vect(20, 20);
 
 
-            Assert.AreEqual(0, space.Bodies.Count, "#1");
+            Assert.AreEqual(0, space.Bodies.Length, "#1");
 
             space.AddBody(body);
 
@@ -444,7 +444,7 @@ namespace ChipmunkBindingTest.Tests
             body.Position = new Vect(10, 10);
             body2.Position = new Vect(20, 20);
 
-            Assert.AreEqual(0, space.Shapes.Count, "#1");
+            Assert.AreEqual(0, space.Shapes.Length, "#1");
 
             space.AddBody(body);
             space.AddShape(shape);
@@ -696,9 +696,9 @@ namespace ChipmunkBindingTest.Tests
                 Assert.AreSame(body2, bodyA, "#1");
                 Assert.AreSame(body1, bodyB, "#1.1");
 
-                System.Collections.Generic.IReadOnlyList<Arbiter> arbiters = bodyA.Arbiters;
+                Arbiter[] arbiters = bodyA.Arbiters;
 
-                Assert.AreEqual(1, arbiters.Count, "#0");
+                Assert.AreEqual(1, arbiters.Length, "#0");
                 Assert.AreEqual(arb, arbiters[0], "#0.1");
                 Assert.AreEqual("another data", arbiters[0].Data, "#0.2");
 
