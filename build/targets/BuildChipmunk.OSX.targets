@@ -12,11 +12,12 @@
         <XcodeWithARM64Support>12.2</XcodeWithARM64Support>
     </PropertyGroup>
     <Target Name="BuildChipmunkOSX" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Unix' and Exists('/usr/bin/xcodebuild')" >
-         <Exec Command="/usr/bin/xcodebuild -help" IgnoreExitCode="true" />
-         <Exec Command="/usr/bin/xcodebuild -version | head -1" ConsoleToMSBuild="true">
+         <Exec Command="/usr/bin/xcodebuild -version" IgnoreExitCode="true" />
+         <Exec Command="/usr/bin/xcodebuild -version | head -1" ConsoleToMSBuild="true" IgnoreExitCode="true">
             <Output TaskParameter="ConsoleOutput" PropertyName="OutputOfExec" />
          </Exec>
         <PropertyGroup>
+            <OutputOfExec Condition="$(OutputOfExec) == ''">Xcode 16.0</OutputOfExec>
             <CurrentXcodeVersion>$(OutputOfExec.Split(' ')[1])</CurrentXcodeVersion>
             <CurrentXcodeMajorVersion>$(OutputOfExec.Split(' ')[1].Split('.')[0])</CurrentXcodeMajorVersion>
             <XcodeSupportARM64 Condition="$(CurrentXcodeVersion) &lt; $(XcodeWithARM64Support)">false</XcodeSupportARM64>
