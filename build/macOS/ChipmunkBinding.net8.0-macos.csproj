@@ -10,6 +10,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MacResourcePrefix>Resources</MacResourcePrefix>
     <IsBindingProject>true</IsBindingProject>
+    <IsAotCompatible>true</IsAotCompatible>
+    <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

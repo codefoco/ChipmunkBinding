@@ -12,6 +12,8 @@
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <NoBindingEmbedding>false</NoBindingEmbedding>
     <IsBindingProject>true</IsBindingProject>
+    <IsAotCompatible>true</IsAotCompatible>
+    <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

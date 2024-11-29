@@ -15,6 +15,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>7.0</LangVersion>
     <IsAotCompatible>true</IsAotCompatible>
+    <IsTrimmable>true</IsTrimmable>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <EnableDefaultItems>false</EnableDefaultItems>

@@ -3,10 +3,12 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <IsAotCompatible>true</IsAotCompatible>
+         <IsTrimmable>true</IsTrimmable>
         <RootNamespace>ChipmunkBinding</RootNamespace>
         <AssemblyName>ChipmunkBinding</AssemblyName>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <Configurations>Release;Debug</Configurations>
+        <IsAotCompatible>true</IsAotCompatible>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
         <DocumentationFile>..\..\lib\Release\net8.0\ChipmunkBinding.xml</DocumentationFile>
