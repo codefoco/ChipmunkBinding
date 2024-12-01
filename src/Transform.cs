@@ -24,6 +24,7 @@ using System.Runtime.InteropServices;
 
 #pragma warning disable IDE1006
 #pragma warning disable IDE0032
+#pragma warning disable IDE0055
 
 namespace ChipmunkBinding
 {
