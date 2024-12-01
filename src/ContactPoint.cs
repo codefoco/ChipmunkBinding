@@ -99,13 +99,7 @@ namespace ChipmunkBinding
         /// </summary>
         public override int GetHashCode()
         {
-            int hashCode = -1285340573;
-
-            hashCode = (hashCode * -1521134295) + pointA.GetHashCode();
-            hashCode = (hashCode * -1521134295) + pointB.GetHashCode();
-            hashCode = (hashCode * -1521134295) + distance.GetHashCode();
-
-            return hashCode;
+            return HashCode.Combine(pointA, pointB, distance);
         }
 
         /// <summary>

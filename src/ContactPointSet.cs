@@ -20,7 +20,6 @@
 //     OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace ChipmunkBinding
@@ -80,13 +79,7 @@ namespace ChipmunkBinding
         /// </summary>
         public override int GetHashCode()
         {
-            int hashCode = -475635172;
-
-            hashCode = (hashCode * -1521134295) + count.GetHashCode();
-            hashCode = (hashCode * -1521134295) + normal.GetHashCode();
-            hashCode = (hashCode * -1521134295) + EqualityComparer<ContactPoint[]>.Default.GetHashCode(points);
-
-            return hashCode;
+            return HashCode.Combine(count, normal, points);
         }
 
         /// <summary>

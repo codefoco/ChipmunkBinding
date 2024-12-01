@@ -38,6 +38,8 @@ using voidptr_t = System.IntPtr;
 using ObjCRuntime;
 #endif
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
@@ -224,3 +226,5 @@ namespace ChipmunkBinding
         }
     }
 }
+
+#pragma warning restore IDE1006 // Naming Styles

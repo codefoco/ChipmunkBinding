@@ -1,6 +1,6 @@
-###############################
-# Core EditorConfig Options   #
-###############################
+##################################################
+# Core EditorConfig Options for ChipmunkBinding  #
+##################################################
 
 root = true
 
@@ -50,13 +50,14 @@ dotnet_style_object_initializer = true:suggestion
 dotnet_style_collection_initializer = true:suggestion
 dotnet_style_explicit_tuple_names = true:suggestion
 dotnet_style_null_propagation = true:suggestion
-dotnet_style_coalesce_expression = true:suggestion
+dotnet_style_coalesce_expression = false:error
 dotnet_style_prefer_is_null_check_over_reference_equality_method = false:error
 dotnet_style_prefer_inferred_tuple_names = true:suggestion
 dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
 dotnet_style_prefer_auto_properties = true:suggestion
 dotnet_style_prefer_conditional_expression_over_assignment = false:suggestion
 dotnet_style_prefer_conditional_expression_over_return = false:suggestion
+dotnet_style_collection_initializer = false:error
 
 dotnet_style_prefer_simplified_boolean_expressions = true
 
@@ -67,9 +68,19 @@ dotnet_style_prefer_simplified_boolean_expressions = true
 # IDE0032: Use auto property
 dotnet_diagnostic.IDE0032.severity = suggestion
 dotnet_diagnostic.CA1823.severity = error
+dotnet_diagnostic.CA1856.severity = error
+dotnet_diagnostic.CA1857.severity = error
+dotnet_diagnostic.CA1858.severity = error
+dotnet_diagnostic.CA1859.severity = error
+dotnet_diagnostic.CA1860.severity = error
+dotnet_diagnostic.CA1861.severity = error
+dotnet_diagnostic.CA2021.severity = error
 
 # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0130.severity = none
+
+# IDE0049: Simplify Names
+dotnet_diagnostic.IDE0049.severity = none
 
 dotnet_diagnostic.IDE0180.severity = none
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
@@ -77,11 +88,10 @@ tab_width = 4
 dotnet_diagnostic.CA1034.severity = error
 dotnet_style_namespace_match_folder = none
 
-# IDE0049: Simplify Names
-dotnet_diagnostic.IDE0049.severity = none
+# IDE0270: Use coalesce expression
+dotnet_diagnostic.IDE0270.severity = error
 
 [*.cs]
-
 
 # var preferences
 csharp_style_var_for_built_in_types = false:error
@@ -105,7 +115,7 @@ csharp_style_throw_expression = false:error
 csharp_style_conditional_delegate_call = true:suggestion
 
 # Modifier preferences
-csharp_preferred_modifier_order = public, private, protected, internal, static, extern, new, virtual, abstract, sealed, override, readonly, unsafe, volatile, async:error
+csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:error
 
 # Expression-level preferences
 csharp_prefer_braces = true:none
@@ -179,7 +189,7 @@ dotnet_naming_rule.private_fields_properties_events_must_not_be_capitalized.symb
 dotnet_naming_rule.private_fields_properties_events_must_not_be_capitalized.severity = error
 
 # Symbols: locals and parameters
-dotnet_naming_symbols.locals_and_parameters.applicable_kinds = parameter, local
+dotnet_naming_symbols.locals_and_parameters.applicable_kinds = parameter,local
 
 # Rule: locals and parameters must be camel-case
 dotnet_naming_rule.locals_and_parameters_must_not_be_capitalized.style = camel_case
@@ -197,7 +207,7 @@ dotnet_naming_rule.const_fields_must_be_capitalized.severity = error
 
 # Symbols: static readonly fields
 dotnet_naming_symbols.static_readonly_fields.applicable_kinds = field
-dotnet_naming_symbols.static_readonly_fields.required_modifiers = static, readonly
+dotnet_naming_symbols.static_readonly_fields.required_modifiers = static,readonly
 
 # Rule: static readonly fields must be capitalized
 dotnet_naming_rule.static_readonly_fields_must_be_capitalized.style = pascal_case
@@ -218,7 +228,7 @@ dotnet_naming_rule.interfaces_must_begin_with_i.symbols = interfaces
 dotnet_naming_rule.interfaces_must_begin_with_i.severity = error
 
 # Symbols: namespaces, methods, delegates, classes, structs, interfaces, enums, local functions
-dotnet_naming_symbols.types_and_methods.applicable_kinds = property, event, namespace, class, struct, interface, enum, method, delegate, local_function
+dotnet_naming_symbols.types_and_methods.applicable_kinds = property,event,namespace,class,struct,interface,enum,method,delegate,local_function
 dotnet_naming_symbols.types_and_methods.applicable_accessibilities = *
 
 # Rule: namespaces, methods, delegates, classes, structs, interfaces, enums, local functions must be capitalized
@@ -258,8 +268,7 @@ dotnet_diagnostic.IDE0083.severity = none
 dotnet_diagnostic.IDE0100.severity = error
 dotnet_diagnostic.IDE0110.severity = error
 dotnet_diagnostic.IDE0140.severity = error
-dotnet_diagnostic.IDE1006.severity = none
-dotnet_diagnostic.IDE0070.severity = none
+dotnet_diagnostic.IDE1006.severity = error
 
 # CA1012: Abstract types should not have public constructors
 dotnet_diagnostic.CA1012.severity = error
@@ -301,8 +310,8 @@ dotnet_analyzer_diagnostic.category-Design.severity = error
 dotnet_analyzer_diagnostic.category-Maintainability.severity = error
 dotnet_analyzer_diagnostic.category-Performance.severity = error
 dotnet_analyzer_diagnostic.category-Security.severity = error
-dotnet_analyzer_diagnostic.category-Style.severity = error ;
-dotnet_analyzer_diagnostic.category-Usage.severity = error ;
+dotnet_analyzer_diagnostic.category-Style.severity = error;
+dotnet_analyzer_diagnostic.category-Usage.severity = error;
 
 dotnet_code_quality.api_surface = public, internal, private
 dotnet_code_quality.CA1002.api_surface = public

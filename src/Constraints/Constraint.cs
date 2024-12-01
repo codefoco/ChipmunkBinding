@@ -32,6 +32,7 @@ using cpSpace = System.IntPtr;
 using ObjCRuntime;
 #endif
 
+#pragma warning disable IDE1006 // Naming Styles
 
 namespace ChipmunkBinding
 {
@@ -284,3 +285,5 @@ namespace ChipmunkBinding
         public double Impulse => NativeMethods.cpConstraintGetImpulse(constraint);
     }
 }
+
+#pragma warning restore IDE1006 // Naming Styles

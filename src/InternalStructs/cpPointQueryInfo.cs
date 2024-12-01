@@ -22,6 +22,7 @@
 using System;
 using System.Runtime.InteropServices;
 // ReSharper disable InconsistentNaming
+#pragma warning disable IDE1006 // Naming Styles
 
 namespace ChipmunkBinding
 {
@@ -34,3 +35,5 @@ namespace ChipmunkBinding
         public Vect gradient;
     }
 }
+
+#pragma warning restore IDE1006 // Naming Styles

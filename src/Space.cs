@@ -32,6 +32,7 @@ using cpShape = System.IntPtr;
 using cpSpace = System.IntPtr;
 using voidptr_t = System.IntPtr;
 // ReSharper disable InconsistentNaming
+#pragma warning disable IDE1006 // Naming Styles
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
@@ -798,3 +799,5 @@ namespace ChipmunkBinding
 
     }
 }
+
+#pragma warning restore IDE1006 // Naming Styles

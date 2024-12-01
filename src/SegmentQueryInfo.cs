@@ -154,12 +154,7 @@ namespace ChipmunkBinding
         /// </summary>
         public override int GetHashCode()
         {
-            int hashCode = -1275187100;
-            hashCode = (hashCode * -1521134295) + shape.GetHashCode();
-            hashCode = (hashCode * -1521134295) + point.GetHashCode();
-            hashCode = (hashCode * -1521134295) + normal.GetHashCode();
-            hashCode = (hashCode * -1521134295) + alpha.GetHashCode();
-            return hashCode;
+            return HashCode.Combine(shape, point, normal, alpha);
         }
     }
 }

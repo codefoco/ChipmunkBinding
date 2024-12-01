@@ -27,6 +27,8 @@ using cpCollisionType = System.UIntPtr;
 using cpDataPointer = System.IntPtr;
 // ReSharper disable InconsistentNaming
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace ChipmunkBinding
 {
     [StructLayout(LayoutKind.Sequential)]
@@ -55,3 +57,5 @@ namespace ChipmunkBinding
         }
     }
 }
+
+#pragma warning restore IDE1006 // Naming Styles

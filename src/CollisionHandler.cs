@@ -33,6 +33,8 @@ using voidptr_t = System.IntPtr;
 using ObjCRuntime;
 #endif
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace ChipmunkBinding
 {
     /// <summary>
@@ -330,3 +332,5 @@ namespace ChipmunkBinding
         }
     }
 }
+
+#pragma warning restore IDE1006 // Naming Styles
