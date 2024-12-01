@@ -39,6 +39,7 @@ using ObjCRuntime;
 #endif
 
 #pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable IDE0055 // Some bug on VS
 
 namespace ChipmunkBinding
 {
@@ -228,3 +229,4 @@ namespace ChipmunkBinding
 }
 
 #pragma warning restore IDE1006 // Naming Styles
+#pragma warning restore IDE0055 // Some bug on VS

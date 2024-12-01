@@ -29,6 +29,7 @@ using System.Runtime.InteropServices;
 
 #pragma warning disable IDE1006
 #pragma warning disable IDE0032
+#pragma warning disable IDE0055 // Some bug on VS
 
 // Chipmunk has it own Vector class,
 // We can't use System.Numerics.Vector2 since is not blitable with the native Vect from Chipmunk
@@ -452,3 +453,4 @@ namespace ChipmunkBinding
 
 #pragma warning restore IDE1006
 #pragma warning restore IDE0032
+#pragma warning restore IDE0055 // Some bug on VS

@@ -33,6 +33,7 @@ using cpSpace = System.IntPtr;
 using voidptr_t = System.IntPtr;
 // ReSharper disable InconsistentNaming
 #pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable IDE0055 // Some bug on VS
 
 #if __IOS__ || __TVOS__ || __WATCHOS__ || __MACCATALYST__
 using ObjCRuntime;
@@ -801,3 +802,4 @@ namespace ChipmunkBinding
 }
 
 #pragma warning restore IDE1006 // Naming Styles
+#pragma warning restore IDE0055 // Some bug on VS

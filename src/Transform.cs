@@ -179,3 +179,4 @@ namespace ChipmunkBinding
 
 #pragma warning restore IDE1006
 #pragma warning restore IDE0032
+#pragma warning restore IDE0055 // Some bug on VS

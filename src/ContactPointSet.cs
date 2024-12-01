@@ -20,6 +20,7 @@
 //     OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ChipmunkBinding
@@ -74,13 +75,19 @@ namespace ChipmunkBinding
             return points.SequenceEqual(other.points);
         }
 
+#pragma warning disable IDE0070 // Use 'System.HashCode'
         /// <summary>
         /// Get the hash code.
         /// </summary>
         public override int GetHashCode()
         {
-            return HashCode.Combine(count, normal, points);
+            int hashCode = -475635172;
+            hashCode = (hashCode * -1521134295) + count.GetHashCode();
+            hashCode = (hashCode * -1521134295) + normal.GetHashCode();
+            hashCode = (hashCode * -1521134295) + EqualityComparer<ContactPoint[]>.Default.GetHashCode(points);
+            return hashCode;
         }
+#pragma warning restore IDE0070 // Use 'System.HashCode'
 
         /// <summary>
         /// Return true if the <see cref="ContactPointSet"/> is sequence-equal to another.

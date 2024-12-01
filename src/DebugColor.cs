@@ -97,13 +97,20 @@ namespace ChipmunkBinding
             return this == other;
         }
 
+#pragma warning disable IDE0070 // Use 'System.HashCode'
         /// <summary>
         /// Get the hash code.
         /// </summary>
         public override int GetHashCode()
         {
-            return HashCode.Combine(red, green, blue, alpha);
+            int hashCode = -1813971818;
+            hashCode = (hashCode * -1521134295) + red.GetHashCode();
+            hashCode = (hashCode * -1521134295) + green.GetHashCode();
+            hashCode = (hashCode * -1521134295) + blue.GetHashCode();
+            hashCode = (hashCode * -1521134295) + alpha.GetHashCode();
+            return hashCode;
         }
+#pragma warning restore IDE0070 // Use 'System.HashCode'
 
         /// <summary>
         /// Return a string formatted as "(R, G, B, A)".
