@@ -26,7 +26,7 @@
 
     <Message Text="Building Windows Chipmunk library (ARM)" />
     <Exec Command="mkdir &quot;$(ExternalChipmunkPath)\$(WinArmBuildDir)&quot;" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArmBuildDir)')" />
-    <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -A ARM -DCMAKE_SYSTEM_VERSION=10.0.22621.0" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArmBuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArmBuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -A ARM -DCMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION=10.0.22621.0 -DCMAKE_SYSTEM_VERSION=10.0.22621.0" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArmBuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArmBuildDir)\CMakeCache.txt')" />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArmBuildDir)" Condition="'$(VisualStudioVersion)' > '16.2'"/>
 
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(Win32BuildDir)\$(BinaryLibraryPath32)" DestinationFolder="$(OutputRuntimeDir)\$(Win32BuildDir)\native" SkipUnchangedFiles="true" />
