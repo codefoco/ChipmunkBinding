@@ -1,26 +1,50 @@
-﻿using System;
+﻿// .      ______          __     ____               
+//       / ____/___  ____/ /__  / __/___  _________ 
+//      / /   / __ \/ __  / _ \/ /_/ __ \/ ___/ __ \
+//     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
+//     \____/\____/\__, _/\___/_/  \____/\___/\____/ 
+//     
+//     Copyright (c) 2025 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     included in all copies or substantial portions of the Software.
+//
+//     Redistribution and use in source and binary forms, with or without
+//     modification, are permitted only if explicitly approved by the authors.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+//     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//     NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+//     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//     OTHER DEALINGS IN THE SOFTWARE.
+
+using System;
+
 using System.Collections.Generic;
 using System.Linq;
+
 using ChipmunkBinding;
+
 using Microsoft.Xna.Framework;
 
 namespace ChipmunkDemo
 {
     public class Slice : DemoBase
     {
-        const double Density = 1.0 / 10000.0;
+        private const double Density = 1.0 / 10000.0;
 
-        class SliceContext
+        private class SliceContext
         {
             public Vect A { get; set; }
             public Vect B { get; set; }
         }
 
-        bool rightClick;
-        Vect sliceStart;
+        private bool rightClick;
+        private Vect sliceStart;
 
-        bool pinching = false;
-        Vect sliceEnd;
+        private bool pinching = false;
+        private Vect sliceEnd;
 
         private void ClipPoly(Polygon shape, Vect n, double distance)
         {
@@ -49,19 +73,19 @@ namespace ChipmunkDemo
                 }
             }
 
-            Vect centroid = Polygon.CentroidForPoly(clipped);
-            double mass = Polygon.AreaForPoly(clipped, 0.0f) * Density;
+            Vect centroid = Polygon.CentroidForPoly(clipped.ToArray());
+            double mass = Polygon.AreaForPoly(clipped.ToArray(), 0.0f) * Density;
 
-            double moment = Polygon.MomentForPolygon(mass, clipped, -centroid, 0.0f);
+            double moment = Polygon.MomentForPolygon(mass, clipped.ToArray(), -centroid, 0.0f);
 
             var new_body = new Body(mass, moment);
             space.AddBody(new_body);
             new_body.Position = centroid;
-            new_body.Velocity =  body.GetVelocityAtWorldPoint(centroid);
+            new_body.Velocity = body.GetVelocityAtWorldPoint(centroid);
             new_body.AngularVelocity = body.AngularVelocity;
 
             var transform = Transform.CreateTranslation(-centroid);
-            Shape new_shape = new Polygon(new_body, clipped, transform, 0.0);
+            Shape new_shape = new Polygon(new_body, clipped.ToArray(), transform, 0.0);
             space.AddShape(new_shape);
             new_shape.Friction = shape.Friction;
         }

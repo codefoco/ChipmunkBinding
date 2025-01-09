@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -35,6 +35,8 @@
     <WarningLevel>4</WarningLevel>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
+    <CodesignProvision>Automatic</CodesignProvision>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +51,8 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
+    <MtouchLink>None</MtouchLink>
+    <CodesignProvision>Automatic</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -62,6 +66,8 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <MtouchLink>Full</MtouchLink>
+    <CodesignProvision>Automatic</CodesignProvision>
+    <NoWarn>MT5203</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -82,9 +88,6 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon120.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon152.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon180.png">
       <Visible>false</Visible>
     </ImageAsset>
@@ -95,9 +98,6 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon58.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon76.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon80.png">
@@ -112,6 +112,8 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon152.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -123,6 +125,7 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
+    <None Include=".DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -133,8 +136,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ChipmunkBinding" Version="1.2.22" />
-    <PackageReference Include="Codefoco.MonoGame.Framework" Version="3.8.100" />
+    <PackageReference Include="ChipmunkBinding" Version="1.2.26" />
+    <PackageReference Include="Codefoco.MonoGame.Framework" Version="3.8.123" />
   </ItemGroup>
   <Import Project="..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems" Label="Shared" Condition="Exists('..\ChipmunkDemo.Shared\ChipmunkDemo.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
