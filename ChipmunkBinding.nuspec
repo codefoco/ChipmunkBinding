@@ -13,7 +13,7 @@
       C# Native bindings of Chipmunk2D (compatible with iOS/Mac/Android/.NET/UWP) 
     </description>
     <releaseNotes>Release: 2bffe65</releaseNotes>
-    <copyright>Copyright © Codefoco 2024</copyright>
+    <copyright>Copyright © Codefoco 2025</copyright>
     <tags>chipmunk physics</tags>
     <repository type="git" url="https://github.com/codefoco/ChipmunkBinding" commit="4bc5cdb91979e1f4aaf50fadd8061e7a52a7c97c" />
   </metadata>

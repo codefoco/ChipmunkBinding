@@ -4,7 +4,7 @@
 //     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
 //     \____/\____/\__, _/\___/_/  \____/\___/\____/
 //
-//     Copyright (c) 2024 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     Copyright (c) 2025 Codefoco LTDA - The above copyright notice and this permission notice shall be
 //     included in all copies or substantial portions of the Software.
 //
 //     Redistribution and use in source and binary forms, with or without
@@ -61,6 +61,7 @@ using VoidPointer = System.IntPtr;
 
 namespace ChipmunkBinding
 {
+#pragma warning disable IDE0055 // Format bug
 #pragma warning disable SYSLIB1054
 
     [SuppressUnmanagedCodeSecurity]
@@ -1236,6 +1237,7 @@ namespace ChipmunkBinding
         //internal static extern cpSpatialIndex cpSweep1DNew(cpSpatialIndexBBFunc bbfunc, cpSpatialIndex staticIndex);
 
 #pragma warning restore IDE1006 // Naming Styles
+#pragma warning restore IDE0055 // Format bug
     }
 #pragma warning restore SYSLIB1054
 }
