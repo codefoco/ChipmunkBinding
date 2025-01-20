@@ -137,6 +137,7 @@ stages:
     # Run tests
 
     - script: 'dotnet test ./tests/build/net8.0/bin/Release/net8.0/ChipmunkBindingTest.dll -l:trx'
+      retryCountOnTaskFailure: 3
       displayName: 'Run .NET Tests'
 
     - script: 'mv TestResults/*.trx ./TEST-Result-Mac.Core.xml'
