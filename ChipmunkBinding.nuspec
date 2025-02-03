@@ -26,29 +26,49 @@
     <file src="lib\Release\net8.0-android\ChipmunkBinding.pdb" target="lib\net8.0-android28" />
     <file src="lib\Release\net8.0-android\ChipmunkBinding.xml" target="lib\net8.0-android28" />
 
+    <file src="lib\Release\net9.0-android\ChipmunkBinding.dll" target="lib\net9.0-android28" />
+    <file src="lib\Release\net9.0-android\ChipmunkBinding.pdb" target="lib\net9.0-android28" />
+    <file src="lib\Release\net9.0-android\ChipmunkBinding.xml" target="lib\net9.0-android28" />
+
     <file src="lib\Release\net8.0\ChipmunkBinding.dll" target="lib\net8.0" />
     <file src="lib\Release\net8.0\ChipmunkBinding.pdb" target="lib\net8.0" />
     <file src="lib\Release\net8.0\ChipmunkBinding.xml" target="lib\net8.0" />
 
-    <file src="lib\Release\net6.0\ChipmunkBinding.dll" target="lib\net6.0" />
-    <file src="lib\Release\net6.0\ChipmunkBinding.pdb" target="lib\net6.0" />
-    <file src="lib\Release\net6.0\ChipmunkBinding.xml" target="lib\net6.0" />
+    <file src="lib\Release\net9.0\ChipmunkBinding.dll" target="lib\net9.0" />
+    <file src="lib\Release\net9.0\ChipmunkBinding.pdb" target="lib\net9.0" />
+    <file src="lib\Release\net9.0\ChipmunkBinding.xml" target="lib\net9.0" />
 
     <file src="lib\Release\net8.0-ios\ChipmunkBinding.dll" target="lib\net8.0-ios11.0" />
     <file src="lib\Release\net8.0-ios\ChipmunkBinding.pdb" target="lib\net8.0-ios11.0" />
     <file src="lib\Release\net8.0-ios\ChipmunkBinding.xml" target="lib\net8.0-ios11.0" />
 
+    <file src="lib\Release\net9.0-ios\ChipmunkBinding.dll" target="lib\net9.0-ios11.0" />
+    <file src="lib\Release\net9.0-ios\ChipmunkBinding.pdb" target="lib\net9.0-ios11.0" />
+    <file src="lib\Release\net9.0-ios\ChipmunkBinding.xml" target="lib\net9.0-ios11.0" />
+
     <file src="lib\Release\net8.0-maccatalyst\ChipmunkBinding.dll" target="lib\net8.0-maccatalyst13.0" />
     <file src="lib\Release\net8.0-maccatalyst\ChipmunkBinding.pdb" target="lib\net8.0-maccatalyst13.0" />
     <file src="lib\Release\net8.0-maccatalyst\ChipmunkBinding.xml" target="lib\net8.0-maccatalyst13.0" />
+
+    <file src="lib\Release\net9.0-maccatalyst\ChipmunkBinding.dll" target="lib\net9.0-maccatalyst13.0" />
+    <file src="lib\Release\net9.0-maccatalyst\ChipmunkBinding.pdb" target="lib\net9.0-maccatalyst13.0" />
+    <file src="lib\Release\net9.0-maccatalyst\ChipmunkBinding.xml" target="lib\net9.0-maccatalyst13.0" />
 
     <file src="lib\Release\net8.0-tvos\ChipmunkBinding.dll" target="lib\net8.0-tvos11.0" />
     <file src="lib\Release\net8.0-tvos\ChipmunkBinding.pdb" target="lib\net8.0-tvos11.0" />
     <file src="lib\Release\net8.0-tvos\ChipmunkBinding.xml" target="lib\net8.0-tvos11.0" />
 
+    <file src="lib\Release\net9.0-tvos\ChipmunkBinding.dll" target="lib\net9.0-tvos11.0" />
+    <file src="lib\Release\net9.0-tvos\ChipmunkBinding.pdb" target="lib\net9.0-tvos11.0" />
+    <file src="lib\Release\net9.0-tvos\ChipmunkBinding.xml" target="lib\net9.0-tvos11.0" />
+
     <file src="lib\Release\net8.0-macos\ChipmunkBinding.dll" target="lib\net8.0-macos10.13" />
     <file src="lib\Release\net8.0-macos\ChipmunkBinding.pdb" target="lib\net8.0-macos10.13" />
     <file src="lib\Release\net8.0-macos\ChipmunkBinding.xml" target="lib\net8.0-macos10.13" />
+
+    <file src="lib\Release\net9.0-macos\ChipmunkBinding.dll" target="lib\net9.0-macos10.13" />
+    <file src="lib\Release\net9.0-macos\ChipmunkBinding.pdb" target="lib\net9.0-macos10.13" />
+    <file src="lib\Release\net9.0-macos\ChipmunkBinding.xml" target="lib\net9.0-macos10.13" />
 
     <file src="lib\Release\net46\ChipmunkBinding.dll" target="lib\net46" />
     <file src="lib\Release\net46\ChipmunkBinding.pdb" target="lib\net46" />
