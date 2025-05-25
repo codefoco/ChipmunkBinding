@@ -21,7 +21,7 @@
     <Exec Command="export CFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="export LDFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="mkdir $(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
-    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_BUILD_TYPE=Release -DCMAKE_CROSSCOMPILING=TRUE -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_SYSTEM_PROCESSOR=aarch64" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" 
+    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_BUILD_TYPE=Release -DCMAKE_CROSSCOMPILING=TRUE -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DCMAKE_SYSTEM_NAME=Linux" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" 
           Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\CMakeCache.txt')" />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" />
     <Exec Command="/usr/aarch64-linux-gnu/bin/strip -s $(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\$(LinuxBinaryLibraryPath64)" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" />
