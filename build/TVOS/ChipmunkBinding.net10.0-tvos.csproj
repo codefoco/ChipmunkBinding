@@ -3,12 +3,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9238F6AA-2D63-4804-99D1-C279871F5669}</ProjectGuid>
+    <ProjectTypeGuids>{4A1ED743-3331-459B-915A-4B17C7B6DBB6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
-    <TargetFramework>net8.0-macos</TargetFramework>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <MacResourcePrefix>Resources</MacResourcePrefix>
+    <TargetFramework>net10.0-tvos</TargetFramework>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <NoBindingEmbedding>false</NoBindingEmbedding>
     <IsBindingProject>true</IsBindingProject>
     <IsAotCompatible>true</IsAotCompatible>
     <IsTrimmable>true</IsTrimmable>
@@ -21,25 +23,37 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFastDev>true</MtouchFastDev>
+    <IOSDebuggerPort>16365</IOSDebuggerPort>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
+    <DebugType>portable</DebugType>
     <OutputPath>..\..\lib\Release</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchLink>SdkOnly</MtouchLink>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\lib\Release\net8.0-macos\ChipmunkBinding.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>..\..\lib\Release\net10.0-tvos\ChipmunkBinding.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
     <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="..\..\runtimes\osx\native\libchipmunk.dylib">
-      <Kind>Dynamic</Kind>
-      <SmartLink>False</SmartLink>
+    <NativeReference Include="..\..\runtimes\tvos\native\libchipmunk.framework">
+      <Kind>Framework</Kind>
     </NativeReference>
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +62,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  <Import Project="..\targets\BuildChipmunk.TVOS.targets" />
   <Import Project="..\..\src\ChipmunkBinding.Shared.projitems" Label="Shared" Condition="Exists('..\..\src\ChipmunkBinding.Shared.projitems')" />
-  <Import Project="..\targets\BuildChipmunk.OSX.targets" />
   <Import Project="..\targets\ChipmunkBinding.Sign.targets" />
 </Project>
