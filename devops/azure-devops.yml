@@ -270,8 +270,8 @@ stages:
       vmImage: 'ubuntu-22.04'
       demands: msbuild
       variables:
-        CC: gcc-9.3
-        CXX: g++-9.3
+        CC: gcc-9
+        CXX: g++-9
 
     steps:
     - template: common-linux-ubuntu.yaml@templates
@@ -280,7 +280,10 @@ stages:
     - checkout: self 
       submodules: 'true'
 
-    - script: 'sudo apt update; sudo apt install gcc-9-aarch64-linux-gnu binutils-aarch64-linux-gnu g++-9-aarch64-linux-gnu'
+    - script: 'sudo apt update; sudo apt install gcc-9 binutils g++-9'
+      displayName: 'Install GCC 9 build tools'
+
+    - script: 'sudo apt install gcc-9-aarch64-linux-gnu binutils-aarch64-linux-gnu g++-9-aarch64-linux-gnu'
       displayName: 'Install ARM64 build tools'
 
     - task: NuGetCommand@2
