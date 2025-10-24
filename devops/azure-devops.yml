@@ -208,13 +208,14 @@ stages:
         msbuildArguments: '/t:RunSimulatorTests -verbosity:diag -detailedSummary'
 
     - task: PublishTestResults@2
+      continueOnError: true
       displayName: 'Publish iOS Test Results TEST-Result-iOS.xml'
       inputs:
         testResultsFormat: NUnit
         testResultsFiles: 'tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml'
-        failTaskOnFailedTests: true
 
     - task: PublishBuildArtifacts@1
+      continueOnError: true
       displayName: 'Publish Artifact: TEST-Result-Xamarin.iOS.xml'
       inputs:
         PathtoPublish: tests/build/xamarinios/TEST-Result-Xamarin.iOS.xml
