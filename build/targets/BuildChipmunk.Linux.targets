@@ -15,20 +15,23 @@
     <Exec Command="strip -s $(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)\$(LinuxBinaryLibraryPath64)" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)" />
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)\$(LinuxBinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(LinuxAMD64BuildDir)\native" SkipUnchangedFiles="true" />
   </Target>
-  <Target Name="BuildChipmunkLinuxARM64" AfterTargets="BuildChipmunkLinux" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild') and Exists('/usr/bin/aarch64-linux-gnu-gcc')">
+  <Target Name="BuildChipmunkLinuxARM64" AfterTargets="BuildChipmunkLinux" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild') and Exists('/usr/bin/aarch64-linux-gnu-gcc-9')">
     <Message Text="Building Linux Chipmunk library (arm64)" />
     <Exec Command="export CXXFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="export CFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="export LDFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="mkdir $(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
-    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_BUILD_TYPE=Release -DCMAKE_CROSSCOMPILING=TRUE -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" 
+    <Exec Command="cmake $(ExternalChipmunkPath) -DCMAKE_BUILD_TYPE=Release -DCMAKE_CROSSCOMPILING=TRUE -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++-9 -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-9" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" 
           Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\CMakeCache.txt')" />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" />
     <Exec Command="/usr/aarch64-linux-gnu/bin/strip -s $(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\$(LinuxBinaryLibraryPath64)" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)" />
-    <Copy SourceFiles="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\$(LinuxBinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(LinuxARM64BuildDir)\native" SkipUnchangedFiles="true" Condition="Exists('/usr/bin/aarch64-linux-gnu-gcc')" />
+    <Copy SourceFiles="$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)\$(LinuxBinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(LinuxARM64BuildDir)\native" SkipUnchangedFiles="true" Condition="Exists('/usr/bin/aarch64-linux-gnu-gcc-9')" />
     <Exec Command="unset CXXFLAGS" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="unset CFLAGS" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="unset LDFLAGS" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
+  </Target>
+  <Target Name="MessageSkipBuildChipmunkLinuxARM64" AfterTargets="BuildChipmunkLinuxARM64" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild') and !Exists('/usr/bin/aarch64-linux-gnu-gcc-9')">
+      <Message Text="Skipping Linux ARM64 build - /usr/bin/aarch64-linux-gnu-gcc-9 not found " />
   </Target>
   <Target Name="CleanChipmunkLinux" AfterTargets="Clean" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild')">
       <Message Text="Cleaning Chipmunk library (x64)" />
