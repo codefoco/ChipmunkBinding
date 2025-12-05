@@ -184,7 +184,7 @@ stages:
       displayName: 'nuget install NUnit.ConsoleRunner'
 
     # reverted back to use NUnit.ConsoleRunner because Microsoft keeps breaking .NET
-    - script: 'mono NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll'
+    - script: 'mono NUnit.ConsoleRunner.3.20.2/tools/nunit3-console.exe ./tests/build/net46/bin/Release/ChipmunkBindingTest.dll --framework=mono-4.0'
       displayName: 'Run OSX tests'
 
     - script: 'mv TestResult.xml ./TEST-Result-Mac.xml'
