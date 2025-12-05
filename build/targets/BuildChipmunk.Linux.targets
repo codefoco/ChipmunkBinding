@@ -4,8 +4,10 @@
     <LinuxAMD64BuildDir>linux-x64</LinuxAMD64BuildDir>
     <LinuxARM64BuildDir>linux-arm64</LinuxARM64BuildDir>
     <LinuxBinaryLibraryPath64>lib64/libchipmunk.so</LinuxBinaryLibraryPath64>
+    <OuputLinuxLibraryAMD64>$(OutputRuntimeDir)\$(LinuxAMD64BuildDir)\native\libchipmunk.so</OuputLinuxLibraryAMD64>
+    <OuputLinuxLibraryARM64>$(OutputRuntimeDir)\$(LinuxARM64BuildDir)\native\libchipmunk.so</OuputLinuxLibraryARM64>
   </PropertyGroup>
-  <Target Name="BuildChipmunkLinux" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild')">
+  <Target Name="BuildChipmunkLinux" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild') and !Exists('$(OuputLinuxLibraryAMD64)')" >
     <Message Text="Building Linux Chipmunk library (x64)" />
     <Exec Command="export CFLAGS=-m64" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)')" />
     <Exec Command="export LDFLAGS=-m64" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)')" />
@@ -15,7 +17,7 @@
     <Exec Command="strip -s $(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)\$(LinuxBinaryLibraryPath64)" WorkingDirectory="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)" />
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(LinuxAMD64BuildDir)\$(LinuxBinaryLibraryPath64)" DestinationFolder="$(OutputRuntimeDir)\$(LinuxAMD64BuildDir)\native" SkipUnchangedFiles="true" />
   </Target>
-  <Target Name="BuildChipmunkLinuxARM64" AfterTargets="BuildChipmunkLinux" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild') and Exists('/usr/bin/aarch64-linux-gnu-gcc-9')">
+  <Target Name="BuildChipmunkLinuxARM64" AfterTargets="BuildChipmunkLinux" Condition="'$(OS)'=='Unix' and !Exists('/usr/bin/xcodebuild') and Exists('/usr/bin/aarch64-linux-gnu-gcc-9')  and !Exists('$(OuputLinuxLibraryARM64)')" >
     <Message Text="Building Linux Chipmunk library (arm64)" />
     <Exec Command="export CXXFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
     <Exec Command="export CFLAGS=-march=armv8-a" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(LinuxARM64BuildDir)')" />
