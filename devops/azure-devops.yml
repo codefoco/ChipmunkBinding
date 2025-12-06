@@ -99,12 +99,12 @@ stages:
     # Build .NET 9 (to be sure works on macOS)
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./ChipmunkBinding.net8.0.sln'
+      displayName: 'dotnet build ./ChipmunkBinding.net10.0.sln'
       retryCountOnTaskFailure: 2
       inputs:
         command: custom
         custom: build
-        arguments: './ChipmunkBinding.net8.0.sln /p:Configuration=Release'
+        arguments: './ChipmunkBinding.net10.0.sln /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./ChipmunkBinding.net9.0.sln'
@@ -172,11 +172,11 @@ stages:
 
     # Run tests
 
-    - script: 'dotnet test ./tests/build/net8.0/bin/Release/net8.0/ChipmunkBindingTest.dll -l:trx'
+    - script: 'dotnet test ./tests/build/net10.0/bin/Release/net10.0/ChipmunkBindingTest.dll -l:trx'
       retryCountOnTaskFailure: 3
       displayName: 'Run .NET Tests'
 
-    - script: 'mv TestResults/*.trx ./TEST-Result-Mac.Core.xml'
+    - script: 'mv "$(ls TestResults/*.trx | head -n 1)" ./TEST-Result-Mac.Core.xml'
       displayName: 'Rename .NET Test result'
 
     - script: 'nuget install NUnit.ConsoleRunner -Version 3.20.2 -source "https://api.nuget.org/v3/index.json" -OutputDirectory .'
@@ -306,11 +306,11 @@ stages:
     # Build .NET
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./ChipmunkBinding.net8.0.sln'
+      displayName: 'dotnet build ./ChipmunkBinding.net10.0.sln'
       inputs:
         command: custom
         custom: build
-        arguments: './ChipmunkBinding.net8.0.sln /p:Configuration=Release'
+        arguments: './ChipmunkBinding.net10.0.sln /p:Configuration=Release'
 
     # Build .NET 4.6
 
@@ -320,7 +320,7 @@ stages:
         solution: ChipmunkBinding.sln
         configuration: Release
 
-    - script: 'dotnet test ./tests/build/net8.0/bin/Release/net8.0/ChipmunkBindingTest.dll -l:trx'
+    - script: 'dotnet test ./tests/build/net10.0/bin/Release/net10.0/ChipmunkBindingTest.dll -l:trx'
       displayName: 'Run .NET Tests'
 
     - task: PublishPipelineArtifact@1
@@ -375,7 +375,7 @@ stages:
       inputs:
         restoreSolution: ChipmunkBinding.net40.sln
 
-    - script: 'dotnet format --verify-no-changes ChipmunkBinding.net8.0.sln -v:diag'
+    - script: 'dotnet format --verify-no-changes ChipmunkBinding.net10.0.sln -v:diag'
       displayName: 'Check Format with dotnet format'
 
     - task: NuGetCommand@2
@@ -411,11 +411,11 @@ stages:
         configuration: Release
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./ChipmunkBinding.net8.0.sln'
+      displayName: 'dotnet build ./ChipmunkBinding.net10.0.sln'
       inputs:
         command: custom
         custom: build
-        arguments: './ChipmunkBinding.net8.0.sln /p:Configuration=Release'
+        arguments: './ChipmunkBinding.net10.0.sln /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./ChipmunkBinding.net9.0.sln'
@@ -424,7 +424,7 @@ stages:
         custom: build
         arguments: './ChipmunkBinding.net9.0.sln /p:Configuration=Release'
 
-    - script: 'dotnet test ./tests/build/net8.0/bin/Release/net8.0/ChipmunkBindingTest.dll -l:trx'
+    - script: 'dotnet test ./tests/build/net10.0/bin/Release/net10.0/ChipmunkBindingTest.dll -l:trx'
       displayName: 'Run .NET Tests'
 
     - script: 'mv TestResults/*.trx ./TEST-Result-Windows.Core.xml'

@@ -128,3 +128,4 @@ tests/build/.DS_Store
 .DS_Store
 build/.DS_Store
 build/.DS_Store
+TEST-Result-Mac.Core.xml
