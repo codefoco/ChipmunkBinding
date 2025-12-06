@@ -4,7 +4,7 @@
 //     / /___/ /_/ / /_/ /  __/ __/ /_/ / /__/ /_/ /
 //     \____/\____/\__, _/\___/_/  \____/\___/\____/
 //
-//     Copyright (c) 2025 Codefoco LTDA - The above copyright notice and this permission notice shall be
+//     Copyright (c) 2026 Codefoco LTDA - The above copyright notice and this permission notice shall be
 //     included in all copies or substantial portions of the Software.
 //
 //     Redistribution and use in source and binary forms, with or without
