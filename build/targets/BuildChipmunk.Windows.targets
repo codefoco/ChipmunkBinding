@@ -35,7 +35,7 @@
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(WinArmBuildDir)\$(BinaryLibraryPath32)" DestinationFolder="$(OutputRuntimeDir)\$(WinArmBuildDir)\native" SkipUnchangedFiles="true" />
 
   </Target>
-  <Target Name="BuildChipmunkWindows2" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Windows_NT' and '$(VisualStudioVersion)' < '16.3'">
+  <Target Name="BuildChipmunkWindows2" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Windows_NT' and '16.3' > '$(VisualStudioVersion)' ">
     <Message Text="Building Windows Chipmunk library (x86)" />
     <Exec Command="mkdir &quot;$(ExternalChipmunkPath)\$(Win32BuildDir)&quot; " WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)') " />
     <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -A &quot;Win32&quot; " WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt') " />
