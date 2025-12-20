@@ -11,7 +11,7 @@
   <Target Name="BuildChipmunkWindows" BeforeTargets="BeforeBuild" Condition="'$(OS)'=='Windows_NT'">
     <Message Text="Building Windows Chipmunk library (x86)" />
     <Exec Command="mkdir &quot;$(ExternalChipmunkPath)\$(Win32BuildDir)&quot; " WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)') " />
-    <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -DCMAKE_GENERATOR_PLATFORM=Win32 -A Win32" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt') " />
+    <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -DCMAKE_GENERATOR_PLATFORM=Win32 -A &quot;Win32,version=10.0.22621.0&quot;  -DCMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION=&quot;10.0.22621.0&quot; -DCMAKE_SYSTEM_VERSION=&quot;10.0.22621.0&quot;" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(Win32BuildDir)\CMakeCache.txt') " />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(Win32BuildDir)" />
 
     <Message Text="Building Windows Chipmunk library (x64)" />
@@ -26,7 +26,7 @@
 
     <Message Text="Building Windows Chipmunk library (ARM)" />
     <Exec Command="mkdir &quot;$(ExternalChipmunkPath)\$(WinArmBuildDir)&quot;" WorkingDirectory="$(ExternalChipmunkPath)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArmBuildDir)')" />
-    <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -A ARM -DCMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION=&quot;10.0.22621.0&quot; -DCMAKE_SYSTEM_VERSION=&quot;10.0.22621.0&quot;" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArmBuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArmBuildDir)\CMakeCache.txt')" />
+    <Exec Command="cmake &quot;$(ExternalChipmunkPath)&quot; -A &quot;ARM,version=10.0.22621.0&quot; -DCMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION=&quot;10.0.22621.0&quot; -DCMAKE_SYSTEM_VERSION=&quot;10.0.22621.0&quot;" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArmBuildDir)" Condition="!Exists('$(ExternalChipmunkPath)\$(WinArmBuildDir)\CMakeCache.txt')" />
     <Exec Command="cmake --build . --config Release" WorkingDirectory="$(ExternalChipmunkPath)\$(WinArmBuildDir)" Condition="'$(VisualStudioVersion)' > '16.2'"/>
 
     <Copy SourceFiles="$(ExternalChipmunkPath)\$(Win32BuildDir)\$(BinaryLibraryPath32)" DestinationFolder="$(OutputRuntimeDir)\$(Win32BuildDir)\native" SkipUnchangedFiles="true" />
