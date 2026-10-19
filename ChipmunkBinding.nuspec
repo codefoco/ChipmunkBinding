@@ -117,6 +117,10 @@
     
     <file src="runtimes\ios\native\libchipmunk.framework\libchipmunk" target="runtimes\ios\native\libchipmunk.framework\libchipmunk" />
     <file src="runtimes\ios\native\libchipmunk.framework\Info.plist" target="runtimes\ios\native\libchipmunk.framework\Info.plist" />
+    <file src="runtimes\iossimulator-x64\native\libchipmunk.framework\libchipmunk" target="runtimes\iossimulator-x64\native\libchipmunk.framework\libchipmunk" />
+    <file src="runtimes\iossimulator-x64\native\libchipmunk.framework\Info.plist" target="runtimes\iossimulator-x64\native\libchipmunk.framework\Info.plist" />
+    <file src="runtimes\iossimulator-arm64\native\libchipmunk.framework\libchipmunk" target="runtimes\iossimulator-arm64\native\libchipmunk.framework\libchipmunk" />
+    <file src="runtimes\iossimulator-arm64\native\libchipmunk.framework\Info.plist" target="runtimes\iossimulator-arm64\native\libchipmunk.framework\Info.plist" />
     
     <file src="runtimes\maccatalyst\native\libchipmunk.framework\libchipmunk" target="runtimes\maccatalyst\native\libchipmunk.framework\libchipmunk" />
     <file src="runtimes\maccatalyst\native\libchipmunk.framework\Resources\Info.plist" target="runtimes\maccatalyst\native\libchipmunk.framework\Info.plist" />
