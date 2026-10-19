@@ -122,11 +122,11 @@ stages:
         arguments: './build/iOS/ChipmunkBinding.net10.0-ios.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net9.0-ios.csproj'
+      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net11.0-ios.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/iOS/ChipmunkBinding.net9.0-ios.csproj /p:Configuration=Release'
+        arguments: './build/iOS/ChipmunkBinding.net11.0-ios.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./build/TVOS/ChipmunkBinding.net10.0-tvos.csproj'
@@ -136,11 +136,11 @@ stages:
         arguments: './build/TVOS/ChipmunkBinding.net10.0-tvos.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/TVOS/ChipmunkBinding.net9.0-tvos.csproj'
+      displayName: 'dotnet build ./build/TVOS/ChipmunkBinding.net11.0-tvos.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/TVOS/ChipmunkBinding.net9.0-tvos.csproj /p:Configuration=Release'
+        arguments: './build/TVOS/ChipmunkBinding.net11.0-tvos.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./build/macOS/ChipmunkBinding.net10.0-macos.csproj'
@@ -150,11 +150,11 @@ stages:
         arguments: './build/macOS/ChipmunkBinding.net10.0-macos.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/macOS/ChipmunkBinding.net9.0-macos.csproj'
+      displayName: 'dotnet build ./build/macOS/ChipmunkBinding.net11.0-macos.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/macOS/ChipmunkBinding.net9.0-macos.csproj /p:Configuration=Release'
+        arguments: './build/macOS/ChipmunkBinding.net11.0-macos.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net10.0-maccatalyst.csproj'
@@ -164,11 +164,11 @@ stages:
         arguments: './build/iOS/ChipmunkBinding.net10.0-maccatalyst.csproj /p:Configuration=Release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net9.0-maccatalyst.csproj'
+      displayName: 'dotnet build ./build/iOS/ChipmunkBinding.net11.0-maccatalyst.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: './build/iOS/ChipmunkBinding.net9.0-maccatalyst.csproj /p:Configuration=Release'
+        arguments: './build/iOS/ChipmunkBinding.net11.0-maccatalyst.csproj /p:Configuration=Release'
 
     # Run tests
 
@@ -445,11 +445,11 @@ stages:
         arguments: '.\build\Android\ChipmunkBinding.net10.0-android.csproj /p:Configuration=Release /p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet build build/Android/ChipmunkBinding.net9.0-android.csproj'
+      displayName: 'dotnet build build/Android/ChipmunkBinding.net11.0-android.csproj'
       inputs:
         command: custom
         custom: build
-        arguments: '.\build\Android\ChipmunkBinding.net9.0-android.csproj /p:Configuration=Release /p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
+        arguments: '.\build\Android\ChipmunkBinding.net11.0-android.csproj /p:Configuration=Release /p:AndroidNdkDirectory="C:\Android\android-sdk\ndk-bundle"'
 
     - script: 'nunit3-console.exe .\tests\build\net46\bin\Release\ChipmunkBindingTest.dll --x86'
       displayName: 'Run Windows Tests'
