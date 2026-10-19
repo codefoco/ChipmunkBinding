@@ -7,9 +7,9 @@
     <RootNamespace>ChipmunkBinding</RootNamespace>
     <AssemblyName>ChipmunkBinding</AssemblyName>
     <TargetFramework>net11.0-ios</TargetFramework>
+    <LangVersion>8.0</LangVersion>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <IsBindingProject>true</IsBindingProject>
-    <NoBindingEmbedding>false</NoBindingEmbedding>
     <IsAotCompatible>true</IsAotCompatible>
     <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
