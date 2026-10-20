@@ -9,7 +9,7 @@
     <SupportedOSPlatformVersion>28.0</SupportedOSPlatformVersion>
     <TargetFrameworkVersion>v13.0</TargetFrameworkVersion>
     <TargetFramework>net11.0-android</TargetFramework>
-    <RuntimeIdentifiers>android-x86;android-x64;android-arm;android-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>android-x64;android-arm;android-arm64</RuntimeIdentifiers>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <ImplicitUsings>false</ImplicitUsings>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -58,9 +58,6 @@
     </EmbeddedNativeLibrary>
     <EmbeddedNativeLibrary Include="$(OutputRuntimeDir)\android-arm\native\libchipmunk.so">
       <Link>libs\armeabi-v7a\libchipmunk.so</Link>
-    </EmbeddedNativeLibrary>
-    <EmbeddedNativeLibrary Include="$(OutputRuntimeDir)\android-x86\native\libchipmunk.so">
-      <Link>libs\x86\libchipmunk.so</Link>
     </EmbeddedNativeLibrary>
     <EmbeddedNativeLibrary Include="$(OutputRuntimeDir)\android-x64\native\libchipmunk.so">
       <Link>libs\x86_64\libchipmunk.so</Link>
