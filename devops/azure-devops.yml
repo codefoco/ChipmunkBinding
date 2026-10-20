@@ -100,7 +100,7 @@ stages:
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./ChipmunkBinding.net10.0.sln'
-      retryCountOnTaskFailure: 2
+      retryCountOnTaskFailure: 10
       inputs:
         command: custom
         custom: build
@@ -108,7 +108,7 @@ stages:
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build ./ChipmunkBinding.net9.0.sln'
-      retryCountOnTaskFailure: 2
+      retryCountOnTaskFailure: 10
       inputs:
         command: custom
         custom: build
